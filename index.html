@@ -118,15 +118,20 @@
     width: 100%;
     background: #222;
     display: flex;
+    /* 8개 메뉴를 담기 위해 flex-wrap: nowrap 설정 및 overflow-x: auto 적용 */
+    flex-wrap: nowrap; 
     justify-content: space-around;
     border-bottom: 1px solid #444;
     z-index: 1000;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
   }
   .menu-btn {
-    padding: 12px 10px;
+    padding: 12px 5px; /* 공간 확보를 위해 패딩 줄임 */
     color: #ccc;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px; /* 글자 크기 줄임 */
+    flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
     flex-grow: 1;
     text-align: center;
     border-left: 1px solid #444;
@@ -269,8 +274,8 @@
     border: 1px solid #444;
   }
   
-  /* --- [클린메이트 스타일] --- */
-  #company-section { /* 클린메이트 섹션으로 재활용 */
+  /* --- [클린메이트 스타일 및 솔루션 스타일 공통] --- */
+  #company-section, .solution-content-wrapper { 
     text-align: left;
     max-width: 600px;
     margin: 0 auto;
@@ -278,9 +283,8 @@
     color: #ccc;
     padding: 0 10px 30px; 
   }
-  #company-section h2, 
-  #company-section h3,
-  #company-section h4 {
+  #company-section h2, #company-section h3, #company-section h4,
+  .solution-content-wrapper h2, .solution-content-wrapper h3, .solution-content-wrapper h4 {
     text-align: center;
     color: #00bfa5;
     margin-top: 30px;
@@ -288,21 +292,15 @@
     border-bottom: 1px solid #333; /* 섹션 구분선 */
     padding-bottom: 5px;
   }
-  #company-section h2 { font-size: 24px; }
-  #company-section h3 { font-size: 20px; }
-  #company-section h4 { font-size: 16px; color: #eee; }
-  #company-section p {
-    margin-bottom: 15px;
-  }
-  #company-section strong {
+  #company-section strong, .solution-content-wrapper strong {
     color: #00bfa5;
   }
-  #company-section ul {
+  #company-section ul, .solution-content-wrapper ul {
     list-style: none;
     padding: 0;
     margin: 10px 0 30px;
   }
-  #company-section ul li {
+  #company-section ul li, .solution-content-wrapper ul li {
     background: #222;
     margin-bottom: 8px;
     padding: 8px 15px;
@@ -310,7 +308,7 @@
     border-left: 4px solid #00bfa5;
     font-size: 15px;
   }
-  #company-section ul.bullet-list li {
+  #company-section ul.bullet-list li, .solution-content-wrapper ul.bullet-list li {
     list-style: disc;
     margin-left: 20px;
     background: none;
@@ -319,7 +317,83 @@
     font-size: 14px;
     color: #ccc;
   }
-  /* --- [클린메이트 스타일 끝] --- */
+  
+  /* --- [추가된 솔루션 섹션 스타일] --- */
+  .sub-menu {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+  }
+  .sub-btn {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .sub-btn.active {
+    background-color: #00bfa5;
+    color: #fff;
+    border-color: #00bfa5;
+    font-weight: bold;
+  }
+
+  .sub-content {
+    display: none;
+    line-height: 1.6;
+    padding: 10px 0 30px;
+    animation: fadeIn 0.3s ease-in-out;
+    text-align: center; /* 이미지 배치를 위해 중앙 정렬 */
+  }
+  .sub-content.active {
+    display: block;
+  }
+
+  /* 휴대폰 반응형 콘텐츠 스타일 (사진) */
+  .solution-content-wrapper img {
+    max-width: 100%; 
+    height: auto;    
+    display: block;  
+    margin: 15px auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  /* 이미지 갤러리 (2개씩 나열) */
+  .solution-img-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .solution-img-gallery img {
+    width: 48%; /* 2개씩 나열 */
+    margin: 0;
+  }
+  /* 반응형 테이블 처리 */
+  .solution-content-wrapper table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+    white-space: nowrap;
+    border-collapse: collapse;
+    margin: 15px auto;
+  }
+  .solution-content-wrapper table td, 
+  .solution-content-wrapper table th {
+    border: 1px solid #333;
+    padding: 8px;
+    color: #ccc;
+    font-size: 14px;
+    white-space: normal;
+  }
 </style>
 </head>
 
@@ -344,8 +418,11 @@
     <nav class="main-menu">
       <a href="#quiz" class="menu-btn" data-target="quiz-section">원스톱</a>
       <a href="#company" class="menu-btn" data-target="company-section">클린메이트</a>
+      <a href="#portfolio" class="menu-btn" data-target="portfolio-section">실적</a> 
+      <a href="#mos" class="menu-btn" data-target="mos-section">MOS</a>
+      <a href="#avk" class="menu-btn" data-target="avk-section">AVK</a>
+      <a href="#dryice" class="menu-btn" data-target="dryice-section">DRYICE</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
-      <a href="#portfolio" class="menu-btn" data-target="portfolio-section">실적</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력</a> 
     </nav>
 
@@ -377,6 +454,7 @@
           <button id="sendSMS">📩내용전달 (자동문자)</button>
         </div>
       </div>
+      
       <div id="company-section" class="content-section">
         <h2>클린메이트(Clean Mate)</h2>
         <p style="text-align: center;"><strong>친환경 살균 설비 청소의 새로운 기준</strong></p>
@@ -481,22 +559,143 @@
           **지금 정기 관리 계약을 신청하시고, 전문가의 체계적인 관리를 경험해보세요.**
         </p>
       </div>
-      <div id="tech-section" class="content-section">
-        <h3>기술</h3> 
-        <div class="gallery" id="tech-gallery-container">
-          </div>
-      </div>
+      
       <div id="portfolio-section" class="content-section">
         <h3>실적</h3> 
         <div class="gallery" id="portfolio-gallery-container">
           </div>
       </div>
+      
+      <div id="mos-section" class="content-section">
+        <h3>MOS 솔루션</h3> 
+        <nav class="sub-menu">
+          <button class="sub-btn active" data-content-id="mos-s01">s01 (사례)</button>
+          <button class="sub-btn" data-content-id="mos-s02">s02 (인증)</button>
+          <button class="sub-btn" data-content-id="mos-s03">s03 (작업)</button>
+        </nav>
+        <div class="solution-content-wrapper">
+          <div id="mos-s01" class="sub-content active">
+             <h4>MOS s01 - 작업 사례</h4>
+             <img src="mos/mos_maintenance_case1.jpg" alt="MOS 작업 사례 이미지 1">
+             <img src="mos/mos_maintenance_case2.jpg" alt="MOS 작업 사례 이미지 2">
+             <p>MOS 솔루션이 적용된 다양한 유지보수 사례를 보여줍니다. 전문적인 작업 과정을 확인하실 수 있습니다.</p>
+          </div>
+          <div id="mos-s02" class="sub-content">
+             <h4>MOS s02 - 인증 및 기술</h4>
+             <img src="mos/mos_maintenance_img1.jpg" alt="MOS 기술 이미지 1">
+             <img src="mos/mos_maintenance_img2.jpg" alt="MOS 기술 이미지 2">
+             <p>MOS 솔루션 관련 인증 서류 및 기술 관련 이미지를 통해 신뢰성을 높입니다.</p>
+          </div>
+          <div id="mos-s03" class="sub-content">
+             <h4>MOS s03 - 주요 작업 과정</h4>
+             <div class="solution-img-gallery">
+                 <img src="mos/mos_process.jpg" alt="MOS 작업 과정 1">
+                 <img src="mos/mos_viruscheck.jpg" alt="MOS 작업 과정 2">
+             </div>
+             <div class="solution-img-gallery">
+                 <img src="mos/mosintro_icon1.png" alt="MOS 아이콘 1">
+                 <img src="mos/mosintro_icon2.png" alt="MOS 아이콘 2">
+                 <img src="mos/mosintro_icon3.png" alt="MOS 아이콘 3">
+             </div>
+             <p>MOS 솔루션의 핵심적인 바이러스 체크 및 유지보수 과정을 시각적으로 보여줍니다.</p>
+          </div>
+        </div>
+      </div>
+      
+      <div id="avk-section" class="content-section">
+        <h3>AVK 솔루션</h3> 
+        <nav class="sub-menu">
+          <button class="sub-btn active" data-content-id="avk-s01">s01 (현장)</button>
+          <button class="sub-btn" data-content-id="avk-s02">s02 (공정)</button>
+          <button class="sub-btn" data-content-id="avk-s03">s03 (다이어그램)</button>
+          <button class="sub-btn" data-content-id="avk-s04">s04 (인트로)</button>
+        </nav>
+        <div class="solution-content-wrapper">
+          <div id="avk-s01" class="sub-content active">
+             <h4>AVK s01 - 다양한 작업 현장</h4>
+             <div class="solution-img-gallery">
+                 <img src="avk/avkplace_img1.jpg" alt="AVK 현장 1">
+                 <img src="avk/avkplace_img2.jpg" alt="AVK 현장 2">
+                 <img src="avk/avkplace_img3.jpg" alt="AVK 현장 3">
+                 <img src="avk/avkplace_img4.jpg" alt="AVK 현장 4">
+                 <img src="avk/avkplace_img5.jpg" alt="AVK 현장 5">
+                 <img src="avk/avkplace_img6.jpg" alt="AVK 현장 6">
+             </div>
+             <p>AVK 솔루션의 전문적인 현장 작업 사진입니다. 숙련된 인력이 작업하는 모습을 확인하실 수 있습니다.</p>
+          </div>
+          <div id="avk-s02" class="sub-content">
+             <h4>AVK s02 - HV AC 및 공정</h4>
+             <img src="avk/hvacplace_img1.jpg" alt="HVAC 작업 1">
+             <img src="avk/hvacplace_img2.jpg" alt="HVAC 작업 2">
+             <img src="avk/hvacplace_img3.jpg" alt="HVAC 작업 3">
+             <img src="avk/hvacplace_img4.jpg" alt="HVAC 작업 4">
+             <p>HVAC(공조) 시설 및 설비 청소 공정을 시각적으로 나타냅니다.</p>
+          </div>
+          <div id="avk-s03" class="sub-content">
+             <h4>AVK s03 - 주요 공정 단계</h4>
+             <img src="avk/process_img1.jpg" alt="AVK 공정 1">
+             <img src="avk/process_img2.jpg" alt="AVK 공정 2">
+             <img src="avk/process_img3.jpg" alt="AVK 공정 3">
+             <img src="avk/process_img4.jpg" alt="AVK 공정 4">
+             <img src="avk/process_img5.jpg" alt="AVK 공정 5">
+             <p>AVK 솔루션의 주요 단계별 작업 모습 및 공정 순서를 보여줍니다.</p>
+          </div>
+          <div id="avk-s04" class="sub-content">
+             <h4>AVK s04 - 다이어그램 및 인트로</h4>
+             <img src="avk/s01_diagraming.jpg" alt="AVK 다이어그램 1">
+             <img src="avk/s02_intro_bg.jpg" alt="AVK 인트로 배경">
+             <img src="avk/s03_diagraming_2.jpg" alt="AVK 다이어그램 2">
+             <p>AVK 솔루션의 구조 및 원리를 이해하기 쉽게 다이어그램으로 표현합니다.</p>
+          </div>
+        </div>
+      </div>
+
+      <div id="dryice-section" class="content-section">
+        <h3>DRYICE 솔루션</h3> 
+        <nav class="sub-menu">
+          <button class="sub-btn active" data-content-id="dryice-s01">s01 (작업)</button>
+          <button class="sub-btn" data-content-id="dryice-s02">s02 (기술)</button>
+        </nav>
+        <div class="solution-content-wrapper">
+          <div id="dryice-s01" class="sub-content active">
+             <h4>DRYICE s01 - 현장 및 공정</h4>
+             <img src="dryice/001.jpg" alt="드라이아이스 펠릿">
+             <div class="solution-img-gallery">
+                 <img src="dryice/clean_img1.jpg" alt="드라이아이스 클리닝 1">
+                 <img src="dryice/clean_img2.jpg" alt="드라이아이스 클리닝 2">
+                 <img src="dryice/clean_img3.jpg" alt="드라이아이스 클리닝 3">
+                 <img src="dryice/clean_img4.jpg" alt="드라이아이스 클리닝 4">
+             </div>
+             <p>드라이아이스 클리닝을 통한 세척 전후의 모습과 작업 현장 사진입니다. 비접촉식 세척의 효과를 확인하세요.</p>
+          </div>
+          <div id="dryice-s02" class="sub-content">
+             <h4>DRYICE s02 - 원리 및 데이터</h4>
+             <div class="solution-img-gallery">
+                 <img src="dryice/dryice_subimg1.jpg" alt="드라이아이스 기술 원리 1">
+                 <img src="dryice/dryice_subimg2.jpg" alt="드라이아이스 기술 원리 2">
+                 <img src="dryice/dryice_subimg3.jpg" alt="드라이아이스 기술 데이터">
+             </div>
+             <p>드라이아이스 클리닝의 기술적 원리, 열역학 데이터, 그리고 청소 효과에 대한 자료를 보여줍니다.</p>
+             <p style="text-align: left; margin-top: 20px; font-size: 14px;">
+                드라이아이스 클리닝은 고체 이산화탄소를 분사하여 오염물을 제거하는 친환경 공법입니다. 
+                물이나 화학 약품을 사용하지 않아 2차 폐기물이 발생하지 않습니다.
+             </p>
+          </div>
+        </div>
+      </div>
+
+      <div id="tech-section" class="content-section">
+        <h3>기술</h3> 
+        <div class="gallery" id="tech-gallery-container">
+          </div>
+      </div>
+      
       <div id="partner-section" class="content-section">
         <h3>협력</h3> 
         <div class="gallery" id="partner-gallery-container">
           </div>
       </div>
-      </main>
+    </main>
 
     <div class="fixed-buttons">
       <button onclick="window.location.href='tel:16661757'">📞 전화상담</button>
@@ -628,6 +827,34 @@
         generateGallery('partner-gallery-container', 's04', 1, 50, 'partner_goloimg', 0);
     });
 
+    // --- [하위 메뉴(Sub-Menu) 로직] ---
+    function handleSubMenuClick(event) {
+        const btn = event.target.closest('.sub-btn');
+        if (!btn) return;
+        
+        const contentId = btn.getAttribute('data-content-id');
+        const parentMenu = btn.closest('.sub-menu');
+        const parentSection = btn.closest('.content-section');
+        
+        // 1. 하위 메뉴 버튼 활성화 토글
+        parentMenu.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        // 2. 해당 섹션 내 모든 콘텐츠 숨기기
+        parentSection.querySelectorAll('.sub-content').forEach(content => {
+            content.classList.remove('active');
+        });
+
+        // 3. 클릭된 버튼에 해당하는 콘텐츠만 보이기
+        const targetContent = document.getElementById(contentId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+        
+        // 4. 스크롤을 섹션 상단으로 이동 (새 페이지처럼 보이게)
+        mainContent.scrollTop = 0; 
+    }
+    
     // --- [탭 네비게이션 로직] ---
     menuButtons.forEach(btn => {
       btn.addEventListener('click', (e) => {
@@ -649,6 +876,19 @@
           resetQuiz();
           questions[0].classList.add('active'); // 원스톱 재클릭 시 Q1 활성화
         }
+        
+        // [추가] 솔루션 섹션 클릭 시, 첫 번째 서브 메뉴 자동 활성화
+        if (targetSection && (targetId === 'mos-section' || targetId === 'avk-section' || targetId === 'dryice-section')) {
+            const firstSubBtn = targetSection.querySelector('.sub-menu .sub-btn:first-child');
+            if (firstSubBtn && !firstSubBtn.classList.contains('active')) {
+                // 첫 번째 버튼이 활성화되지 않았다면 클릭 이벤트 발생
+                firstSubBtn.click();
+            } else if (firstSubBtn) {
+                // 이미 활성화된 경우에도 (메인 메뉴 이동 시) 서브 콘텐츠만 보이도록 설정
+                targetSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(firstSubBtn.getAttribute('data-content-id')).classList.add('active');
+            }
+        }
 
         menuButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -656,6 +896,18 @@
         mainContent.scrollTop = 0;
       });
     });
+
+    // 모든 하위 메뉴 버튼에 이벤트 리스너 연결
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.sub-menu').forEach(subMenu => {
+            subMenu.querySelectorAll('.sub-btn').forEach(btn => {
+                btn.addEventListener('click', handleSubMenuClick);
+            });
+        });
+        
+        // 초기 로드 시 퀴즈가 활성화된 경우 하위 메뉴가 없는 섹션이므로 예외 처리 필요 없음.
+    });
+
 
     // --- [퀴즈 로직] ---
     let current = 0;
