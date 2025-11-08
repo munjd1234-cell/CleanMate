@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>클린메이트 Clean Mate</title>
+<style>
+  /* --- [디자인 복원/유지] --- */
+  body {
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #111; /* 배경색 유지 */
+    color: #fff; /* 기본 글자색 유지 */
+    overflow: hidden;
+  }
+
+  /* --- [인트로 화면 스타일 및 애니메이션] --- */
+  #intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    color: #00bfa5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.4;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease-out; 
+    overflow: hidden;
+    padding: 0 10px;
+    box-sizing: border-box;
+  }
+  #intro-screen.fade-out {
+    opacity: 0;
+  }
+
+  /* 텍스트를 세로로 중앙 정렬하고 누적되게 함 */
+  .intro-item {
+    display: block;
+    opacity: 0;
+    color: #00bfa5;
+    transition: all 0.5s ease-in-out;
+    margin: 5px 0; /* 글자 간격 유지 */
+    transform: scale(0.9);
+  }
+  
+  /* 노출된 글자 (누적) */
+  .intro-item.visible {
+    opacity: 1;
+    transform: scale(1.0);
+    color: #aaa; /* 남은 글자는 약간 흐리게 */
+    font-weight: 500;
+  }
+
+  /* 현재 글자 (강조) */
+  .intro-item.active {
+    opacity: 1;
+    transform: scale(1.15); /* 새로 나타날 때 강조 확대 */
+    color: #00bfa5;
+    font-weight: 800;
+  }
+
+  /* 마지막 문장 강조 */
+  .intro-item.final-phrase {
+    color: #fff;
+    background-color: #00bfa5;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 36px;
+    font-weight: 900;
+    margin-top: 15px;
+  }
+
+  /* --- [메인 레이아웃 유지] --- */
+  #main-content-wrapper {
+    display: none; 
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 100%;
+    height: 100vh;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 10px 0;
+    z-index: 1000;
+    height: 79px; 
+    box-sizing: border-box;
+  }
+  /* [수정] 로고 파일명 반영 */
+  header img { height: 40px; } 
+  /* [수정] 로고 하단 문구 반영 */
+  header h2 {
+    margin: 5px 0 0;
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  /* --- [메인 메뉴바] --- */
+  .main-menu {
+    position: fixed;
+    top: 79px; 
+    left: 0;
+    width: 100%;
+    background: #222;
+    display: flex;
+    justify-content: space-around;
+    border-bottom: 1px solid #444;
+    z-index: 1000;
+  }
+  .menu-btn {
+    padding: 12px 10px;
+    color: #ccc;
+    text-decoration: none;
+    font-size: 14px;
+    flex-grow: 1;
+    text-align: center;
+    border-left: 1px solid #444;
+    cursor: pointer;
+  }
+  .menu-btn:first-child {
+    border-left: none;
+  }
+  .menu-btn.active {
+    background-color: #00bfa5;
+    color: #fff;
+  }
+
+  main {
+    margin-top: 125px; 
+    margin-bottom: 130px;
+    height: calc(100vh - 125px - 130px); 
+    overflow-y: auto;
+    text-align: center;
+    padding: 0 15px; 
+    box-sizing: border-box;
+  }
+
+  /* --- [퀴즈 및 섹션 스타일 유지] --- */
+  .content-section {
+    display: none; 
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  .content-section.active {
+    display: block; 
+  }
+  .question { 
+    display: none; 
+    animation: fadeIn 0.3s ease-in-out; 
+  }
+  .question.active { 
+    display: block; 
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .options {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  .option-button {
+    background-color: #222;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 15px;
+    transition: all 0.2s ease;
+    cursor: pointer;
+  }
+
+  .option-button.active {
+    background-color: #00bfa5;
+    color: #fff;
+    border: none;
+    box-shadow: 0 0 8px #00bfa5;
+  }
+
+  .fixed-buttons {
+    position: fixed;
+    bottom: 35px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 999;
+  }
+
+  .fixed-buttons button {
+    background: #00bfa5;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-size: 15px;
+    cursor: pointer;
+  }
+
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #111;
+    color: #888;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .scroll-text {
+    display: inline-block;
+    animation: marquee 25s linear infinite;
+    padding-left: 0;
+  }
+
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+  #sendSMS {
+    background-color: #00bfa5;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px;
+  }
+
+  /* --- [갤러리 스타일 유지] --- */
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding-top: 20px;
+  }
+  .gallery img {
+    width: 45%; 
+    max-width: 200px;
+    height: auto;
+    object-fit: cover; 
+    border-radius: 8px;
+    border: 1px solid #444;
+  }
+  
+  /* --- [클린메이트 스타일] --- */
+  #company-section { /* 클린메이트 섹션으로 재활용 */
+    text-align: left;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #ccc;
+    padding: 0 10px 30px; 
+  }
+  #company-section h2, 
+  #company-section h3,
+  #company-section h4 {
+    text-align: center;
+    color: #00bfa5;
+    margin-top: 30px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid #333; /* 섹션 구분선 */
+    padding-bottom: 5px;
+  }
+  #company-section h2 { font-size: 24px; }
+  #company-section h3 { font-size: 20px; }
+  #company-section h4 { font-size: 16px; color: #eee; }
+  #company-section p {
+    margin-bottom: 15px;
+  }
+  #company-section strong {
+    color: #00bfa5;
+  }
+  #company-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 30px;
+  }
+  #company-section ul li {
+    background: #222;
+    margin-bottom: 8px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border-left: 4px solid #00bfa5;
+    font-size: 15px;
+  }
+  #company-section ul.bullet-list li {
+    list-style: disc;
+    margin-left: 20px;
+    background: none;
+    border-left: none;
+    padding: 0;
+    font-size: 14px;
+    color: #ccc;
+  }
+  /* --- [클린메이트 스타일 끝] --- */
+</style>
+</head>
+
+<body>
+  
+  <div id="intro-screen">
+    <span class="intro-item" data-phrase="1">커피머신</span>
+    <span class="intro-item" data-phrase="2">제빙기</span>
+    <span class="intro-item" data-phrase="3">냉장고</span>
+    <span class="intro-item" data-phrase="4">대형설비</span>
+    <span class="intro-item" data-phrase="5">친환경 설비 분해 청소</span>
+    <span class="intro-item" data-phrase="6">중고 매입 판매</span>
+    <span class="intro-item final-phrase" data-phrase="7">원스톱 위생 솔루션</span>
+  </div>
+  
+  <div id="main-content-wrapper">
+    <header>
+      <img src="logo2.png" alt="클린메이트 로고" /> 
+      <h2>전문장비로 원스톱 위생 솔루션</h2> 
+    </header>
+
+    <nav class="main-menu">
+      <a href="#quiz" class="menu-btn" data-target="quiz-section">원스톱</a>
+      <a href="#company" class="menu-btn" data-target="company-section">클린메이트</a>
+      <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
+      <a href="#portfolio" class="menu-btn" data-target="portfolio-section">실적</a>
+      <a href="#partner" class="menu-btn" data-target="partner-section">협력</a> 
+    </nav>
+
+    <main>
+      <div id="quiz-section" class="content-section">
+        <div class="question" id="q1">
+          <h3>어떤 제품인가요?</h3>
+          <div class="options" id="opt1"></div>
+        </div>
+        <div class="question" id="q2">
+          <h3>어떤 관리가 필요 한가요?</h3>
+          <div class="options" id="opt2"></div>
+        </div>
+        <div class="question" id="q3">
+          <h3>어떤 공간 인가요?</h3>
+          <div class="options" id="opt3"></div>
+        </div>
+        <div class="question" id="q4">
+          <h3>지역을 선택 해주세요</h3>
+          <div class="options" id="opt4"></div>
+        </div>
+        <div class="question" id="q5">
+          <h3>도시/시/군/구를 선택해주세요</h3>
+          <div class="options" id="opt5"></div>
+        </div>
+        <div class="question" id="result">
+          <h3>상담 내용 </h3>
+          <p id="summary"></p>
+          <button id="sendSMS">📩내용전달 (자동문자)</button>
+        </div>
+      </div>
+      <div id="company-section" class="content-section">
+        <h2>클린메이트(Clean Mate)</h2>
+        <p style="text-align: center;"><strong>친환경 살균 설비 청소의 새로운 기준</strong></p>
+        <p style="text-align: center; margin-bottom: 30px;">
+          저희는 업소용 설비의 전문 살균 청소부터 유지관리, 매매까지 모든 것을 한 곳에서 해결하는 
+          <br><strong>원스톱 토탈 케어 전문 기업</strong>입니다. 
+          제빙기, 상업용 냉장고, 커피머신 등 위생이 중요한 모든 설비를 
+          **친환경 방식**으로 관리하며, 고객의 사업장이 항상 최상의 청결 상태를 유지할 수 있도록 돕습니다.
+        </p>
+
+        <h3 style="margin-top: 40px;">✅ 우리의 핵심 서비스</h3>
+
+        <h4>1. 친환경 살균 설비 청소</h4>
+        <p>화학약품에 의존하지 않는, **안전하고 효과적인 친환경 살균 청소**를 제공합니다.</p>
+        
+        <h4 style="text-align: left; border-bottom: none; margin-bottom: 0;">**제빙기 전문 살균 세척**</h4>
+        <ul class="bullet-list">
+          <li>친환경 살균제로 내부 곰팡이, 세균 완벽 제거</li>
+          <li>물때, 석회질 분해로 깨끗하고 맛있는 얼음</li>
+          <li>식품위생법 기준 완벽 충족</li>
+          <li>정기 관리로 항상 위생적인 상태 유지</li>
+          <li>장비 수명 연장 및 고장 예방</li>
+        </ul>
+
+        <h4 style="text-align: left; border-bottom: none; margin-bottom: 0;">**상업용 냉장고 살균 관리**</h4>
+        <ul class="bullet-list">
+          <li>응축기, 증발기 등 냉각 시스템 친환경 세척</li>
+          <li>식품 접촉면 완벽 살균 처리</li>
+          <li>냉각 효율 향상으로 전기료 30% 절감</li>
+          <li>식품 안전 기준 준수로 위생 검사 통과</li>
+          <li>대형 워크인부터 쇼케이스까지 전 종류</li>
+        </ul>
+
+        <h4 style="text-align: left; border-bottom: none; margin-bottom: 0;">**커피머신 전문 관리**</h4>
+        <ul class="bullet-list">
+          <li>고가 에스프레소 머신 정밀 살균 청소</li>
+          <li>커피 오일, 석회질 친환경 제거</li>
+          <li>일관된 맛 품질 유지</li>
+          <li>제조사 매뉴얼 기반 안전한 분해 작업</li>
+          <li>추출 성능 최적화</li>
+        </ul>
+
+        <h4 style="text-align: left; border-bottom: none; margin-bottom: 0;">**기타 설비 관리**</h4>
+        <ul class="bullet-list">
+          <li>식기세척기 내부 살균 및 필터 청소</li>
+          <li>제과제빵 장비 위생 관리</li>
+          <li>음료 디스펜서 살균 세척</li>
+          <li>정수기 및 얼음 보관고 관리</li>
+        </ul>
+        
+        <h3 style="margin-top: 40px;">📅 정기 관리 프로그램</h3>
+        <ul style="text-align: left;">
+          <li>**월간 관리 플랜:** 매달 정기 방문, 갑작스러운 고장 예방</li>
+          <li>**분기별 관리 플랜:** 3개월마다 정밀 분해 청소, 계절 맞춤 관리</li>
+          <li>**반기별 관리 플랜:** 6개월마다 전체 시스템 딥클리닝, 비용 효율적 관리</li>
+        </ul>
+        <h4 style="text-align: left; border-bottom: none; margin-top: -10px;">**정기 관리의 장점**</h4>
+        <ul class="bullet-list" style="margin-bottom: 30px;">
+          <li>위생 점수 상승 및 인증 통과 용이</li>
+          <li>장비 고장률 70% 감소</li>
+          <li>에너지 효율 향상으로 운영비 절감</li>
+          <li>예약 우선권 및 할인 혜택 제공, 긴급 출동 서비스 무료 제공</li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">⚙️ 원스톱 토탈 서비스</h3>
+        <p>저희는 설비 관리의 모든 것을 한 곳에서 해결합니다. **청소 → 점검 → 수리 → 교체까지**</p>
+        <ul style="text-align: center; margin: 10px auto;">
+          <li>단일 창구로 모든 문제 해결 및 통합 관리</li>
+          <li>노후 장비 처리 및 중고 매입/판매 서비스 통합 제공</li>
+          <li>업종별/규모별 맞춤형 솔루션 및 전담 매니저 배정</li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">👥 주요 고객사</h3>
+        <p style="text-align: center;">
+          **호텔/리조트, 병원/의료기관, 학교/급식소, 카페/프랜차이즈, 관공서/기업체, 음식점/베이커리** 등
+          <br>최고 수준의 위생과 안정적인 운영이 필요한 모든 곳.
+        </p>
+
+        <h3 style="margin-top: 40px;">💡 우리가 특별한 이유</h3>
+        <ul style="text-align: left;">
+          <li>**친환경 살균 기술:** 인체에 무해한 친환경 살균제 사용, 화학약품 잔류 걱정 없음</li>
+          <li>**전문 기술력:** 제조사 매뉴얼 숙지 및 10년 이상 현장 경험 전문가 투입</li>
+          <li>**위생 인증:** 식품위생사 자격 전문가 작업, 위생 점검 리포트 및 인증서 발급</li>
+          <li>**신속한 대응:** 정기 계약 고객 24시간 내 긴급 출동 보장</li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">💰 중고 설비 매매 서비스</h3>
+        <p>설비 교체 시, 중고 매입 및 판매 서비스를 통해 비용 부담을 줄여드립니다.</p>
+        <ul style="text-align: left;">
+          <li>**매입:** 사용하지 않는 설비 합리적 가격 매입, 운반/철거 무료</li>
+          <li>**판매:** 성능 검수 완료, 전문 살균 청소된 중고 설비 신품 대비 30~70% 저렴하게 판매</li>
+        </ul>
+
+        <h3 style="margin-top: 40px;">🤝 고객과의 약속</h3>
+        <ul style="text-align: left;">
+          <li>작업 중 설비 손상 시 **100% 책임 보상**</li>
+          <li>**투명한 가격 정책**, 숨은 비용 없음</li>
+          <li>정기 계약 고객 **우선 대응 및 특별 할인** 제공</li>
+        </ul>
+
+        <p style="text-align: center; margin-top: 30px; font-weight: bold;">
+          **지금 정기 관리 계약을 신청하시고, 전문가의 체계적인 관리를 경험해보세요.**
+        </p>
+      </div>
+      <div id="tech-section" class="content-section">
+        <h3>기술</h3> 
+        <div class="gallery" id="tech-gallery-container">
+          </div>
+      </div>
+      <div id="portfolio-section" class="content-section">
+        <h3>실적</h3> 
+        <div class="gallery" id="portfolio-gallery-container">
+          </div>
+      </div>
+      <div id="partner-section" class="content-section">
+        <h3>협력</h3> 
+        <div class="gallery" id="partner-gallery-container">
+          </div>
+      </div>
+      </main>
+
+    <div class="fixed-buttons">
+      <button onclick="window.location.href='tel:16661757'">📞 전화상담</button>
+      <button onclick="window.location.href='https://open.kakao.com/o/sSjtKV0h'">💬 카카오톡</button>
+    </div>
+
+    <footer>
+      <div class="scroll-text">
+        상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 거여동 604-3 0806호 | 대표: 김동현 | TEL: 02-1666-1757 | 
+        팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // --- [인트로 애니메이션 로직] ---
+    const introScreen = document.getElementById('intro-screen');
+    const mainWrapper = document.getElementById('main-content-wrapper');
+    const phrases = document.querySelectorAll('.intro-item');
+    const questions = document.querySelectorAll('#quiz-section .question');
+    const menuButtons = document.querySelectorAll('.menu-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+    const quizSection = document.getElementById('quiz-section');
+    const onestopMenuBtn = document.querySelector('[data-target="quiz-section"]');
+    const mainContent = document.querySelector('main');
+    
+    let currentPhrase = 0;
+    const intervalTime = 600; 
+
+    function showNextPhrase() {
+        if (currentPhrase < phrases.length) {
+            const currentEl = phrases[currentPhrase];
+            
+            // 이전 문장이 있었다면 'active'를 'visible'로 변경 (누적)
+            if (currentPhrase > 0) {
+                const prevEl = phrases[currentPhrase - 1];
+                prevEl.classList.remove('active');
+                prevEl.classList.add('visible');
+            }
+
+            // 현재 문장 나타나게 (강조)
+            currentEl.classList.add('active');
+
+            currentPhrase++;
+
+            // 다음 문장 로드 예약
+            if (currentPhrase < phrases.length) {
+                setTimeout(showNextPhrase, intervalTime);
+            } else {
+                // 마지막 문장 표시 후 메인 콘텐츠 로드 예약
+                setTimeout(showMainContent, 1000); 
+            }
+        }
+    }
+
+    // 인트로 종료 후 메인 콘텐츠와 퀴즈 첫 질문을 표시
+    function showMainContent() {
+      introScreen.classList.add('fade-out');
+      
+      setTimeout(() => {
+        introScreen.style.display = 'none';
+        
+        mainWrapper.style.display = 'block';
+        mainWrapper.style.opacity = '1';
+        
+        // 초기 탭 활성화: '원스톱'
+        menuButtons.forEach(b => b.classList.remove('active'));
+        onestopMenuBtn.classList.add('active');
+        
+        contentSections.forEach(section => {
+          section.style.display = 'none';
+          section.classList.remove('active');
+        });
+
+        quizSection.style.display = 'block';
+        quizSection.classList.add('active');
+        
+        // 퀴즈 초기 상태로 설정 및 첫 질문 (q1) 표시
+        resetQuiz(); 
+        if (questions.length > 0) {
+            questions[0].classList.add('active'); 
+        }
+      }, 500); 
+    }
+
+    // 페이지 로드 시 인트로 시작
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(showNextPhrase, 500);
+    });
+
+    // --- [갤러리 자동 로드 로직] ---
+    
+    function generateGallery(containerId, folder, startIdx, maxAttempts, baseName = '', padding = 0) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        let html = '';
+        
+        for (let i = startIdx; i < startIdx + maxAttempts; i++) {
+            let fileName;
+            let altText;
+            
+            if (padding > 0) {
+                let fileNumber = i.toString().padStart(padding, '0');
+                fileName = `${fileNumber}.jpg`;
+                altText = `이미지 ${fileNumber}`;
+            } else {
+                fileName = `${baseName}${i}.jpg`;
+                altText = `${baseName} ${i}`;
+            }
+
+            const src = `${folder}/${fileName}`;
+            html += `<img src="${src}" alt="${altText}" onerror="this.style.display='none'">`;
+        }
+        container.innerHTML = html;
+    }
+
+    // 갤러리 로드 실행
+    document.addEventListener('DOMContentLoaded', () => {
+        // [기술] s03/certificate_img1.jpg
+        generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0); 
+        // [실적] s04/partner_goloimg1.jpg (요청대로 수정)
+        generateGallery('portfolio-gallery-container', 's04', 1, 50, 'partner_goloimg', 0);
+        // [협력] s04/partner_goloimg1.jpg
+        generateGallery('partner-gallery-container', 's04', 1, 50, 'partner_goloimg', 0);
+    });
+
+    // --- [탭 네비게이션 로직] ---
+    menuButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault(); 
+        const targetId = btn.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+
+        contentSections.forEach(section => {
+          section.style.display = 'none';
+          section.classList.remove('active');
+        });
+
+        if (targetSection) {
+          targetSection.style.display = 'block';
+          targetSection.classList.add('active');
+        }
+        
+        if (targetId === 'quiz-section') {
+          resetQuiz();
+          questions[0].classList.add('active'); // 원스톱 재클릭 시 Q1 활성화
+        }
+
+        menuButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        
+        mainContent.scrollTop = 0;
+      });
+    });
+
+    // --- [퀴즈 로직] ---
+    let current = 0;
+    let answers = [];
+    let selectedRegion = ''; 
+
+    function resetQuiz() {
+      questions.forEach(q => q.classList.remove('active'));
+      current = 0;
+      answers = [];
+      document.getElementById('summary').textContent = '';
+      document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
+      document.getElementById('opt5').innerHTML = ''; // Q5 초기화
+      selectedRegion = '';
+    }
+
+    // [수정] 퀴즈 데이터
+    const data = {
+      // Q1: 어떤 제품 인가요
+      opt1: ['제빙기','커피머신','냉장고','공조기','에어컨','공장설비','기타'],
+      // Q2: 어떤 관리가 필요 한가요
+      opt2: ['분해청소','유지관리','정기청소','중고매입','중고판매','석회질제거','녹제거','물때제거','오일제거','제품관리','곰팡이제거','위생관리','친환경청소','기타'],
+      // Q3: 어떤 공간 인가요
+      opt3: ['호텔','리조트','의료기관','급식소','학교','베이커리','병원','까페','밀키트시설','공장','식당','사무실','빌딩','관공서','상가','주택','아파트','원룸','공연장','야외시설','선박','차량','항공기','공항','기타'],
+      // Q4: 지역을 선택 해주세요
+      opt4: ['서울','경기','인천','강원','충북','충남','전북','전남','경북','경남','부산','대구','광주','대전','울산','세종','제주','해외','기타'],
+      // Q5: 도시명 데이터 (시/군/구 상세 선택)
+      cities: {
+        '서울': ['종로구', '중구', '용산구', '성동구', '광진구', '동대문구', '중랑구', '성북구', '강북구', '도봉구', '노원구', '은평구', '서대문구', '마포구', '양천구', '강서구', '구로구', '금천구', '영등포구', '동작구', '관악구', '서초구', '강남구', '송파구', '강동구'],
+        '경기': ['수원시', '고양시', '용인시', '성남시', '부천시', '안산시', '안양시', '화성시', '평택시', '의정부시', '파주시', '시흥시', '김포시', '광명시', '광주시', '군포시', '하남시', '오산시', '이천시', '양주시', '구리시', '안성시', '포천시', '의왕시', '여주시', '동두천시', '과천시', '가평군', '양평군', '연천군'],
+        '인천': ['계양구', '남동구', '동구', '미추홀구', '부평구', '서구', '연수구', '중구', '옹진군', '강화군'],
+        '부산': ['중구', '서구', '동구', '영도구', '부산진구', '동래구', '남구', '북구', '해운대구', '사하구', '금정구', '강서구', '연제구', '수영구', '사상구', '기장군'],
+        '대구': ['중구', '동구', '서구', '남구', '북구', '수성구', '달서구', '달성군', '군위군'],
+        '광주': ['동구', '서구', '남구', '북구', '광산구'],
+        '대전': ['동구', '중구', '서구', '유성구', '대덕구'],
+        '울산': ['중구', '남구', '동구', '북구', '울주군'],
+        '세종': ['세종시 전역'],
+        // 상세 도시 선택이 불필요한 지역은 리스트를 1개만 포함
+        '강원': ['강원 전역'], '충북': ['충북 전역'], '충남': ['충남 전역'], '전북': ['전북 전역'], '전남': ['전남 전역'], 
+        '경북': ['경북 전역'], '경남': ['경남 전역'], '제주': ['제주 전역'], '해외': ['해외 전역'], '기타': ['상관 없음']
+      }
+    };
+    
+    // 퀴즈 버튼 생성 함수 (opt1 ~ opt4)
+    Object.keys(data).forEach(id => {
+        if (id !== 'cities' && id !== 'opt5') {
+            const container = document.getElementById(id);
+            if (container) {
+                data[id].forEach(text => {
+                    const btn = createOptionButton(text);
+                    container.appendChild(btn);
+                });
+            }
+        }
+    });
+
+    function createOptionButton(text) {
+        const btn = document.createElement('button');
+        btn.className = 'option-button';
+        btn.textContent = text;
+        btn.addEventListener('click', handleOptionClick);
+        return btn;
+    }
+
+    function handleOptionClick(event) {
+        const btn = event.target;
+        const parent = btn.closest('.question');
+        const parentId = parent.id;
+        
+        // 버튼 활성화 토글
+        parent.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        if (parentId === 'q4') { // Q4: 지역 선택
+            selectedRegion = btn.textContent;
+            generateCityOptions(selectedRegion);
+            setTimeout(() => showNext(), 200);
+        } else if (parentId === 'q5') { // Q5: 도시명 선택
+            setTimeout(() => showNext(true), 200); 
+        } else {
+            // 그 외 질문은 다음 질문으로 이동
+            setTimeout(() => showNext(), 200);
+        }
+    }
+
+    // 도시명 옵션 생성 함수 (Q5)
+    function generateCityOptions(region) {
+        const cityContainer = document.getElementById('opt5');
+        cityContainer.innerHTML = '';
+        const cities = data.cities[region] || ['지역 상세 없음']; // cities 데이터를 사용하여 도시 목록 생성
+        
+        cities.forEach(city => {
+            const btn = createOptionButton(city);
+            cityContainer.appendChild(btn);
+        });
+    }
+
+    function showNext(isLastStep = false) {
+      const isQ4 = questions[current].id === 'q4'; // 현재 질문이 Q4(지역)인지 확인
+      
+      questions[current].classList.remove('active');
+      current++;
+      
+      // [수정] Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기
+      if (isQ4) {
+          const cityList = data.cities[selectedRegion];
+          // 도시 목록이 없거나 (오류방지), 목록 길이가 1개 이하일 경우 (예: '강원 전역')
+          if (!cityList || cityList.length <= 1) {
+              current++; // Q5 건너뛰기
+          }
+      }
+
+      if (current < questions.length) {
+        questions[current].classList.add('active');
+      }
+      
+      // 마지막 질문(result)로 이동할 때
+      if (current === questions.length - 1 || isLastStep) summarize();
+    }
+
+    function summarize() {
+      answers = [];
+      document.querySelectorAll('#quiz-section .option-button.active').forEach(btn => {
+        answers.push(btn.textContent);
+      });
+      document.getElementById('summary').textContent = `선택하신 내용: ${answers.join(', ')}`;
+    }
+
+    document.getElementById('sendSMS').addEventListener('click', () => {
+      const text = encodeURIComponent(`[클린메이트 상담요청]\n${answers.join(', ')}`);
+      window.location.href = `sms:01057138417?body=${text}`;
+    });
+  </script>
+</body>
+</html>
