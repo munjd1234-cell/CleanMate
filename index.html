@@ -147,9 +147,9 @@
 
   main {
     margin-top: 125px; 
-    /* [수정] 하단 공간 최소화를 위해 margin-bottom 감소 (130px -> 70px) */
-    margin-bottom: 70px;
-    height: calc(100vh - 125px - 70px); 
+    /* [수정 반영] 하단 버튼과의 간격 확보 (70px -> 110px로 늘림) */
+    margin-bottom: 110px;
+    height: calc(100vh - 125px - 110px); 
     overflow-y: auto;
     text-align: center;
     padding: 0 15px; 
@@ -206,9 +206,9 @@
 
   /* --- [요청에 의해 추가된 하단 고정 버튼] --- */
   .fixed-buttons {
-    /* [수정] bottom 여백 감소 (50px -> 25px) */
+    /* [수정 반영] bottom 여백 증가 (25px -> 40px로 늘림) */
     position: fixed;
-    bottom: 25px; 
+    bottom: 40px; 
     left: 0;
     width: 100%;
     display: flex;
@@ -326,11 +326,14 @@
   /* --- [추가된 솔루션 섹션 스타일] --- */
   .sub-menu {
     display: flex;
-    justify-content: center;
+    /* [수정 반영] 좌우 스크롤을 위해 flex-start, overflow-x: auto 적용 */
+    justify-content: flex-start;
     gap: 5px;
     margin-bottom: 20px;
     padding: 10px 0;
     border-bottom: 1px solid #444;
+    overflow-x: auto; /* 핵심 수정: 좌우 스크롤 허용 */
+    -webkit-overflow-scrolling: touch;
   }
   .sub-btn {
     background-color: #333;
@@ -341,7 +344,8 @@
     font-size: 13px;
     cursor: pointer;
     transition: all 0.2s;
-    white-space: nowrap;
+    white-space: nowrap; /* 핵심 수정: 줄바꿈 방지 */
+    flex-shrink: 0; /* 버튼이 줄어들지 않도록 */
   }
   .sub-btn.active {
     background-color: #00bfa5;
@@ -540,8 +544,7 @@
         <p>크린메이트가 만들어온 청결한 환경과 결과</p>
         <div class="gallery" id="portfolio-gallery-container">
           </div>
-        <p style="margin-top: 20px;">이미지 클릭 시 확대됩니다.</p>
-      </div>
+        </div>
 
       <div id="mos-section" class="content-section solution-content-wrapper">
           <h2>냉장고 위생 관리 솔루션</h2>
@@ -1065,7 +1068,7 @@
         questions[current].classList.add('active');
       }
       
-      // 마지막 질문(result)로 이동할 때 또는 강제 이동 시 (isLastStep은 Q5 선택 시 자동으로 처리되므로 제거)
+      // 마지막 질문(result)로 이동할 때
       if (current === questions.length - 1) summarize();
     }
 
@@ -1126,8 +1129,8 @@
       generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
       // [실적] /jpg/001.jpg 형식으로 변경 (폴더: jpg, 시작번호: 1, 최대 100개 시도, 패딩: 3)
       generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
-      // [협력] /partner/partner1.jpg 형식으로 변경 (폴더: partner, 시작번호: 1, 최대 10개 시도, 패딩: 0) - 경로 유지
-      generateGallery('partner-gallery-container', 'partner', 1, 10, 'partner', 0); 
+      // [협력] /s04/partner1.jpg 형식으로 폴더 변경 (폴더: s04, 시작번호: 1, 최대 10개 시도, 패딩: 0)
+      generateGallery('partner-gallery-container', 's04', 1, 10, 'partner', 0); 
     });
 
     // --- [스크롤 텍스트 애니메이션 재시작/유지 로직] ---
