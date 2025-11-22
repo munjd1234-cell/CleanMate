@@ -144,8 +144,9 @@
 
   main {
     margin-top: 122px; 
-    margin-bottom: 80px;
-    height: calc(100vh - 122px - 80px); 
+    /* c. 하단 고정 버튼 공백 축소 */
+    margin-bottom: 65px; 
+    height: calc(100vh - 122px - 65px); 
     overflow-y: auto;
     text-align: center;
     padding: 0 15px; 
@@ -207,7 +208,8 @@
   /* --- [하단 고정 버튼] --- */
   .fixed-buttons {
     position: fixed;
-    bottom: 15px; 
+    /* c. 공백 축소 */
+    bottom: 5px; 
     left: 0;
     width: 100%;
     display: flex;
@@ -319,6 +321,7 @@
     background: #111;
     z-index: 900;
   }
+  /* a.1. 제안 섹션의 서브 메뉴는 삭제되었으므로, 이 스타일은 mos, avk, dryice 섹션에만 영향을 미침 */
   .sub-btn {
     background-color: #333;
     border: 1px solid #444;
@@ -338,20 +341,15 @@
     font-weight: bold;
   }
 
-  /* **[수정]** '제안' 외 다른 섹션의 서브 콘텐츠만 숨김/표시 */
+  /* '제안' 외 다른 섹션의 서브 콘텐츠만 숨김/표시 */
   .sub-content {
-      /* 제안 섹션 외의 콘텐츠만 기본적으로 숨김 */
       display: none;
       line-height: 1.6;
       padding: 10px 0 30px;
       animation: fadeIn 0.3s ease-in-out;
       text-align: center; 
   }
-  #company-section .sub-content {
-      /* 제안 섹션의 sub-content는 이미 제거됨. 이 스타일은 적용되지 않음. */
-  }
   .sub-content.active {
-      /* 제안 섹션 외의 콘텐츠만 활성화 시 표시 */
       display: block;
   }
 
@@ -380,7 +378,7 @@
     height: auto;
   }
   
-  /* **[추가]** 7장 이미지 갤러리 스타일 (사이즈 확대) */
+  /* 7장 이미지 갤러리 스타일 (사이즈 확대) */
   .seven-image-gallery {
     display: block; /* Flex 해제 및 수직 배치 */
     padding: 10px 0;
@@ -417,7 +415,7 @@
     
     main {
          height: auto;
-         min-height: calc(100vh - 122px - 80px); 
+         min-height: calc(100vh - 122px - 65px); 
     }
   }
 </style>
@@ -456,14 +454,6 @@
       <div id="company-section" class="content-section solution-content-wrapper">
           <h2>🏢 기업 위생 가전 소독 관리 전문 업체</h2>
           
-          <div class="sub-menu">
-              <button class="sub-btn" data-content-id="company-s01-anchor">제안 배경</button>
-              <button class="sub-btn" data-content-id="company-s02-anchor">회사 소개</button>
-              <button class="sub-btn" data-content-id="company-s03-anchor">기술력</button>
-              <button class="sub-btn" data-content-id="company-s04-anchor">인력풀</button>
-              <button class="sub-btn" data-content-id="company-s05-anchor">AI 도입</button>
-          </div>
-
           <h3 id="company-s01-anchor">1. 💡 제안 배경 및 필요성</h3>
           <p>
               직원들의 건강과 복지, 그리고 기업의 생산성은 안전한 근무 환경에서 시작됩니다. 다중이용 시설인 기업 사무실에서 공동으로 사용하는 위생 가전은 "보이지 않는 감염 위험 구역"입니다.
@@ -530,7 +520,7 @@
 
           <h4>주요 등록 및 신고증</h4>
           <div class="solution-img-gallery vertical-images">
-              <img src="imege/0003.jpg" alt="사업자등록증">
+              <img src="imege/0003.JPG" alt="사업자등록증">
               <img src="imege/0004.jpg" alt="영업신고증">
           </div>
 
@@ -931,7 +921,7 @@
     const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
     const contentSections = document.querySelectorAll('.content-section');
 
-    // **[수정]** 서브 메뉴 클릭 핸들러: '제안' 섹션은 스크롤, 나머지는 콘텐츠 토글 유지
+    // 서브 메뉴 클릭 핸들러: '제안' 섹션은 스크롤, 나머지는 콘텐츠 토글 유지
     function handleSubMenuClick(event) {
         const btn = event.currentTarget;
         const targetId = btn.getAttribute('data-content-id');
@@ -943,30 +933,18 @@
         parentSection.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         
-        if (parentSection.id === 'company-section') {
-            // '제안' 섹션: 앵커 점프 (스크롤)
-            if (targetElement) {
-                // Fixed Header(40px) + Fixed Menu(47px) + Sub Menu(약 45px) = 약 132px.
-                // main의 margin-top: 122px를 고려하여 110px 정도의 오프셋을 적용
-                const offsetTop = targetElement.offsetTop - 110; 
-                
-                mainContent.scrollTo({ 
-                    top: offsetTop > 0 ? offsetTop : 0, 
-                    behavior: 'smooth' 
-                });
-            }
-        } 
-        else {
-            // '냉장고', '제빙기', '전자레인지' 섹션: 콘텐츠 토글 (기존 방식 유지)
-            // 해당 섹션의 모든 서브 콘텐츠 숨기기
-            parentSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
-            
-            // 해당 서브 콘텐츠만 표시
-            if (targetElement) {
-                targetElement.classList.add('active');
-            }
-            mainContent.scrollTop = 0; // 서브 메뉴 전환 시 상단으로 스크롤
+        // **'제안' 섹션의 서브 메뉴는 삭제되었으므로, 이 로직은 mos, avk, dryice 섹션에만 해당됩니다.**
+        // '제안' 섹션의 서브 메뉴 버튼을 사용하지 않으므로, 스크롤 로직은 삭제합니다.
+        
+        // '냉장고', '제빙기', '전자레인지' 섹션: 콘텐츠 토글 (기존 방식 유지)
+        // 해당 섹션의 모든 서브 콘텐츠 숨기기
+        parentSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
+        
+        // 해당 서브 콘텐츠만 표시
+        if (targetElement) {
+            targetElement.classList.add('active');
         }
+        mainContent.scrollTop = 0; // 서브 메뉴 전환 시 상단으로 스크롤
     }
 
 
@@ -990,21 +968,23 @@
             quizSection.style.display = 'block';
             quizSection.classList.add('active'); 
             resetQuiz(); // 퀴즈 초기화
-            if (questions.length > 0) {
-              questions[0].classList.add('active'); // 첫 번째 질문 활성화
+            // 질문이 로드된 후에 첫 번째 질문 활성화
+            if (questions && questions.length > 0) {
+              questions[0].classList.add('active'); 
             }
         } else {
-             questions.forEach(q => q.classList.remove('active'));
+             // 퀴즈 섹션이 아닐 경우 모든 질문 숨김
+             if(questions) questions.forEach(q => q.classList.remove('active'));
         }
         
-        // **[수정]** 서브 메뉴가 있는 섹션으로 이동 시 첫 번째 서브 메뉴 활성화 및 처리
-        if (targetId === 'company-section' || targetId === 'mos-section' || targetId === 'avk-section' || targetId === 'dryice-section') {
+        // 서브 메뉴가 있는 섹션으로 이동 시 첫 번째 서브 메뉴 활성화 및 처리
+        if (targetId === 'mos-section' || targetId === 'avk-section' || targetId === 'dryice-section') {
             const firstSubBtn = targetSection.querySelector('.sub-menu .sub-btn:first-child');
             if (firstSubBtn) {
-                // 첫 번째 버튼 클릭 (company-section은 스크롤, 나머지는 콘텐츠 표시)
                 firstSubBtn.click();
             }
         }
+        // '제안' 섹션은 서브 메뉴를 삭제했으므로 특별한 서브 메뉴 처리가 필요 없음.
 
         menuButtons.forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
@@ -1025,10 +1005,12 @@
     let current = 0;
     let answers = [];
     let selectedRegion = '';
-    const questions = document.querySelectorAll('#quiz-section .question');
+    // **[수정]** questions 변수를 DOMContentLoaded 이후에 초기화해야 합니다. (전역 변수로 선언만 하고 DOMContentLoaded에서 할당)
+    let questions;
     const phoneNumber = '01057138417'; 
 
     function resetQuiz() {
+      if(!questions) questions = document.querySelectorAll('#quiz-section .question');
       questions.forEach(q => q.classList.remove('active'));
       current = 0;
       answers = [];
@@ -1070,14 +1052,19 @@
     };
 
     // 옵션 버튼 생성 및 배치
-    Object.keys(data).forEach(id => {
-      const container = document.getElementById(`opt${id.slice(1)}`);
-      if (container && data[id] instanceof Array) {
-        data[id].forEach(text => {
-          const btn = createOptionButton(text);
-          container.appendChild(btn);
-        });
-      }
+    document.addEventListener('DOMContentLoaded', () => {
+      // **[수정]** questions 변수 할당
+      questions = document.querySelectorAll('#quiz-section .question');
+
+      Object.keys(data).forEach(id => {
+        const container = document.getElementById(`opt${id.slice(1)}`);
+        if (container && data[id] instanceof Array) {
+          data[id].forEach(text => {
+            const btn = createOptionButton(text);
+            container.appendChild(btn);
+          });
+        }
+      });
     });
 
     function createOptionButton(text) {
@@ -1097,17 +1084,28 @@
       parent.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
+      // 선택한 답변 저장 (이전 답변을 덮어쓰거나 추가)
+      const qIndex = parseInt(parentId.slice(1)) - 1;
+      answers[qIndex] = btn.textContent;
+      
       if (parentId === 'q4') {
         selectedRegion = btn.textContent;
         // Q4 선택 시 Q5 (도시/시/군/구) 목록 업데이트
         updateCityOptions(selectedRegion);
-        showNext(); // Q4 선택 후 Q5로 이동
-      } else if (parentId === 'q5') {
-        // Q5 선택 시 결과 화면으로 이동
+        // answers[4] (Q5 답변) 초기화
+        answers[4] = undefined; 
+        showNext(); 
+        return; // **[복구/수정]** 다음 로직 실행 방지
+      } 
+      
+      if (parentId === 'q5') {
         showNext(true); // isLastStep=true 전달
-      } else if (parentId === 'q1' || parentId === 'q2' || parentId === 'q3') {
-        // Q1, Q2, Q3 선택 시 다음 질문으로 이동
+        return; // **[복구/수정]** 다음 로직 실행 방지
+      } 
+      
+      if (parentId === 'q1' || parentId === 'q2' || parentId === 'q3') {
         showNext();
+        return; // **[복구/수정]** 다음 로직 실행 방지
       }
     }
 
@@ -1124,6 +1122,7 @@
     }
 
     function showNext(isLastStep = false) {
+      if(!questions) questions = document.querySelectorAll('#quiz-section .question'); // 안전장치
       const isQ4 = questions[current].id === 'q4'; 
       
       questions[current].classList.remove('active');
@@ -1146,21 +1145,22 @@
     }
 
     function summarize() {
-      answers = [];
-      document.querySelectorAll('#quiz-section .option-button.active').forEach(btn => {
-        answers.push(btn.textContent);
-      });
-      document.getElementById('summary').textContent = `선택하신 내용: ${answers.join(', ')}`;
+      // **[수정]** answers 배열을 사용하도록 로직 변경
+      // 선택된 버튼의 텍스트를 answers 배열에 저장하며, undefined를 필터링
+      const finalAnswers = answers.filter(a => a !== undefined && a !== null); 
+      document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(', ')}`;
 
       // 자동 문자 메시지 내용 생성 및 번호 연결
-      const smsMessage = `크린메이트 상담 요청: ${answers.join(', ')}`;
+      const smsMessage = `크린메이트 상담 요청: ${finalAnswers.join(', ')}`;
       document.getElementById('sendSMS').onclick = () => {
         window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(smsMessage)}`;
       };
     }
 
     // 뒤로 가기 기능 재시작 버튼 (결과 화면에만 표시)
-    document.getElementById('sendSMS').insertAdjacentHTML('afterend', '<button onclick="resetQuiz(); questions[0].classList.add(\'active\')" style="background-color: #444; color: white; border: none; border-radius: 30px; padding: 15px 25px; font-size: 16px; cursor: pointer; margin: 10px;">↩️처음으로 돌아가기</button>');
+    document.addEventListener('DOMContentLoaded', () => {
+        document.getElementById('sendSMS').insertAdjacentHTML('afterend', '<button onclick="resetQuiz(); questions[0].classList.add(\'active\')" style="background-color: #444; color: white; border: none; border-radius: 30px; padding: 15px 25px; font-size: 16px; cursor: pointer; margin: 10px;">↩️처음으로 돌아가기</button>');
+    });
 
 
     // --- [갤러리 자동 로드 로직] ---
@@ -1191,10 +1191,8 @@
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(showNextPhrase, 500);
       introScreen.addEventListener('click', skipIntro);
-    });
-
-    // 갤러리 로드 실행
-    document.addEventListener('DOMContentLoaded', () => {
+      
+      // 갤러리 로드 실행
       generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
       generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
       generateGallery('partner-gallery-container', 's04', 1, 35, 'partner_goloimg', 0); 
