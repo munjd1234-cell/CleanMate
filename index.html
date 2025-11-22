@@ -263,59 +263,77 @@
     margin: 0 auto;
     line-height: 1.6;
     color: #ccc;
-    padding: 0 10px 30px; 
+    padding: 0 15px 30px; /* 좌우 패딩 15px로 확장 */
   }
   
-  /* --- [제안 섹션 제목 박스 스타일 적용] --- */
+  /* --- [제안 섹션 제목 (New Clean Accent Style)] --- */
+  /* Reset common box styles first */
   .solution-content-wrapper.active#company-section h2, 
   .solution-content-wrapper.active#company-section h3, 
   .solution-content-wrapper.active#company-section h4 {
-      /* 기존 스타일 초기화 및 공통 박스 설정 */
-      text-align: center; 
-      color: #00bfa5; 
-      margin-top: 30px;
-      margin-bottom: 15px; 
-      border-bottom: none !important; /* 기존 구분선 제거 */
-      padding-bottom: 0; 
-  
-      /* 박스 공통 속성 */
-      display: block; 
-      width: fit-content; 
-      max-width: 90%;
-      margin-left: auto;
-      margin-right: auto;
-      padding: 10px 20px; 
-      border-radius: 8px;
-      box-sizing: border-box;
+      /* Reset all previous box properties */
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 40px auto 15px auto !important; /* Adjust margins */
+      width: 100% !important; 
+      max-width: 100% !important;
+      color: #fff !important; 
+      text-align: center !important;
+      display: block;
       font-weight: 700;
   }
   
-  /* 대박스 스타일 (H2: 메인 타이틀) */
+  /* H2 (Main Title) - Big, centered, with primary line separators */
   .solution-content-wrapper.active#company-section h2 {
-      background-color: #00bfa5; 
-      color: #fff; 
-      font-size: 18px;
-      padding: 12px 25px;
-      border-radius: 5px;
-      margin-top: 10px; 
+      font-size: 24px; 
+      color: #00bfa5 !important;
+      border-top: 2px solid #00bfa5;
+      border-bottom: 2px solid #00bfa5;
+      padding: 15px 20px !important;
+      margin-top: 15px !important;
+      margin-bottom: 30px !important;
+      width: fit-content !important;
+      max-width: 90% !important;
+      /* subtle glow for fresh look */
+      box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
   }
   
-  /* 소박스 스타일 (H3/H4: 소제목) */
-  .solution-content-wrapper.active#company-section h3,
-  .solution-content-wrapper.active#company-section h4 {
-      background-color: #2a2a2a; 
-      color: #ccc; 
-      font-size: 16px;
-      border: 1px solid #444; 
-      margin-top: 40px; /* H3 제목의 상단 마진 */
+  /* H3 (Section Title) - Primary accent bar on the left */
+  .solution-content-wrapper.active#company-section h3 {
+      text-align: left !important;
+      color: #fff !important;
+      font-size: 17px;
+      background-color: #222 !important; 
+      border-left: 5px solid #00bfa5 !important;
+      padding: 10px 15px !important;
+      border-radius: 0 5px 5px 0; 
+      margin: 40px auto 20px 0 !important; /* Align left */
+      width: fit-content !important; 
+      max-width: 90% !important;
   }
   
-  /* .sub-heading-left 클래스가 붙은 H4도 박스 스타일 적용을 위해 중앙 정렬로 재정의 */
+  /* H4 (Sub-section Title) - Simple underline (for a clean look) */
+  .solution-content-wrapper.active#company-section h4,
   .solution-content-wrapper.active#company-section .sub-heading-left {
-      text-align: center !important; 
-      color: #ccc !important; 
-      margin-top: 25px !important; /* H4 제목의 상단 마진 */
-      border-bottom: none !important; /* 기존 구분선 제거 */
+      color: #00bfa5 !important; 
+      font-size: 15px;
+      border-bottom: 1px dashed #00bfa5 !important;
+      padding-bottom: 5px !important;
+      margin: 25px auto 10px 0 !important;
+      text-align: left !important; 
+      width: 100% !important;
+  }
+
+  /* 이미지 하단 설명 캡션 스타일 */
+  .solution-content-wrapper .image-caption {
+      font-size: 12px;
+      color: #888;
+      margin-top: -10px; /* Pull it closer to the image */
+      margin-bottom: 20px;
+      text-align: center;
+      display: block;
   }
 
   #company-section strong, .solution-content-wrapper strong {
@@ -416,18 +434,24 @@
     height: auto;
   }
   
-  /* 7장 이미지 갤러리 스타일 (사이즈 확대) */
+  /* 7장 이미지 갤러리 스타일 (캡션 적용을 위해 div 래핑 및 싱글 컬럼 유지) */
   .seven-image-gallery {
-    display: block; /* Flex 해제 및 수직 배치 */
+    display: block; 
     padding: 10px 0;
     text-align: center;
+  }
+  .seven-image-gallery > div {
+      display: block; /* 수직으로 쌓이도록 */
+      width: 100%;
+      margin-bottom: 25px; /* 이미지 블록 간격 */
+      overflow: hidden; /* float 방지 */
   }
   .seven-image-gallery img {
     max-width: 100%; 
     width: 95%; /* 화면 너비에 가깝게 최대화 */
     height: auto;    
     display: block;  
-    margin: 15px auto; /* 이미지 상하 간격 */
+    margin: 10px auto 5px auto !important; /* 마진 조정 */
   }
 
   /* --- [PC/태블릿 환경에서 모바일 뷰 고정 및 중앙 정렬] --- */
@@ -508,13 +532,13 @@
           </ul>
           
           <div class="seven-image-gallery">
-              <img src="imege/0012.jpg" alt="청소 전후 비교 1">
-              <img src="imege/0013.jpg" alt="청소 전후 비교 2">
-              <img src="imege/0014.jpg" alt="청소 전후 비교 3">
-              <img src="imege/0015.jpg" alt="청소 전후 비교 4">
-              <img src="imege/0016.jpg" alt="청소 전후 비교 5">
-              <img src="imege/0017.jpg" alt="청소 전후 비교 6">
-              <img src="imege/0018.jpg" alt="청소 전후 비교 7">
+              <div><img src="imege/0012.jpg" alt="전자렌지 소독 전후"><p class="image-caption">전자렌지의 소독 전후</p></div>
+              <div><img src="imege/0013.jpg" alt="냉장고 소독 전후"><p class="image-caption">냉장고의 소독 전후</p></div>
+              <div><img src="imege/0014.jpg" alt="사무실 책상 소독 전후"><p class="image-caption">사무실 책상의 소독 전후</p></div>
+              <div><img src="imege/0015.jpg" alt="화장실 비데 소독 전후"><p class="image-caption">화장실 비데의 소독 전후</p></div>
+              <div><img src="imege/0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
+              <div><img src="imege/0017.jpg" alt="인덕션 소독 전후"><p class="image-caption">인덕션의 소독 전후</p></div>
+              <div><img src="imege/0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
           </div>
 
           <h4 class="sub-heading-left">중점 관리 대상 가전</h4>
@@ -525,6 +549,7 @@
               <li>> 냉장고, 전자레인지, 제빙기, 정수기, 커피머신, 비데, 칫솔살균기, 에어컨, 공기청정기, 사무용품, PC/키보드 등</li>
           </ul>
           <img src="imege/0034.jpg" alt="중점 관리 대상 가전 사진"/>
+          <p class="image-caption">대상 가전의 종류</p>
 
           <h3 id="company-s02-anchor">회사 소개</h3>
           <p>
@@ -561,6 +586,7 @@
               <img src="imege/0003.JPG" alt="사업자등록증">
               <img src="imege/0004.jpg" alt="영업신고증">
           </div>
+          <p class="image-caption">사업자 · 영업신고증</p>
 
           <h3 id="company-s03-anchor">기술력</h3>
           <p>
@@ -571,6 +597,7 @@
               <li>전문성: 건축·위생·환경 분야 전문가들로 구성된 임직원이 전 과정에 AI 기반 데이터 처리 기술을 적용하여 정확하고 신뢰성 높은 데이터를 제공합니다.</li>
           </ul>
           <img src="imege/0029.jpg" alt="기술력 관련 이미지 (placeholder)" onerror="this.src='https://via.placeholder.com/400x200/333333/cccccc?text=imege/0029.jpg';" />
+          <p class="image-caption">본사 기술진</p>
           
           <h3 id="company-s04-anchor">인력풀</h3>
           <p>
@@ -580,6 +607,7 @@
               <li>신속 대응: 대통령 방문, VIP 바이어 방문, 갑작스러운 현장 위생 점검 등 긴급 상황 발생 시 국내에서 가장 빠른 투입 체계를 갖추고 있습니다.</li>
           </ul>
           <img src="imege/0020.jpg" alt="인력풀 관련 이미지 (placeholder)" onerror="this.src='https://via.placeholder.com/400x200/333333/cccccc?text=imege/0020.jpg';" />
+          <p class="image-caption">24시간 대응 인력</p>
 
           <h3 id="company-s05-anchor">AI 도입</h3>
           <p>
@@ -590,6 +618,7 @@
               <li>예측 기반 관리: 개별 휴대폰 앱 실시간 모니터링 및 본사 중앙 관제실의 24시간 집중 감시를 통해 문제 발생 전 예측 및 즉각적인 현장 대응을 실현합니다.</li>
           </ul>
           <img src="imege/0030.jpg" alt="AI 도입 관련 이미지 (placeholder)" onerror="this.src='https://via.placeholder.com/400x300/333333/cccccc?text=imege/0030.jpg';" />
+          <p class="image-caption">AI 환경 감시 모듈</p>
           
       </div> <div id="portfolio-section" class="content-section">
         <h2>최고의 위생을 위한 노력</h2>
