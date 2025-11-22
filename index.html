@@ -11,7 +11,7 @@
     font-family: 'Pretendard', sans-serif;
     background-color: #111; /* 배경색 유지 */
     color: #fff; /* 기본 글자색 유지 */
-    overflow: hidden;
+    /* **[수정]** PC 환경에서 overflow:hidden 대신 auto 사용을 위해 삭제 */
   }
 
   /* --- [인트로 화면 스타일 및 애니메이션] --- */
@@ -87,6 +87,7 @@
     transition: opacity 0.5s;
     width: 100%;
     height: 100vh;
+    /* **[수정]** PC 환경 대응을 위해 overflow: hidden 제거 */
   }
 
   header {
@@ -144,9 +145,9 @@
 
   main {
     margin-top: 122px; 
-    /* c. 하단 고정 버튼 공백 축소 */
-    margin-bottom: 65px; 
-    height: calc(100vh - 122px - 65px); 
+    /* c. 하단 고정 버튼 공백 축소 -> 푸터와의 겹침 방지를 위해 다시 조정 */
+    margin-bottom: 90px; /* 푸터(20px) + 버튼 영역(40px) + 여유 공간 */
+    height: calc(100vh - 122px - 90px); 
     overflow-y: auto;
     text-align: center;
     padding: 0 15px; 
@@ -208,8 +209,8 @@
   /* --- [하단 고정 버튼] --- */
   .fixed-buttons {
     position: fixed;
-    /* c. 공백 축소 */
-    bottom: 5px; 
+    /* **[수정]** 푸터와 겹침 방지를 위해 버튼 영역을 위로 올림 */
+    bottom: 40px; 
     left: 0;
     width: 100%;
     display: flex;
@@ -240,6 +241,9 @@
     font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
+    height: 30px; /* 높이 고정으로 겹침 방지 */
+    line-height: 30px;
+    z-index: 998; /* 버튼보다 낮게 설정 */
   }
   .scroll-text {
     display: inline-block;
@@ -415,7 +419,7 @@
     
     main {
          height: auto;
-         min-height: calc(100vh - 122px - 65px); 
+         min-height: calc(100vh - 122px - 90px); /* 수정된 main margin-bottom 반영 */
     }
   }
 </style>
@@ -429,7 +433,6 @@
     <span class="intro-item" data-phrase="3">냉장고</span>
     <span class="intro-item" data-phrase="4">대형설비</span>
     <span class="intro-item" data-phrase="5">친환경 설비 분해 청소</span>
-    <span class="intro-item" data-phrase="6">중고 매입 판매</span>
     <span class="intro-item final-phrase" data-phrase="7">원스톱 위생 솔루션</span>
   </div>
   
@@ -447,6 +450,7 @@
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자레인지</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력</a> 
+      <a href="#quiz" class="menu-btn" data-target="quiz-section">원스톱상담</a> 
     </nav>
 
     <main>
@@ -933,9 +937,6 @@
         parentSection.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
         btn.classList.add('active');
         
-        // **'제안' 섹션의 서브 메뉴는 삭제되었으므로, 이 로직은 mos, avk, dryice 섹션에만 해당됩니다.**
-        // '제안' 섹션의 서브 메뉴 버튼을 사용하지 않으므로, 스크롤 로직은 삭제합니다.
-        
         // '냉장고', '제빙기', '전자레인지' 섹션: 콘텐츠 토글 (기존 방식 유지)
         // 해당 섹션의 모든 서브 콘텐츠 숨기기
         parentSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
@@ -1005,7 +1006,6 @@
     let current = 0;
     let answers = [];
     let selectedRegion = '';
-    // **[수정]** questions 변수를 DOMContentLoaded 이후에 초기화해야 합니다. (전역 변수로 선언만 하고 DOMContentLoaded에서 할당)
     let questions;
     const phoneNumber = '01057138417'; 
 
@@ -1013,7 +1013,7 @@
       if(!questions) questions = document.querySelectorAll('#quiz-section .question');
       questions.forEach(q => q.classList.remove('active'));
       current = 0;
-      answers = [];
+      answers = new Array(5).fill(undefined); // 5개 질문에 대한 답변 배열 초기화
       document.getElementById('summary').textContent = '';
       document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
       document.getElementById('opt5').innerHTML = ''; 
@@ -1039,7 +1039,8 @@
         '광주': ['광산구', '남구', '동구', '북구', '서구'],
         '대전': ['대덕구', '동구', '서구', '유성구', '중구'],
         '울산': ['남구', '동구', '북구', '중구', '울주군'],
-        '세종': ['세종 전역'],
+        // 상세 지역이 없는 경우를 대비하여 '전역'으로 처리
+        '세종': ['세종 전역'], 
         '강원': ['강원 전역'],
         '충북': ['충북 전역'],
         '충남': ['충남 전역'],
@@ -1084,28 +1085,36 @@
       parent.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
 
-      // 선택한 답변 저장 (이전 답변을 덮어쓰거나 추가)
       const qIndex = parseInt(parentId.slice(1)) - 1;
-      answers[qIndex] = btn.textContent;
-      
+      answers[qIndex] = btn.textContent; // 선택한 답변 저장
+
       if (parentId === 'q4') {
         selectedRegion = btn.textContent;
-        // Q4 선택 시 Q5 (도시/시/군/구) 목록 업데이트
         updateCityOptions(selectedRegion);
-        // answers[4] (Q5 답변) 초기화
-        answers[4] = undefined; 
-        showNext(); 
-        return; // **[복구/수정]** 다음 로직 실행 방지
+        
+        const cityList = data.cities[selectedRegion];
+        // [수정] 도시 목록이 없거나 (오류방지), 목록 길이가 1개 이하일 경우 Q5 건너뛰기
+        if (!cityList || cityList.length <= 1) {
+            // answers[4]를 지역명과 동일하게 설정하거나 '전역'으로 저장 (여기서는 Q4 답변과 동일하게 유지)
+            answers[4] = selectedRegion.endsWith(' 전역') ? selectedRegion : answers[3]; 
+            showNext(true); // 바로 결과로
+            return;
+        } else {
+            answers[4] = undefined; // Q5가 활성화되므로 Q5 답변은 초기화
+            showNext();
+            return;
+        }
       } 
       
       if (parentId === 'q5') {
-        showNext(true); // isLastStep=true 전달
-        return; // **[복구/수정]** 다음 로직 실행 방지
+        showNext(true); // Q5는 마지막 질문이므로 결과로 이동
+        return; 
       } 
       
-      if (parentId === 'q1' || parentId === 'q2' || parentId === 'q3') {
+      // Q1, Q2, Q3 처리
+      if (qIndex < 3) {
         showNext();
-        return; // **[복구/수정]** 다음 로직 실행 방지
+        return; 
       }
     }
 
@@ -1123,31 +1132,24 @@
 
     function showNext(isLastStep = false) {
       if(!questions) questions = document.querySelectorAll('#quiz-section .question'); // 안전장치
-      const isQ4 = questions[current].id === 'q4'; 
       
       questions[current].classList.remove('active');
       current++;
       
-      // Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기
-      if (isQ4) {
-          const cityList = data.cities[selectedRegion];
-          if (!cityList || cityList.length <= 1) {
-              current++; // Q5 건너뛰기
-          }
-      }
-
+      // Q4에서 이미 건너뛰는 로직을 처리했으므로, 여기서는 단순히 다음 질문 활성화
       if (current < questions.length) {
         questions[current].classList.add('active');
       }
       
-      // 마지막 질문(result)로 이동할 때
+      // 마지막 질문(result)으로 이동할 때 또는 isLastStep=true일 때
       if (current === questions.length - 1 || isLastStep) summarize();
     }
 
     function summarize() {
-      // **[수정]** answers 배열을 사용하도록 로직 변경
-      // 선택된 버튼의 텍스트를 answers 배열에 저장하며, undefined를 필터링
-      const finalAnswers = answers.filter(a => a !== undefined && a !== null); 
+      // **[수정]** answers 배열을 필터링하여 최종 상담 문자열 생성
+      // answers 배열에서 undefined, null, 빈 문자열을 제외하고 순서대로 나열
+      const finalAnswers = answers.filter(a => a !== undefined && a !== null && a.trim() !== ''); 
+      
       document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(', ')}`;
 
       // 자동 문자 메시지 내용 생성 및 번호 연결
@@ -1159,7 +1161,11 @@
 
     // 뒤로 가기 기능 재시작 버튼 (결과 화면에만 표시)
     document.addEventListener('DOMContentLoaded', () => {
-        document.getElementById('sendSMS').insertAdjacentHTML('afterend', '<button onclick="resetQuiz(); questions[0].classList.add(\'active\')" style="background-color: #444; color: white; border: none; border-radius: 30px; padding: 15px 25px; font-size: 16px; cursor: pointer; margin: 10px;">↩️처음으로 돌아가기</button>');
+        // [수정] 퀴즈 기능 복구 후, resetQuiz() 호출 시 첫 질문이 활성화되도록 수정
+        const resultQuestion = document.getElementById('result');
+        if (resultQuestion) {
+            resultQuestion.insertAdjacentHTML('beforeend', '<button onclick="resetQuiz(); questions[0].classList.add(\'active\')" style="background-color: #444; color: white; border: none; border-radius: 30px; padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 10px;">↩️처음으로 돌아가기</button>');
+        }
     });
 
 
