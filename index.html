@@ -147,8 +147,9 @@
 
   main {
     margin-top: 125px; 
-    margin-bottom: 130px;
-    height: calc(100vh - 125px - 130px); 
+    /* [수정] 하단 공간 최소화를 위해 margin-bottom 감소 (130px -> 70px) */
+    margin-bottom: 70px;
+    height: calc(100vh - 125px - 70px); 
     overflow-y: auto;
     text-align: center;
     padding: 0 15px; 
@@ -166,6 +167,7 @@
   .question { 
     display: none; 
     animation: fadeIn 0.3s ease-in-out; 
+    /* [수정] 퀴즈 잔류 현상 방지를 위해 퀴즈 내의 질문도 명시적으로 hidden 처리 */
   }
   .question.active { 
     display: block; 
@@ -204,8 +206,9 @@
 
   /* --- [요청에 의해 추가된 하단 고정 버튼] --- */
   .fixed-buttons {
+    /* [수정] bottom 여백 감소 (50px -> 25px) */
     position: fixed;
-    bottom: 50px; /* 푸터 위 공간 확보 */
+    bottom: 25px; 
     left: 0;
     width: 100%;
     display: flex;
@@ -468,13 +471,13 @@
 
           <h3 style="margin-top: 20px;">1. 💡 제안 배경 및 필요성</h3>
           <p style="text-align: left; margin-bottom: 20px;">
-              [cite_start]직원들의 건강과 복지, 그리고 기업의 지속 가능한 생산성은 안전하고 쾌적한 근무 환경의 기반 위에서만 보장될 수 있습니다. 특히 다중이용 환경인 기업 사무실에서 공동으로 사용하는 **냉장고, 제빙기, 전자레인지**는 일상 속에서 가장 빈번하게 접촉되는 '핵심 위생 가전'이며, 철저한 전문 관리가 부재할 경우 심각한 위생 문제와 감염병 확산의 주요 온상이 될 수 있는 **"보이지 않는 감염 위험 구역"**으로 규정됩니다[cite: 570].
-              [cite_start]<br>주식회사 디에이치씨솔루션은 기업 환경의 특수성과 위험성을 깊이 분석하고, 이 세 가지 핵심 위생 가전에 대한 최적화된 전문 소독 관리 솔루션을 제공함으로써 임직원의 건강을 선제적으로 보호하고 기업의 위생 안전망 구축을 지원합니다[cite: 571].
+              직원들의 건강과 복지, 그리고 기업의 지속 가능한 생산성은 안전하고 쾌적한 근무 환경의 기반 위에서만 보장될 수 있습니다. 특히 다중이용 환경인 기업 사무실에서 공동으로 사용하는 **냉장고, 제빙기, 전자레인지**는 일상 속에서 가장 빈번하게 접촉되는 '핵심 위생 가전'이며, 철저한 전문 관리가 부재할 경우 심각한 위생 문제와 감염병 확산의 주요 온상이 될 수 있는 **"보이지 않는 감염 위험 구역"**으로 규정됩니다.
+              <br>주식회사 디에이치씨솔루션은 기업 환경의 특수성과 위험성을 깊이 분석하고, 이 세 가지 핵심 위생 가전에 대한 최적화된 전문 소독 관리 솔루션을 제공함으로써 임직원의 건강을 선제적으로 보호하고 기업의 위생 안전망 구축을 지원합니다.
           </p>
 
           <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">A. 기업 내 중점 관리 가전의 현실</h4>
           <p style="text-align: left;">
-              [cite_start]기업 내 공용 가전은 가정용 대비 **하루 수백 회**에 달하는 높은 사용 빈도를 가지며, 이로 인해 오염 가속도가 현저히 빠르고 세균 번식에 매우 취약합니다[cite: 572]. [cite_start]내부 오염원이 방치될 경우 전문적인 지식과 장비 없이는 완벽한 제거가 불가능합니다[cite: 573].
+              기업 내 공용 가전은 가정용 대비 **하루 수백 회**에 달하는 높은 사용 빈도를 가지며, 이로 인해 오염 가속도가 현저히 빠르고 세균 번식에 매우 취약합니다. 내부 오염원이 방치될 경우 전문적인 지식과 장비 없이는 완벽한 제거가 불가능합니다.
           </p>
 
           <div style="text-align: center;">
@@ -490,18 +493,18 @@
                   <tbody>
                       <tr>
                           <td>**냉장고**</td>
-                          [cite_start]<td>잦은 문 여닫음, 부패 음식물 잔여물, 고무패킹 틈새 오염 [cite: 575, 576]</td>
-                          [cite_start]<td>식중독균, 교차 감염(노로바이러스) [cite: 577, 578]</td>
+                          <td>잦은 문 여닫음, 부패 음식물 잔여물, 고무패킹 틈새 오염</td>
+                          <td>식중독균, 교차 감염(노로바이러스)</td>
                       </tr>
                       <tr>
                           <td>**제빙기**</td>
-                          [cite_start]<td>바이오필름, 물때, 급수 라인 스케일 축적 [cite: 580, 581]</td>
-                          [cite_start]<td>수인성 세균(레지오넬라균), 호흡기 질환 위험 [cite: 582, 583]</td>
+                          <td>바이오필름, 물때, 급수 라인 스케일 축적</td>
+                          <td>수인성 세균(레지오넬라균), 호흡기 질환 위험</td>
                       </tr>
                       <tr>
                           <td>**전자레인지**</td>
-                          [cite_start]<td>기름때, 찌꺼기, 수분 축적으로 세균 서식처 제공 [cite: 585, 586]</td>
-                          [cite_start]<td>식중독균(포도상구균), 접촉성 교차 감염 [cite: 587, 588]</td>
+                          <td>기름때, 찌꺼기, 수분 축적으로 세균 서식처 제공</td>
+                          <td>식중독균(포도상구균), 접촉성 교차 감염</td>
                       </tr>
                   </tbody>
               </table>
@@ -509,26 +512,26 @@
           
           <h3 style="margin-top: 40px;">2. 🏛️ 회사 소개 및 핵심 경쟁력</h3>
           <p style="text-align: left;">
-              [cite_start]주식회사 디에이치씨솔루션은 단순한 청소 서비스가 아닌, 위생 문제를 근본적으로 해결하고 예측하여 사전 차단하는 혁신적인 관리 시스템을 구축하고 있습니다[cite: 590]. [cite_start]냉장고, 제빙기, 전자레인지 전문 관리에 최적화된 기술력, 인력풀, 그리고 미래형 AI 시스템을 통합하여 신속하고 정확하며 신뢰할 수 있는 솔루션을 제공합니다[cite: 591].
+              주식회사 디에이치씨솔루션은 단순한 청소 서비스가 아닌, 위생 문제를 근본적으로 해결하고 예측하여 사전 차단하는 혁신적인 관리 시스템을 구축하고 있습니다. 냉장고, 제빙기, 전자레인지 전문 관리에 최적화된 기술력, 인력풀, 그리고 미래형 AI 시스템을 통합하여 신속하고 정확하며 신뢰할 수 있는 솔루션을 제공합니다.
           </p>
 
           <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">A. 기술력: 20년간 국내 위생 기술을 선도한 과학적 접근</h4>
           <ul class="bullet-list">
-              [cite_start]<li>**ATP·RLU 오염 측정 시스템:** 냉장고 문손잡이 등 '고빈도 접촉 부위'의 미세 세균 오염도를 객관적인 수치(RLU)로 측정하여 위생 개선 효과를 투명하게 보고[cite: 594, 595].</li>
-              [cite_start]<li>**EM(Effective Microorganism) 소독법:** 유익 미생물을 활용하여 유해균 번식을 억제하고 악취를 근본적으로 제거하며, 인체에 무해한 친환경 위생 관리 구현[cite: 597, 598].</li>
-              [cite_start]<li>**스팀 및 자외선(UV) 기반 살균:** 고온 스팀은 찌든 때 제거와 동시에 바이러스 및 세균을 **99.9% 이상 멸균**하며, UV는 화학 약품 없이 미생물 DNA를 파괴하여 살균[cite: 601].</li>
+              <li>**ATP·RLU 오염 측정 시스템:** 냉장고 문손잡이 등 '고빈도 접촉 부위'의 미세 세균 오염도를 객관적인 수치(RLU)로 측정하여 위생 개선 효과를 투명하게 보고.</li>
+              <li>**EM(Effective Microorganism) 소독법:** 유익 미생물을 활용하여 유해균 번식을 억제하고 악취를 근본적으로 제거하며, 인체에 무해한 친환경 위생 관리 구현.</li>
+              <li>**스팀 및 자외선(UV) 기반 살균:** 고온 스팀은 찌든 때 제거와 동시에 바이러스 및 세균을 **99.9% 이상 멸균**하며, UV는 화학 약품 없이 미생물 DNA를 파괴하여 살균.</li>
           </ul>
 
           <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">B. 인력풀: 1,500명 이상 즉시 대응 가능한 전문 인력</h4>
           <ul class="bullet-list">
-              [cite_start]<li>**제조사 출신 전문 역량:** 웅진, 삼성, LG 등 주요 제조사 출신 전문가 500명 이상을 포함 [cite: 603][cite_start], 고가 가전의 복잡한 구조를 이해하고 내부 깊숙한 오염원까지 안전하게 **분해 및 재조립** 가능[cite: 605].</li>
-              [cite_start]<li>**신속 대응 체계:** 1,500명 이상의 인력풀로 긴급 상황 또는 대규모 사업장 관리 요청에 **국내 최단 시간 투입** 체계를 갖추어 비즈니스 연속성 지원[cite: 607, 608].</li>
+              <li>**제조사 출신 전문 역량:** 웅진, 삼성, LG 등 주요 제조사 출신 전문가 500명 이상을 포함, 고가 가전의 복잡한 구조를 이해하고 내부 깊숙한 오염원까지 안전하게 **분해 및 재조립** 가능.</li>
+              <li>**신속 대응 체계:** 1,500명 이상의 인력풀로 긴급 상황 또는 대규모 사업장 관리 요청에 **국내 최단 시간 투입** 체계를 갖추어 비즈니스 연속성 지원.</li>
           </ul>
 
           <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">C. AI 도입: 미래형 ‘구독형 위생 중앙 시스템’</h4>
           <ul class="bullet-list">
-              [cite_start]<li>**실시간 감시 및 데이터 수집:** 스마트 모듈을 통해 냉장고 온도/습도, 제빙기 수질/유량, 전자레인지 사용 빈도 등 핵심 환경 정보를 실시간으로 수집하고 AI 분석[cite: 611, 612].</li>
-              [cite_start]<li>**정밀 예측 기반 관리:** AI 시스템이 각 가전의 **오염 가속도를 예측**하고, 문제가 생기기 전 선제적으로 전문 인력을 투입하여 오염원을 차단[cite: 613, 614].</li>
+              <li>**실시간 감시 및 데이터 수집:** 스마트 모듈을 통해 냉장고 온도/습도, 제빙기 수질/유량, 전자레인지 사용 빈도 등 핵심 환경 정보를 실시간으로 수집하고 AI 분석.</li>
+              <li>**정밀 예측 기반 관리:** AI 시스템이 각 가전의 **오염 가속도를 예측**하고, 문제가 생기기 전 선제적으로 전문 인력을 투입하여 오염원을 차단.</li>
           </ul>
       </div>
 
@@ -557,7 +560,7 @@
               </p>
               <ul class="bullet-list">
                   <li>**위생 등급 진단:** 내부 온도 및 습도 환경 분석.</li>
-                  [cite_start]<li>**ATP 측정:** 문손잡이, 선반 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU)를 객관적인 수치로 측정[cite: 594, 485].</li>
+                  <li>**ATP 측정:** 문손잡이, 선반 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU)를 객관적인 수치로 측정.</li>
                   <li>**내시경 검사:** 고무패킹 틈새 등 구조상 단순 청소가 어려운 부분의 곰팡이/세균 오염 상태 확인.</li>
               </ul>
               <img src="img/placeholder_img_diagnostic.jpg" alt="냉장고 진단 이미지 (placeholder)">
@@ -569,9 +572,9 @@
                   제조사 출신 전문 인력이 투입되어 냉장고의 핵심 부품을 안전하게 분리합니다. 오염 가속도가 높은 부위를 집중적으로 세척합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**주요 세척 대상:** 고무패킹, 선반, 내부 벽면 및 응축기(Condenser, 필요 시)[cite: 488].</li>
-                  [cite_start]<li>**오염원 제거:** 부패한 음식물 잔여물, 기름때, 곰팡이 등 유기물 오염원을 전용 세척 도구로 1차 제거[cite: 487].</li>
-                  [cite_start]<li>**특수 세척:** 고무패킹 틈새 등 세균이 번식하기 쉬운 취약 부위에 대한 특수 세척 공법 적용[cite: 488].</li>
+                  <li>**주요 세척 대상:** 고무패킹, 선반, 내부 벽면 및 응축기(Condenser, 필요 시).</li>
+                  <li>**오염원 제거:** 부패한 음식물 잔여물, 기름때, 곰팡이 등 유기물 오염원을 전용 세척 도구로 1차 제거.</li>
+                  <li>**특수 세척:** 고무패킹 틈새 등 세균이 번식하기 쉬운 취약 부위에 대한 특수 세척 공법 적용.</li>
               </ul>
               <img src="img/placeholder_img_deepclean.jpg" alt="냉장고 분해 세척 이미지 (placeholder)">
           </div>
@@ -582,9 +585,9 @@
                   세척 후 남아있을 수 있는 미세 세균과 바이러스를 근원적으로 멸균하여 식중독 위험을 원천 차단합니다.
               </p>
               <ul class="bullet-list">
-                  <li>**살균제 적용:** 식품 첨가물 등급의 안전한 살균제를 사용하여 식품 접촉 부위 소독. [cite_start]잔류 성분 걱정 없음[cite: 492].</li>
-                  [cite_start]<li>**EM 소독법:** 유익 미생물을 활용한 소독으로 유해균 번식 억제 및 부패 악취 근본적 제거[cite: 597, 598].</li>
-                  [cite_start]<li>**UV 살균 (선택):** 분리된 선반 및 민감 부위에 UV 램프를 적용하여 화학 약품 없이 살균[cite: 600].</li>
+                  <li>**살균제 적용:** 식품 첨가물 등급의 안전한 살균제를 사용하여 식품 접촉 부위 소독. 잔류 성분 걱정 없음.</li>
+                  <li>**EM 소독법:** 유익 미생물을 활용한 소독으로 유해균 번식 억제 및 부패 악취 근본적 제거.</li>
+                  <li>**UV 살균 (선택):** 분리된 선반 및 민감 부위에 UV 램프를 적용하여 화학 약품 없이 살균.</li>
               </ul>
               <img src="img/placeholder_img_sterilize.jpg" alt="냉장고 살균 소독 이미지 (placeholder)">
           </div>
@@ -595,9 +598,9 @@
                   청소 이후 냉장고 본연의 기능이 최적으로 작동하도록 복원하고 잠재적인 고장 위험 요소를 점검합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**정밀 재조립:** 분해했던 모든 부품을 제조사 매뉴얼에 따라 안전하고 완벽하게 재조립[cite: 494].</li>
-                  [cite_start]<li>**냉각 효율 점검:** 응축기 청소 및 고무패킹 교체(필요 시)를 통해 냉각 효율을 증대하여 에너지 비용 절감[cite: 524].</li>
-                  [cite_start]<li>**고장 예측:** 전기 배선 및 주요 부품의 마모 여부를 점검하여 장비 수명 연장[cite: 494, 525].</li>
+                  <li>**정밀 재조립:** 분해했던 모든 부품을 제조사 매뉴얼에 따라 안전하고 완벽하게 재조립.</li>
+                  <li>**냉각 효율 점검:** 응축기 청소 및 고무패킹 교체(필요 시)를 통해 냉각 효율을 증대하여 에너지 비용 절감.</li>
+                  <li>**고장 예측:** 전기 배선 및 주요 부품의 마모 여부를 점검하여 장비 수명 연장.</li>
               </ul>
               <img src="img/placeholder_img_restore.jpg" alt="냉장고 기능 복원 이미지 (placeholder)">
           </div>
@@ -608,7 +611,7 @@
                   작업 결과를 투명하게 공유하고 고객사의 위생 환경을 장기적으로 개선할 수 있는 맞춤형 관리 플랜을 제공합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행[cite: 495].</li>
+                  <li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행.</li>
                   <li>**관리 가이드 제공:** 냉장고 보관 온도 및 습도 관리 가이드라인 제공.</li>
                   <li>**정기 관리:** 월간/분기별/반기별 맞춤형 정기 관리 플랜 제안.</li>
               </ul>
@@ -632,8 +635,8 @@
                   물을 사용하는 제빙기는 바이오필름과 수인성 세균 번식에 매우 취약합니다. 급수 시스템의 오염도를 정밀하게 진단합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**내시경 진단:** 급수 라인, 저수조, 제빙부 등 육안으로 확인 불가능한 내부의 물때, 슬라임, 바이오필름 오염 상태 확인[cite: 485].</li>
-                  [cite_start]<li>**ATP 측정:** 얼음 배출구, 얼음 삽 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU) 측정[cite: 594].</li>
+                  <li>**내시경 진단:** 급수 라인, 저수조, 제빙부 등 육안으로 확인 불가능한 내부의 물때, 슬라임, 바이오필름 오염 상태 확인.</li>
+                  <li>**ATP 측정:** 얼음 배출구, 얼음 삽 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU) 측정.</li>
                   <li>**수질 분석 (선택):** 급수 상태(수질/유량)를 점검하여 물의 위생 안전성 진단.</li>
               </ul>
               <img src="img/placeholder_img_diagnostic_ice.jpg" alt="제빙기 진단 이미지 (placeholder)">
@@ -645,9 +648,9 @@
                   제조사 전문가의 역량으로 제빙 시스템을 안전하게 완전 분해하여 오염원을 근본적으로 제거합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**주요 세척 대상:** 저수조, 급수 라인, 제빙 코크, 얼음 저장고 및 급배수 펌프[cite: 489].</li>
-                  [cite_start]<li>**바이오필름 제거:** 급수/제빙 시스템의 바이오필름과 스케일을 전용 세척 도구로 완벽하게 제거[cite: 487].</li>
-                  [cite_start]<li>**손상 방지:** 고가 장비의 복잡한 구조를 이해하고, 제품 손상 없이 완벽한 분해 및 재조립 보장[cite: 605].</li>
+                  <li>**주요 세척 대상:** 저수조, 급수 라인, 제빙 코크, 얼음 저장고 및 급배수 펌프.</li>
+                  <li>**바이오필름 제거:** 급수/제빙 시스템의 바이오필름과 스케일을 전용 세척 도구로 완벽하게 제거.</li>
+                  <li>**손상 방지:** 고가 장비의 복잡한 구조를 이해하고, 제품 손상 없이 완벽한 분해 및 재조립 보장.</li>
               </ul>
               <img src="img/placeholder_img_deepclean_ice.jpg" alt="제빙기 분해 세척 이미지 (placeholder)">
           </div>
@@ -658,8 +661,8 @@
                   오염된 물을 통해 노출되는 수인성 세균(레지오넬라균 등)에 대한 집중적인 멸균 솔루션을 적용합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**식품 등급 살균:** 식품 첨가물 등급 살균제를 이용한 안전한 소독으로 수인성 세균을 근본적으로 제거[cite: 492, 584].</li>
-                  [cite_start]<li>**고온 스팀 멸균:** 저수조 및 제빙부 등 민감한 영역에 고온 스팀을 적용하여 세균 및 바이러스를 99.9% 이상 멸균[cite: 492, 601].</li>
+                  <li>**식품 등급 살균:** 식품 첨가물 등급 살균제를 이용한 안전한 소독으로 수인성 세균을 근본적으로 제거.</li>
+                  <li>**고온 스팀 멸균:** 저수조 및 제빙부 등 민감한 영역에 고온 스팀을 적용하여 세균 및 바이러스를 99.9% 이상 멸균.</li>
                   <li>**잔류 성분 관리:** 소독 후 잔류 성분이 남지 않도록 완벽하게 헹굼 및 건조 처리.</li>
               </ul>
               <img src="img/placeholder_img_sterilize_ice.jpg" alt="제빙기 살균 소독 이미지 (placeholder)">
@@ -671,9 +674,9 @@
                   위생 관리와 더불어 제빙기의 성능과 수명을 연장시키는 예방 정비 서비스를 제공합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**기능 최적화:** 분리 부품 재조립 후, 제빙 속도 및 급수 상태를 점검하여 기능/성능을 복원[cite: 494].</li>
-                  [cite_start]<li>**에너지 효율 증대:** 응축기/필터 청소 및 관리를 통해 냉각 효율을 개선하고 에너지 손실 최소화[cite: 524].</li>
-                  [cite_start]<li>**고장 예측:** 진동 분석, 열화상 진단 등 전문 기술을 통해 고장 시점을 예측하여 사전 차단[cite: 614, 494].</li>
+                  <li>**기능 최적화:** 분리 부품 재조립 후, 제빙 속도 및 급수 상태를 점검하여 기능/성능을 복원.</li>
+                  <li>**에너지 효율 증대:** 응축기/필터 청소 및 관리를 통해 냉각 효율을 개선하고 에너지 손실 최소화.</li>
+                  <li>**고장 예측:** 진동 분석, 열화상 진단 등 전문 기술을 통해 고장 시점을 예측하여 사전 차단.</li>
               </ul>
               <img src="img/placeholder_img_restore_ice.jpg" alt="제빙기 기능 복원 이미지 (placeholder)">
           </div>
@@ -684,9 +687,9 @@
                   정량적인 결과를 기반으로 위생 안전성을 증명하고, 정기 관리 프로그램을 통해 HACCP 기준을 충족시킵니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행[cite: 495].</li>
+                  <li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행.</li>
                   <li>**관리 가이드 제공:** 정수 필터 교체 주기 및 일상 청소 관리 가이드라인 제공.</li>
-                  [cite_start]<li>**정기 관리:** 제빙기 고장률 70% 감소를 목표로 하는 월간/분기별 정기 관리 플랜 제안[cite: 496].</li>
+                  <li>**정기 관리:** 제빙기 고장률 70% 감소를 목표로 하는 월간/분기별 정기 관리 플랜 제안.</li>
               </ul>
               <img src="img/placeholder_img_report_ice.jpg" alt="제빙기 사후 보고서 이미지 (placeholder)">
           </div>
@@ -709,7 +712,7 @@
               </p>
               <ul class="bullet-list">
                   <li>**내부 오염 진단:** 내부 벽면의 찌든 때, 기름때, 음식물 잔여물 축적 정도 및 곰팡이 발생 여부 진단.</li>
-                  [cite_start]<li>**ATP 측정:** 문손잡이 및 조작 버튼 등 '교차 감염 주요 경로'의 미세 세균 오염도(RLU) 측정[cite: 594, 588, 485].</li>
+                  <li>**ATP 측정:** 문손잡이 및 조작 버튼 등 '교차 감염 주요 경로'의 미세 세균 오염도(RLU) 측정.</li>
                   <li>**악취 분석:** 내부 잔류 냄새의 원인 파악.</li>
               </ul>
               <img src="img/placeholder_img_diagnostic_micro.jpg" alt="전자레인지 진단 이미지 (placeholder)">
@@ -721,8 +724,8 @@
                   내부에 고착된 기름때와 음식물 찌꺼기는 일반적인 청소로 제거가 어렵습니다. 전문 도구로 완벽하게 1차 제거합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**주요 세척 대상:** 내부 커버, 회전판, 기름때가 응고된 내부 표면[cite: 489].</li>
-                  [cite_start]<li>**찌든 때 제거:** 고착된 기름때와 음식물 찌꺼기를 전용 세척제를 사용하여 안전하고 완벽하게 제거[cite: 487].</li>
+                  <li>**주요 세척 대상:** 내부 커버, 회전판, 기름때가 응고된 내부 표면.</li>
+                  <li>**찌든 때 제거:** 고착된 기름때와 음식물 찌꺼기를 전용 세척제를 사용하여 안전하고 완벽하게 제거.</li>
                   <li>**외관 세척:** 빈번한 접촉 부위인 외부 표면 및 조작 버튼 집중 세척.</li>
               </ul>
               <img src="img/placeholder_img_deepclean_micro.jpg" alt="전자레인지 분해 세척 이미지 (placeholder)">
@@ -734,9 +737,9 @@
                   내부의 식중독균(포도상구균 등) 및 외부의 접촉성 병원균에 대한 멸균 작업을 수행합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**고온 스팀 살균:** 내부 세척 후 고온 스팀을 사용하여 찌든 때 잔여물 제거와 동시에 세균을 **99.9% 이상 멸균**[cite: 492, 601].</li>
-                  [cite_start]<li>**항균 소독:** 외관 및 조작 버튼 등 접촉 부위를 항균 소독하여 교차 감염 위험을 예방[cite: 493, 588].</li>
-                  [cite_start]<li>**EM 소독법:** 악취를 유발하는 유해균을 억제하는 친환경 EM 소독법 적용[cite: 597].</li>
+                  <li>**고온 스팀 살균:** 내부 세척 후 고온 스팀을 사용하여 찌든 때 잔여물 제거와 동시에 세균을 **99.9% 이상 멸균**.</li>
+                  <li>**항균 소독:** 외관 및 조작 버튼 등 접촉 부위를 항균 소독하여 교차 감염 위험을 예방.</li>
+                  <li>**EM 소독법:** 악취를 유발하는 유해균을 억제하는 친환경 EM 소독법 적용.</li>
               </ul>
               <img src="img/placeholder_img_sterilize_micro.jpg" alt="전자레인지 살균 소독 이미지 (placeholder)">
           </div>
@@ -747,9 +750,9 @@
                   청결 유지와 함께 전자레인지의 작동 안전성을 점검하여 임직원의 안전한 사용 환경을 보장합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**기능 복원:** 분리 부품 재조립 및 회전판 작동 여부 점검[cite: 494].</li>
+                  <li>**기능 복원:** 분리 부품 재조립 및 회전판 작동 여부 점검.</li>
                   <li>**외관 청결 및 안전 점검:** 내부 찌꺼기 제거를 통해 과열 위험을 줄이고 작동 상태를 점검.</li>
-                  [cite_start]<li>**장비 수명 연장:** 내부 오염 방지를 통해 장비 수명을 연장하고 교체 비용을 절감[cite: 525].</li>
+                  <li>**장비 수명 연장:** 내부 오염 방지를 통해 장비 수명을 연장하고 교체 비용을 절감.</li>
               </ul>
               <img src="img/placeholder_img_restore_micro.jpg" alt="전자레인지 기능 복원 이미지 (placeholder)">
           </div>
@@ -760,7 +763,7 @@
                   투명한 위생 보고서 발행과 정기 관리 컨설팅으로 최적의 위생 상태를 지속적으로 유지합니다.
               </p>
               <ul class="bullet-list">
-                  [cite_start]<li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행[cite: 495].</li>
+                  <li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행.</li>
                   <li>**사용자 가이드 제공:** 음식물 덮개 사용 등 일상적인 위생 관리법 교육.</li>
                   <li>**정기 관리:** 정기적인 방문 관리를 통한 지속적인 위생 안전망 구축.</li>
               </ul>
@@ -803,14 +806,14 @@
     </main>
 
     <div class="fixed-buttons">
-      <button onclick="location.href='#quiz'">원스톱상담</button>
-      <button onclick="window.location.href='tel:000-0000-0000'">전화상담</button>
+      <button onclick="document.querySelector('.main-menu a[data-target=\'quiz-section\']').click();">원스톱상담</button>
+      <button onclick="window.location.href='tel:01057138417'">전화상담</button>
     </div>
 
     <footer>
       <div class="scroll-text">
-          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 000-0000-0000 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
-          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 000-0000-0000 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
+          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 010-5713-8417 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
+          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 010-5713-8417 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
       </div>
     </footer>
 
@@ -898,9 +901,8 @@
           targetSection.classList.add('active');
         }
 
-        // 퀴즈 섹션이 아닌 경우
+        // 퀴즈 섹션 처리: 퀴즈가 아닌 다른 섹션으로 이동 시 퀴즈 초기화 (화면 잔류 현상 제거)
         if (targetId === 'quiz-section') {
-            // 퀴즈 섹션으로 이동 시 퀴즈 초기화 및 Q1 활성화
             const quizSection = document.getElementById('quiz-section');
             quizSection.style.display = 'block';
             quizSection.classList.add('active'); 
@@ -908,6 +910,9 @@
             if (questions.length > 0) {
               questions[0].classList.add('active');
             }
+        } else {
+             // 퀴즈가 아닌 다른 메뉴로 이동할 때 퀴즈 질문을 명시적으로 숨김
+             questions.forEach(q => q.classList.remove('active'));
         }
         
         // 서브 메뉴가 있는 섹션 (냉장고, 제빙기, 전자레인지)으로 이동 시 첫 번째 서브 메뉴 활성화
@@ -944,6 +949,7 @@
     let selectedRegion = '';
     const questions = document.querySelectorAll('#quiz-section .question');
     const mainContent = document.querySelector('main');
+    const phoneNumber = '01057138417'; // [수정] 전화번호 설정
 
     function resetQuiz() {
       questions.forEach(q => q.classList.remove('active'));
@@ -955,7 +961,7 @@
       selectedRegion = '';
     }
 
-    // [수정] 퀴즈 데이터 (사용자 요청에 따라 Q1 목록 재반영)
+    // [수정] 퀴즈 데이터
     const data = {
       // Q1: 어떤 제품 인가요?
       q1: ['커피머신', '제빙기', '냉장고', '식기세척기', '대형설비', '특수장비', '중고매입', '기타'],
@@ -1019,10 +1025,12 @@
         selectedRegion = btn.textContent;
         // Q4 선택 시 Q5 (도시/시/군/구) 목록 업데이트
         updateCityOptions(selectedRegion);
-      }
-      
-      // Q1~Q4는 다음 질문으로 자동 이동, Q5는 버튼 클릭으로 이동
-      if (parentId !== 'q5') {
+        showNext(); // Q4 선택 후 Q5로 이동
+      } else if (parentId === 'q5') {
+        // Q5 선택 시 결과 화면으로 이동
+        showNext();
+      } else if (parentId === 'q1' || parentId === 'q2' || parentId === 'q3') {
+        // Q1, Q2, Q3 선택 시 다음 질문으로 이동
         showNext();
       }
     }
@@ -1031,7 +1039,7 @@
       const cityContainer = document.getElementById('opt5');
       cityContainer.innerHTML = ''; // 기존 옵션 초기화
       
-      const cities = data.cities[region] || ['지역 상세 없음']; // cities 데이터를 사용하여 도시 목록 생성
+      const cities = data.cities[region] || ['지역 상세 없음']; 
         
       cities.forEach(city => {
           const btn = createOptionButton(city);
@@ -1040,15 +1048,14 @@
     }
 
     function showNext(isLastStep = false) {
-      const isQ4 = questions[current].id === 'q4'; // 현재 질문이 Q4(지역)인지 확인
+      const isQ4 = questions[current].id === 'q4'; 
       
       questions[current].classList.remove('active');
       current++;
       
-      // [수정] Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기
+      // [수정] Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기 로직 보강
       if (isQ4) {
           const cityList = data.cities[selectedRegion];
-          // 도시 목록이 없거나 (오류방지), 목록 길이가 1개 이하일 경우 (예: '강원 전역')
           if (!cityList || cityList.length <= 1) {
               current++; // Q5 건너뛰기
           }
@@ -1058,8 +1065,8 @@
         questions[current].classList.add('active');
       }
       
-      // 마지막 질문(result)로 이동할 때
-      if (current === questions.length - 1 || isLastStep) summarize();
+      // 마지막 질문(result)로 이동할 때 또는 강제 이동 시 (isLastStep은 Q5 선택 시 자동으로 처리되므로 제거)
+      if (current === questions.length - 1) summarize();
     }
 
     function summarize() {
@@ -1069,11 +1076,10 @@
       });
       document.getElementById('summary').textContent = `선택하신 내용: ${answers.join(', ')}`;
 
-      // 자동 문자 메시지 내용 생성
+      // [수정] 자동 문자 메시지 내용 생성 및 번호 연결
       const smsMessage = `크린메이트 상담 요청: ${answers.join(', ')}`;
       document.getElementById('sendSMS').onclick = () => {
-        // 실제 전화번호로 연결 및 문자 메시지 전송 로직
-        window.location.href = `sms:000-0000-0000?body=${encodeURIComponent(smsMessage)}`;
+        window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(smsMessage)}`;
       };
     }
 
@@ -1120,7 +1126,7 @@
       generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
       // [실적] /jpg/001.jpg 형식으로 변경 (폴더: jpg, 시작번호: 1, 최대 100개 시도, 패딩: 3)
       generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
-      // [협력] /partner/partner1.jpg 형식으로 변경 (폴더: partner, 시작번호: 1, 최대 10개 시도, 패딩: 0)
+      // [협력] /partner/partner1.jpg 형식으로 변경 (폴더: partner, 시작번호: 1, 최대 10개 시도, 패딩: 0) - 경로 유지
       generateGallery('partner-gallery-container', 'partner', 1, 10, 'partner', 0); 
     });
 
