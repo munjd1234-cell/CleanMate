@@ -145,7 +145,7 @@
 
   main {
     margin-top: 122px; 
-    /* **[수정]** 버튼을 5px 내린 만큼 margin-bottom도 5px 감소 (90px -> 85px) */
+    /* 하단 버튼 간격 문제 개선: 90px -> 85px */
     margin-bottom: 85px; 
     height: calc(100vh - 122px - 85px); 
     overflow-y: auto;
@@ -209,7 +209,7 @@
   /* --- [하단 고정 버튼] --- */
   .fixed-buttons {
     position: fixed;
-    /* **[수정]** 푸터와의 간격을 줄이기 위해 bottom: 40px -> 35px로 조정 */
+    /* 하단 버튼 간격 문제 개선: bottom: 40px -> 35px로 조정 */
     bottom: 35px; 
     left: 0;
     width: 100%;
@@ -265,23 +265,57 @@
     color: #ccc;
     padding: 0 10px 30px; 
   }
-  #company-section h2, #company-section h3, #company-section h4,
-  .solution-content-wrapper h2, .solution-content-wrapper h3, .solution-content-wrapper h4 {
-    text-align: center;
-    color: #00bfa5;
-    margin-top: 30px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #333; 
-    padding-bottom: 5px;
+  
+  /* --- [제안 섹션 제목 박스 스타일 적용] --- */
+  .solution-content-wrapper.active#company-section h2, 
+  .solution-content-wrapper.active#company-section h3, 
+  .solution-content-wrapper.active#company-section h4 {
+      /* 기존 스타일 초기화 및 공통 박스 설정 */
+      text-align: center; 
+      color: #00bfa5; 
+      margin-top: 30px;
+      margin-bottom: 15px; 
+      border-bottom: none !important; /* 기존 구분선 제거 */
+      padding-bottom: 0; 
+  
+      /* 박스 공통 속성 */
+      display: block; 
+      width: fit-content; 
+      max-width: 90%;
+      margin-left: auto;
+      margin-right: auto;
+      padding: 10px 20px; 
+      border-radius: 8px;
+      box-sizing: border-box;
+      font-weight: 700;
   }
-  /* 서브 섹션 내의 부제목 (A, B 같은 분류)을 왼쪽 정렬 처리 */
-  .sub-heading-left {
-    color: #ccc !important; 
-    text-align: left !important;
-    border-bottom: 1px solid #333 !important; 
-    padding-bottom: 5px;
-    margin-top: 20px; 
-    margin-bottom: 10px; 
+  
+  /* 대박스 스타일 (H2: 메인 타이틀) */
+  .solution-content-wrapper.active#company-section h2 {
+      background-color: #00bfa5; 
+      color: #fff; 
+      font-size: 18px;
+      padding: 12px 25px;
+      border-radius: 5px;
+      margin-top: 10px; 
+  }
+  
+  /* 소박스 스타일 (H3/H4: 소제목) */
+  .solution-content-wrapper.active#company-section h3,
+  .solution-content-wrapper.active#company-section h4 {
+      background-color: #2a2a2a; 
+      color: #ccc; 
+      font-size: 16px;
+      border: 1px solid #444; 
+      margin-top: 40px; /* H3 제목의 상단 마진 */
+  }
+  
+  /* .sub-heading-left 클래스가 붙은 H4도 박스 스타일 적용을 위해 중앙 정렬로 재정의 */
+  .solution-content-wrapper.active#company-section .sub-heading-left {
+      text-align: center !important; 
+      color: #ccc !important; 
+      margin-top: 25px !important; /* H4 제목의 상단 마진 */
+      border-bottom: none !important; /* 기존 구분선 제거 */
   }
 
   #company-section strong, .solution-content-wrapper strong {
@@ -456,14 +490,14 @@
     <main>
       
       <div id="company-section" class="content-section solution-content-wrapper">
-          <h2>🏢 기업 위생 가전 소독 관리 전문 업체</h2>
+          <h2>기업 위생 가전 소독 관리</h2>
           
-          <h3 id="company-s01-anchor">1. 💡 제안 배경 및 필요성</h3>
+          <h3 id="company-s01-anchor">제안 배경 및 필요성</h3>
           <p>
               직원들의 건강과 복지, 그리고 기업의 생산성은 안전한 근무 환경에서 시작됩니다. 다중이용 시설인 기업 사무실에서 공동으로 사용하는 위생 가전은 "보이지 않는 감염 위험 구역"입니다.
           </p>
           
-          <h4 class="sub-heading-left">A. 기업 내 위생 가전의 현실 (Risk Assessment)</h4>
+          <h4 class="sub-heading-left">위생 가전의 현실</h4>
           <p>
               기업 내 위생 가전은 가정용 대비 사용 빈도(하루 수백 회)가 현저히 높아 오염 가속도가 빠르고, 세균 번식에 취약합니다.
           </p>
@@ -483,7 +517,7 @@
               <img src="imege/0018.jpg" alt="청소 전후 비교 7">
           </div>
 
-          <h4 class="sub-heading-left">B. 중점 관리 대상 가전의 위협</h4>
+          <h4 class="sub-heading-left">중점 관리 대상 가전</h4>
           <p>
               당사의 전문 관리가 필요한 주요 대상입니다.
           </p>
@@ -492,7 +526,7 @@
           </ul>
           <img src="imege/0034.jpg" alt="중점 관리 대상 가전 사진"/>
 
-          <h3 id="company-s02-anchor">2. 🏛️ 회사 소개</h3>
+          <h3 id="company-s02-anchor">회사 소개</h3>
           <p>
               주식회사 디에이치씨솔루션은 20년간 위생 기술 선도력, 국내 최대 규모의 인력풀, 그리고 AI 시스템을 결합하여, 기업 위생 관리에 가장 빠르고 정확하며 신뢰할 수 있는 미래형 솔루션을 제공합니다.
               <br>클린메이트는 디에이치씨솔루션의 가전소독전문 브랜드명입니다.
@@ -528,7 +562,7 @@
               <img src="imege/0004.jpg" alt="영업신고증">
           </div>
 
-          <h3 id="company-s03-anchor">3. 🔬 기술력: 20년간 국내 위생 기술을 선도한 전문 연구진</h3>
+          <h3 id="company-s03-anchor">기술력</h3>
           <p>
               당사의 연구소는 한국에 없던 다양한 위생·환경 기술을 20년 전 최초로 도입한 전문가들로 구성되어 있습니다.
           </p>
@@ -538,7 +572,7 @@
           </ul>
           <img src="imege/0029.jpg" alt="기술력 관련 이미지 (placeholder)" onerror="this.src='https://via.placeholder.com/400x200/333333/cccccc?text=imege/0029.jpg';" />
           
-          <h3 id="company-s04-anchor">4. 🧑‍🤝‍🧑 인력풀: 1,500명 이상 즉시 대응 가능한 국내 최대 규모</h3>
+          <h3 id="company-s04-anchor">인력풀</h3>
           <p>
               웅진, 삼성, LG, 미쯔비시 등 제조사 및 협력사 출신 전문가 500명 이상을 포함한 한국인 전문 인력과, 긴급·특수 작업 대응 기초 인력을 24시간 즉시 확보 가능합니다.
           </p>
@@ -547,7 +581,7 @@
           </ul>
           <img src="imege/0020.jpg" alt="인력풀 관련 이미지 (placeholder)" onerror="this.src='https://via.placeholder.com/400x200/333333/cccccc?text=imege/0020.jpg';" />
 
-          <h3 id="company-s05-anchor">5. 🤖 AI 도입: 미래형 ‘구독형 위생 중앙시스템’</h3>
+          <h3 id="company-s05-anchor">AI 도입</h3>
           <p>
               단순 사후 처리를 넘어, 문제가 생기기 전 사전 차단하는 미래형 위생 관리 시스템을 구축하고 있습니다 (투자 유치 중).
           </p>
@@ -1126,6 +1160,7 @@
         
       cities.forEach(city => {
           const btn = createOptionButton(city);
+          btn.addEventListener('click', handleOptionClick); // 새로운 버튼에도 이벤트 리스너 연결
           cityContainer.appendChild(btn);
       });
     }
