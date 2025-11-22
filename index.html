@@ -37,6 +37,7 @@
     overflow: hidden;
     padding: 0 10px;
     box-sizing: border-box;
+    cursor: pointer; /* 클릭 시 스킵 가능함을 표시 */
   }
   #intro-screen.fade-out {
     opacity: 0;
@@ -95,16 +96,16 @@
     width: 100%;
     background: #fff;
     text-align: center;
-    padding: 10px 0;
+    padding: 8px 0; /* [수정] 로고-문구 간격 조정 (10px -> 8px) */
     z-index: 1000;
-    height: 79px; 
+    /* height: 79px; */ /* 고정 높이 제거 */
     box-sizing: border-box;
   }
   /* [수정] 로고 파일명 반영 */
   header img { height: 40px; } 
-  /* [수정] 로고 하단 문구 반영 */
+  /* [수정] 로고 하단 문구 간격 조정 (5px 0 0 -> 0) */
   header h2 {
-    margin: 5px 0 0;
+    margin: 0; 
     font-size: 14px;
     color: #333;
     font-weight: bold;
@@ -113,12 +114,11 @@
   /* --- [메인 메뉴바] --- */
   .main-menu {
     position: fixed;
-    top: 79px; 
+    top: 68px; /* [수정] 헤더 높이 조정에 맞게 top 위치 변경 (79px -> 68px) */ 
     left: 0;
     width: 100%;
     background: #222;
     display: flex;
-    /* 8개 메뉴를 담기 위해 flex-wrap: nowrap 설정 및 overflow-x: auto 적용 */
     flex-wrap: nowrap; 
     justify-content: space-around;
     border-bottom: 1px solid #444;
@@ -127,11 +127,11 @@
     -webkit-overflow-scrolling: touch;
   }
   .menu-btn {
-    padding: 12px 5px; /* 공간 확보를 위해 패딩 줄임 */
+    padding: 12px 5px; 
     color: #ccc;
     text-decoration: none;
-    font-size: 13px; /* 글자 크기 줄임 */
-    flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
+    font-size: 13px; 
+    flex-shrink: 0; 
     flex-grow: 1;
     text-align: center;
     border-left: 1px solid #444;
@@ -146,10 +146,10 @@
   }
 
   main {
-    margin-top: 125px; 
-    /* [수정 반영] 하단 버튼과의 간격 확보 (70px -> 110px로 늘림) */
-    margin-bottom: 110px;
-    height: calc(100vh - 125px - 110px); 
+    margin-top: 115px; /* [수정] 헤더/메뉴 높이 조정에 맞게 변경 (125px -> 115px) */ 
+    /* [수정] 하단 버튼과의 간격 조정 (110px -> 80px로 줄임) */
+    margin-bottom: 80px;
+    height: calc(100vh - 115px - 80px); /* 높이 계산 수정 */
     overflow-y: auto;
     text-align: center;
     padding: 0 15px; 
@@ -167,7 +167,6 @@
   .question { 
     display: none; 
     animation: fadeIn 0.3s ease-in-out; 
-    /* [수정] 퀴즈 잔류 현상 방지를 위해 퀴즈 내의 질문도 명시적으로 hidden 처리 */
   }
   .question.active { 
     display: block; 
@@ -206,9 +205,9 @@
 
   /* --- [요청에 의해 추가된 하단 고정 버튼] --- */
   .fixed-buttons {
-    /* [수정 반영] bottom 여백 증가 (25px -> 40px로 늘림) */
+    /* [수정] bottom 여백 조정 (40px -> 15px로 줄임) */
     position: fixed;
-    bottom: 40px; 
+    bottom: 15px; 
     left: 0;
     width: 100%;
     display: flex;
@@ -225,7 +224,7 @@
     padding: 12px 20px;
     font-size: 15px;
     cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0, 191, 165, 0.4); /* 디자인 통일성 유지 */
+    box-shadow: 0 4px 10px rgba(0, 191, 165, 0.4); 
   }
 
   footer {
@@ -294,7 +293,7 @@
     color: #00bfa5;
     margin-top: 30px;
     margin-bottom: 10px;
-    border-bottom: 1px solid #333; /* 섹션 구분선 */
+    border-bottom: 1px solid #333; 
     padding-bottom: 5px;
   }
   #company-section strong, .solution-content-wrapper strong {
@@ -326,13 +325,12 @@
   /* --- [추가된 솔루션 섹션 스타일] --- */
   .sub-menu {
     display: flex;
-    /* [수정 반영] 좌우 스크롤을 위해 flex-start, overflow-x: auto 적용 */
     justify-content: flex-start;
     gap: 5px;
     margin-bottom: 20px;
     padding: 10px 0;
     border-bottom: 1px solid #444;
-    overflow-x: auto; /* 핵심 수정: 좌우 스크롤 허용 */
+    overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
   }
   .sub-btn {
@@ -344,8 +342,8 @@
     font-size: 13px;
     cursor: pointer;
     transition: all 0.2s;
-    white-space: nowrap; /* 핵심 수정: 줄바꿈 방지 */
-    flex-shrink: 0; /* 버튼이 줄어들지 않도록 */
+    white-space: nowrap; 
+    flex-shrink: 0; 
   }
   .sub-btn.active {
     background-color: #00bfa5;
@@ -359,7 +357,7 @@
     line-height: 1.6;
     padding: 10px 0 30px;
     animation: fadeIn 0.3s ease-in-out;
-    text-align: center; /* 이미지 배치를 위해 중앙 정렬 */
+    text-align: center; 
   }
   .sub-content.active {
     display: block;
@@ -383,18 +381,17 @@
     padding: 10px 0;
   }
   .solution-img-gallery img {
-    width: 48%; /* 2개씩 나열 */
+    width: 48%; 
     margin: 0;
   }
   /* 반응형 테이블 처리 */
   .solution-content-wrapper table {
     width: 100%;
-    /* overflow-x: auto; */ /* 모바일에서 표가 깨지지 않도록 조정 */
     display: block;
     border-collapse: collapse;
     margin: 15px auto;
     font-size: 13px;
-    table-layout: fixed; /* 테이블 너비 고정 */
+    table-layout: fixed; 
   }
   .solution-content-wrapper table td, 
   .solution-content-wrapper table th {
@@ -407,6 +404,38 @@
   .solution-content-wrapper table th {
     background-color: #222;
     color: #00bfa5;
+  }
+
+  /* --- [PC/태블릿 환경에서 모바일 뷰 고정 및 중앙 정렬 (추가)] --- */
+  @media (min-width: 500px) {
+    body {
+        /* PC에서 스크롤 문제가 발생하지 않도록 메인 콘텐츠 스크롤을 유지 */
+        overflow-y: auto !important; 
+        overflow-x: hidden !important; 
+    }
+
+    /* 인트로 화면 및 메인 콘텐츠 영역을 최대 480px로 제한하고 중앙에 배치 */
+    #intro-screen,
+    #main-content-wrapper {
+        max-width: 480px; 
+        margin: 0 auto; 
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); /* 중앙 콘텐츠 강조 */
+    }
+
+    /* Fixed 요소들 (헤더, 메뉴, 하단 버튼, 푸터)도 최대 480px 너비를 갖고 중앙에 고정되도록 설정 */
+    header, .main-menu, .fixed-buttons, footer {
+        width: 100%;
+        max-width: 480px; 
+        left: 50%;
+        transform: translateX(-50%); /* 중앙 정렬 */
+    }
+    
+    /* PC 환경에서 main 콘텐츠의 높이 제약을 해제하여 콘텐츠 길이에 따라 스크롤 가능하게 합니다. */
+    main {
+         height: auto;
+         min-height: calc(100vh - 115px - 80px); /* 최소 높이는 유지 */
+    }
+
   }
 </style>
 </head>
@@ -544,7 +573,7 @@
         <p>크린메이트가 만들어온 청결한 환경과 결과</p>
         <div class="gallery" id="portfolio-gallery-container">
           </div>
-        </div>
+      </div>
 
       <div id="mos-section" class="content-section solution-content-wrapper">
           <h2>냉장고 위생 관리 솔루션</h2>
@@ -803,8 +832,7 @@
         <p>최고 수준의 위생과 안정적 운영이 필요한 모든 곳이 크린메이트와 함께합니다.</p>
         <div class="gallery" id="partner-gallery-container">
           </div>
-        <p style="margin-top: 20px;">(이미지: 국내외 주요 장비 제조사 및 파트너사 로고)</p>
-      </div>
+        </div>
 
     </main>
 
@@ -815,8 +843,8 @@
 
     <footer>
       <div class="scroll-text">
-          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 010-5713-8417 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
-          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 010-5713-8417 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
+          상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 거여동 604-3 0806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp;
+          상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 거여동 604-3 0806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp;
       </div>
     </footer>
 
@@ -827,7 +855,9 @@
     const introScreen = document.getElementById('intro-screen');
     const introItems = document.querySelectorAll('.intro-item');
     const mainContentWrapper = document.getElementById('main-content-wrapper');
+    const mainContent = document.querySelector('main'); // 추가
     let phraseIndex = 0;
+    let timeoutId; // [추가] setTimeout ID 저장을 위한 변수
 
     function showNextPhrase() {
       if (phraseIndex > 0) {
@@ -840,16 +870,19 @@
         // 현재 문장 강조
         introItems[phraseIndex].classList.add('active');
         phraseIndex++;
-        // 다음 문장을 딜레이를 두고 표시
-        setTimeout(showNextPhrase, 700);
+        // 다음 문장을 딜레이를 두고 표시 (setTimeout ID 저장)
+        timeoutId = setTimeout(showNextPhrase, 700);
       } else {
-        // 모든 문장 표시 완료 후 메인 콘텐츠 로드
-        setTimeout(loadMainContent, 1000);
+        // 모든 문장 표시 완료 후 메인 콘텐츠 로드 (setTimeout ID 저장)
+        timeoutId = setTimeout(loadMainContent, 1000);
       }
     }
 
     function loadMainContent() {
       introScreen.classList.add('fade-out');
+      // [수정] 화면 로드 완료 시 인트로 클릭 이벤트 제거
+      introScreen.removeEventListener('click', skipIntro);
+
       setTimeout(() => {
         introScreen.style.display = 'none';
         mainContentWrapper.style.display = 'block';
@@ -857,14 +890,27 @@
           mainContentWrapper.style.opacity = 1;
         }, 50);
 
-        // 첫 번째 메뉴 버튼 활성화 (새로운 순서에 따라 '회사' 버튼 활성화)
+        // 첫 번째 메뉴 버튼 활성화 ('회사' 버튼 활성화)
         const firstMenuBtn = document.querySelector('.main-menu .menu-btn:first-child');
         if (firstMenuBtn) {
-            firstMenuBtn.click(); // 첫 번째 메뉴 버튼 클릭 이벤트 트리거
+            firstMenuBtn.click(); 
         }
       }, 500);
     }
     
+    // [추가] 클릭 시 인트로 스킵 함수
+    function skipIntro() {
+        if (timeoutId) {
+            clearTimeout(timeoutId); // 애니메이션 딜레이 취소
+        }
+        // 모든 텍스트를 최종 상태로 표시
+        introItems.forEach(item => {
+            item.classList.remove('active');
+            item.classList.add('visible');
+        });
+        loadMainContent(); // 즉시 메인 콘텐츠 로드
+    }
+
     // --- [메인 메뉴 및 서브 메뉴 로직] ---
     const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
     const contentSections = document.querySelectorAll('.content-section');
@@ -951,8 +997,8 @@
     let answers = [];
     let selectedRegion = '';
     const questions = document.querySelectorAll('#quiz-section .question');
-    const mainContent = document.querySelector('main');
-    const phoneNumber = '01057138417'; // [수정] 전화번호 설정
+    // const mainContent = document.querySelector('main'); // 이미 전역 변수로 선언됨
+    const phoneNumber = '01057138417'; 
 
     function resetQuiz() {
       questions.forEach(q => q.classList.remove('active'));
@@ -1056,7 +1102,7 @@
       questions[current].classList.remove('active');
       current++;
       
-      // [수정] Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기 로직 보강
+      // Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기 로직 보강
       if (isQ4) {
           const cityList = data.cities[selectedRegion];
           if (!cityList || cityList.length <= 1) {
@@ -1079,7 +1125,7 @@
       });
       document.getElementById('summary').textContent = `선택하신 내용: ${answers.join(', ')}`;
 
-      // [수정] 자동 문자 메시지 내용 생성 및 번호 연결
+      // 자동 문자 메시지 내용 생성 및 번호 연결
       const smsMessage = `크린메이트 상담 요청: ${answers.join(', ')}`;
       document.getElementById('sendSMS').onclick = () => {
         window.location.href = `sms:${phoneNumber}?body=${encodeURIComponent(smsMessage)}`;
@@ -1095,19 +1141,16 @@
       const container = document.getElementById(containerId);
       if (!container) return;
 
-      // 이전 콘텐츠 유지 (기술 섹션의 경우 인증/수료증 텍스트가 이미 삽입되어 있으므로)
       let html = ''; 
 
       for (let i = startIdx; i < startIdx + maxAttempts; i++) {
         let fileName;
         let altText;
         if (padding > 0) {
-          // 패딩이 0 이상이면 001.jpg, 002.jpg 형식으로 파일명을 생성
           let fileNumber = i.toString().padStart(padding, '0');
           fileName = `${fileNumber}.jpg`;
           altText = `이미지 ${fileNumber}`;
         } else {
-          // 패딩이 없으면 baseName1.jpg, baseName2.jpg 형식으로 파일명을 생성
           fileName = `${baseName}${i}.jpg`;
           altText = `${baseName} ${i}`;
         }
@@ -1118,9 +1161,11 @@
       container.innerHTML = html;
     }
 
-    // 페이지 로드 시 인트로 시작
+    // 페이지 로드 시 인트로 시작 및 클릭 이벤트 연결
     document.addEventListener('DOMContentLoaded', () => {
       setTimeout(showNextPhrase, 500);
+      // [추가] 인트로 화면 클릭 시 스킵 기능 연결
+      introScreen.addEventListener('click', skipIntro);
     });
 
     // 갤러리 로드 실행
