@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>클린메이트 Clean Mate</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <style>
   /* --- [디자인 복원/유지] --- */
   body {
@@ -12,11 +11,7 @@
     font-family: 'Pretendard', sans-serif;
     background-color: #111; /* 배경색 유지 */
     color: #fff; /* 기본 글자색 유지 */
-    overflow-x: hidden;
-  }
-  a {
-    color: inherit;
-    text-decoration: none;
+    overflow: hidden;
   }
 
   /* --- [인트로 화면 스타일 및 애니메이션] --- */
@@ -45,28 +40,35 @@
   }
   #intro-screen.fade-out {
     opacity: 0;
-    visibility: hidden;
   }
+
+  /* 텍스트를 세로로 중앙 정렬하고 누적되게 함 */
   .intro-item {
     display: block;
     opacity: 0;
     color: #00bfa5;
     transition: all 0.5s ease-in-out;
-    margin: 5px 0;
+    margin: 5px 0; /* 글자 간격 유지 */
     transform: scale(0.9);
   }
+  
+  /* 노출된 글자 (누적) */
   .intro-item.visible {
     opacity: 1;
     transform: scale(1.0);
-    color: #aaa;
+    color: #aaa; /* 남은 글자는 약간 흐리게 */
     font-weight: 500;
   }
+
+  /* 현재 글자 (강조) */
   .intro-item.active {
     opacity: 1;
-    transform: scale(1.15);
+    transform: scale(1.15); /* 새로 나타날 때 강조 확대 */
     color: #00bfa5;
     font-weight: 800;
   }
+
+  /* 마지막 문장 강조 */
   .intro-item.final-phrase {
     color: #fff;
     background-color: #00bfa5;
@@ -98,7 +100,9 @@
     height: 79px; 
     box-sizing: border-box;
   }
+  /* [수정] 로고 파일명 반영 */
   header img { height: 40px; } 
+  /* [수정] 로고 하단 문구 반영 */
   header h2 {
     margin: 5px 0 0;
     font-size: 14px;
@@ -106,7 +110,7 @@
     font-weight: bold;
   }
 
-  /* --- [메인 메뉴바 - 5개 항목에 맞춰 스타일 조정] --- */
+  /* --- [메인 메뉴바] --- */
   .main-menu {
     position: fixed;
     top: 79px; 
@@ -114,23 +118,24 @@
     width: 100%;
     background: #222;
     display: flex;
-    justify-content: space-around; /* 5개 메뉴 균등 분배 */
+    /* 8개 메뉴를 담기 위해 flex-wrap: nowrap 설정 및 overflow-x: auto 적용 */
+    flex-wrap: nowrap; 
+    justify-content: space-around;
     border-bottom: 1px solid #444;
     z-index: 1000;
     overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
   }
   .menu-btn {
-    padding: 12px 5px;
+    padding: 12px 5px; /* 공간 확보를 위해 패딩 줄임 */
     color: #ccc;
     text-decoration: none;
-    font-size: 13px;
-    flex-shrink: 0;
+    font-size: 13px; /* 글자 크기 줄임 */
+    flex-shrink: 0; /* 버튼이 줄어들지 않도록 설정 */
     flex-grow: 1;
     text-align: center;
     border-left: 1px solid #444;
     cursor: pointer;
-    min-width: 60px; /* 너무 줄어들지 않도록 최소 너비 설정 */
   }
   .menu-btn:first-child {
     border-left: none;
@@ -142,8 +147,8 @@
 
   main {
     margin-top: 125px; 
-    margin-bottom: 70px; /* 하단 고정 버튼 높이만큼 여백 확보 */
-    height: calc(100vh - 125px - 70px); 
+    margin-bottom: 130px;
+    height: calc(100vh - 125px - 130px); 
     overflow-y: auto;
     text-align: center;
     padding: 0 15px; 
@@ -156,6 +161,13 @@
     animation: fadeIn 0.3s ease-in-out;
   }
   .content-section.active {
+    display: block; 
+  }
+  .question { 
+    display: none; 
+    animation: fadeIn 0.3s ease-in-out; 
+  }
+  .question.active { 
     display: block; 
   }
 
@@ -190,9 +202,10 @@
     box-shadow: 0 0 8px #00bfa5;
   }
 
+  /* --- [요청에 의해 추가된 하단 고정 버튼] --- */
   .fixed-buttons {
     position: fixed;
-    bottom: 35px; /* 하단 고정 메뉴 위로 위치 조정 */
+    bottom: 50px; /* 푸터 위 공간 확보 */
     left: 0;
     width: 100%;
     display: flex;
@@ -200,58 +213,18 @@
     gap: 15px;
     z-index: 999;
   }
+
   .fixed-buttons button {
-    background: #444; /* 색상 변경 */
+    background: #00bfa5;
     color: white;
     border: none;
     border-radius: 30px;
     padding: 12px 20px;
     font-size: 15px;
     cursor: pointer;
-    transition: background 0.2s;
-  }
-  .fixed-buttons button:last-child {
-      background: #00bfa5;
-  }
-  .fixed-buttons button:last-child:hover {
-      background: #009688;
+    box-shadow: 0 4px 10px rgba(0, 191, 165, 0.4); /* 디자인 통일성 유지 */
   }
 
-  /* --- [하단 고정 메뉴바 (원스톱상담 / 전화상담) - 요청 디자인 유지] --- */
-  .fixed-bottom-menu {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #00bfa5; /* 버튼과 동일한 배경색 */
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    height: 65px;
-    box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
-    z-index: 1000;
-  }
-  .bottom-btn {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    color: #fff;
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    height: 100%;
-    transition: background-color 0.2s;
-  }
-  .bottom-btn.call { background-color: #e74c3c; } /* 전화 버튼 강조색 */
-  .bottom-btn.onestop { background-color: #3498db; } /* 원스톱 버튼 강조색 */
-  .bottom-btn i {
-    font-size: 22px;
-    margin-bottom: 4px;
-  }
-
-  /* --- [바닥 회사명 움직이는 텍스트 유지] --- */
   footer {
     position: fixed;
     bottom: 0;
@@ -262,10 +235,6 @@
     font-size: 11px;
     white-space: nowrap;
     overflow: hidden;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    z-index: 1; /* fixed-bottom-menu 뒤로 */
   }
 
   .scroll-text {
@@ -273,8 +242,9 @@
     animation: marquee 25s linear infinite;
     padding-left: 0;
   }
+
   @keyframes marquee {
-    0% { transform: translateX(100%); }
+    0% { transform: translateX(0); }
     100% { transform: translateX(-100%); }
   }
 
@@ -289,8 +259,25 @@
     margin: 10px;
   }
 
-  /* --- [섹션 공통 스타일] --- */
-  #company-section, #tech-section, .solution-content-wrapper { 
+  /* --- [갤러리 스타일 유지] --- */
+  .gallery {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    padding-top: 20px;
+  }
+  .gallery img {
+    width: 45%; 
+    max-width: 200px;
+    height: auto;
+    object-fit: cover; 
+    border-radius: 8px;
+    border: 1px solid #444;
+  }
+  
+  /* --- [회사/솔루션 스타일 공통] --- */
+  #company-section, .solution-content-wrapper { 
     text-align: left;
     max-width: 600px;
     margin: 0 auto;
@@ -299,19 +286,41 @@
     padding: 0 10px 30px; 
   }
   #company-section h2, #company-section h3, #company-section h4,
-  #tech-section h2, #tech-section h3, #tech-section h4 {
+  .solution-content-wrapper h2, .solution-content-wrapper h3, .solution-content-wrapper h4 {
     text-align: center;
     color: #00bfa5;
     margin-top: 30px;
     margin-bottom: 10px;
-    border-bottom: 1px solid #333;
+    border-bottom: 1px solid #333; /* 섹션 구분선 */
     padding-bottom: 5px;
   }
   #company-section strong, .solution-content-wrapper strong {
     color: #00bfa5;
   }
+  #company-section ul, .solution-content-wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 30px;
+  }
+  #company-section ul li, .solution-content-wrapper ul li {
+    background: #222;
+    margin-bottom: 8px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border-left: 4px solid #00bfa5;
+    font-size: 15px;
+  }
+  #company-section ul.bullet-list li, .solution-content-wrapper ul.bullet-list li {
+    list-style: disc;
+    margin-left: 20px;
+    background: none;
+    border-left: none;
+    padding: 0;
+    font-size: 14px;
+    color: #ccc;
+  }
   
-  /* --- [기술 섹션 서브 메뉴 스타일] --- */
+  /* --- [추가된 솔루션 섹션 스타일] --- */
   .sub-menu {
     display: flex;
     justify-content: center;
@@ -337,25 +346,48 @@
     border-color: #00bfa5;
     font-weight: bold;
   }
+
   .sub-content {
     display: none;
     line-height: 1.6;
     padding: 10px 0 30px;
     animation: fadeIn 0.3s ease-in-out;
-    text-align: center;
+    text-align: center; /* 이미지 배치를 위해 중앙 정렬 */
   }
   .sub-content.active {
     display: block;
   }
 
+  /* 휴대폰 반응형 콘텐츠 스타일 (사진) */
+  .solution-content-wrapper img {
+    max-width: 100%; 
+    height: auto;    
+    display: block;  
+    margin: 15px auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  /* 이미지 갤러리 (2개씩 나열) */
+  .solution-img-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .solution-img-gallery img {
+    width: 48%; /* 2개씩 나열 */
+    margin: 0;
+  }
+  /* 반응형 테이블 처리 */
   .solution-content-wrapper table {
     width: 100%;
-    overflow-x: auto;
+    /* overflow-x: auto; */ /* 모바일에서 표가 깨지지 않도록 조정 */
     display: block;
-    white-space: nowrap;
     border-collapse: collapse;
     margin: 15px auto;
-    max-width: 100%;
+    font-size: 13px;
+    table-layout: fixed; /* 테이블 너비 고정 */
   }
   .solution-content-wrapper table td, 
   .solution-content-wrapper table th {
@@ -364,9 +396,11 @@
     color: #ccc;
     font-size: 14px;
     white-space: normal;
-    text-align: left;
   }
-
+  .solution-content-wrapper table th {
+    background-color: #222;
+    color: #00bfa5;
+  }
 </style>
 </head>
 
@@ -389,525 +423,717 @@
     </header>
 
     <nav class="main-menu">
-      <a href="#quiz" class="menu-btn active" data-target="quiz-section">원스톱</a>
-      <a href="#company" class="menu-btn" data-target="company-section">회사</a>
+      <a href="#company" class="menu-btn" data-target="company-section">회사</a> 
       <a href="#portfolio" class="menu-btn" data-target="portfolio-section">실적</a> 
+      <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
+      <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
+      <a href="#dryice" class="menu-btn" data-target="dryice-section">전자레인지</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력</a> 
+      <a href="#quiz" class="menu-btn" data-target="quiz-section">원스톱</a> 
     </nav>
 
-    <main id="main-content">
-        <div id="quiz-section" class="content-section active">
-            <h2>원스톱 맞춤 상담 (5단계)</h2>
-            <p style="color: #777; margin-bottom: 30px;">간단한 질문에 답하시면 전문 상담이 필요합니다.</p>
-
-            <div class="question active" id="q1">
-                <h3>1. 어떤 제품인가요?</h3>
-                <div class="options" id="opt1"></div>
-            </div>
-            <div class="question" id="q2">
-                <h3>2. 어떤 관리가 필요 한가요?</h3>
-                <div class="options" id="opt2"></div>
-            </div>
-            <div class="question" id="q3">
-                <h3>3. 어떤 공간 인가요?</h3>
-                <div class="options" id="opt3"></div>
-            </div>
-            <div class="question" id="q4">
-                <h3>4. 지역을 선택 해주세요 (광역/도)</h3>
-                <div class="options" id="opt4"></div>
-            </div>
-            <div class="question" id="q5">
-                <h3>5. 도시/시/군/구를 선택해주세요 (상세)</h3>
-                <div class="options" id="opt5"></div>
-            </div>
-            <div class="question" id="result">
-                <h3>상담 내용 </h3>
-                <p id="summary">선택 내용을 확인하려면 이전 단계를 완료해주세요.</p>
-                <button id="sendSMS">📩 내용전달 (자동문자)</button>
-            </div>
+    <main>
+      <div id="quiz-section" class="content-section">
+        <div class="question" id="q1">
+          <h3>어떤 제품인가요?</h3>
+          <div class="options" id="opt1"></div>
         </div>
+        <div class="question" id="q2">
+          <h3>어떤 관리가 필요 한가요?</h3>
+          <div class="options" id="opt2"></div>
+        </div>
+        <div class="question" id="q3">
+          <h3>어떤 공간 인가요?</h3>
+          <div class="options" id="opt3"></div>
+        </div>
+        <div class="question" id="q4">
+          <h3>지역을 선택 해주세요</h3>
+          <div class="options" id="opt4"></div>
+        </div>
+        <div class="question" id="q5">
+          <h3>도시/시/군/구를 선택해주세요</h3>
+          <div class="options" id="opt5"></div>
+        </div>
+        <div class="question" id="result">
+          <h3>상담 내용 </h3>
+          <p id="summary"></p>
+          <button id="sendSMS">📩내용전달 (자동문자)</button>
+        </div>
+      </div>
+      
+      <div id="company-section" class="content-section">
+          <h2>🏢 주식회사 디에이치씨솔루션</h2>
+          <h3 style="text-align: center; color: #fff; border-bottom: none;">기업 핵심 위생 가전 소독 관리 전문 솔루션</h3>
 
-        <div id="company-section" class="content-section">
-            <h2>크린메이트 (Clean Mate) - 회사 소개</h2>
-            <p style="text-align: center; margin-bottom: 20px;">
-                [cite_start]**주식회사 디에이치씨솔루션: 기업 핵심 위생 가전 소독 관리 전문 솔루션** [cite: 240]
-            </p>
+          <h3 style="margin-top: 20px;">1. 💡 제안 배경 및 필요성</h3>
+          <p style="text-align: left; margin-bottom: 20px;">
+              [cite_start]직원들의 건강과 복지, 그리고 기업의 지속 가능한 생산성은 안전하고 쾌적한 근무 환경의 기반 위에서만 보장될 수 있습니다. 특히 다중이용 환경인 기업 사무실에서 공동으로 사용하는 **냉장고, 제빙기, 전자레인지**는 일상 속에서 가장 빈번하게 접촉되는 '핵심 위생 가전'이며, 철저한 전문 관리가 부재할 경우 심각한 위생 문제와 감염병 확산의 주요 온상이 될 수 있는 **"보이지 않는 감염 위험 구역"**으로 규정됩니다[cite: 570].
+              [cite_start]<br>주식회사 디에이치씨솔루션은 기업 환경의 특수성과 위험성을 깊이 분석하고, 이 세 가지 핵심 위생 가전에 대한 최적화된 전문 소독 관리 솔루션을 제공함으로써 임직원의 건강을 선제적으로 보호하고 기업의 위생 안전망 구축을 지원합니다[cite: 571].
+          </p>
 
-            <h3>1. 💡 제안 배경 및 필요성</h3>
-            <p style="text-align: left;"> 
-                [cite_start]직원들의 건강과 복지, 그리고 기업의 지속 가능한 생산성은 안전하고 쾌적한 근무 환경의 기반 위에서만 보장될 수 있습니다. [cite: 240]
-                [cite_start]특히 다중이용 환경인 기업 사무실에서 공동으로 사용하는 **냉장고, 제빙기, 전자레인지**는 일상 속에서 가장 빈번하게 접촉되는 '핵심 위생 가전'이며, 철저한 전문 관리가 부재할 경우 심각한 위생 문제와 감염병 확산의 주요 온상이 될 수 있는 **"보이지 않는 감염 위험 구역"**으로 규정됩니다[cite: 241].
-            </p>
-            <p style="text-align: left;">
-                [cite_start]주식회사 디에이치씨솔루션은 기업 환경의 특수성과 위험성을 깊이 분석하고, 이 세 가지 핵심 위생 가전에 대한 최적화된 전문 소독 관리 솔루션을 제공함으로써 임직원의 건강을 선제적으로 보호하고 기업의 위생 안전망 구축을 지원합니다[cite: 242].
-            </p>
+          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">A. 기업 내 중점 관리 가전의 현실</h4>
+          <p style="text-align: left;">
+              [cite_start]기업 내 공용 가전은 가정용 대비 **하루 수백 회**에 달하는 높은 사용 빈도를 가지며, 이로 인해 오염 가속도가 현저히 빠르고 세균 번식에 매우 취약합니다[cite: 572]. [cite_start]내부 오염원이 방치될 경우 전문적인 지식과 장비 없이는 완벽한 제거가 불가능합니다[cite: 573].
+          </p>
 
-            <h4 style="text-align: left;">A. 기업 내 중점 관리 가전의 현실: 고속 오염 가속도와 세균 번식의 최적 환경</h4>
-            <p style="text-align: left;">
-                [cite_start]기업 내 공용 가전은 가정용 대비 **하루 수백 회**에 달하는 높은 사용 빈도를 가지며, 이로 인해 오염 가속도가 현저히 빠르고 세균 번식에 매우 취약합니다[cite: 243]. [cite_start]내부 오염원이 방치될 경우 전문적인 지식과 장비 없이는 완벽한 제거가 불가능합니다[cite: 243].
-            </p>
+          <div style="text-align: center;">
+              <h4 style="border-bottom: none; color: #fff; margin-top: 10px; margin-bottom: 5px;">핵심 위생 가전별 위험 요소 및 관리 필요성 요약</h4>
+              <table style="width: 100%; max-width: 500px; margin: 15px auto; table-layout: fixed;">
+                  <thead>
+                      <tr>
+                          <th style="width: 20%;">가전</th>
+                          <th style="width: 40%;">오염 메커니즘</th>
+                          <th style="width: 40%;">감염 위험</th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr>
+                          <td>**냉장고**</td>
+                          [cite_start]<td>잦은 문 여닫음, 부패 음식물 잔여물, 고무패킹 틈새 오염 [cite: 575, 576]</td>
+                          [cite_start]<td>식중독균, 교차 감염(노로바이러스) [cite: 577, 578]</td>
+                      </tr>
+                      <tr>
+                          <td>**제빙기**</td>
+                          [cite_start]<td>바이오필름, 물때, 급수 라인 스케일 축적 [cite: 580, 581]</td>
+                          [cite_start]<td>수인성 세균(레지오넬라균), 호흡기 질환 위험 [cite: 582, 583]</td>
+                      </tr>
+                      <tr>
+                          <td>**전자레인지**</td>
+                          [cite_start]<td>기름때, 찌꺼기, 수분 축적으로 세균 서식처 제공 [cite: 585, 586]</td>
+                          [cite_start]<td>식중독균(포도상구균), 접촉성 교차 감염 [cite: 587, 588]</td>
+                      </tr>
+                  </tbody>
+              </table>
+          </div>
+          
+          <h3 style="margin-top: 40px;">2. 🏛️ 회사 소개 및 핵심 경쟁력</h3>
+          <p style="text-align: left;">
+              [cite_start]주식회사 디에이치씨솔루션은 단순한 청소 서비스가 아닌, 위생 문제를 근본적으로 해결하고 예측하여 사전 차단하는 혁신적인 관리 시스템을 구축하고 있습니다[cite: 590]. [cite_start]냉장고, 제빙기, 전자레인지 전문 관리에 최적화된 기술력, 인력풀, 그리고 미래형 AI 시스템을 통합하여 신속하고 정확하며 신뢰할 수 있는 솔루션을 제공합니다[cite: 591].
+          </p>
 
-            <ul style="text-align: left; margin-top: 20px; color: #fff;">
-                <li>**냉장고:** 잦은 문 여닫음과 음식물 보관 부주의로 **식중독균(살모넬라균, 리스테리아균)**의 온상. [cite_start]고무패킹 틈새 오염 관리가 필수[cite: 274, 275, 276, 277, 278].</li>
-                <li>**제빙기:** 물을 사용하는 구조적 특성으로 **바이오필름, 물때, 곰팡이**가 급속 번식하여 **수인성 세균(레지오넬라균)** 감염 위험 상존. [cite_start]완전 분해 소독이 필수적[cite: 274, 275, 276, 277, 278].</li>
-                <li>**전자레인지:** 음식물 찌꺼기, 기름때, 수분이 축적되어 **식중독균(포도상구균)** 번식. [cite_start]문손잡이/버튼을 통한 **교차 감염** 예방을 위한 항균 소독이 중요[cite: 274, 275, 276, 277, 278].</li>
-            </ul>
-            <p style="text-align: center; margin-top: 15px; font-size: 13px; color: #00bfa5;">
-                [이미지 프롬프트: 오염된 기업용 냉장고(곰팡이 낀 고무패킹 확대), 제빙기(물때와 슬라임이 보이는 급수 라인), 전자레인지 내부(음식물 찌꺼기가 눌어붙은 모습)를 나란히 보여주는 대비 이미지. '청소 전후 비교 이미지' 문구 포함.]
-            </p>
+          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">A. 기술력: 20년간 국내 위생 기술을 선도한 과학적 접근</h4>
+          <ul class="bullet-list">
+              [cite_start]<li>**ATP·RLU 오염 측정 시스템:** 냉장고 문손잡이 등 '고빈도 접촉 부위'의 미세 세균 오염도를 객관적인 수치(RLU)로 측정하여 위생 개선 효과를 투명하게 보고[cite: 594, 595].</li>
+              [cite_start]<li>**EM(Effective Microorganism) 소독법:** 유익 미생물을 활용하여 유해균 번식을 억제하고 악취를 근본적으로 제거하며, 인체에 무해한 친환경 위생 관리 구현[cite: 597, 598].</li>
+              [cite_start]<li>**스팀 및 자외선(UV) 기반 살균:** 고온 스팀은 찌든 때 제거와 동시에 바이러스 및 세균을 **99.9% 이상 멸균**하며, UV는 화학 약품 없이 미생물 DNA를 파괴하여 살균[cite: 601].</li>
+          </ul>
 
-            <h3>2. 🏛️ 회사 소개 및 핵심 경쟁력</h3>
-            <p style="text-align: left;">
-                [cite_start]주식회사 디에이치씨솔루션은 단순한 청소 서비스가 아닌, 위생 문제를 근본적으로 해결하고 예측하여 사전 차단하는 혁신적인 관리 시스템을 구축하고 있습니다[cite: 479].
-                [cite_start]**냉장고, 제빙기, 전자레인지** 전문 관리에 최적화된 기술력, 인력풀, 그리고 미래형 AI 시스템을 통합하여 신속하고 정확하며 신뢰할 수 있는 솔루션을 제공합니다[cite: 480].
-            </p>
+          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">B. 인력풀: 1,500명 이상 즉시 대응 가능한 전문 인력</h4>
+          <ul class="bullet-list">
+              [cite_start]<li>**제조사 출신 전문 역량:** 웅진, 삼성, LG 등 주요 제조사 출신 전문가 500명 이상을 포함 [cite: 603][cite_start], 고가 가전의 복잡한 구조를 이해하고 내부 깊숙한 오염원까지 안전하게 **분해 및 재조립** 가능[cite: 605].</li>
+              [cite_start]<li>**신속 대응 체계:** 1,500명 이상의 인력풀로 긴급 상황 또는 대규모 사업장 관리 요청에 **국내 최단 시간 투입** 체계를 갖추어 비즈니스 연속성 지원[cite: 607, 608].</li>
+          </ul>
 
-            <h4 style="text-align: left;">A. 기술력: 20년간 국내 위생 기술을 선도한 전문 연구진의 과학적 접근</h4>
+          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">C. AI 도입: 미래형 ‘구독형 위생 중앙 시스템’</h4>
+          <ul class="bullet-list">
+              [cite_start]<li>**실시간 감시 및 데이터 수집:** 스마트 모듈을 통해 냉장고 온도/습도, 제빙기 수질/유량, 전자레인지 사용 빈도 등 핵심 환경 정보를 실시간으로 수집하고 AI 분석[cite: 611, 612].</li>
+              [cite_start]<li>**정밀 예측 기반 관리:** AI 시스템이 각 가전의 **오염 가속도를 예측**하고, 문제가 생기기 전 선제적으로 전문 인력을 투입하여 오염원을 차단[cite: 613, 614].</li>
+          </ul>
+      </div>
+
+      <div id="portfolio-section" class="content-section">
+        <h2>최고의 위생을 위한 노력</h2>
+        <p>크린메이트가 만들어온 청결한 환경과 결과</p>
+        <div class="gallery" id="portfolio-gallery-container">
+          </div>
+        <p style="margin-top: 20px;">이미지 클릭 시 확대됩니다.</p>
+      </div>
+
+      <div id="mos-section" class="content-section solution-content-wrapper">
+          <h2>냉장고 위생 관리 솔루션</h2>
+          <div class="sub-menu">
+              <button class="sub-btn" data-content-id="mos-s01">1. 정밀 진단 및 오염 측정</button>
+              <button class="sub-btn" data-content-id="mos-s02">2. 완전 분해 및 집중 세척</button>
+              <button class="sub-btn" data-content-id="mos-s03">3. 멸균 및 살균 소독</button>
+              <button class="sub-btn" data-content-id="mos-s04">4. 기능 복원 및 점검</button>
+              <button class="sub-btn" data-content-id="mos-s05">5. 사후 보고 및 관리</button>
+          </div>
+          
+          <div id="mos-s01" class="sub-content">
+              <h4>1. 정밀 진단 및 오염 측정</h4>
+              <p style="text-align: left;">
+                  냉장고는 식중독균의 온상이 되기 쉬운 공간입니다. 디에이치씨솔루션은 과학적인 진단 장비를 사용하여 육안으로 확인 불가능한 오염 지점을 정밀하게 파악합니다.
+              </p>
+              <ul class="bullet-list">
+                  <li>**위생 등급 진단:** 내부 온도 및 습도 환경 분석.</li>
+                  [cite_start]<li>**ATP 측정:** 문손잡이, 선반 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU)를 객관적인 수치로 측정[cite: 594, 485].</li>
+                  <li>**내시경 검사:** 고무패킹 틈새 등 구조상 단순 청소가 어려운 부분의 곰팡이/세균 오염 상태 확인.</li>
+              </ul>
+              <img src="img/placeholder_img_diagnostic.jpg" alt="냉장고 진단 이미지 (placeholder)">
+          </div>
+
+          <div id="mos-s02" class="sub-content">
+              <h4>2. 완전 분해 및 집중 세척</h4>
+              <p style="text-align: left;">
+                  제조사 출신 전문 인력이 투입되어 냉장고의 핵심 부품을 안전하게 분리합니다. 오염 가속도가 높은 부위를 집중적으로 세척합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**주요 세척 대상:** 고무패킹, 선반, 내부 벽면 및 응축기(Condenser, 필요 시)[cite: 488].</li>
+                  [cite_start]<li>**오염원 제거:** 부패한 음식물 잔여물, 기름때, 곰팡이 등 유기물 오염원을 전용 세척 도구로 1차 제거[cite: 487].</li>
+                  [cite_start]<li>**특수 세척:** 고무패킹 틈새 등 세균이 번식하기 쉬운 취약 부위에 대한 특수 세척 공법 적용[cite: 488].</li>
+              </ul>
+              <img src="img/placeholder_img_deepclean.jpg" alt="냉장고 분해 세척 이미지 (placeholder)">
+          </div>
+
+          <div id="mos-s03" class="sub-content">
+              <h4>3. 멸균 및 살균 소독</h4>
+              <p style="text-align: left;">
+                  세척 후 남아있을 수 있는 미세 세균과 바이러스를 근원적으로 멸균하여 식중독 위험을 원천 차단합니다.
+              </p>
+              <ul class="bullet-list">
+                  <li>**살균제 적용:** 식품 첨가물 등급의 안전한 살균제를 사용하여 식품 접촉 부위 소독. [cite_start]잔류 성분 걱정 없음[cite: 492].</li>
+                  [cite_start]<li>**EM 소독법:** 유익 미생물을 활용한 소독으로 유해균 번식 억제 및 부패 악취 근본적 제거[cite: 597, 598].</li>
+                  [cite_start]<li>**UV 살균 (선택):** 분리된 선반 및 민감 부위에 UV 램프를 적용하여 화학 약품 없이 살균[cite: 600].</li>
+              </ul>
+              <img src="img/placeholder_img_sterilize.jpg" alt="냉장고 살균 소독 이미지 (placeholder)">
+          </div>
+
+          <div id="mos-s04" class="sub-content">
+              <h4>4. 기능 복원 및 점검</h4>
+              <p style="text-align: left;">
+                  청소 이후 냉장고 본연의 기능이 최적으로 작동하도록 복원하고 잠재적인 고장 위험 요소를 점검합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**정밀 재조립:** 분해했던 모든 부품을 제조사 매뉴얼에 따라 안전하고 완벽하게 재조립[cite: 494].</li>
+                  [cite_start]<li>**냉각 효율 점검:** 응축기 청소 및 고무패킹 교체(필요 시)를 통해 냉각 효율을 증대하여 에너지 비용 절감[cite: 524].</li>
+                  [cite_start]<li>**고장 예측:** 전기 배선 및 주요 부품의 마모 여부를 점검하여 장비 수명 연장[cite: 494, 525].</li>
+              </ul>
+              <img src="img/placeholder_img_restore.jpg" alt="냉장고 기능 복원 이미지 (placeholder)">
+          </div>
+          
+          <div id="mos-s05" class="sub-content">
+              <h4>5. 사후 보고 및 관리</h4>
+              <p style="text-align: left;">
+                  작업 결과를 투명하게 공유하고 고객사의 위생 환경을 장기적으로 개선할 수 있는 맞춤형 관리 플랜을 제공합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행[cite: 495].</li>
+                  <li>**관리 가이드 제공:** 냉장고 보관 온도 및 습도 관리 가이드라인 제공.</li>
+                  <li>**정기 관리:** 월간/분기별/반기별 맞춤형 정기 관리 플랜 제안.</li>
+              </ul>
+              <img src="img/placeholder_img_report.jpg" alt="냉장고 사후 보고서 이미지 (placeholder)">
+          </div>
+      </div>
+      
+      <div id="avk-section" class="content-section solution-content-wrapper">
+          <h2>제빙기 위생 관리 솔루션</h2>
+          <div class="sub-menu">
+              <button class="sub-btn" data-content-id="avk-s01">1. 정밀 진단 및 오염 측정</button>
+              <button class="sub-btn" data-content-id="avk-s02">2. 완전 분해 및 집중 세척</button>
+              <button class="sub-btn" data-content-id="avk-s03">3. 멸균 및 살균 소독</button>
+              <button class="sub-btn" data-content-id="avk-s04">4. 기능 복원 및 점검</button>
+              <button class="sub-btn" data-content-id="avk-s05">5. 사후 보고 및 관리</button>
+          </div>
+
+          <div id="avk-s01" class="sub-content">
+              <h4>1. 정밀 진단 및 오염 측정</h4>
+              <p style="text-align: left;">
+                  물을 사용하는 제빙기는 바이오필름과 수인성 세균 번식에 매우 취약합니다. 급수 시스템의 오염도를 정밀하게 진단합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**내시경 진단:** 급수 라인, 저수조, 제빙부 등 육안으로 확인 불가능한 내부의 물때, 슬라임, 바이오필름 오염 상태 확인[cite: 485].</li>
+                  [cite_start]<li>**ATP 측정:** 얼음 배출구, 얼음 삽 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU) 측정[cite: 594].</li>
+                  <li>**수질 분석 (선택):** 급수 상태(수질/유량)를 점검하여 물의 위생 안전성 진단.</li>
+              </ul>
+              <img src="img/placeholder_img_diagnostic_ice.jpg" alt="제빙기 진단 이미지 (placeholder)">
+          </div>
+
+          <div id="avk-s02" class="sub-content">
+              <h4>2. 완전 분해 및 집중 세척</h4>
+              <p style="text-align: left;">
+                  제조사 전문가의 역량으로 제빙 시스템을 안전하게 완전 분해하여 오염원을 근본적으로 제거합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**주요 세척 대상:** 저수조, 급수 라인, 제빙 코크, 얼음 저장고 및 급배수 펌프[cite: 489].</li>
+                  [cite_start]<li>**바이오필름 제거:** 급수/제빙 시스템의 바이오필름과 스케일을 전용 세척 도구로 완벽하게 제거[cite: 487].</li>
+                  [cite_start]<li>**손상 방지:** 고가 장비의 복잡한 구조를 이해하고, 제품 손상 없이 완벽한 분해 및 재조립 보장[cite: 605].</li>
+              </ul>
+              <img src="img/placeholder_img_deepclean_ice.jpg" alt="제빙기 분해 세척 이미지 (placeholder)">
+          </div>
+
+          <div id="avk-s03" class="sub-content">
+              <h4>3. 멸균 및 살균 소독</h4>
+              <p style="text-align: left;">
+                  오염된 물을 통해 노출되는 수인성 세균(레지오넬라균 등)에 대한 집중적인 멸균 솔루션을 적용합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**식품 등급 살균:** 식품 첨가물 등급 살균제를 이용한 안전한 소독으로 수인성 세균을 근본적으로 제거[cite: 492, 584].</li>
+                  [cite_start]<li>**고온 스팀 멸균:** 저수조 및 제빙부 등 민감한 영역에 고온 스팀을 적용하여 세균 및 바이러스를 99.9% 이상 멸균[cite: 492, 601].</li>
+                  <li>**잔류 성분 관리:** 소독 후 잔류 성분이 남지 않도록 완벽하게 헹굼 및 건조 처리.</li>
+              </ul>
+              <img src="img/placeholder_img_sterilize_ice.jpg" alt="제빙기 살균 소독 이미지 (placeholder)">
+          </div>
+
+          <div id="avk-s04" class="sub-content">
+              <h4>4. 기능 복원 및 점검</h4>
+              <p style="text-align: left;">
+                  위생 관리와 더불어 제빙기의 성능과 수명을 연장시키는 예방 정비 서비스를 제공합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**기능 최적화:** 분리 부품 재조립 후, 제빙 속도 및 급수 상태를 점검하여 기능/성능을 복원[cite: 494].</li>
+                  [cite_start]<li>**에너지 효율 증대:** 응축기/필터 청소 및 관리를 통해 냉각 효율을 개선하고 에너지 손실 최소화[cite: 524].</li>
+                  [cite_start]<li>**고장 예측:** 진동 분석, 열화상 진단 등 전문 기술을 통해 고장 시점을 예측하여 사전 차단[cite: 614, 494].</li>
+              </ul>
+              <img src="img/placeholder_img_restore_ice.jpg" alt="제빙기 기능 복원 이미지 (placeholder)">
+          </div>
+
+          <div id="avk-s05" class="sub-content">
+              <h4>5. 사후 보고 및 관리</h4>
+              <p style="text-align: left;">
+                  정량적인 결과를 기반으로 위생 안전성을 증명하고, 정기 관리 프로그램을 통해 HACCP 기준을 충족시킵니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행[cite: 495].</li>
+                  <li>**관리 가이드 제공:** 정수 필터 교체 주기 및 일상 청소 관리 가이드라인 제공.</li>
+                  [cite_start]<li>**정기 관리:** 제빙기 고장률 70% 감소를 목표로 하는 월간/분기별 정기 관리 플랜 제안[cite: 496].</li>
+              </ul>
+              <img src="img/placeholder_img_report_ice.jpg" alt="제빙기 사후 보고서 이미지 (placeholder)">
+          </div>
+      </div>
+
+      <div id="dryice-section" class="content-section solution-content-wrapper">
+          <h2>전자레인지 위생 관리 솔루션</h2>
+          <div class="sub-menu">
+              <button class="sub-btn" data-content-id="dryice-s01">1. 정밀 진단 및 오염 측정</button>
+              <button class="sub-btn" data-content-id="dryice-s02">2. 완전 분해 및 집중 세척</button>
+              <button class="sub-btn" data-content-id="dryice-s03">3. 멸균 및 살균 소독</button>
+              <button class="sub-btn" data-content-id="dryice-s04">4. 기능 복원 및 점검</button>
+              <button class="sub-btn" data-content-id="dryice-s05">5. 사후 보고 및 관리</button>
+          </div>
+
+          <div id="dryice-s01" class="sub-content">
+              <h4>1. 정밀 진단 및 오염 측정</h4>
+              <p style="text-align: left;">
+                  음식물 찌꺼기가 세균의 영양 공급원이 되는 전자레인지는 잦은 접촉으로 교차 감염 위험이 높습니다.
+              </p>
+              <ul class="bullet-list">
+                  <li>**내부 오염 진단:** 내부 벽면의 찌든 때, 기름때, 음식물 잔여물 축적 정도 및 곰팡이 발생 여부 진단.</li>
+                  [cite_start]<li>**ATP 측정:** 문손잡이 및 조작 버튼 등 '교차 감염 주요 경로'의 미세 세균 오염도(RLU) 측정[cite: 594, 588, 485].</li>
+                  <li>**악취 분석:** 내부 잔류 냄새의 원인 파악.</li>
+              </ul>
+              <img src="img/placeholder_img_diagnostic_micro.jpg" alt="전자레인지 진단 이미지 (placeholder)">
+          </div>
+
+          <div id="dryice-s02" class="sub-content">
+              <h4>2. 완전 분해 및 집중 세척</h4>
+              <p style="text-align: left;">
+                  내부에 고착된 기름때와 음식물 찌꺼기는 일반적인 청소로 제거가 어렵습니다. 전문 도구로 완벽하게 1차 제거합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**주요 세척 대상:** 내부 커버, 회전판, 기름때가 응고된 내부 표면[cite: 489].</li>
+                  [cite_start]<li>**찌든 때 제거:** 고착된 기름때와 음식물 찌꺼기를 전용 세척제를 사용하여 안전하고 완벽하게 제거[cite: 487].</li>
+                  <li>**외관 세척:** 빈번한 접촉 부위인 외부 표면 및 조작 버튼 집중 세척.</li>
+              </ul>
+              <img src="img/placeholder_img_deepclean_micro.jpg" alt="전자레인지 분해 세척 이미지 (placeholder)">
+          </div>
+
+          <div id="dryice-s03" class="sub-content">
+              <h4>3. 멸균 및 살균 소독</h4>
+              <p style="text-align: left;">
+                  내부의 식중독균(포도상구균 등) 및 외부의 접촉성 병원균에 대한 멸균 작업을 수행합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**고온 스팀 살균:** 내부 세척 후 고온 스팀을 사용하여 찌든 때 잔여물 제거와 동시에 세균을 **99.9% 이상 멸균**[cite: 492, 601].</li>
+                  [cite_start]<li>**항균 소독:** 외관 및 조작 버튼 등 접촉 부위를 항균 소독하여 교차 감염 위험을 예방[cite: 493, 588].</li>
+                  [cite_start]<li>**EM 소독법:** 악취를 유발하는 유해균을 억제하는 친환경 EM 소독법 적용[cite: 597].</li>
+              </ul>
+              <img src="img/placeholder_img_sterilize_micro.jpg" alt="전자레인지 살균 소독 이미지 (placeholder)">
+          </div>
+
+          <div id="dryice-s04" class="sub-content">
+              <h4>4. 기능 복원 및 점검</h4>
+              <p style="text-align: left;">
+                  청결 유지와 함께 전자레인지의 작동 안전성을 점검하여 임직원의 안전한 사용 환경을 보장합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**기능 복원:** 분리 부품 재조립 및 회전판 작동 여부 점검[cite: 494].</li>
+                  <li>**외관 청결 및 안전 점검:** 내부 찌꺼기 제거를 통해 과열 위험을 줄이고 작동 상태를 점검.</li>
+                  [cite_start]<li>**장비 수명 연장:** 내부 오염 방지를 통해 장비 수명을 연장하고 교체 비용을 절감[cite: 525].</li>
+              </ul>
+              <img src="img/placeholder_img_restore_micro.jpg" alt="전자레인지 기능 복원 이미지 (placeholder)">
+          </div>
+
+          <div id="dryice-s05" class="sub-content">
+              <h4>5. 사후 보고 및 관리</h4>
+              <p style="text-align: left;">
+                  투명한 위생 보고서 발행과 정기 관리 컨설팅으로 최적의 위생 상태를 지속적으로 유지합니다.
+              </p>
+              <ul class="bullet-list">
+                  [cite_start]<li>**ATP 측정 보고서:** 작업 전/후 오염도 수치를 비교한 최종 보고서 발행[cite: 495].</li>
+                  <li>**사용자 가이드 제공:** 음식물 덮개 사용 등 일상적인 위생 관리법 교육.</li>
+                  <li>**정기 관리:** 정기적인 방문 관리를 통한 지속적인 위생 안전망 구축.</li>
+              </ul>
+              <img src="img/placeholder_img_report_micro.jpg" alt="전자레인지 사후 보고서 이미지 (placeholder)">
+          </div>
+      </div>
+
+      <div id="tech-section" class="content-section">
+        <h2>기술과 인증</h2>
+        <p>크린메이트는 끊임없이 기술을 연구하고 검증합니다.</p>
+
+        <div class="solution-content-wrapper" style="padding: 0;">
+            <h3 style="margin-top: 20px;">친환경 살균 공법</h3>
+            <p style="text-align: left; color: #ccc;">
+                화학약품에 의존하지 않고, 인체에 무해한 친환경 살균제를 사용하여 미생물을 근원부터 제거하고, 공정 과정에서 잔류 성분이 남지 않도록 철저히 관리합니다.
+            </p>
+            <h3 style="margin-top: 30px;">첨단 진단 장비 운용</h3>
             <ul class="bullet-list">
-                [cite_start]<li>**ATP·RLU 오염 측정 시스템:** 냉장고 문손잡이, 제빙기 얼음 배출구 등 **'고빈도 접촉 부위'**의 미세 세균 오염도를 **객관적인 수치(RLU)**로 측정하여 위생 개선 효과를 투명하게 증명합니다[cite: 483, 484].</li>
-                [cite_start]<li>**EM(Effective Microorganism) 소독법:** 유익 미생물을 활용하여 냉장고 내부 등 밀폐 공간의 유해균 번식을 억제하고 악취를 근본적으로 제거하는 **환경 친화적인 위생 관리**를 구현합니다[cite: 485, 486, 487].</li>
-                [cite_start]<li>**스팀 및 자외선(UV) 기반 살균 시스템:** 고온 스팀으로 찌든 때 제거와 동시에 바이러스 및 세균을 **99.9% 이상 멸균**하며, UV 램프로 민감한 부위의 미생물 DNA를 파괴하여 살균합니다[cite: 488, 489, 490].</li>
+                <li>**ATP 측정 장비:** 미세 세균 오염도를 정량적으로 측정하여 위생 개선 효과를 수치로 증명합니다.</li>
+                <li>**열화상 진단 카메라:** 장비의 과열 부위를 식별하여 잠재적인 고장을 사전에 예방합니다.</li>
+                <li>**내시경 검사:** 육안 확인이 불가능한 설비 내부의 미세 오염 및 균열을 진단합니다.</li>
             </ul>
-            <p style="text-align: center; margin-top: 15px; font-size: 13px; color: #00bfa5;">
-                [이미지 프롬프트: 연구원이 ATP 측정기로 제빙기 부품의 세균 오염도를 측정하는 모습. 다양한 첨단 살균 장비(고압 세척기, UV 램프 등)가 보이는 연구실 전경.]
-            </p>
-
-            <h4 style="text-align: left;">B. 인력풀: 제조사 출신 전문가가 이끄는 최대 규모 전문 인력</h4>
-            <p style="text-align: left;">
-                [cite_start]웅진, 삼성, LG 등 주요 제조사 및 협력사 출신 전문가 **500명 이상**을 포함한 한국인 전문 인력을 확보하고 있습니다[cite: 492]. [cite_start]이는 고가 가전의 손상 없는 완벽한 위생 관리를 가능하게 하는 핵심 경쟁력입니다[cite: 493].
-            </p>
-            <ul class="bullet-list">
-                [cite_start]<li>**제조사 출신 전문 역량:** 제품의 복잡한 구조를 정확히 이해하여 급수 라인, 모터, PCB 등 핵심 부품 손상 없이 안전하게 분해/조립합니다[cite: 493, 494].</li>
-                [cite_start]<li>**전국 즉시 대응 체계:** 전국 1,500명 이상의 인력풀을 통해 갑작스러운 위생 문제 발생 시 **24시간 긴급 출동** 및 신속한 서비스 제공이 가능합니다[cite: 492, 495].</li>
-            </ul>
-
-            <h4 style="text-align: left;">C. AI 기반 예측 및 관리 시스템</h4>
-            <p style="text-align: left;">
-                [cite_start]자체 개발한 AI 기반 모니터링 시스템을 통해 냉장고, 제빙기 등 가전에 설치된 센서 데이터(온도, 유량, 습도 등)를 실시간으로 분석합니다[cite: 496, 497].
-            </p>
-            <ul class="bullet-list">
-                [cite_start]<li>**고장 및 오염 예측:** 내부 온도가 기준치를 벗어나거나, 비정상적인 유량 변화가 감지되면 **즉시 알림을 발생**시켜 문제가 발생하기 전에 선제적으로 대응합니다[cite: 497, 498, 499].</li>
-                [cite_start]<li>**투명성 극대화:** 고객사 담당자는 개별 휴대폰 앱을 통해 위생 가전의 상태를 실시간으로 모니터링할 수 있어 관리의 투명성을 극대화합니다[cite: 497, 500].</li>
-            </ul>
-            <p style="text-align: center; margin-top: 15px; font-size: 13px; color: #00bfa5;">
-                [이미지 프롬프트: AI 중앙 관제실에서 대형 모니터를 통해 냉장고, 제빙기, 전자레인지의 센서 데이터를 그래픽으로 분석하고 있는 모습. 스마트폰 앱 화면에 '냉장고 온도 이상 감지' 알림이 뜬 사용자 인터페이스.]
-            </p>
-        </div>
-
-        <div id="portfolio-section" class="content-section">
-            <h2>주요 실적 및 고객 사례</h2>
-            <p style="text-align: center; color: #777;">
-                [cite_start]기술력과 신뢰성을 기반으로 국내 유수의 대기업 및 공공기관과 **10년 이상 꾸준히 계약을 유지**하고 있습니다[cite: 442]. 
-                [cite_start]**재계약율 90% 이상**의 독보적인 결과는 당사의 서비스 품질을 명확하게 증명합니다[cite: 443].
-            </p>
-
-            <ul style="text-align: left;">
-                [cite_start]<li>**IT · 플랫폼 기업:** 네이버, 카카오, 쿠팡 등 대형 플랫폼 기업 사옥의 핵심 위생 가전(냉장고, 제빙기) 소독 전문 서비스를 10년 이상 장기 구독 중[cite: 444].</li>
-                <li>**대기업 및 금융기관:** 엄격한 기준을 요구하는 대기업 본사 사옥 및 금융기관 지점의 청결 유지 시설 관리 전문 수행.</li>
-                [cite_start]<li>**공공기관 및 연구소:** 정부 및 공공기관의 까다로운 위생 점검 기준을 완벽하게 충족하며 정기 위탁 운영[cite: 444].</li>
-            </ul>
-
-            <p style="text-align: center; margin-top: 30px; font-size: 13px; color: #00bfa5;">
-                [이미지 프롬프트: IT 기업, 대기업, 공공기관 건물의 로고가 깔끔하게 배열된 이미지와 함께 '10년 이상 장기 계약 유지', '재계약율 90% 달성' 문구가 강조된 전문적인 실적 이미지.]
-            </p>
-
-            <div class="gallery" id="portfolio-gallery">
-                </div>
-        </div>
-
-        <div id="tech-section" class="content-section">
-            <h2>핵심 위생 솔루션 및 기술</h2>
-            <div class="sub-menu">
-                <button class="sub-btn active" data-content-id="tech-s01">A. 전문 기술력</button>
-                <button class="sub-btn" data-content-id="tech-s02">B. 위생 가전별 관리</button>
-                <button class="sub-btn" data-content-id="tech-s03">C. 서비스 프로세스</button>
-            </div>
-
-            <div id="tech-s01" class="sub-content active solution-content-wrapper">
-                <h3>A. 전문 기술력: 과학적 진단과 친환경 살균</h3>
-                <p style="text-align: left;">
-                    [cite_start]당사의 연구소는 20년 전 국내에 없던 다양한 선진 위생·환경 기술을 최초로 도입한 전문가들로 구성되어 있습니다[cite: 481].
-                    [cite_start]핵심 위생 가전 관리에 적용되는 당사의 기술은 과학적 데이터를 기반으로 고객에게 신뢰를 제공합니다[cite: 482].
-                </p>
-
-                <h4 style="text-align: left;">1. ATP·RLU 오염 측정 시스템</h4>
-                <p style="text-align: left; margin-top: -10px;">
-                    [cite_start]냉장고 문손잡이, 제빙기 얼음 배출구 등 **'고빈도 접촉 부위'**의 미세 세균 오염도를 **객관적인 수치(RLU)**로 측정하여 육안으로 확인 불가능한 오염도를 과학적으로 증명하고, 전문 청소 전후의 극적인 위생 개선 효과를 투명하게 보고하는 기반이 됩니다[cite: 483, 484].
-                </p>
-                <p style="text-align: center; margin-top: 15px; font-size: 13px; color: #00bfa5;">
-                    [이미지 프롬프트: 연구원이 ATP 측정기로 제빙기 부품의 세균 오염도를 측정하는 모습.]
-                </p>
-
-                <h4 style="text-align: left;">2. EM(Effective Microorganism) 소독법</h4>
-                <p style="text-align: left; margin-top: -10px;">
-                    유익 미생물을 활용하여 냉장고 내부 등 음식물과 직접 접촉하는 공간의 유해균 번식을 억제하고 악취를 근본적으로 제거합니다. [cite_start]인체에 무해하면서도 뛰어난 살균 효과를 발휘하는 **환경 친화적인 위생 관리**를 구현합니다[cite: 485, 486, 487].
-                </p>
-
-                <h4 style="text-align: left;">3. 스팀 및 자외선(UV) 기반 살균 시스템</h4>
-                <p style="text-align: left; margin-top: -10px;">
-                    냉장고 내부 찌든 때, 전자레인지 내부 기름때 제거에 **고온 스팀**을 사용하여 찌든 때 제거와 동시에 바이러스 및 세균을 **99.9% 이상 멸균**합니다. [cite_start]제빙기 저수조 등 민감한 부위나 건조 살균이 필요한 경우 **UV 램프**를 적용하여 화학 약품 없이 미생물 DNA를 파괴하여 살균합니다[cite: 488, 489, 490].
-                </p>
-            </div>
-
-            <div id="tech-s02" class="sub-content solution-content-wrapper">
-                <h3>B. 위생 가전별 집중 관리군 케어</h3>
-                <p style="text-align: left;">
-                    [cite_start]당사는 고객사의 환경과 필요에 따라 위생 중요도를 분류하며, **냉장고, 제빙기, 전자레인지**를 **'집중 위생 관리군 (🔴 High-Risk / 식수 및 직접 접촉)'**으로 지정하고 최우선적인 관리를 제공합니다[cite: 342].
-                </p>
-                <h4 style="text-align: left;">1. 냉장고 전문 케어</h4>
-                <ul class="bullet-list">
-                    [cite_start]<li>**주요 위험:** 식중독균(리스테리아, 살모넬라), 교차 감염, 고무패킹 곰팡이 및 악취[cite: 466, 467].</li>
-                    [cite_start]<li>**관리 포인트:** 고무패킹 분리 세척, 선반 및 내부 벽면 EM/UV 살균, 응축기 클리닝을 통한 에너지 효율 증대[cite: 468, 485, 489, 413].</li>
-                </ul>
-
-                <h4 style="text-align: left;">2. 제빙기 전문 케어</h4>
-                <ul class="bullet-list">
-                    [cite_start]<li>**주요 위험:** 수인성 세균(레지오넬라균), 바이오필름, 물때로 인한 급수 시스템 오염 및 고장[cite: 471, 469].</li>
-                    [cite_start]<li>**관리 포인트:** 급수/제빙 시스템 **완전 분해 소독**, 저수조 및 코크의 바이오필름 완벽 제거, 식품 첨가물 등급 살균제 사용[cite: 473].</li>
-                </ul>
-
-                <h4 style="text-align: left;">3. 전자레인지 전문 케어</h4>
-                <ul class="bullet-list">
-                    [cite_start]<li>**주요 위험:** 음식물 찌꺼기로 인한 식중독균(포도상구균) 번식, 문손잡이를 통한 접촉성 교차 감염[cite: 476, 477].</li>
-                    [cite_start]<li>**관리 포인트:** 내부 찌꺼기 완벽 제거 및 고온 스팀 살균, 외부는 항균 소독, 조작 버튼 및 손잡이 ATP 측정 검증[cite: 477, 483, 488].</li>
-                </ul>
-            </div>
-
-            <div id="tech-s03" class="sub-content solution-content-wrapper">
-                <h3>C. 서비스 프로세스: 4단계 토탈 관리 시스템</h3>
-                <p style="text-align: left;">
-                    [cite_start]크린메이트는 **위생 진단, 분해/세척, 멸균/소독, 투명한 보고**의 4단계에 걸친 통합 서비스 프로세스를 통해 고객 만족을 극대화합니다[cite: 403].
-                </p>
-
-                <h4 style="text-align: left;">1. 사전 진단 및 ATP 측정 (Inspection & Diagnosis)</h4>
-                <p style="text-align: left; margin-top: -10px;">
-                    전문 인력이 현장 방문하여 제품 상태, 오염 수준, 사용 환경을 종합적으로 진단합니다. [cite_start]**ATP·RLU 오염 측정 시스템**을 사용하여 냉장고 손잡이, 제빙기 얼음 배출구 등의 **초기 오염도를 객관적인 수치로 기록**합니다[cite: 404, 405].
-                </p>
-
-                <h4 style="text-align: left;">2. 완전 분해 및 집중 세척 (Disassembly & Deep Cleaning)</h4>
-                <p style="text-align: left; margin-top: -10px;">
-                    제조사 출신 전문 인력이 투입되어 제품의 핵심 부품을 안전하게 분리합니다. [cite_start]제품별 특성에 맞춘 전용 세척 도구(고압/초음파 세척 등)를 이용하여 곰팡이, 물때, 찌든 때 등 오염물을 1차적으로 완벽하게 제거합니다[cite: 375, 376].
-                </p>
-
-                <h4 style="text-align: left;">3. 멸균 및 살균 소독 (Sterilization & Disinfection)</h4>
-                <p style="text-align: left; margin-top: -10px;">
-                    분리된 부품과 내부 전체에 **친환경 EM 소독제**를 비롯한 식품 첨가물 등급의 안전한 살균제를 도포합니다. [cite_start]고온 스팀 및 UV 살균 시스템을 활용하여 바이러스와 세균을 **99.9% 이상 멸균**하여 위생 안전을 확보합니다[cite: 380, 485, 490].
-                </p>
-
-                <h4 style="text-align: left;">4. 정량 보고 및 추적 관리 (Report & Follow-up)</h4>
-                <p style="text-align: left; margin-top: -10px;">
-                    작업 완료 후 전/후 사진, **ATP 오염도 개선 수치**, 사용 약품, 점검자 기록이 담긴 **디지털 점검 보고서**를 즉시 전송합니다. [cite_start]이를 통해 관리의 투명성을 극대화하고, 이후 AI 시스템을 통한 지속적인 추적 관리로 최적의 위생 상태를 유지합니다[cite: 408, 409, 500].
-                </p>
-            </div>
-        </div>
-
-        <div id="partner-section" class="content-section">
-            <h2>협력 및 인증</h2>
-            <p style="text-align: center; color: #777;">
-                주식회사 디에이치씨솔루션은 다수의 국내외 기관 및 제조사와의 협력을 통해 서비스 품질과 신뢰도를 높이고 있습니다.
-            </p>
-            <div style="text-align: center; padding-top: 20px;">
-                <img src="placeholder_cert_1.png" alt="인증서 이미지 1" style="max-width: 80%; margin-bottom: 10px; border-radius: 5px;"/>
-                <img src="placeholder_cert_2.png" alt="인증서 이미지 2" style="max-width: 80%; margin-bottom: 10px; border-radius: 5px;"/>
-            </div>
         </div>
         
+        <h3 style="margin-top: 30px;">주요 인증 및 교육</h3>
+        <div class="gallery" id="tech-gallery-container">
+          </div>
+        <p style="margin-top: 20px;">보유 인증 및 수료증</p>
+
+      </div>
+
+      <div id="partner-section" class="content-section">
+        <h2>주요 협력 및 고객사</h2>
+        <p>최고 수준의 위생과 안정적 운영이 필요한 모든 곳이 크린메이트와 함께합니다.</p>
+        <div class="gallery" id="partner-gallery-container">
+          </div>
+        <p style="margin-top: 20px;">(이미지: 국내외 주요 장비 제조사 및 파트너사 로고)</p>
+      </div>
+
     </main>
-    
+
     <div class="fixed-buttons">
-      <button onclick="showPrev()">이전</button>
-      <button onclick="showNext()">다음</button>
+      <button onclick="location.href='#quiz'">원스톱상담</button>
+      <button onclick="window.location.href='tel:000-0000-0000'">전화상담</button>
     </div>
 
-    <nav class="fixed-bottom-menu">
-        <a href="#quiz" data-target="quiz-section" class="bottom-btn onestop">
-            <i class="fas fa-comments"></i>
-            <span>원스톱상담</span>
-        </a>
-        <a href="tel:01057138417" class="bottom-btn call">
-            <i class="fas fa-phone-alt"></i>
-            <span>전화상담</span>
-        </a>
-    </nav>
-    
     <footer>
-        <div class="scroll-text">
-            주식회사 디에이치씨솔루션 &nbsp; | &nbsp; 크린메이트 &nbsp; | &nbsp; 위생관리 전문 &nbsp; | &nbsp; 전국 출장 가능 &nbsp; | &nbsp; 24시간 긴급 대응 &nbsp; | &nbsp; ATP 측정 전문 &nbsp; | &nbsp; 주식회사 디에이치씨솔루션 &nbsp; | &nbsp; 크린메이트 &nbsp; |
-        </div>
+      <div class="scroll-text">
+          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 000-0000-0000 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
+          COMPANY : 주식회사 디에이치씨솔루션 | BRAND : 크린메이트 (Clean Mate) | TEL : 000-0000-0000 | E-MAIL : cleanmate@dhcsolution.co.kr | Copyright ⓒ DHC Solution All Rights Reserved. &nbsp;&nbsp;&nbsp;
+      </div>
     </footer>
 
-    <script>
-        // --- [인트로 애니메이션 로직 유지] ---
-        const phrases = document.querySelectorAll('.intro-item');
-        let phraseIndex = 0;
+  </div>
 
-        function showNextPhrase() {
-            if (phraseIndex > 0) {
-                phrases[phraseIndex - 1].classList.remove('active');
-                phrases[phraseIndex - 1].classList.add('visible');
-            }
+  <script>
+    // --- [인트로 애니메이션 로직] ---
+    const introScreen = document.getElementById('intro-screen');
+    const introItems = document.querySelectorAll('.intro-item');
+    const mainContentWrapper = document.getElementById('main-content-wrapper');
+    let phraseIndex = 0;
 
-            if (phraseIndex < phrases.length) {
-                phrases[phraseIndex].classList.add('active');
-                
-                if (phraseIndex === phrases.length - 1) { // 마지막 문구는 더 오래 표시
-                    phrases[phraseIndex].classList.add('final-phrase');
-                    setTimeout(() => {
-                        document.getElementById('intro-screen').classList.add('fade-out');
-                        setTimeout(showMainContent, 500); // 인트로 fade-out 후 메인 화면 표시
-                    }, 1500); // 1.5초 후 전환
-                } else {
-                    phraseIndex++;
-                    setTimeout(showNextPhrase, 400); // 0.4초 간격으로 다음 문구 표시
-                }
-            }
+    function showNextPhrase() {
+      if (phraseIndex > 0) {
+        // 이전 문장 흐리게 처리
+        introItems[phraseIndex - 1].classList.remove('active');
+        introItems[phraseIndex - 1].classList.add('visible');
+      }
+
+      if (phraseIndex < introItems.length) {
+        // 현재 문장 강조
+        introItems[phraseIndex].classList.add('active');
+        phraseIndex++;
+        // 다음 문장을 딜레이를 두고 표시
+        setTimeout(showNextPhrase, 700);
+      } else {
+        // 모든 문장 표시 완료 후 메인 콘텐츠 로드
+        setTimeout(loadMainContent, 1000);
+      }
+    }
+
+    function loadMainContent() {
+      introScreen.classList.add('fade-out');
+      setTimeout(() => {
+        introScreen.style.display = 'none';
+        mainContentWrapper.style.display = 'block';
+        setTimeout(() => {
+          mainContentWrapper.style.opacity = 1;
+        }, 50);
+
+        // 첫 번째 메뉴 버튼 활성화 (새로운 순서에 따라 '회사' 버튼 활성화)
+        const firstMenuBtn = document.querySelector('.main-menu .menu-btn:first-child');
+        if (firstMenuBtn) {
+            firstMenuBtn.click(); // 첫 번째 메뉴 버튼 클릭 이벤트 트리거
+        }
+      }, 500);
+    }
+    
+    // --- [메인 메뉴 및 서브 메뉴 로직] ---
+    const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
+    const contentSections = document.querySelectorAll('.content-section');
+
+    function handleSubMenuClick(event) {
+        const btn = event.currentTarget;
+        const contentId = btn.getAttribute('data-content-id');
+        const contentSection = document.getElementById(contentId);
+        const parentSection = btn.closest('.content-section');
+
+        // 모든 서브 버튼 비활성화
+        parentSection.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+        // 클릭된 버튼 활성화
+        btn.classList.add('active');
+
+        // 해당 섹션의 모든 서브 콘텐츠 숨기기
+        parentSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
+        
+        // 해당 서브 콘텐츠만 표시
+        if (contentSection) {
+            contentSection.classList.add('active');
+        }
+    }
+
+
+    menuButtons.forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = btn.getAttribute('data-target');
+        const targetSection = document.getElementById(targetId);
+
+        // 모든 섹션 비활성화
+        contentSections.forEach(section => section.classList.remove('active'));
+
+        // 타겟 섹션 활성화
+        if (targetSection) {
+          targetSection.classList.add('active');
         }
 
-        function showMainContent() {
-            document.getElementById('main-content-wrapper').style.display = 'block';
-            document.getElementById('main-content-wrapper').style.opacity = '1';
-            // 초기 활성 메뉴에 따라 콘텐츠를 표시
-            const initialActiveBtn = document.querySelector('.main-menu .menu-btn.active');
-            if (initialActiveBtn) {
-                const targetId = initialActiveBtn.getAttribute('data-target');
-                const targetSection = document.getElementById(targetId);
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                }
-            }
-            // 퀴즈 초기화 및 로드 (이전 코드에서 이어짐)
-            initializeQuiz();
-        }
-
-        // 페이지 로드 시 인트로 시작
-        document.addEventListener('DOMContentLoaded', () => {
-            setTimeout(showNextPhrase, 500);
-        });
-
-        // --- [메인 메뉴 및 서브 메뉴 로직] ---
-
-        const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
-        const contentSections = document.querySelectorAll('.content-section');
-        const mainContent = document.getElementById('main-content');
-
-        menuButtons.forEach(btn => {
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('data-target');
-                const targetSection = document.getElementById(targetId);
-
-                // 모든 메뉴 버튼 비활성화, 클릭된 버튼 활성화
-                menuButtons.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-
-                // 모든 콘텐츠 섹션 비활성화
-                contentSections.forEach(s => s.classList.remove('active'));
-                
-                // 타겟 섹션 활성화
-                if (targetSection) {
-                    targetSection.classList.add('active');
-                }
-
-                // '기술' 섹션 (tech-section) 클릭 시 첫 번째 서브 메뉴 활성화
-                if (targetId === 'tech-section') {
-                    const firstSubBtn = targetSection.querySelector('.sub-menu .sub-btn:first-child');
-                    if (firstSubBtn) {
-                        // 모든 서브 콘텐츠 비활성화
-                        targetSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
-                        // 첫 번째 서브 메뉴 버튼 활성화
-                        targetSection.querySelectorAll('.sub-menu .sub-btn').forEach(b => b.classList.remove('active'));
-                        firstSubBtn.classList.add('active');
-                        // 해당 서브 콘텐츠 활성화
-                        document.getElementById(firstSubBtn.getAttribute('data-content-id')).classList.add('active');
-                    }
-                }
-                
-                mainContent.scrollTop = 0; // 스크롤 최상단으로 이동
-            });
-        });
-
-        // 서브 메뉴 클릭 핸들러 (기술 섹션용)
-        function handleSubMenuClick(event) {
-            const btn = event.target;
-            const targetId = btn.getAttribute('data-content-id');
-            const parentMenu = btn.closest('.sub-menu');
-            const parentSection = btn.closest('.content-section');
-            
-            // 모든 서브 버튼 비활성화, 클릭된 버튼 활성화
-            parentMenu.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-
-            // 모든 서브 콘텐츠 비활성화
-            parentSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
-
-            // 타겟 서브 콘텐츠 활성화
-            const targetContent = document.getElementById(targetId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-            }
-        }
-
-        // 모든 서브 메뉴 버튼에 이벤트 리스너 연결
-        document.addEventListener('DOMContentLoaded', () => {
-            document.querySelectorAll('.sub-menu').forEach(subMenu => {
-                subMenu.querySelectorAll('.sub-btn').forEach(btn => {
-                    btn.addEventListener('click', handleSubMenuClick);
-                });
-            });
-        });
-
-        // --- [퀴즈 로직 유지] ---
-        const questions = document.querySelectorAll('#quiz-section .question');
-        let current = 0;
-        let answers = [];
-        let selectedRegion = ''; 
-
-        const data = {
-            opt1: ['냉장고 (업소용)', '냉장고 (사무실/가정용)', '제빙기', '전자레인지'],
-            opt2: ['분해청소 및 소독', '정기 위생관리', '예방 정비', '고장 진단', '중고 매입/판매'],
-            opt3: ['사무실/기업체', '급식소/식당', '병원/의료기관', '카페/베이커리', '공장/제조시설', '학교/관공서', '기타'],
-            opt4: ['서울', '경기', '인천', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '부산', '대구', '광주', '대전', '울산', '세종', '제주', '해외'],
-            cities: { 
-                '서울': ['종로구', '강남구', '송파구', '영등포구', '기타'],
-                '경기': ['수원시', '성남시', '고양시', '용인시', '화성시', '부천시', '안산시', '남양주시', '안양시', '기타'],
-                '인천': ['부평구', '남동구', '연수구', '미추홀구', '기타'],
-                '강원': ['강원 전역'],
-                // 다른 지역은 생략하고 '기타'를 사용하여 버튼 수를 줄임
-                '충북': ['충북 전역'], '충남': ['충남 전역'], '전북': ['전북 전역'], '전남': ['전남 전역'],
-                '경북': ['경북 전역'], '경남': ['경남 전역'], '부산': ['부산 전역'], '대구': ['대구 전역'],
-                '광주': ['광주 전역'], '대전': ['대전 전역'], '울산': ['울산 전역'], '세종': ['세종 전역'],
-                '제주': ['제주 전역'],
-                '해외': ['해외 지역']
-            }
-        };
-
-        function initializeQuiz() {
-            // 질문 1~4의 옵션 버튼 생성
-            ['opt1', 'opt2', 'opt3', 'opt4'].forEach(id => {
-                const container = document.getElementById(id);
-                if (container) {
-                    container.innerHTML = '';
-                    data[id].forEach(text => {
-                        const btn = createOptionButton(text);
-                        container.appendChild(btn);
-                    });
-                }
-            });
-            resetQuiz();
+        // 퀴즈 섹션이 아닌 경우
+        if (targetId === 'quiz-section') {
+            // 퀴즈 섹션으로 이동 시 퀴즈 초기화 및 Q1 활성화
+            const quizSection = document.getElementById('quiz-section');
+            quizSection.style.display = 'block';
+            quizSection.classList.add('active'); 
+            resetQuiz(); 
             if (questions.length > 0) {
-                questions[0].classList.add('active');
+              questions[0].classList.add('active');
             }
         }
         
-        function resetQuiz() {
-          questions.forEach(q => q.classList.remove('active'));
-          current = 0;
-          answers = [];
-          document.getElementById('summary').textContent = '선택 내용을 확인하려면 이전 단계를 완료해주세요.';
-          document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
-          document.getElementById('opt5').innerHTML = '';
-          selectedRegion = '';
-        }
-
-        function createOptionButton(text) {
-            const btn = document.createElement('button');
-            btn.className = 'option-button';
-            btn.textContent = text;
-            btn.addEventListener('click', handleOptionClick);
-            return btn;
-        }
-
-        function handleOptionClick(event) {
-            const btn = event.target;
-            const parent = btn.closest('.question');
-            const optionButtons = parent.querySelectorAll('.option-button');
-            
-            // 다중 선택 불가능 (단일 선택 모드)
-            optionButtons.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            
-            const isQ4 = parent.id === 'q4';
-
-            if (isQ4) {
-                selectedRegion = btn.textContent;
-                generateCityOptions(selectedRegion);
-            }
-            
-            // 다음 단계로 자동 이동
-            showNext();
-        }
-
-        function generateCityOptions(region) {
-            const cityContainer = document.getElementById('opt5');
-            cityContainer.innerHTML = ''; // 기존 도시 목록 초기화
-
-            const cities = data.cities[region] || ['지역 상세 없음']; // cities 데이터를 사용하여 도시 목록 생성
-            
-            cities.forEach(city => {
-                const btn = createOptionButton(city);
-                cityContainer.appendChild(btn);
-            });
-        }
-
-        function showPrev() {
-            if (current > 0) {
-                questions[current].classList.remove('active');
-                current--;
-                // Q5로 돌아갈 때, Q4에서 건너뛰었는지 확인하여 Q4로 다시 돌아가기
-                if (questions[current].id === 'q5' && selectedRegion) {
-                    const cityList = data.cities[selectedRegion];
-                    if (!cityList || cityList.length <= 1) {
-                        current--; // Q4로 한 번 더 돌아가기
-                    }
-                }
-                questions[current].classList.add('active');
+        // 서브 메뉴가 있는 섹션 (냉장고, 제빙기, 전자레인지)으로 이동 시 첫 번째 서브 메뉴 활성화
+        if (targetId === 'mos-section' || targetId === 'avk-section' || targetId === 'dryice-section') {
+            const firstSubBtn = targetSection.querySelector('.sub-menu .sub-btn:first-child');
+            if (firstSubBtn && !firstSubBtn.classList.contains('active')) {
+                // 첫 번째 버튼이 활성화되지 않았다면 클릭 이벤트 발생
+                firstSubBtn.click();
+            } else if (firstSubBtn) {
+                // 이미 활성화된 경우에도 (메인 메뉴 이동 시) 서브 콘텐츠만 보이도록 설정
+                targetSection.querySelectorAll('.sub-content').forEach(c => c.classList.remove('active'));
+                document.getElementById(firstSubBtn.getAttribute('data-content-id')).classList.add('active');
             }
         }
-        
-        function showNext(isLastStep = false) {
-            // 현재 질문이 Q4(지역)인지 확인
-            const isQ4 = questions[current] && questions[current].id === 'q4'; 
-            
-            if (questions[current]) questions[current].classList.remove('active');
-            current++;
-            
-            // [수정] Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기
-            if (isQ4) {
-                const cityList = data.cities[selectedRegion];
-                // 도시 목록이 없거나, 목록 길이가 1개 이하일 경우
-                if (!cityList || cityList.length <= 1) {
-                    current++; // Q5 건너뛰기
-                }
-            }
 
-            if (current < questions.length) {
-                questions[current].classList.add('active');
-            }
-            
-            // 마지막 질문(result)로 이동할 때
-            if (current === questions.length - 1 || isLastStep) summarize();
+        menuButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        mainContent.scrollTop = 0;
+      });
+    });
 
-            // 퀴즈 섹션 스크롤 맨 위로 이동
-            mainContent.scrollTop = 0;
-        }
-
-        function summarize() {
-            answers = [];
-            document.querySelectorAll('#quiz-section .option-button.active').forEach(btn => {
-                answers.push(btn.textContent);
-            });
-            document.getElementById('summary').textContent = `선택하신 내용: ${answers.join(', ')}`;
-        }
-
-        // SMS 발송 로직 (더미)
-        document.getElementById('sendSMS').addEventListener('click', function() {
-            const finalSummary = document.getElementById('summary').textContent;
-            alert(`[전문상담 신청]\n\n${finalSummary}\n\n전문 상담사에게 내용이 전달되었습니다. 곧 전화 드리겠습니다.`);
-            resetQuiz();
-            showNext(true); // 결과 화면 유지
+    // 모든 하위 메뉴 버튼에 이벤트 리스너 연결
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.sub-menu').forEach(subMenu => {
+        subMenu.querySelectorAll('.sub-btn').forEach(btn => {
+          btn.addEventListener('click', handleSubMenuClick);
         });
+      });
+    });
+
+    // --- [퀴즈 로직] --- 
+    let current = 0;
+    let answers = [];
+    let selectedRegion = '';
+    const questions = document.querySelectorAll('#quiz-section .question');
+    const mainContent = document.querySelector('main');
+
+    function resetQuiz() {
+      questions.forEach(q => q.classList.remove('active'));
+      current = 0;
+      answers = [];
+      document.getElementById('summary').textContent = '';
+      document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
+      document.getElementById('opt5').innerHTML = ''; // Q5 초기화
+      selectedRegion = '';
+    }
+
+    // [수정] 퀴즈 데이터 (사용자 요청에 따라 Q1 목록 재반영)
+    const data = {
+      // Q1: 어떤 제품 인가요?
+      q1: ['커피머신', '제빙기', '냉장고', '식기세척기', '대형설비', '특수장비', '중고매입', '기타'],
+      // Q2: 어떤 관리가 필요 한가요?
+      q2: ['분해청소', '고장수리', '설비교체', '정기관리', '긴급출동', '단순견적'],
+      // Q3: 어떤 공간 인가요?
+      q3: ['카페/프랜차이즈', '기업/사무실', '병원/의료시설', '급식소/단체', '제조시설', '개인주택'],
+      // Q4: 지역을 선택 해주세요
+      q4: ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'],
+      // Q5: 도시/시/군/구를 선택해주세요
+      cities: {
+        '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
+        '경기': ['수원', '성남', '용인', '고양', '화성', '안산', '남양주', '안양', '평택', '시흥', '파주', '의정부', '김포', '광주', '광명', '군포', '하남', '오산', '이천', '양주', '구리', '안성', '포천', '의왕', '양평', '여주', '동두천', '과천', '가평', '연천'],
+        '인천': ['계양구', '미추홀구', '남동구', '동구', '부평구', '서구', '연수구', '옹진군', '중구', '강화군'],
+        '부산': ['강서구', '금정구', '남구', '동구', '동래구', '부산진구', '북구', '사상구', '사하구', '서구', '수영구', '연제구', '영도구', '중구', '해운대구', '기장군'],
+        '대구': ['남구', '달서구', '달성군', '동구', '북구', '서구', '수성구', '중구', '군위군'],
+        '광주': ['광산구', '남구', '동구', '북구', '서구'],
+        '대전': ['대덕구', '동구', '서구', '유성구', '중구'],
+        '울산': ['남구', '동구', '북구', '중구', '울주군'],
+        '세종': ['세종 전역'],
+        '강원': ['강원 전역'],
+        '충북': ['충북 전역'],
+        '충남': ['충남 전역'],
+        '전북': ['전북 전역'],
+        '전남': ['전남 전역'],
+        '경북': ['경북 전역'],
+        '경남': ['경남 전역'],
+        '제주': ['제주 전역'],
+      }
+    };
+
+    // 옵션 버튼 생성 및 배치
+    Object.keys(data).forEach(id => {
+      const container = document.getElementById(`opt${id.slice(1)}`);
+      if (container) {
+        data[id].forEach(text => {
+          const btn = createOptionButton(text);
+          container.appendChild(btn);
+        });
+      }
+    });
+
+    function createOptionButton(text) {
+      const btn = document.createElement('button');
+      btn.className = 'option-button';
+      btn.textContent = text;
+      btn.addEventListener('click', handleOptionClick);
+      return btn;
+    }
+
+    function handleOptionClick(event) {
+      const btn = event.target;
+      const parent = btn.closest('.question');
+      const parentId = parent.id;
+      
+      // 버튼 활성화 토글
+      parent.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      if (parentId === 'q4') {
+        selectedRegion = btn.textContent;
+        // Q4 선택 시 Q5 (도시/시/군/구) 목록 업데이트
+        updateCityOptions(selectedRegion);
+      }
+      
+      // Q1~Q4는 다음 질문으로 자동 이동, Q5는 버튼 클릭으로 이동
+      if (parentId !== 'q5') {
+        showNext();
+      }
+    }
+
+    function updateCityOptions(region) {
+      const cityContainer = document.getElementById('opt5');
+      cityContainer.innerHTML = ''; // 기존 옵션 초기화
+      
+      const cities = data.cities[region] || ['지역 상세 없음']; // cities 데이터를 사용하여 도시 목록 생성
         
-    </script>
+      cities.forEach(city => {
+          const btn = createOptionButton(city);
+          cityContainer.appendChild(btn);
+      });
+    }
+
+    function showNext(isLastStep = false) {
+      const isQ4 = questions[current].id === 'q4'; // 현재 질문이 Q4(지역)인지 확인
+      
+      questions[current].classList.remove('active');
+      current++;
+      
+      // [수정] Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기
+      if (isQ4) {
+          const cityList = data.cities[selectedRegion];
+          // 도시 목록이 없거나 (오류방지), 목록 길이가 1개 이하일 경우 (예: '강원 전역')
+          if (!cityList || cityList.length <= 1) {
+              current++; // Q5 건너뛰기
+          }
+      }
+
+      if (current < questions.length) {
+        questions[current].classList.add('active');
+      }
+      
+      // 마지막 질문(result)로 이동할 때
+      if (current === questions.length - 1 || isLastStep) summarize();
+    }
+
+    function summarize() {
+      answers = [];
+      document.querySelectorAll('#quiz-section .option-button.active').forEach(btn => {
+        answers.push(btn.textContent);
+      });
+      document.getElementById('summary').textContent = `선택하신 내용: ${answers.join(', ')}`;
+
+      // 자동 문자 메시지 내용 생성
+      const smsMessage = `크린메이트 상담 요청: ${answers.join(', ')}`;
+      document.getElementById('sendSMS').onclick = () => {
+        // 실제 전화번호로 연결 및 문자 메시지 전송 로직
+        window.location.href = `sms:000-0000-0000?body=${encodeURIComponent(smsMessage)}`;
+      };
+    }
+
+    // 뒤로 가기 기능 (브라우저 히스토리 관리가 복잡하여 간단한 재시작으로 대체)
+    document.getElementById('sendSMS').insertAdjacentHTML('afterend', '<button onclick="resetQuiz(); questions[0].classList.add(\'active\')" style="background-color: #444; color: white; border: none; border-radius: 30px; padding: 15px 25px; font-size: 16px; cursor: pointer; margin: 10px;">↩️처음으로 돌아가기</button>');
+
+
+    // --- [갤러리 자동 로드 로직] ---
+    function generateGallery(containerId, folder, startIdx, maxAttempts, baseName = '', padding = 0) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      // 이전 콘텐츠 유지 (기술 섹션의 경우 인증/수료증 텍스트가 이미 삽입되어 있으므로)
+      let html = ''; 
+
+      for (let i = startIdx; i < startIdx + maxAttempts; i++) {
+        let fileName;
+        let altText;
+        if (padding > 0) {
+          // 패딩이 0 이상이면 001.jpg, 002.jpg 형식으로 파일명을 생성
+          let fileNumber = i.toString().padStart(padding, '0');
+          fileName = `${fileNumber}.jpg`;
+          altText = `이미지 ${fileNumber}`;
+        } else {
+          // 패딩이 없으면 baseName1.jpg, baseName2.jpg 형식으로 파일명을 생성
+          fileName = `${baseName}${i}.jpg`;
+          altText = `${baseName} ${i}`;
+        }
+        const src = `${folder}/${fileName}`;
+        // onerror를 통해 파일이 없으면 숨김 처리
+        html += `<img src="${src}" alt="${altText}" onerror="this.style.display='none'">`;
+      }
+      container.innerHTML = html;
+    }
+
+    // 페이지 로드 시 인트로 시작
+    document.addEventListener('DOMContentLoaded', () => {
+      setTimeout(showNextPhrase, 500);
+    });
+
+    // 갤러리 로드 실행
+    document.addEventListener('DOMContentLoaded', () => {
+      // [기술] s03/certificate_img1.jpg (기존 유지)
+      generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
+      // [실적] /jpg/001.jpg 형식으로 변경 (폴더: jpg, 시작번호: 1, 최대 100개 시도, 패딩: 3)
+      generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
+      // [협력] /partner/partner1.jpg 형식으로 변경 (폴더: partner, 시작번호: 1, 최대 10개 시도, 패딩: 0)
+      generateGallery('partner-gallery-container', 'partner', 1, 10, 'partner', 0); 
+    });
+
+    // --- [스크롤 텍스트 애니메이션 재시작/유지 로직] ---
+    document.addEventListener('visibilitychange', () => {
+        const scrollText = document.querySelector('.scroll-text');
+        if (document.hidden) {
+            scrollText.style.animationPlayState = 'paused';
+        } else {
+            scrollText.style.animationPlayState = 'running';
+        }
+    });
+
+  </script>
 </body>
 </html>
