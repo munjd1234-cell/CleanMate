@@ -96,9 +96,9 @@
     width: 100%;
     background: #fff;
     text-align: center;
-    padding: 8px 0; /* [수정] 로고-문구 간격 조정 (10px -> 8px) */
+    /* [수정] 로고 하단 문구와 메뉴 사이 공백 추가 (기존 8px 0에서 하단 패딩 15px로 증가) */
+    padding: 8px 0 15px 0; 
     z-index: 1000;
-    /* height: 79px; */ /* 고정 높이 제거 */
     box-sizing: border-box;
   }
   /* [수정] 로고 파일명 반영 */
@@ -114,7 +114,8 @@
   /* --- [메인 메뉴바] --- */
   .main-menu {
     position: fixed;
-    top: 68px; /* [수정] 헤더 높이 조정에 맞게 top 위치 변경 (79px -> 68px) */ 
+    /* [수정] 헤더 패딩 조정에 맞게 top 위치 변경 (68px -> 75px) */ 
+    top: 75px; 
     left: 0;
     width: 100%;
     background: #222;
@@ -146,10 +147,11 @@
   }
 
   main {
-    margin-top: 115px; /* [수정] 헤더/메뉴 높이 조정에 맞게 변경 (125px -> 115px) */ 
+    /* [수정] 헤더/메뉴 높이 조정에 맞게 변경 (115px -> 122px) */ 
+    margin-top: 122px; 
     /* [수정] 하단 버튼과의 간격 조정 (110px -> 80px로 줄임) */
     margin-bottom: 80px;
-    height: calc(100vh - 115px - 80px); /* 높이 계산 수정 */
+    height: calc(100vh - 122px - 80px); /* 높이 계산 수정 */
     overflow-y: auto;
     text-align: center;
     padding: 0 15px; 
@@ -433,7 +435,8 @@
     /* PC 환경에서 main 콘텐츠의 높이 제약을 해제하여 콘텐츠 길이에 따라 스크롤 가능하게 합니다. */
     main {
          height: auto;
-         min-height: calc(100vh - 115px - 80px); /* 최소 높이는 유지 */
+         /* 최소 높이는 유지 (115px -> 122px) */
+         min-height: calc(100vh - 122px - 80px); 
     }
 
   }
@@ -466,107 +469,98 @@
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자레인지</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력</a> 
-      <a href="#quiz" class="menu-btn" data-target="quiz-section">원스톱</a> 
     </nav>
 
     <main>
-      <div id="quiz-section" class="content-section">
-        <div class="question" id="q1">
-          <h3>어떤 제품인가요?</h3>
-          <div class="options" id="opt1"></div>
-        </div>
-        <div class="question" id="q2">
-          <h3>어떤 관리가 필요 한가요?</h3>
-          <div class="options" id="opt2"></div>
-        </div>
-        <div class="question" id="q3">
-          <h3>어떤 공간 인가요?</h3>
-          <div class="options" id="opt3"></div>
-        </div>
-        <div class="question" id="q4">
-          <h3>지역을 선택 해주세요</h3>
-          <div class="options" id="opt4"></div>
-        </div>
-        <div class="question" id="q5">
-          <h3>도시/시/군/구를 선택해주세요</h3>
-          <div class="options" id="opt5"></div>
-        </div>
-        <div class="question" id="result">
-          <h3>상담 내용 </h3>
-          <p id="summary"></p>
-          <button id="sendSMS">📩내용전달 (자동문자)</button>
-        </div>
-      </div>
       
-      <div id="company-section" class="content-section">
-          <h2>🏢 주식회사 디에이치씨솔루션</h2>
-          <h3 style="text-align: center; color: #fff; border-bottom: none;">기업 핵심 위생 가전 소독 관리 전문 솔루션</h3>
-
-          <h3 style="margin-top: 20px;">1. 💡 제안 배경 및 필요성</h3>
-          <p style="text-align: left; margin-bottom: 20px;">
-              직원들의 건강과 복지, 그리고 기업의 지속 가능한 생산성은 안전하고 쾌적한 근무 환경의 기반 위에서만 보장될 수 있습니다. 특히 다중이용 환경인 기업 사무실에서 공동으로 사용하는 **냉장고, 제빙기, 전자레인지**는 일상 속에서 가장 빈번하게 접촉되는 '핵심 위생 가전'이며, 철저한 전문 관리가 부재할 경우 심각한 위생 문제와 감염병 확산의 주요 온상이 될 수 있는 **"보이지 않는 감염 위험 구역"**으로 규정됩니다.
-              <br>주식회사 디에이치씨솔루션은 기업 환경의 특수성과 위험성을 깊이 분석하고, 이 세 가지 핵심 위생 가전에 대한 최적화된 전문 소독 관리 솔루션을 제공함으로써 임직원의 건강을 선제적으로 보호하고 기업의 위생 안전망 구축을 지원합니다.
-          </p>
-
-          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">A. 기업 내 중점 관리 가전의 현실</h4>
-          <p style="text-align: left;">
-              기업 내 공용 가전은 가정용 대비 **하루 수백 회**에 달하는 높은 사용 빈도를 가지며, 이로 인해 오염 가속도가 현저히 빠르고 세균 번식에 매우 취약합니다. 내부 오염원이 방치될 경우 전문적인 지식과 장비 없이는 완벽한 제거가 불가능합니다.
-          </p>
-
-          <div style="text-align: center;">
-              <h4 style="border-bottom: none; color: #fff; margin-top: 10px; margin-bottom: 5px;">핵심 위생 가전별 위험 요소 및 관리 필요성 요약</h4>
-              <table style="width: 100%; max-width: 500px; margin: 15px auto; table-layout: fixed;">
-                  <thead>
-                      <tr>
-                          <th style="width: 20%;">가전</th>
-                          <th style="width: 40%;">오염 메커니즘</th>
-                          <th style="width: 40%;">감염 위험</th>
-                      </tr>
-                  </thead>
-                  <tbody>
-                      <tr>
-                          <td>**냉장고**</td>
-                          <td>잦은 문 여닫음, 부패 음식물 잔여물, 고무패킹 틈새 오염</td>
-                          <td>식중독균, 교차 감염(노로바이러스)</td>
-                      </tr>
-                      <tr>
-                          <td>**제빙기**</td>
-                          <td>바이오필름, 물때, 급수 라인 스케일 축적</td>
-                          <td>수인성 세균(레지오넬라균), 호흡기 질환 위험</td>
-                      </tr>
-                      <tr>
-                          <td>**전자레인지**</td>
-                          <td>기름때, 찌꺼기, 수분 축적으로 세균 서식처 제공</td>
-                          <td>식중독균(포도상구균), 접촉성 교차 감염</td>
-                      </tr>
-                  </tbody>
-              </table>
-          </div>
+      <div id="company-section" class="content-section solution-content-wrapper">
+          <h2>🏢 기업 위생 가전 소독 관리 전문 업체</h2>
           
-          <h3 style="margin-top: 40px;">2. 🏛️ 회사 소개 및 핵심 경쟁력</h3>
-          <p style="text-align: left;">
-              주식회사 디에이치씨솔루션은 단순한 청소 서비스가 아닌, 위생 문제를 근본적으로 해결하고 예측하여 사전 차단하는 혁신적인 관리 시스템을 구축하고 있습니다. 냉장고, 제빙기, 전자레인지 전문 관리에 최적화된 기술력, 인력풀, 그리고 미래형 AI 시스템을 통합하여 신속하고 정확하며 신뢰할 수 있는 솔루션을 제공합니다.
+          <h3 style="margin-top: 30px;">1. 💡 제안 배경 및 필요성</h3>
+          <p>
+              [cite_start]직원들의 건강과 복지, 그리고 기업의 생산성은 안전한 근무 환경에서 시작됩니다[cite: 133].
+          </p>
+          <p>
+              [cite_start]다중이용 시설인 기업 사무실에서 공동으로 사용하는 위생 가전은 "보이지 않는 감염 위험 구역"입니다[cite: 134].
+          </p>
+          
+          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">A. 기업 내 위생 가전의 현실 (Risk Assessment)</h4>
+          <p>
+              [cite_start]기업 내 위생 가전은 가정용 대비 사용 빈도(하루 수백 회)가 현저히 높아 오염 가속도가 빠르고, 세균 번식에 취약합니다[cite: 135].
+          </p>
+          <ul class="bullet-list">
+              [cite_start]<li>**오염 가속:** 냉장고, 정수기, 제빙기 내부 등에서 곰팡이와 물때 발생 속도 증가[cite: 136].</li>
+              [cite_start]<li>**감염 위험:** 전자레인지, 키보드, 비데 노즐 등에서 식중독균 및 전염성 병원균 노출 위험 상존[cite: 137].</li>
+              [cite_start]<li>**관리 한계:** 대부분의 기업이 단순 외관 청소에 그치거나 관리 시기를 놓쳐 근본적인 위생 문제가 해결되지 않고 내부 오염원이 방치됩니다[cite: 138].</li>
+          </ul>
+          <div class="solution-img-gallery" style="text-align: center; color: #888; font-size: 13px;">
+            (청소 전/후 비교 사진 7컷 예상)
+          </div>
+
+          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">B. 중점 관리 대상 가전의 위협</h4>
+          <p>
+              [cite_start]당사의 전문 관리가 필요한 주요 대상입니다[cite: 139].
+          </p>
+          <ul class="bullet-list" style="list-style: none;">
+              [cite_start]<li>> 냉장고, 전자레인지, 제빙기, 정수기, 커피머신, 비데, 칫솔살균기, 에어컨, 공기청정기, 사무용품 , PC/키보드 등 [cite: 140]</li>
+          </ul>
+          <div style="text-align: center; color: #888; font-size: 13px;">
+            (중점 관리 대상 가전 관련 사진 1컷 예상)
+          </div>
+
+          <h3 style="margin-top: 40px;">2. 🏛️ 회사 소개</h3>
+          <p>
+              [cite_start]주식회사 디에이치씨솔루션은 **20년간 위생 기술 선도력, 국내 최대 규모의 인력풀, 그리고 AI 시스템을 결합**하여, 기업 위생 관리에 가장 빠르고 정확하며 신뢰할 수 있는 미래형 솔루션을 제공합니다[cite: 140].
+              [cite_start]<br>클린메이트는 디에이치씨솔루션의 가전소독전문 브랜드명입니다[cite: 141].
           </p>
 
-          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">A. 기술력: 20년간 국내 위생 기술을 선도한 과학적 접근</h4>
+          <h4 style="color: #fff; text-align: center; border-bottom: none; margin-top: 20px; margin-bottom: 5px;">회사 정보 요약</h4>
+          <table style="width: 100%; max-width: 500px; margin: 15px auto; table-layout: fixed;">
+              <thead>
+                  <tr>
+                      <th style="width: 20%;">구분</th>
+                      <th style="width: 80%;">상세 정보</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <td>**기본 정보**</td>
+                      [cite_start]<td>대표이사: 김동현 / 설립일: 2018년 1월 16일 [cite: 142]</td>
+                  </tr>
+                  <tr>
+                      <td>**사업 분야**</td>
+                      [cite_start]<td>건물위생관리업 (영업신고증 보유), 위생가전 전문 청소/소독, 정기 케어 시스템 운영 [cite: 143]</td>
+                  </tr>
+                  <tr>
+                      <td>**주소/연락처**</td>
+                      [cite_start]<td>서울특별시 송파구 충민로 66, F동 8087호 (문정동, 가든파이브라이프) / 1666-1757 / dhc-solution@naver.com [cite: 144]</td>
+                  </tr>
+              </tbody>
+          </table>
+          <h3 style="margin-top: 40px;">3. 🔬 기술력: 20년간 국내 위생 기술을 선도한 전문 연구진</h3>
+          <p>
+              [cite_start]당사의 연구소는 한국에 없던 다양한 위생·환경 기술을 20년 전 최초로 도입한 전문가들로 구성되어 있습니다[cite: 145].
+          </p>
           <ul class="bullet-list">
-              <li>**ATP·RLU 오염 측정 시스템:** 냉장고 문손잡이 등 '고빈도 접촉 부위'의 미세 세균 오염도를 객관적인 수치(RLU)로 측정하여 위생 개선 효과를 투명하게 보고.</li>
-              <li>**EM(Effective Microorganism) 소독법:** 유익 미생물을 활용하여 유해균 번식을 억제하고 악취를 근본적으로 제거하며, 인체에 무해한 친환경 위생 관리 구현.</li>
-              <li>**스팀 및 자외선(UV) 기반 살균:** 고온 스팀은 찌든 때 제거와 동시에 바이러스 및 세균을 **99.9% 이상 멸균**하며, UV는 화학 약품 없이 미생물 DNA를 파괴하여 살균.</li>
+              [cite_start]<li>**핵심 기술:** 새집증후군 원인 분석 및 제거 기술, ATP·RLU 오염 측정 시스템 도입, EM(Effective Microorganism) 소독법, 스팀 및 자외선 기반 살균 시스템[cite: 146].</li>
+              [cite_start]<li>**전문성:** 건축·위생·환경 분야 전문가들로 구성된 임직원이 전 과정에 AI 기반 데이터 처리 기술을 적용하여 정확하고 신뢰성 높은 데이터를 제공합니다[cite: 147].</li>
           </ul>
-
-          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">B. 인력풀: 1,500명 이상 즉시 대응 가능한 전문 인력</h4>
+          <h3 style="margin-top: 40px;">4. 🧑‍🤝‍🧑 인력풀: 1,500명 이상 즉시 대응 가능한 국내 최대 규모</h3>
+          <p>
+              [cite_start]웅진, 삼성, LG, 미쯔비시 등 제조사 및 협력사 출신 전문가 **500명 이상을 포함한 한국인 전문 인력**과, 긴급·특수 작업 대응 기초 인력을 24시간 즉시 확보 가능합니다[cite: 148].
+          </p>
           <ul class="bullet-list">
-              <li>**제조사 출신 전문 역량:** 웅진, 삼성, LG 등 주요 제조사 출신 전문가 500명 이상을 포함, 고가 가전의 복잡한 구조를 이해하고 내부 깊숙한 오염원까지 안전하게 **분해 및 재조립** 가능.</li>
-              <li>**신속 대응 체계:** 1,500명 이상의 인력풀로 긴급 상황 또는 대규모 사업장 관리 요청에 **국내 최단 시간 투입** 체계를 갖추어 비즈니스 연속성 지원.</li>
+              [cite_start]<li>**신속 대응:** 대통령 방문, VIP 바이어 방문, 갑작스러운 현장 위생 점검 등 긴급 상황 발생 시 **국내에서 가장 빠른 투입 체계**를 갖추고 있습니다[cite: 149].</li>
           </ul>
-
-          <h4 style="color: #ccc; text-align: left; border-bottom: 1px solid #333;">C. AI 도입: 미래형 ‘구독형 위생 중앙 시스템’</h4>
+          <h3 style="margin-top: 40px;">5. 🤖 AI 도입: 미래형 ‘구독형 위생 중앙시스템’</h3>
+          <p>
+              [cite_start]단순 사후 처리를 넘어, 문제가 생기기 전 사전 차단하는 미래형 위생 관리 시스템을 구축하고 있습니다 (투자 유치 중)[cite: 150].
+          </p>
           <ul class="bullet-list">
-              <li>**실시간 감시 및 데이터 수집:** 스마트 모듈을 통해 냉장고 온도/습도, 제빙기 수질/유량, 전자레인지 사용 빈도 등 핵심 환경 정보를 실시간으로 수집하고 AI 분석.</li>
-              <li>**정밀 예측 기반 관리:** AI 시스템이 각 가전의 **오염 가속도를 예측**하고, 문제가 생기기 전 선제적으로 전문 인력을 투입하여 오염원을 차단.</li>
+              [cite_start]<li>**실시간 감시:** 건물 곳곳에 설치된 모듈이 해충, 위생, 곰팡이, 온도, 습도, 가스, 누수 등의 거주 환경 정보를 실시간 수집[cite: 151].</li>
+              [cite_start]<li>**예측 기반 관리:** 개별 휴대폰 앱 실시간 모니터링 및 본사 중앙 관제실의 24시간 집중 감시를 통해 문제 발생 전 예측 및 즉각적인 현장 대응을 실현합니다[cite: 152].</li>
           </ul>
-      </div>
+          </div>
 
       <div id="portfolio-section" class="content-section">
         <h2>최고의 위생을 위한 노력</h2>
@@ -834,6 +828,34 @@
           </div>
         </div>
 
+      <div id="quiz-section" class="content-section">
+        <div class="question" id="q1">
+          <h3>어떤 제품인가요?</h3>
+          <div class="options" id="opt1"></div>
+        </div>
+        <div class="question" id="q2">
+          <h3>어떤 관리가 필요 한가요?</h3>
+          <div class="options" id="opt2"></div>
+        </div>
+        <div class="question" id="q3">
+          <h3>어떤 공간 인가요?</h3>
+          <div class="options" id="opt3"></div>
+        </div>
+        <div class="question" id="q4">
+          <h3>지역을 선택 해주세요</h3>
+          <div class="options" id="opt4"></div>
+        </div>
+        <div class="question" id="q5">
+          <h3>도시/시/군/구를 선택해주세요</h3>
+          <div class="options" id="opt5"></div>
+        </div>
+        <div class="question" id="result">
+          <h3>상담 내용 </h3>
+          <p id="summary"></p>
+          <button id="sendSMS">📩내용전달 (자동문자)</button>
+        </div>
+      </div>
+
     </main>
 
     <div class="fixed-buttons">
@@ -951,6 +973,7 @@
         }
 
         // 퀴즈 섹션 처리: 퀴즈가 아닌 다른 섹션으로 이동 시 퀴즈 초기화 (화면 잔류 현상 제거)
+        // 퀴즈 섹션은 하단 버튼에서만 접근하도록 유지
         if (targetId === 'quiz-section') {
             const quizSection = document.getElementById('quiz-section');
             quizSection.style.display = 'block';
