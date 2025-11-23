@@ -257,10 +257,13 @@
     padding: 0 15px 30px; 
   }
   
-  /* --- [제안 섹션 제목 (New Clean Accent Style)] --- */
-  .solution-content-wrapper.active#company-section h2, 
-  .solution-content-wrapper.active#company-section h3, 
-  .solution-content-wrapper.active#company-section h4 {
+  /* --------------------------------------------------------------------- */
+  /* --- [디자인 통일 (Style applied to ALL .solution-content-wrapper)] --- */
+  /* --------------------------------------------------------------------- */
+  
+  .solution-content-wrapper h2, 
+  .solution-content-wrapper h3, 
+  .solution-content-wrapper h4 {
       background: none !important;
       border: none !important;
       box-shadow: none !important;
@@ -276,18 +279,18 @@
   }
 
   /* --- [본문 텍스트 (P, UL, LI) - 모바일 기본 크기 유지] --- */
-  #company-section p, .solution-content-wrapper p {
+  .solution-content-wrapper p {
     font-size: 15px; 
   }
-  #company-section ul li, .solution-content-wrapper ul li {
+  .solution-content-wrapper ul li {
     font-size: 15px; 
   }
-  #company-section ul.bullet-list li, .solution-content-wrapper ul.bullet-list li {
+  .solution-content-wrapper ul.bullet-list li {
     font-size: 14px; 
   }
   
   /* H2 (Main Title) - 모바일 크기 */
-  .solution-content-wrapper.active#company-section h2 {
+  .solution-content-wrapper h2 {
       font-size: 24px; 
       color: #00bfa5 !important;
       border-top: 2px solid #00bfa5;
@@ -301,7 +304,7 @@
   }
   
   /* H3 (Section Title) - 모바일 크기 */
-  .solution-content-wrapper.active#company-section h3 {
+  .solution-content-wrapper h3 {
       text-align: left !important;
       color: #fff !important;
       font-size: 17px;
@@ -315,8 +318,8 @@
   }
   
   /* H4 (Sub-section Title) - 모바일 크기 */
-  .solution-content-wrapper.active#company-section h4,
-  .solution-content-wrapper.active#company-section .sub-heading-left {
+  .solution-content-wrapper h4,
+  .solution-content-wrapper .sub-heading-left {
       color: #00bfa5 !important; 
       font-size: 15px;
       border-bottom: 1px dashed #00bfa5 !important;
@@ -335,15 +338,15 @@
       display: block;
   }
 
-  #company-section strong, .solution-content-wrapper strong {
+  .solution-content-wrapper strong {
     color: #00bfa5;
   }
-  #company-section ul, .solution-content-wrapper ul {
+  .solution-content-wrapper ul {
     list-style: none;
     padding: 0;
     margin: 10px 0 30px;
   }
-  #company-section ul li, .solution-content-wrapper ul li {
+  .solution-content-wrapper ul li {
     background: #222;
     margin-bottom: 8px;
     padding: 8px 15px;
@@ -351,7 +354,7 @@
     border-left: 4px solid #00bfa5;
     font-size: 15px;
   }
-  #company-section ul.bullet-list li, .solution-content-wrapper ul.bullet-list li {
+  .solution-content-wrapper ul.bullet-list li {
     list-style: disc;
     margin-left: 20px;
     background: none;
@@ -480,14 +483,14 @@
     }
 
     /* **본문 텍스트 및 리스트** */
-    #company-section p, .solution-content-wrapper p, 
-    #company-section ul.bullet-list li, .solution-content-wrapper ul.bullet-list li {
+    .solution-content-wrapper p, 
+    .solution-content-wrapper ul.bullet-list li {
         font-size: 18px; 
         line-height: 1.8; 
     }
 
     /* 리스트 배경 있는 텍스트 */
-    #company-section ul li, .solution-content-wrapper ul li {
+    .solution-content-wrapper ul li {
         font-size: 18px; 
         padding: 12px 20px;
     }
@@ -499,21 +502,21 @@
 
     /* --- [헤딩 태그 크기 확장] --- */
     /* H2 (섹션 메인 타이틀) */
-    .solution-content-wrapper.active#company-section h2 {
+    .solution-content-wrapper h2 {
         font-size: 32px; 
         padding: 20px 25px !important;
     }
 
     /* H3 (주요 주제) */
-    .solution-content-wrapper.active#company-section h3 {
+    .solution-content-wrapper h3 {
         font-size: 22px; 
         padding: 14px 20px !important;
         margin: 30px auto 30px 0 !important; 
     }
 
     /* H4 (소주제) */
-    .solution-content-wrapper.active#company-section h4,
-    .solution-content-wrapper.active#company-section .sub-heading-left {
+    .solution-content-wrapper h4,
+    .solution-content-wrapper .sub-heading-left {
         font-size: 19px; 
         margin: 35px auto 15px 0 !important;
     }
@@ -870,10 +873,10 @@
           </div>
       </div>
       
-      <div id="tech-section" class="content-section">
+      <div id="tech-section" class="content-section solution-content-wrapper">
           <h2>기술과 인증</h2>
           <p>크린메이트는 끊임없이 기술을 연구하고 검증합니다.</p>
-          <div class="solution-content-wrapper" style="padding: 0;">
+          <div style="padding: 0;">
               <h3 style="margin-top: 20px;">특허 및 인증 현황</h3>
               <p>
                   당사는 환경, 위생, 소독 관련 국내외 주요 인증 및 특허를 다수 보유하고 있습니다.
@@ -883,12 +886,12 @@
           </div>
       </div>
       
-      <div id="partner-section" class="content-section">
+      <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>주요 협력사</h2>
           <p>
               신뢰를 바탕으로 함께 성장하는 파트너들과 함께합니다.
           </p>
-          <div class="solution-content-wrapper" style="padding: 0;">
+          <div style="padding: 0;">
               <h3 style="margin-top: 20px;">파트너사 로고</h3>
               <div id="partner-gallery-container" class="solution-img-gallery" style="justify-content: center; gap: 15px;">
                   </div>
@@ -996,7 +999,6 @@
       
       // 스크립트 기반 콘텐츠 로드 시작
       loadQuizOptions();
-      // initializeSubMenus() 제거
     }, 500);
   }
 
@@ -1084,6 +1086,7 @@
         '대전': ['대덕구', '동구', '서구', '유성구', '중구'],
         '울산': ['남구', '동구', '북구', '울주군', '중구'],
         '세종': ['세종특별자치시'],
+        // Q5를 건너뛸 지역들 (목록 길이가 1이하)
         '강원': ['강원 전역'], 
         '충북': ['충북 전역'],
         '충남': ['충남 전역'],
@@ -1092,7 +1095,7 @@
         '경북': ['경북 전역'],
         '경남': ['경남 전역'],
         '제주': ['제주 전역'],
-        '기타지역': ['기타지역']
+        '기타지역': ['기타지역'] // cities 객체에 없는 지역 처리용 (사용 안함)
     }
   };
 
@@ -1138,8 +1141,8 @@
         const cityList = data.cities[selectedRegion];
         
         // '전역' 지역 (cityList 길이가 1 이하) 선택 시, Q5 건너뛰고 결과창으로 이동
-        if (cityList === null || cityList.length <= 1) {
-            answers[4] = selectedRegion; // Q5 답변을 Q4 선택값으로 저장
+        if (cityList && cityList.length <= 1) { // cityList가 존재하고 길이가 1 이하일 경우
+            answers[4] = selectedRegion; // Q5 답변을 Q4 선택값으로 저장 (전역)
             questions[current].classList.remove('active'); // Hide Q4
             current += 2; // Jump to Q_Result (Q4 -> Q5 (skip) -> Q_Result)
             summarize(); // Show result
@@ -1156,6 +1159,7 @@
     cityContainer.innerHTML = '';
     
     const cities = data.cities[region];
+    // 도시 목록이 존재하고 길이가 1보다 클 경우 (즉, 상세 도시 선택이 필요할 경우)
     if (cities && cities.length > 1) { 
         cities.forEach(city => {
             const btn = createOptionButton(city);
