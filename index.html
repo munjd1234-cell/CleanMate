@@ -1041,6 +1041,7 @@ menuBtns.forEach(btn => {
     }); 
 }); 
 
+// **[수정] 퀴즈 시작 시 Q1이 바로 표시되도록 로직 변경**
 function handleMenuClick(targetId) { 
     contentSections.forEach(section => { 
         section.classList.remove('active'); 
@@ -1050,10 +1051,9 @@ function handleMenuClick(targetId) {
         targetSection.classList.add('active'); 
         window.scrollTo(0, 0); 
 
-        // 퀴즈 섹션일 경우 초기화 
+        // 퀴즈 섹션일 경우 초기화 및 Q1 표시
         if (targetId === 'quiz-section') {
-            resetQuiz();
-            showNext(false); // Q1을 표시
+            resetQuiz(); // Q1 활성화 및 옵션 생성까지 포함
         }
         
         // 서브 메뉴가 있는 섹션 처리 
@@ -1104,6 +1104,7 @@ let answers = new Array(5).fill(undefined);
 let selectedRegion = '';
 const phoneNumber = '01057138417'; 
 
+// **[수정] Q1을 활성화하고 옵션을 생성하도록 resetQuiz 함수 변경**
 function resetQuiz() {
     if(!questions) questions = document.querySelectorAll('#quiz-section .question');
     questions.forEach(q => q.classList.remove('active'));
@@ -1113,19 +1114,16 @@ function resetQuiz() {
     document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
     document.getElementById('opt5').innerHTML = '';
     selectedRegion = '';
-    // 퀴즈 시작 시 Q1 옵션 생성
+    // 퀴즈 시작 시 Q1 옵션 생성 및 Q1 활성화
     generateOptions('q1');
+    questions[0].classList.add('active'); // Q1 (index 0)을 활성화
 }
 
-// [수정된 퀴즈 데이터]
+// [퀴즈 데이터] (유지)
 const data = { 
-    // Q1: 제품 명칭 및 순서 변경 
     q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '사무기기', '에어컨', '대형설비', '특수장비', '중고매입', '기타'], 
-    // Q2: 관리 필요성 순서 변경 및 추가 
     q2: ['정기관리', '분해청소', '고장수리', '제품교체', '제품이동', '긴급출동', '단순견적', '기타'], 
-    // Q3: 공간 종류 순서 변경 및 추가 
     q3: ['기업체', '호텔/리조트', '공장', '병원/의료시설', '학교', '급식소', '단체', '제조시설', '카페/프렌차이즈', '아파트', '빌딩', '기타'], 
-    // Q4: 지역 (유지) 
     q4: ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'], 
     cities: { 
         '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
@@ -1136,7 +1134,7 @@ const data = {
         '광주': ['광산구', '남구', '동구', '북구', '서구'], 
         '대전': ['대덕구', '동구', '서구', '유성구', '중구'], 
         '울산': ['남구', '동구', '북구', '중구', '울주군'], 
-        '세종': [], // 도시 상세 없음. 빈 배열로 처리.
+        '세종': [], // 도시 상세 없음. 빈 배열로 처리. -> 이 경우 Q5를 건너뜁니다.
         '강원': ['강릉시', '동해시', '삼척시', '속초시', '원주시', '춘천시', '태백시', '고성군', '양구군', '양양군', '영월군', '인제군', '정선군', '철원군', '평창군', '홍천군', '화천군', '횡성군'], 
         '충북': ['청주시', '충주시', '제천시', '보은군', '옥천군', '영동군', '진천군', '괴산군', '음성군', '단양군', '증평군'], 
         '충남': ['천안시', '공주시', '보령시', '아산시', '서산시', '논산시', '계룡시', '당진시', '금산군', '부여군', '서천군', '청양군', '홍성군', '예산군', '태안군'], 
@@ -1178,7 +1176,7 @@ function handleOptionClick(event) {
     parent.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // **[핵심 수정] 답변 저장 (해당 인덱스에 저장)**
+    // **[유지/확인]** 답변 저장
     answers[qIndex] = btn.textContent; 
 
     if (parentId === 'q4') {
@@ -1186,9 +1184,9 @@ function handleOptionClick(event) {
         updateCityOptions(selectedRegion);
         const cityList = data.cities[selectedRegion];
         
-        // 도시 상세가 없는 경우 (예: '세종')
+        // **[유지/확인] 도시 상세가 없는 경우 (예: '세종') Q5 건너뛰고 결과 화면으로 이동**
         if (!cityList || cityList.length === 0) { 
-            answers[4] = selectedRegion; // Q5 답변에 Q4 값 저장 (도시 상세가 없으므로)
+            answers[4] = selectedRegion; // Q5 답변에 Q4 값 저장
             showNext(true); // 바로 summarize 호출
             return;
         } else {
@@ -1240,9 +1238,8 @@ function showNext(isLastStep = false) {
     if (current === questions.length - 1 || isLastStep) summarize();
 }
 
-// **[수정] 선택된 모든 답변을 포함하도록 summarize 함수 수정**
 function summarize() {
-    // undefined 값을 제외하고 답변을 요약 (Q4가 지역, Q5가 도시일 경우 Q4, Q5 모두 포함됨)
+    // undefined 값을 제외하고 답변을 요약 (선택된 모든 답변 포함)
     let finalAnswers = answers.filter(a => a !== undefined); 
     document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(', ')}`;
     
@@ -1257,7 +1254,7 @@ function summarize() {
     }
 }
 
-// **[핵심 수정] 선택된 모든 답변을 문자로 보내도록 sendSummarySMS 함수 수정**
+// **[유지/확인] 선택된 모든 답변을 문자로 보내도록 sendSummarySMS 함수**
 function sendSummarySMS() {
     // undefined가 아닌 모든 답변을 추출
     let finalAnswers = answers.filter(a => a !== undefined);
@@ -1310,7 +1307,7 @@ document.addEventListener('DOMContentLoaded', () => {
     generateGallery('partner-gallery-container', 's04', 1, 35, 'partner_goloimg', 0); 
 });
 
-// --- [스크롤 마진 조정] ---
+// --- [스크롤 마진 조정] (유지) ---
 document.addEventListener('scroll', () => {
     // 스크롤 시 푸터/고정 버튼 숨김 로직이 없으므로, 기본 동작 유지
 });
