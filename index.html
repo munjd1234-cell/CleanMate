@@ -975,39 +975,34 @@
           </div>
       </div>
 
-      <div id="quiz-section" class="content-section solution-content-wrapper">
-          <h2>원스톱 상담</h2>
-          <p>몇 가지 질문에 답해 주시면, 고객님께 꼭 맞는 맞춤형 견적을 안내해 드립니다.</p>
-
+      <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
+          <h2>원스톱 상담 (맞춤 견적 퀴즈)</h2>
+          <p>몇 가지 질문에 답해 주시면, 맞춤형 전문 위생 솔루션을 제안 드립니다.</p>
+          
           <div class="question active" id="q1">
-            <h3>필요한 서비스 종류를 선택해주세요.</h3>
-            <div class="options" id="opt1"></div>
+              <h3>관리할 품목을 선택해주세요.</h3>
+              <div class="options" id="opt1"></div>
           </div>
-
           <div class="question" id="q2">
-            <h3>필요한 관리 방식을 선택해주세요.</h3>
-            <div class="options" id="opt2"></div>
+              <h3>필요한 관리 방식을 선택해주세요.</h3>
+              <div class="options" id="opt2"></div>
           </div>
-
           <div class="question" id="q3">
-            <h3>사업장 유형을 선택해주세요.</h3>
-            <div class="options" id="opt3"></div>
+              <h3>사업장 유형을 선택해주세요.</h3>
+              <div class="options" id="opt3"></div>
           </div>
-
           <div class="question" id="q4">
-            <h3>상담을 원하는 지역을 선택해주세요.</h3>
-            <div class="options" id="opt4"></div>
+              <h3>상담을 원하는 지역을 선택해주세요.</h3>
+              <div class="options" id="opt4"></div>
           </div>
-
           <div class="question" id="q5">
-            <h3>상담을 원하는 도시를 선택해주세요.</h3>
-            <div class="options" id="opt5"></div>
+              <h3>상담을 원하는 도시를 선택해주세요.</h3>
+              <div class="options" id="opt5"></div>
           </div>
-
           <div class="question" id="result">
-            <h3>✨ 고객 맞춤 견적 확인</h3>
-            <p id="summary" class="summary-text">선택하신 내용: </p>
-            <button id="sendSMS" class="action-button" onclick="sendSummarySMS()">선택 내용 문자로 보내기</button>
+              <h3>✨ 고객 맞춤 견적 확인</h3>
+              <p id="summary" class="summary-text">선택하신 내용: </p>
+              <button id="sendSMS" class="action-button" onclick="sendSummarySMS()">선택 내용 문자로 보내기</button>
           </div>
       </div>
       </main>
@@ -1149,15 +1144,21 @@
 
     // 퀴즈 데이터
     const data = {
-        q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '정수기', '전체 관리'],
-        q2: ['분해/세척/소독', '정기 케어 계약', '긴급 출동 서비스'],
-        q3: ['IT/플랫폼 기업', '일반 오피스', '공공/연구기관', '금융/보험사', '기타'],
-        q4: ['서울', '경기', '인천', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주', '세종', '전국'],
+        q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '공기청정기', '사무기기', '에어컨', '대형설비', '특수장비', '중고매입', '기타'],
+        q2: ['정기관리', '분해청소', '필터교체', '제품교체', '제품이동', '긴급출동', '단순견적', '기타'],
+        q3: ['기업체', '호텔/리조트', '공장', '병원/의료시설', '교육/연구시설', '공공기관', '프랜차이즈', '기타'],
+        q4: ['전국', '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'],
         cities: {
             '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
-            '경기': ['수원시', '고양시', '용인시', '성남시', '부천시', '화성시', '안산시', '남양주시', '안양시', '평택시', '시흥시', '파주시', '의정부시', '김포시', '광주시', '광명시', '군포시', '하남시', '오산시', '이천시', '양주시', '안성시', '구리시', '포천시', '의왕시', '여주시', '동두천시', '가평군', '양평군', '연천군'],
-            '인천': ['계양구', '미추홀구', '남동구', '동구', '부평구', '서구', '연수구', '옹진군', '중구', '강화군'],
-            '강원': ['춘천시', '원주시', '강릉시', '동해시', '태백시', '속초시', '삼척시', '홍천군', '화천군', '횡성군', '영월군', '평창군', '정선군', '철원군', '고성군', '양구군', '인제군', '양양군'],
+            '부산': ['중구', '서구', '동구', '영도구', '부산진구', '동래구', '남구', '북구', '해운대구', '사하구', '금정구', '강서구', '연제구', '수영구', '사상구', '기장군'],
+            '대구': ['중구', '동구', '서구', '남구', '북구', '수성구', '달서구', '달성군'],
+            '인천': ['중구', '동구', '미추홀구', '연수구', '남동구', '부평구', '계양구', '서구', '강화군', '옹진군'],
+            '광주': ['동구', '서구', '남구', '북구', '광산구'],
+            '대전': ['동구', '중구', '서구', '유성구', '대덕구'],
+            '울산': ['중구', '남구', '동구', '북구', '울주군'],
+            '세종': ['세종시'],
+            '경기': ['수원시', '고양시', '용인시', '성남시', '부천시', '화성시', '안산시', '남양주시', '안양시', '평택시', '시흥시', '의정부시', '파주시', '김포시', '광명시', '광주시', '군포시', '이천시', '오산시', '하남시', '양주시', '백석시', '구리시', '안성시', '포천시', '의왕시', '양평군', '여주시', '동두천시', '가평군', '과천시', '연천군'],
+            '강원': ['춘천시', '원주시', '강릉시', '동해시', '태백시', '속초시', '삼척시', '홍천군', '화천군', '횡성군', '영월군', '평창군', '정선군', '철원군', '고성군', '양양군', '인제군'],
             '충북': ['청주시', '충주시', '제천시', '보은군', '옥천군', '영동군', '진천군', '괴산군', '음성군', '단양군', '증평군'],
             '충남': ['천안시', '공주시', '보령시', '아산시', '서산시', '논산시', '계룡시', '당진시', '금산군', '부여군', '서천군', '청양군', '홍성군', '예산군', '태안군'],
             '전북': ['전주시', '군산시', '익산시', '정읍시', '남원시', '김제시', '완주군', '진안군', '무주군', '장수군', '임실군', '순창군', '고창군', '부안군'],
@@ -1165,100 +1166,88 @@
             '경북': ['포항시', '경주시', '김천시', '안동시', '구미시', '영주시', '영천시', '상주시', '문경시', '경산시', '군위군', '의성군', '청송군', '영양군', '영덕군', '청도군', '고령군', '성주군', '칠곡군', '예천군', '봉화군', '울진군', '울릉군'],
             '경남': ['창원시', '진주시', '통영시', '사천시', '김해시', '밀양시', '거제시', '양산시', '의령군', '함안군', '창녕군', '고성군', '남해군', '하동군', '산청군', '함양군', '거창군', '합천군'],
             '제주': ['제주시', '서귀포시'],
-            '세종': ['세종시'],
             '전국': ['전국 전 지역'],
-            '지역 상세 없음': ['지역 상세 없음']
+            '지역 상세 없음': ['지역 상세 없음'] // 비상용 항목, 실제 사용되지 않음
         }
     };
 
-    // 옵션 버튼 생성 함수
+    // 옵션 버튼 생성 함수 (handleOptionClick에서 동적으로 생성하도록 변경)
     function createOptionButton(text) {
         const btn = document.createElement('button');
         btn.textContent = text;
         btn.classList.add('option-button');
-        btn.addEventListener('click', () => {
-            handleOptionClick(btn, text);
-        });
+        btn.setAttribute('data-value', text);
         return btn;
     }
 
     // 옵션 생성 함수
     function generateOptions(questionId) {
-        const container = document.getElementById(`opt${questionId.slice(1)}`);
-        container.innerHTML = ''; 
-
-        let options = [];
-        if (questionId === 'q1') options = data.q1;
-        else if (questionId === 'q2') options = data.q2;
-        else if (questionId === 'q3') options = data.q3;
-        else if (questionId === 'q4') options = data.q4;
-
-        options.forEach(option => {
-            container.appendChild(createOptionButton(option));
-        });
-    }
-
-    // 옵션 클릭 핸들러 (개선된 로직)
-    function handleOptionClick(clickedButton, answer) {
-        const parentOptions = clickedButton.closest('.options');
-        const questionId = parentOptions.id.replace('opt', 'q');
-        const questionIndex = parseInt(questionId.slice(1)) - 1;
-
-        // 현재 질문의 모든 버튼 비활성화
-        parentOptions.querySelectorAll('.option-button').forEach(btn => {
-            btn.classList.remove('active');
-        });
-
-        // 클릭된 버튼 활성화
-        clickedButton.classList.add('active');
-        answers[questionIndex] = answer; // 답변 저장
-
-        // Q4 (지역) 선택 시, selectedRegion 업데이트 및 Q5 옵션 생성/건너뛰기 로직
-        if (questionId === 'q4') {
-            selectedRegion = answer;
-            const cityContainer = document.getElementById('opt5');
-            cityContainer.innerHTML = ''; // Q5 컨테이너 초기화
-            
-            // '전국'을 선택한 경우 Q5를 건너뜁니다.
-            if (selectedRegion === '전국') {
-                 answers[4] = '전국 전 지역'; // Q5 답변도 미리 채움
-                 showNext(true); // 바로 result로 이동 (true = isLastStep)
-                 return; 
-            }
-
-            const cities = data.cities[selectedRegion] || ['지역 상세 없음'];
-            
-            // 도시 목록이 1개 이하일 경우 (예: '세종시'만 있는 '세종', '지역 상세 없음' 방지)
-            if (cities.length <= 1 && cities[0] !== '지역 상세 없음') {
-                 answers[4] = cities[0]; // Q5 답변을 자동으로 채움
-                 showNext(true); // Q5 건너뛰고 바로 result로 이동
-                 return;
-            }
-
-            // 정상적인 도시 목록이 있을 경우 Q5 옵션 생성
-            cities.forEach(city => {
-                const btn = createOptionButton(city);
-                cityContainer.appendChild(btn);
+        const optionsContainer = document.getElementById(`opt${questionId.slice(-1)}`);
+        // Q1~Q4 데이터 사용, Q5는 별도 로직으로 생성하거나 data.cities 사용
+        const options = data[questionId] || (questionId === 'q5' && data.cities[selectedRegion]) || [];
+        
+        if (optionsContainer && options.length > 0) {
+            optionsContainer.innerHTML = ''; // 기존 옵션 클리어
+            options.forEach(option => {
+                const btn = createOptionButton(option);
+                // 동적으로 생성된 버튼에 이벤트 리스너 직접 연결
+                btn.addEventListener('click', () => {
+                    handleOptionClick(questionId, btn);
+                });
+                optionsContainer.appendChild(btn);
             });
-
-            showNext(); // Q5로 이동
-        } 
-        // Q5 (도시) 선택 시, 다음 단계(result)로 이동
-        else if (questionId === 'q5') {
-            answers[questionIndex] = answer; // Q5 답변 저장
-            showNext(); // result로 이동
-        } 
-        // Q1, Q2, Q3 선택 시, 다음 질문으로 이동
-        else {
-            showNext();
+        } else if (optionsContainer) {
+            optionsContainer.innerHTML = '';
         }
     }
 
-    // 다음 질문으로 이동 로직 (개선된 로직)
-    function showNext(isLastStep = false) {
-        questions[current].classList.remove('active');
+    // 옵션 클릭 처리 함수 (Q4에서 Q5 건너뛰기 로직 포함)
+    function handleOptionClick(questionId, button) {
+        const qIndex = parseInt(questionId.slice(-1)) - 1;
+        const value = button.getAttribute('data-value');
         
-        // Q4에서 Q5를 건너뛰고 바로 result (마지막 인덱스)로 이동
+        // 현재 질문의 모든 버튼 비활성화 및 클릭된 버튼 활성화
+        const currentOptions = document.getElementById(`opt${qIndex + 1}`);
+        currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+        
+        // 답변 저장
+        answers[qIndex] = value;
+        
+        // Q4 (지역) 선택 시 특수 로직 처리
+        if (questionId === 'q4') {
+            selectedRegion = value;
+            const regionCities = data.cities[selectedRegion];
+            
+            // Q5 건너뛰기 조건: '전국' 선택, 또는 도시 목록이 없거나 (ex: '세종'처럼 1개) 1개 이하일 경우
+            if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
+                // Q5 답변 자동 저장 (건너뛰기)
+                answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
+                setTimeout(() => nextQuestion(true), 200); // **true를 넘겨 Q5를 건너뛰고 결과로 이동**
+                return;
+            } else {
+                // Q5 옵션 생성
+                generateOptions('q5');
+            }
+        } else if (questionId === 'q5') {
+            // Q5는 선택 후 바로 다음 단계로 이동
+            answers[4] = value;
+        }
+        
+        // 다음 질문으로 이동 (Q4에서 건너뛰지 않았다면)
+        setTimeout(() => nextQuestion(), 200);
+    }
+
+    // 다음 질문으로 이동 함수 (isSkipQ5 플래그 추가)
+    function nextQuestion(isSkipQ5 = false) {
+        if (current >= 0 && current < questions.length) {
+             questions[current].classList.remove('active');
+        }
+
+        // Q4에서 Q5를 건너뛰도록 지시했는지 확인
+        const isLastStep = isSkipQ5;
+
+        // 다음 질문 인덱스 결정
         if (isLastStep) {
             current = questions.length - 1; // 'result' 인덱스로 강제 이동
         } else {
@@ -1266,13 +1255,15 @@
         }
 
         if (current < questions.length) {
+            // 다음 질문 또는 result 화면 활성화
             questions[current].classList.add('active');
-            // Q5는 Q4에서 이미 생성했으므로, Q1, Q2, Q3, Q4에 대해서만 옵션 생성
+            
+            // Q1, Q2, Q3, Q4에 대해서만 옵션 생성 (Q5는 Q4에서 처리)
             if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
-                 generateOptions(questions[current].id);
+                generateOptions(questions[current].id);
             }
         }
-
+        
         // 현재 인덱스가 result (마지막 인덱스)이면 summarize 호출
         if (current === questions.length - 1) summarize();
     }
@@ -1284,17 +1275,33 @@
         // 최종 요약 텍스트 생성
         let summaryText = `선택하신 내용: ${finalAnswers.join(' / ')}`;
         document.getElementById('summary').textContent = summaryText;
+
+        const sendSMSButton = document.getElementById('sendSMS');
+        // 필수 질문(Q1~Q4) 중 하나라도 답변하지 않았거나 (answers.length < 4), 
+        // Q5를 건너뛰지 않았는데 Q5 답변이 없는 경우(answers[4] === undefined) 버튼 비활성화 (선택 사항)
+        const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; // 전국이 아니면서 Q5가 미선택이면 5개, 아니면 4개만 확인
+        // 현재 답변 개수가 최소 필수 개수보다 적으면 버튼 비활성화
+        sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
+        
+        // 만약 Q4에서 건너뛰었으나 answers 배열에 5번째 요소가 'undefined'가 아닌 경우, 즉 답변이 4개 이상이면 버튼 활성화
+        if (answers[3] && answers[4]) {
+            sendSMSButton.disabled = false;
+        }
     }
 
     function sendSummarySMS() {
-        let finalAnswers = answers.filter(a => a !== undefined);
-        const summaryText = `[클린메이트 원스톱상담] %0A- 서비스: ${finalAnswers[0] || '미선택'}%0A- 방식: ${finalAnswers[1] || '미선택'}%0A- 유형: ${finalAnswers[2] || '미선택'}%0A- 지역: ${finalAnswers[3] || '미선택'} ${finalAnswers[4] || ''}`;
+        // 답변 요약
+        const summaryText = answers.filter(a => a !== undefined).join(' / ');
+        const message = `[클린메이트 상담 요청]\n${summaryText}`;
         
-        // '지역 상세 없음' 또는 '전국 전 지역' 등 불필요한 중복 제거
-        const cleanSummary = summaryText.replace('지역 상세 없음', '').trim();
+        // URL 인코딩 (필수)
+        const encodedMessage = encodeURIComponent(message);
         
-        const url = `sms:${phoneNumber}?body=${cleanSummary}`;
-        window.location.href = url;
+        const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
+        
+        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) {
+            window.location.href = smsLink;
+        }
     }
 
     // 초기화 함수를 하단 버튼에서 사용할 수 있도록 전역에 선언
