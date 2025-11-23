@@ -260,7 +260,7 @@
   /* --- [회사/솔루션 스타일 공통] --- */
   #company-section, .solution-content-wrapper { 
     text-align: left;
-    max-width: 600px;
+    max-width: 1000px; /* **[수정]** PC에서 콘텐츠 블록 너비 확장 (가독성 확보) */
     margin: 0 auto;
     line-height: 1.6;
     color: #ccc;
@@ -294,7 +294,7 @@
       border-bottom: 2px solid #00bfa5;
       padding: 15px 20px !important;
       margin-top: 15px !important;
-      margin-bottom: 30px !important;
+      margin-bottom: 10px !important; /* **[수정]** H2 아래 공백 줄임 */
       width: fit-content !important;
       max-width: 90% !important;
       /* subtle glow for fresh look */
@@ -310,7 +310,7 @@
       border-left: 5px solid #00bfa5 !important;
       padding: 10px 15px !important;
       border-radius: 0 5px 5px 0; 
-      margin: 40px auto 20px 0 !important; /* Align left */
+      margin: 20px auto 20px 0 !important; /* **[수정]** H3 위 공백 줄임 */
       width: fit-content !important; 
       max-width: 90% !important;
   }
@@ -332,7 +332,7 @@
       font-size: 12px;
       color: #888;
       margin-top: -10px; /* Pull it closer to the image */
-      margin-bottom: 10px; /* **[수정]** 공백을 20px에서 10px로 줄임 */
+      margin-bottom: 10px; /* 공백 유지 */
       text-align: center;
       display: block;
   }
@@ -451,7 +451,7 @@
     max-width: 100%; 
     width: 95%; /* 화면 너비에 가깝게 최대화 */
     height: auto;    
-    margin: 10px auto 5px auto !important; /* 마진 조정 */
+    margin: 10px auto 15px auto !important; /* **[수정]** 사진-설명 간 공백 아주 조금 추가 */
     display: block;
   }
 
@@ -465,14 +465,14 @@
 
     #intro-screen,
     #main-content-wrapper {
-        max-width: 1200px; /* **[수정]** PC 너비를 480px에서 1200px로 확장 */
+        max-width: 1600px; /* **[수정]** PC 너비를 1200px에서 1600px로 확장 */
         margin: 0 auto; 
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
     }
 
     header, .main-menu, .fixed-buttons, footer {
         width: 100%;
-        max-width: 1200px; /* **[수정]** PC 너비를 480px에서 1200px로 확장 */
+        max-width: 1600px; /* **[수정]** PC 너비를 1200px에서 1600px로 확장 */
         left: 50%;
         transform: translateX(-50%); 
     }
@@ -1000,9 +1000,7 @@
             targetElement.classList.add('active');
         }
         
-        // **[스크롤 FIX]** main의 overflow-y를 제거했으므로, 스크롤을 0으로 돌리지 않아도 무방하나, 
-        // 섹션 전환 시 맨 위로 돌아가게 하려면 body의 스크롤을 제어해야 함.
-        // 여기서는 섹션 전환 시 body 스크롤을 맨 위로 설정합니다.
+        // 섹션 전환 시 body 스크롤을 맨 위로 설정합니다.
         window.scrollTo(0, 0); 
     }
 
