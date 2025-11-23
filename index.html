@@ -1097,7 +1097,7 @@ function handleSubMenuClick(contentId, parentSection) {
 }
 
 
-// --- [원스톱상담 퀴즈 로직] ---
+// --- [원스톱상담 퀴즈 로직] (수정된 로직 적용) ---
 let questions;
 let current = 0; 
 let answers = new Array(5).fill(undefined);
@@ -1109,10 +1109,12 @@ function resetQuiz() {
     questions.forEach(q => q.classList.remove('active'));
     current = 0;
     answers = new Array(5).fill(undefined);
-    document.getElementById('summary').textContent = '';
+    document.getElementById('summary').textContent = '선택하신 내용: ';
     document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
     document.getElementById('opt5').innerHTML = '';
     selectedRegion = '';
+    // 퀴즈 시작 시 Q1 옵션 생성
+    generateOptions('q1');
 }
 
 // [수정된 퀴즈 데이터]
@@ -1155,10 +1157,7 @@ function createOptionButton(text) {
 
 function generateOptions(questionId) {
     const container = document.getElementById(`opt${questionId.slice(1)}`);
-    // Q5는 Q4에서 이미 옵션이 생성되었으므로, 초기화하지 않음.
-    if (questionId !== 'q5') {
-        container.innerHTML = '';
-    }
+    container.innerHTML = '';
     const options = data[questionId];
     if (options) {
         options.forEach(optionText => {
@@ -1179,17 +1178,17 @@ function handleOptionClick(event) {
     parent.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // 답변 저장
-    answers[qIndex] = btn.textContent;
+    // **[핵심 수정] 답변 저장 (해당 인덱스에 저장)**
+    answers[qIndex] = btn.textContent; 
 
     if (parentId === 'q4') {
         selectedRegion = btn.textContent;
         updateCityOptions(selectedRegion);
         const cityList = data.cities[selectedRegion];
         
-        // 지역만 선택하고 도시 상세가 없는 경우 (예: '세종'이나 빈 배열) Q5 건너뛰고 바로 결과창으로
+        // 도시 상세가 없는 경우 (예: '세종')
         if (!cityList || cityList.length === 0) { 
-            answers[4] = selectedRegion; // Q5 답변에 Q4 값 저장
+            answers[4] = selectedRegion; // Q5 답변에 Q4 값 저장 (도시 상세가 없으므로)
             showNext(true); // 바로 summarize 호출
             return;
         } else {
@@ -1204,8 +1203,9 @@ function handleOptionClick(event) {
         return;
     } 
     
+    // Q1, Q2, Q3 다음 질문으로 이동
     if (qIndex < 3) {
-        showNext(); // Q1, Q2, Q3 다음 질문으로 이동
+        showNext(); 
         return;
     }
 }
@@ -1213,7 +1213,7 @@ function handleOptionClick(event) {
 function updateCityOptions(region) {
     const cityContainer = document.getElementById('opt5');
     cityContainer.innerHTML = '';
-    const cities = data.cities[region] || []; // cities 데이터를 사용하여 도시 목록 생성 (세종은 빈 배열)
+    const cities = data.cities[region] || []; 
     
     cities.forEach(city => {
         const btn = createOptionButton(city);
@@ -1230,9 +1230,9 @@ function showNext(isLastStep = false) {
     
     if (current < questions.length) {
         questions[current].classList.add('active');
-        // Q5 질문일 경우 generateOptions를 실행하지 않음 (버튼 중복/삭제 방지)
+        // Q5는 Q4에서 이미 생성했으므로, Q1, Q2, Q3, Q4에 대해서만 옵션 생성
         if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
-            generateOptions(questions[current].id);
+             generateOptions(questions[current].id);
         }
     }
     
@@ -1240,13 +1240,14 @@ function showNext(isLastStep = false) {
     if (current === questions.length - 1 || isLastStep) summarize();
 }
 
+// **[수정] 선택된 모든 답변을 포함하도록 summarize 함수 수정**
 function summarize() {
-    // undefined 값을 제외하고 답변을 요약
+    // undefined 값을 제외하고 답변을 요약 (Q4가 지역, Q5가 도시일 경우 Q4, Q5 모두 포함됨)
     let finalAnswers = answers.filter(a => a !== undefined); 
     document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(', ')}`;
     
     const sendSMSButton = document.getElementById('sendSMS');
-    // Q1(서비스)와 Q2(관리 방식)를 선택했는지 확인
+    // 필수 질문(Q1, Q2)만 선택했는지 확인
     if (answers[0] && answers[1]) {
         sendSMSButton.disabled = false;
         sendSMSButton.textContent = "선택 내용 문자로 보내기";
@@ -1256,16 +1257,21 @@ function summarize() {
     }
 }
 
-function restartQuiz() {
-    handleMenuClick('quiz-section');
-}
-
+// **[핵심 수정] 선택된 모든 답변을 문자로 보내도록 sendSummarySMS 함수 수정**
 function sendSummarySMS() {
+    // undefined가 아닌 모든 답변을 추출
     let finalAnswers = answers.filter(a => a !== undefined);
+    
+    // 요약 텍스트 생성 (선택 내용이 전부 들어감)
     const summaryText = `[클린메이트 원스톱상담] 문의 내용: ${finalAnswers.join(', ')}. 빠른 상담을 위해 연락드리겠습니다.`;
+    
     const encodedSummary = encodeURIComponent(summaryText);
     const smsLink = `sms:${phoneNumber}?body=${encodedSummary}`;
     window.location.href = smsLink;
+}
+
+function restartQuiz() {
+    handleMenuClick('quiz-section');
 }
 
 // 갤러리 생성 로직 (유지)
