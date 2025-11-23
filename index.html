@@ -1041,7 +1041,7 @@ menuBtns.forEach(btn => {
     }); 
 }); 
 
-// **[수정] 퀴즈 시작 시 Q1이 바로 표시되도록 로직 변경**
+// **[유지] 퀴즈 시작 시 Q1이 바로 표시되도록 로직**
 function handleMenuClick(targetId) { 
     contentSections.forEach(section => { 
         section.classList.remove('active'); 
@@ -1104,7 +1104,7 @@ let answers = new Array(5).fill(undefined);
 let selectedRegion = '';
 const phoneNumber = '01057138417'; 
 
-// **[수정] Q1을 활성화하고 옵션을 생성하도록 resetQuiz 함수 변경**
+// **[유지] Q1을 활성화하고 옵션을 생성하도록 resetQuiz 함수**
 function resetQuiz() {
     if(!questions) questions = document.querySelectorAll('#quiz-section .question');
     questions.forEach(q => q.classList.remove('active'));
@@ -1176,7 +1176,7 @@ function handleOptionClick(event) {
     parent.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
 
-    // **[유지/확인]** 답변 저장
+    // 답변 저장 (해당 인덱스에 저장)
     answers[qIndex] = btn.textContent; 
 
     if (parentId === 'q4') {
@@ -1184,10 +1184,10 @@ function handleOptionClick(event) {
         updateCityOptions(selectedRegion);
         const cityList = data.cities[selectedRegion];
         
-        // **[유지/확인] 도시 상세가 없는 경우 (예: '세종') Q5 건너뛰고 결과 화면으로 이동**
+        // **[유지] 도시 상세가 없는 경우 (예: '세종') Q5 건너뛰고 결과 화면으로 이동**
         if (!cityList || cityList.length === 0) { 
             answers[4] = selectedRegion; // Q5 답변에 Q4 값 저장
-            showNext(true); // 바로 summarize 호출
+            showNext(true); // 바로 summarize 호출 (Q5 스킵 요청)
             return;
         } else {
             answers[4] = undefined; // Q5를 진행해야 하므로 Q5 답변은 초기화
@@ -1220,22 +1220,32 @@ function updateCityOptions(region) {
     });
 }
 
+// **[수정] Q5 건너뛰기 로직 보강**
 function showNext(isLastStep = false) {
     if(!questions) questions = document.querySelectorAll('#quiz-section .question');
     
+    // 현재 질문 숨기기
     questions[current].classList.remove('active');
-    current++;
+    
+    // isLastStep이 true일 경우, Q5를 건너뛰고 바로 result (마지막 인덱스)로 이동
+    if (isLastStep) {
+        current = questions.length - 1; // 'result' 인덱스로 강제 이동
+    } else {
+        current++;
+    }
     
     if (current < questions.length) {
+        // 다음 질문 또는 result 화면 활성화
         questions[current].classList.add('active');
+        
         // Q5는 Q4에서 이미 생성했으므로, Q1, Q2, Q3, Q4에 대해서만 옵션 생성
         if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
              generateOptions(questions[current].id);
         }
     }
     
-    // 마지막 질문(result)로 이동할 때
-    if (current === questions.length - 1 || isLastStep) summarize();
+    // 현재 인덱스가 result (마지막 인덱스)이면 summarize 호출
+    if (current === questions.length - 1) summarize();
 }
 
 function summarize() {
@@ -1254,7 +1264,7 @@ function summarize() {
     }
 }
 
-// **[유지/확인] 선택된 모든 답변을 문자로 보내도록 sendSummarySMS 함수**
+// **[유지] 선택된 모든 답변을 문자로 보내도록 sendSummarySMS 함수**
 function sendSummarySMS() {
     // undefined가 아닌 모든 답변을 추출
     let finalAnswers = answers.filter(a => a !== undefined);
