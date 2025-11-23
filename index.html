@@ -260,11 +260,11 @@
   /* --- [회사/솔루션 스타일 공통] --- */
   #company-section, .solution-content-wrapper { 
     text-align: left;
-    max-width: 1000px; /* **[수정]** PC에서 콘텐츠 블록 너비 확장 (가독성 확보) */
+    max-width: 1000px; 
     margin: 0 auto;
     line-height: 1.6;
     color: #ccc;
-    padding: 0 15px 30px; /* 좌우 패딩 15px로 확장 */
+    padding: 0 15px 30px; 
   }
   
   /* --- [제안 섹션 제목 (New Clean Accent Style)] --- */
@@ -284,6 +284,18 @@
       text-align: center !important;
       display: block;
       font-weight: 700;
+      font-size: 20px; /* 모바일 기본 크기 */
+  }
+
+  /* --- [본문 텍스트 (P, UL, LI)] --- */
+  #company-section p, .solution-content-wrapper p {
+    font-size: 15px; /* 모바일 기본 크기 */
+  }
+  #company-section ul li, .solution-content-wrapper ul li {
+    font-size: 15px; /* 모바일 기본 크기 */
+  }
+  #company-section ul.bullet-list li, .solution-content-wrapper ul.bullet-list li {
+    font-size: 14px; /* 모바일 기본 크기 */
   }
   
   /* H2 (Main Title) - Big, centered, with primary line separators */
@@ -294,10 +306,9 @@
       border-bottom: 2px solid #00bfa5;
       padding: 15px 20px !important;
       margin-top: 15px !important;
-      margin-bottom: 10px !important; /* **[수정]** H2 아래 공백 줄임 */
+      margin-bottom: 10px !important; 
       width: fit-content !important;
       max-width: 90% !important;
-      /* subtle glow for fresh look */
       box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
   }
   
@@ -310,7 +321,7 @@
       border-left: 5px solid #00bfa5 !important;
       padding: 10px 15px !important;
       border-radius: 0 5px 5px 0; 
-      margin: 20px auto 20px 0 !important; /* **[수정]** H3 위 공백 줄임 */
+      margin: 20px auto 20px 0 !important; 
       width: fit-content !important; 
       max-width: 90% !important;
   }
@@ -451,7 +462,7 @@
     max-width: 100%; 
     width: 95%; /* 화면 너비에 가깝게 최대화 */
     height: auto;    
-    margin: 10px auto 15px auto !important; /* **[수정]** 사진-설명 간 공백 아주 조금 추가 */
+    margin: 10px auto 15px auto !important; 
     display: block;
   }
 
@@ -463,24 +474,78 @@
         overflow-x: hidden !important; 
     }
 
+    /* --- [레이아웃 및 메뉴바] --- */
     #intro-screen,
     #main-content-wrapper {
-        max-width: 1600px; /* **[수정]** PC 너비를 1200px에서 1600px로 확장 */
+        max-width: 1600px; 
         margin: 0 auto; 
         box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
     }
 
     header, .main-menu, .fixed-buttons, footer {
         width: 100%;
-        max-width: 1600px; /* **[수정]** PC 너비를 1200px에서 1600px로 확장 */
+        max-width: 1600px; 
         left: 50%;
         transform: translateX(-50%); 
     }
     
     main {
-         /* PC 환경에서는 height: auto를 유지하며 min-height로 최소 높이 보장 */
          height: auto;
          min-height: calc(100vh - 122px - 85px); 
+    }
+    
+    /* --- [PC 폰트 크기 확장 (가장 중요한 수정)] --- */
+    /* 메뉴 버튼 */
+    .menu-btn {
+      font-size: 14px; /* 13px -> 14px */
+      padding: 12px 10px; 
+    }
+
+    /* 본문 텍스트 */
+    #company-section p, .solution-content-wrapper p, 
+    #company-section ul.bullet-list li, .solution-content-wrapper ul.bullet-list li {
+        font-size: 16px; /* 14px/15px -> 16px */
+    }
+
+    /* 리스트 배경 있는 텍스트 */
+    #company-section ul li, .solution-content-wrapper ul li {
+        font-size: 17px; /* 15px -> 17px */
+        padding: 10px 18px;
+    }
+    
+    /* 서브 메뉴 버튼 */
+    .sub-btn {
+        font-size: 14px; /* 13px -> 14px */
+    }
+
+    /* --- [헤딩 태그 크기 확장] --- */
+    /* H2 (섹션 메인 타이틀) */
+    .solution-content-wrapper.active#company-section h2 {
+        font-size: 28px; /* 24px -> 28px */
+        padding: 18px 25px !important;
+    }
+
+    /* H3 (주요 주제) */
+    .solution-content-wrapper.active#company-section h3 {
+        font-size: 20px; /* 17px -> 20px */
+        padding: 12px 18px !important;
+        margin: 25px auto 25px 0 !important; /* 위 아래 간격 조절 */
+    }
+
+    /* H4 (소주제) */
+    .solution-content-wrapper.active#company-section h4,
+    .solution-content-wrapper.active#company-section .sub-heading-left {
+        font-size: 17px; /* 15px -> 17px */
+        margin: 30px auto 12px 0 !important;
+    }
+    
+    /* 퀴즈/상담 버튼 */
+    #sendSMS, .fixed-buttons button {
+        font-size: 17px; /* 16px -> 17px */
+    }
+    /* 푸터 텍스트 */
+    footer {
+        font-size: 12px; /* 11px -> 12px */
     }
   }
 </style>
@@ -829,7 +894,7 @@
                   <li>외관 청결 및 안전 점검: 내부 찌꺼기 제거를 통해 과열 위험을 줄이고 작동 상태를 점검.</li>
                   <li>장비 수명 연장: 내부 오염 방지를 통해 장비 수명을 연장하고 교체 비용을 절감.</li>
               </ul >
-              <img src="img/placeholder_img_restore_micro.jpg" alt="전자레인지 기능 복원 이미지 (placeholder)" onerror="this.src='https://via.placeholder.com/400x200/333333/cccccc?text=전자레인지+기능+복원';" />
+              <img src="img/placeholder_placeholder_img_report_micro.jpg" alt="전자레인지 기능 복원 이미지 (placeholder)" onerror="this.src='https://via.placeholder.com/400x200/333333/cccccc?text=전자레인지+보고서';" />
           </div>
 
           <div id="dryice-s05" class="sub-content">
