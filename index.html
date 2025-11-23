@@ -531,7 +531,7 @@
     .solution-content-wrapper.active#company-section .sub-heading-left {
         font-size: 19px; /* 17px -> 19px */
         margin: 35px auto 15px 0 !important;
-    }
+        }
     
     /* 퀴즈/상담 버튼 */
     #sendSMS, .fixed-buttons button {
@@ -1134,7 +1134,7 @@ const data = {
         '광주': ['광산구', '남구', '동구', '북구', '서구'], 
         '대전': ['대덕구', '동구', '서구', '유성구', '중구'], 
         '울산': ['남구', '동구', '북구', '중구', '울주군'], 
-        '세종': null, // 도시 상세 없음
+        '세종': [], // 도시 상세 없음. 빈 배열로 처리.
         '강원': ['강릉시', '동해시', '삼척시', '속초시', '원주시', '춘천시', '태백시', '고성군', '양구군', '양양군', '영월군', '인제군', '정선군', '철원군', '평창군', '홍천군', '화천군', '횡성군'], 
         '충북': ['청주시', '충주시', '제천시', '보은군', '옥천군', '영동군', '진천군', '괴산군', '음성군', '단양군', '증평군'], 
         '충남': ['천안시', '공주시', '보령시', '아산시', '서산시', '논산시', '계룡시', '당진시', '금산군', '부여군', '서천군', '청양군', '홍성군', '예산군', '태안군'], 
@@ -1155,7 +1155,10 @@ function createOptionButton(text) {
 
 function generateOptions(questionId) {
     const container = document.getElementById(`opt${questionId.slice(1)}`);
-    container.innerHTML = '';
+    // Q5는 Q4에서 이미 옵션이 생성되었으므로, 초기화하지 않음.
+    if (questionId !== 'q5') {
+        container.innerHTML = '';
+    }
     const options = data[questionId];
     if (options) {
         options.forEach(optionText => {
@@ -1183,9 +1186,10 @@ function handleOptionClick(event) {
         selectedRegion = btn.textContent;
         updateCityOptions(selectedRegion);
         const cityList = data.cities[selectedRegion];
-        // '전역' 지역(cityList가 null)을 선택한 경우, Q5를 건너뛰고 바로 결과창으로 이동 (자동 문자)
-        if (cityList === null || cityList.length === 0) { // cityList.length === 0 추가
-            answers[4] = selectedRegion; // Q5를 건너뛰므로, Q4의 선택값을 Q5에 저장
+        
+        // 지역만 선택하고 도시 상세가 없는 경우 (예: '세종'이나 빈 배열) Q5 건너뛰고 바로 결과창으로
+        if (!cityList || cityList.length === 0) { 
+            answers[4] = selectedRegion; // Q5 답변에 Q4 값 저장
             showNext(true); // 바로 summarize 호출
             return;
         } else {
@@ -1209,7 +1213,7 @@ function handleOptionClick(event) {
 function updateCityOptions(region) {
     const cityContainer = document.getElementById('opt5');
     cityContainer.innerHTML = '';
-    const cities = data.cities[region] || ['지역 상세 없음']; // cities 데이터를 사용하여 도시 목록 생성
+    const cities = data.cities[region] || []; // cities 데이터를 사용하여 도시 목록 생성 (세종은 빈 배열)
     
     cities.forEach(city => {
         const btn = createOptionButton(city);
@@ -1221,25 +1225,13 @@ function updateCityOptions(region) {
 function showNext(isLastStep = false) {
     if(!questions) questions = document.querySelectorAll('#quiz-section .question');
     
-    const isQ4 = questions[current].id === 'q4'; // 현재 질문이 Q4(지역)인지 확인
-    
     questions[current].classList.remove('active');
     current++;
     
-    // [수정] Q4 선택 후, 해당 지역의 도시 목록이 1개 이하일 경우 (상세 선택이 불필요한 경우) Q5 건너뛰기
-    if (isQ4) {
-        const cityList = data.cities[selectedRegion];
-        // 도시 목록이 없거나, 목록 길이가 1개 이하일 경우
-        if (!cityList || cityList.length <= 1) {
-            current++; // Q5 건너뛰기
-        }
-    }
-
     if (current < questions.length) {
-        // Q5 스킵 후 result로 이동하는 경우, result 화면이 보이지 않으므로 이 부분은 
-        // 마지막 단계 체크를 통해 처리합니다.
         questions[current].classList.add('active');
-        if (questions[current].id.startsWith('q')) {
+        // Q5 질문일 경우 generateOptions를 실행하지 않음 (버튼 중복/삭제 방지)
+        if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
             generateOptions(questions[current].id);
         }
     }
@@ -1249,10 +1241,12 @@ function showNext(isLastStep = false) {
 }
 
 function summarize() {
-    let finalAnswers = answers.filter(a => a !== undefined); // undefined 제거 (Q5 스킵 처리 위함)
+    // undefined 값을 제외하고 답변을 요약
+    let finalAnswers = answers.filter(a => a !== undefined); 
     document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(', ')}`;
-    // Q1(서비스)와 Q2(관리 방식)를 선택하지 않았으면, 문자로 보내기를 비활성화 
+    
     const sendSMSButton = document.getElementById('sendSMS');
+    // Q1(서비스)와 Q2(관리 방식)를 선택했는지 확인
     if (answers[0] && answers[1]) {
         sendSMSButton.disabled = false;
         sendSMSButton.textContent = "선택 내용 문자로 보내기";
@@ -1274,7 +1268,7 @@ function sendSummarySMS() {
     window.location.href = smsLink;
 }
 
-// 갤러리 생성 로직
+// 갤러리 생성 로직 (유지)
 function generateGallery(containerId, folder, start, end, baseName, padding = 0) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -1299,7 +1293,7 @@ function generateGallery(containerId, folder, start, end, baseName, padding = 0)
     container.innerHTML = html;
 }
 
-// 페이지 로드 시 인트로 시작 및 클릭 이벤트 연결
+// 페이지 로드 시 인트로 시작 및 클릭 이벤트 연결 (유지)
 document.addEventListener('DOMContentLoaded', () => {
     setTimeout(showNextPhrase, 500);
     introScreen.addEventListener('click', skipIntro);
