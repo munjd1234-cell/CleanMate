@@ -450,6 +450,25 @@
     display: block;
   }
 
+  /* New style for 2 side-by-side images */
+  .two-image-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 20px auto 40px auto; /* 마진 조정 */
+      max-width: 500px;
+  }
+  .two-image-row div {
+      flex: 1;
+      text-align: center;
+  }
+  .two-image-row img {
+      width: 100%;
+      margin: 0;
+      height: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  
   /* --- [PC/태블릿 환경 스타일 (500px 이상)] --- */
   @media (min-width: 500px) {
     body {
@@ -484,6 +503,12 @@
         margin: 0 auto; /* 중앙 정렬 */
         min-height: auto; 
         /* 내부 컨텐츠의 수직 중앙을 위해 flexbox를 사용하지 않고, 상단 패딩으로 조정 */
+    }
+
+    /* PC: Two-image-row center alignment */
+    .two-image-row {
+      max-width: 800px; /* PC 환경에서 더 넓게 */
+      gap: 20px;
     }
 
     /* --- [PC 폰트 크기 확장 (2차 수정)] --- */
@@ -629,8 +654,16 @@
               <p>서울특별시 송파구 충민로 66, F동 8087호 (문정동, 가든파이브라이프) / 연락처: 1666-1757 / 이메일: dhc-solution@naver.com</p>
           </div>
           
-          <img src="imege/0003.jpg" alt="사업자등록증 사진"/>
-          <img src="imege/0004.jpg" alt="영업신고증 사진"/>
+          <div class="two-image-row">
+              <div>
+                  <img src="imege/0003.jpg" alt="사업자등록증"/>
+                  <p class="image-caption">사업자등록증</p>
+              </div>
+              <div>
+                  <img src="imege/0004.jpg" alt="영업신고증"/>
+                  <p class="image-caption">영업신고증</p>
+              </div>
+          </div>
 
 
           <h3 id="company-s03-anchor">인력풀</h3>
@@ -708,66 +741,88 @@
 
       <div id="mos-section" class="content-section solution-content-wrapper">
           <h2>냉장고 위생 관리 솔루션</h2>
+          <p style="text-align: center; color: #ccc;">
+            음식물 보관 부주의, 잦은 문 여닫음으로 인한 온도 변화, 고무패킹의 틈새 오염 등으로 인해 <strong style="color: #ff5555;">곰팡이, 물때, 악취 발생 속도가 매우 빠릅니다.</strong> 특히 음식물 잔여물이 부패하면서 발생하는 유기물은 세균 번식의 최적 환경을 제공합니다.
+          </p>
           <div class="sub-menu">
-              <button class="sub-btn active" data-content-id="mos-s01">1. 정밀 진단 및 오염 측정</button>
-              <button class="sub-btn" data-content-id="mos-s02">2. 완전 분해 및 집중 세척</button>
+              <button class="sub-btn active" data-content-id="mos-s01">1. 정밀 진단 및 오염 측정(촬영)</button>
+              <button class="sub-btn" data-content-id="mos-s02">2. 탈착 세척 및 집중 세척</button>
               <button class="sub-btn" data-content-id="mos-s03">3. 멸균 및 살균 소독</button>
               <button class="sub-btn" data-content-id="mos-s04">4. 기능 복원 및 점검</button>
-              <button class="sub-btn" data-content-id="mos-s05">5. 사후 보고 및 관리</button>
+              <button class="sub-btn" data-content-id="mos-s05">5. 작업후 오염도 측정 (촬영)</button>
+              <button class="sub-btn" data-content-id="mos-s06">6. 보고서 작성 및 관리진단</button>
           </div>
           
           <div id="mos-s01" class="sub-content active">
-              <h4>1. 정밀 진단 및 오염 측정</h4>
-              <p style="text-align: left;"> 냉장고는 부패한 음식물과 고빈도 접촉으로 인해 식중독균이 쉽게 번식하는 오염 지점을 정밀하게 파악합니다. </p>
+              <h4>1. 정밀 진단 및 오염 측정(촬영)</h4>
+              <p style="text-align: left;"> 육안과 첨단 장비를 통해 현재 냉장고의 위생 상태, 장비 상태, 관리 문제점을 다각도로 진단합니다. </p>
               <ul class="bullet-list"> 
-                  <li>위생 등급 진단: 내부 온도 및 습도 환경 분석.</li>
-                  <li>ATP 측정: 문손잡이, 선반 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU)를 객관적인 수치로 측정.</li>
-                  <li>내시경 검사: 고무패킹 틈새 등 구조상 단순 청소가 어려운 부분의 곰팡이/세균 오염 상태 확인.</li>
+                  <li>**육안 및 체크리스트 작성:** 고장/손상 여부, **온습도 체크**, 벽에 붙은 얼음(성애), 폐기할 음식물, 식자재 정리 상태, **필터 상태** 등 종합적인 관리 실태 확인.</li>
+                  <li>**ATP 측정:** 문손잡이, 선반 등 '고빈도 접촉 부위'의 미세 세균 오염도(RLU)를 **ATP 측정기**로 객관적인 수치 측정 및 기록.</li>
+                  <li>**내부 촬영:** 작업 전후 비교 및 보고서 작성을 위한 냉장고 내부 오염 상태 정밀 촬영.</li>
               </ul> 
-              <img src="img/placeholder_img_diagnostic.jpg" alt="냉장고 진단 이미지 (placeholder)"/>
+              <img src="img/placeholder_img_diagnostic_refrigerator.jpg" alt="냉장고 정밀 진단 및 촬영 이미지"/>
+              <p class="image-caption">냉장고 내부 오염 상태 진단 (이미지 프롬프트: 'refrigerator diagnosis before cleaning')</p>
           </div>
 
           <div id="mos-s02" class="sub-content">
-              <h4>2. 완전 분해 및 집중 세척</h4>
-              <p style="text-align: left;"> 제조사 출신 전문 인력이 투입되어 냉장고의 핵심 부품을 안전하게 분리합니다. 오염 가속도가 높은 부위를 집중적으로 세척합니다. </p>
+              <h4>2. 탈착 세척 및 집중 세척</h4>
+              <p style="text-align: left;"> 분리 가능한 모든 부품을 **탈착**하고, 오염원 제거를 위한 전문적인 세척 공정을 진행합니다. </p>
               <ul class="bullet-list"> 
-                  <li>주요 세척 대상: 고무패킹, 선반, 내부 벽면 및 응축기(Condenser, 필요 시).</li>
-                  <li>오염원 제거: 부패한 음식물 잔여물, 기름때, 곰팡이 등 유기물 오염원을 전용 세척 도구로 1차 제거.</li>
-                  <li>특수 세척: 고무패킹 틈새 등 세균이 번식하기 쉬운 취약 부위에 대한 특수 세척 공법 적용.</li>
+                  <li>**완전 탈착:** 외부 필터, 내부 선반, 서랍류, **고무패킹** 등 분리 가능한 모든 부품을 안전하게 탈착.</li>
+                  <li>**내부 청소:** **얼음 제거** 후, **스팀 청소**를 위주로 내부 벽면, 틈새의 곰팡이와 물때, 음식물 잔여물 등 유기물을 집중 제거.</li>
+                  <li>**외부 및 부품 세척:** 탈착된 부품과 내부 용기는 전용 세제 및 세척 도구를 사용하여 **설거지 및 세척** 진행.</li>
               </ul> 
-              <img src="img/placeholder_img_deepclean.jpg" alt="냉장고 분해 세척 이미지 (placeholder)"/>
+              <img src="img/placeholder_img_deepclean_refrigerator.jpg" alt="냉장고 탈착 세척 이미지"/>
+              <p class="image-caption">탈착된 부품 분리 세척 (이미지 프롬프트: 'refrigerator gaskets and shelves disassembled for cleaning')</p>
           </div>
 
           <div id="mos-s03" class="sub-content">
               <h4>3. 멸균 및 살균 소독</h4>
               <p style="text-align: left;"> 세척 후 남아있을 수 있는 미세 세균과 바이러스를 근원적으로 멸균하여 식중독 위험을 원천 차단합니다. </p>
               <ul class="bullet-list"> 
-                  <li>살균제 적용: 식품 첨가물 등급의 안전한 살균제를 사용하여 식품 접촉 부위 소독. 잔류 성분 걱정 없음.</li>
-                  <li>EM 소독: 잔류 화학물질을 완전히 제거하고 친환경 미생물을 이용한 최종 소독 공법 적용.</li>
+                  <li>**전문 소독:** 청소가 완료된 내부와 외부 전체에 식품 첨가물 등급의 **안전한 살균제**를 사용하여 세균, 곰팡이, 바이러스 멸균.</li>
+                  <li>**EM 소독:** 잔류 화학물질을 완전히 제거하고 친환경 미생물을 이용한 최종 소독 공법 적용.</li>
+                  <li>**악취 제거:** 내부 찌든 악취를 제거하여 쾌적한 보관 환경 조성.</li>
               </ul> 
-              <img src="img/placeholder_img_sterilize.jpg" alt="냉장고 살균 소독 이미지 (placeholder)"/>
+              <img src="img/placeholder_img_sterilize_refrigerator.jpg" alt="냉장고 살균 소독 이미지"/>
+              <p class="image-caption">친환경 살균제를 이용한 소독 (이미지 프롬프트: 'sterilizing inside of commercial refrigerator')</p>
           </div>
 
           <div id="mos-s04" class="sub-content">
               <h4>4. 기능 복원 및 점검</h4>
-              <p style="text-align: left;"> 냉장고의 위생 상태는 물론, 기능적 결함까지 점검하여 잔고장 발생률을 최소화하고 장비의 수명을 연장합니다. </p>
+              <p style="text-align: left;"> 청소 후 분리했던 부품을 원상 복귀하고, 냉장고의 기능적 이상 여부를 최종적으로 점검합니다. </p>
               <ul class="bullet-list"> 
-                  <li>기능 복원: 분리 부품의 정확한 재조립 및 누수 방지 점검.</li>
-                  <li>냉각 성능 점검: 오염된 냉각 장치 클리닝을 통해 전력 효율 및 냉각 성능 복원.</li>
-                  <li>잔고장 예방: 제조사 전문가의 노하우로 잠재적인 고장 시점을 예측하여 사전 차단.</li>
+                  <li>**기능 복원:** 탈착했던 필터, 선반, 고무패킹 등 모든 부품의 **정확한 재조립** 및 원상 복귀.</li>
+                  <li>**정리 정돈 및 라벨 작업:** 내용물을 재배치하며 고객의 요청에 따라 **물품 라벨 작업**을 병행하여 물품 공간 분배 최적화.</li>
+                  <li>**작동 점검:** 냉각 성능, 도어 닫힘 상태 등 주요 기능 점검을 통해 잔고장 발생률을 최소화.</li>
               </ul> 
-              <img src="img/placeholder_img_restore.jpg" alt="냉장고 기능 복원 이미지 (placeholder)"/>
+              <img src="img/placeholder_img_restore_refrigerator.jpg" alt="냉장고 기능 복원 및 정리 이미지"/>
+              <p class="image-caption">정리 정돈된 냉장고 내부 (이미지 프롬프트: 'organized office refrigerator after cleaning')</p>
           </div>
 
           <div id="mos-s05" class="sub-content">
-              <h4>5. 사후 보고 및 관리</h4>
-              <p style="text-align: left;"> 정량적인 결과를 기반으로 위생 안전성을 증명하고, 정기 관리 프로그램을 통해 HACCP 기준을 충족시킵니다. </p>
+              <h4>5. 작업후 오염도 측정 (촬영)</h4>
+              <p style="text-align: left;"> 모든 작업 완료 후, 위생 안전성을 **정량적인 데이터**로 확인하고 최종적인 청결 상태를 기록합니다. </p>
               <ul class="bullet-list"> 
-                  <li>ATP 측정 보고서: 작업 전/후 오염도 수치를 비교한 최종 보고서 발행.</li>
-                  <li>관리 가이드 제공: 음식물 보관 및 일상 청소 관리 가이드라인 제공.</li>
-                  <li>정기 관리: 냉장고 고장률 50% 감소를 목표로 하는 월간/분기별 정기 관리 플랜 제안.</li>
+                  <li>**ATP 재측정:** 작업 전 측정한 동일 부위의 오염도를 다시 측정하여 세균 제거 효과를 RLU 수치로 확인.</li>
+                  <li>**작업 후 촬영:** 깨끗하게 세척 및 소독된 냉장고 내부와 주요 부품의 최종 청결 상태를 보고서 제출용으로 촬영.</li>
+                  <li>**위생 등급 확정:** 작업 전후 비교 데이터를 기반으로 냉장고의 최종 위생 안전 등급을 확정.</li>
               </ul> 
-              <img src="img/placeholder_img_report.jpg" alt="냉장고 사후 보고서 이미지 (placeholder)"/>
+              <img src="img/placeholder_img_post_measurement.jpg" alt="작업 후 오염도 측정 이미지"/>
+              <p class="image-caption">ATP 측정기를 이용한 오염도 확인 (이미지 프롬프트: 'ATP measurement after cleaning refrigerator')</p>
+          </div>
+
+          <div id="mos-s06" class="sub-content">
+              <h4>6. 보고서 작성 및 관리진단</h4>
+              <p style="text-align: left;"> 작업의 전 과정과 결과를 투명하게 보고하여 고객사의 위생 관리에 신뢰도를 높이고, 향후 관리 방안을 제시합니다. </p>
+              <ul class="bullet-list"> 
+                  <li>**체크리스트 (제출용):** **물품번호, 물품위치, 작업 전/후 오염도 수치, 작업 전/후 사진** 등 상세 내용을 담은 **공식 보고서** 작성.</li>
+                  <li>**관리 진단:** 냉장고 사용 습관, 식자재 보관 방법 등에 대한 **위생 관리 가이드라인** 제공 및 정기 관리 플랜 제안.</li>
+                  <li>**작업 후 전달:** 보고서와 함께 작업 전후 사진을 고객사에 최종 전달.</li>
+              </ul> 
+              <img src="img/placeholder_img_report_refrigerator.jpg" alt="냉장고 관리 보고서 이미지"/>
+              <p class="image-caption">위생 관리 진단 보고서 샘플 (이미지 프롬프트: 'refrigerator maintenance report document')</p>
           </div>
       </div>
 
@@ -1119,10 +1174,10 @@ function resetQuiz() {
     questions[0].classList.add('active'); // Q1 (index 0)을 활성화
 }
 
-// [퀴즈 데이터] (유지)
+// [퀴즈 데이터] (수정 반영)
 const data = { 
-    q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '공기청정기', '사무기기', '에어컨', '대형설비', '특수장비', '중고매입', '기타'], 
-    q2: ['정기관리', '분해청소', '필터교체', '제품교체', '제품이동', '긴급출동', '단순견적', '기타'], 
+    q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '공기청정기', '사무기기', '에어컨', '대형설비', '특수장비', '중고매입', '기타'], // '공기청정기' 추가
+    q2: ['정기관리', '분해청소', '필터교체', '제품교체', '제품이동', '긴급출동', '단순견적', '기타'], // '고장수리'를 '필터교체'로 변경
     q3: ['기업체', '호텔/리조트', '공장', '병원/의료시설', '학교', '급식소', '단체', '제조시설', '카페/프렌차이즈', '아파트', '빌딩', '기타'], 
     q4: ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '세종', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'], 
     cities: { 
