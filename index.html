@@ -691,24 +691,11 @@
 
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
-          <div class="sub-menu">
-              <button class="sub-btn active" data-content-id="partner-s01">협력사</button>
-              <button class="sub-btn" data-content-id="partner-s02">ESG 경영</button>
-          </div>
-          <div id="partner-s01" class="sub-content active">
-              <h3 style="margin-top: 0;">협력사</h3>
-              <div id="partner-gallery-container" class="solution-img-gallery vertical-images">
-              </div>
-              <p class="image-caption">주요 협력사 로고</p>
-          </div>
-          <div id="partner-s02" class="sub-content">
-              <h3 style="margin-top: 0;">ESG 경영 실천</h3>
-              </div>
       </div>
 
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
-          <h2>원스톱 상담 (맞춤 견적 퀴즈)</h2>
-          <p>몇 가지 질문에 답해 주시면, 맞춤형 전문 위생 솔루션을 제안 드립니다.</p>
+          <h2>원스톱 상담</h2>
+          <p></p>
           
           <div class="question active" id="q1">
               <h3>관리할 품목을 선택해주세요.</h3>
@@ -1071,11 +1058,9 @@
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
         
-        // 갤러리 로드 실행
+        // 갤러리 로드 실행 (협력 섹션 제거로 인해 partner-gallery-container 로드 삭제됨)
         generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
-        // 협력사 로고 갤러리 복구 (2개씩 나열)
-        generateGallery('partner-gallery-container', 's04', 1, 35, 'partner_goloimg', 0); 
 
         // 퀴즈 초기화 및 Q1 활성화
         resetQuiz(); 
