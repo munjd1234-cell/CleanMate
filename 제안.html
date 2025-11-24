@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>클린메이트 Clean Mate</title>
+<style>
+  /* --- [디자인 복원/유지] --- */
+  body {
+    margin: 0;
+    font-family: 'Pretendard', sans-serif;
+    background-color: #111; /* 배경색 유지 */
+    color: #fff; /* 기본 글자색 유지 */
+  }
+
+  /* --- [인트로 화면 스타일 및 애니메이션] --- */
+  #intro-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    color: #00bfa5;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1.4;
+    z-index: 9999;
+    opacity: 1;
+    transition: opacity 0.5s ease-out; 
+    overflow: hidden;
+    padding: 0 10px;
+    box-sizing: border-box;
+    cursor: pointer; 
+  }
+  #intro-screen.fade-out {
+    opacity: 0;
+  }
+
+  .intro-item {
+    display: block;
+    opacity: 0;
+    color: #00bfa5;
+    transition: all 0.5s ease-in-out;
+    margin: 5px 0; 
+    transform: scale(0.9);
+  }
+  
+  .intro-item.visible {
+    opacity: 1;
+    transform: scale(1.0);
+    color: #aaa; 
+    font-weight: 500;
+  }
+
+  .intro-item.active {
+    opacity: 1;
+    transform: scale(1.15); 
+    color: #00bfa5;
+    font-weight: 800;
+  }
+
+  .intro-item.final-phrase {
+    color: #fff;
+    background-color: #00bfa5;
+    padding: 5px 15px;
+    border-radius: 5px;
+    font-size: 36px;
+    font-weight: 900;
+    margin-top: 15px;
+  }
+
+  /* --- [메인 레이아웃 유지] --- */
+  #main-content-wrapper {
+    display: none; 
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 100%;
+  }
+
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    text-align: center;
+    padding: 8px 0 15px 0; 
+    z-index: 1000;
+    box-sizing: border-box;
+  }
+  header img { height: 40px; } 
+  header h2 {
+    margin: 0; 
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+  }
+
+  /* --- [메인 메뉴바] --- */
+  .main-menu {
+    position: fixed;
+    top: 75px; 
+    left: 0;
+    width: 100%;
+    background: #222;
+    display: flex;
+    flex-wrap: nowrap; 
+    justify-content: space-around;
+    border-bottom: 1px solid #444;
+    z-index: 1000;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+  }
+  .menu-btn {
+    padding: 12px 5px; 
+    color: #ccc;
+    text-decoration: none;
+    font-size: 13px; 
+    flex-shrink: 0; 
+    flex-grow: 1;
+    text-align: center;
+    border-left: 1px solid #444;
+    cursor: pointer;
+  }
+  .menu-btn:first-child {
+    border-left: none;
+  }
+  .menu-btn.active {
+    background-color: #00bfa5;
+    color: #fff;
+  }
+
+  main {
+    margin-top: 122px; 
+    margin-bottom: 85px; 
+    min-height: calc(100vh - 122px - 85px); 
+    height: auto;
+    overflow-y: visible; 
+    text-align: center;
+    padding: 0 15px; 
+    box-sizing: border-box;
+  }
+
+  /* --- [퀴즈 및 섹션 스타일 유지] --- */
+  .content-section {
+    display: none; 
+    animation: fadeIn 0.3s ease-in-out;
+  }
+  .content-section.active {
+    display: block; 
+  }
+  .question { display: none; text-align: center; }
+  .question.active { display: block; }
+  .question h3 { margin-top: 20px; color: #00bfa5; }
+  .options { 
+    display: flex; 
+    flex-wrap: wrap; 
+    justify-content: center; 
+    gap: 10px; 
+    margin-bottom: 20px; 
+  }
+  .option-button {
+    background-color: #333;
+    color: #fff;
+    border: 1px solid #555;
+    padding: 10px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+  }
+  .option-button:hover { background-color: #444; }
+  .option-button.active {
+    background-color: #00bfa5;
+    color: #fff;
+    border-color: #00bfa5;
+    font-weight: bold;
+  }
+  #sendSMS {
+    background-color: #00bfa5;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 15px 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- [하단 고정 버튼] --- */
+  .fixed-buttons {
+    position: fixed;
+    bottom: 35px; 
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    z-index: 999;
+  }
+
+  .fixed-buttons button {
+    background: #00bfa5;
+    color: white;
+    border: none;
+    border-radius: 30px;
+    padding: 12px 20px;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 191, 165, 0.4); 
+  }
+
+  /* --- [푸터] --- */
+  footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #111;
+    color: #888;
+    font-size: 11px;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 30px; 
+    line-height: 30px;
+    z-index: 998; 
+  }
+  .scroll-text {
+    display: inline-block;
+    animation: marquee 25s linear infinite;
+    padding-left: 0;
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+  }
+
+
+  /* --- [회사/솔루션 스타일 공통] --- */
+  .solution-content-wrapper { 
+    text-align: left;
+    max-width: 1000px; 
+    margin: 0 auto;
+    line-height: 1.6; /* 모바일 기본 행간 */
+    color: #ccc;
+    padding: 0 15px 30px; 
+  }
+  
+  /* --- [제안 섹션 제목 (New Clean Accent Style)] --- */
+  .solution-content-wrapper.active h2, 
+  .solution-content-wrapper.active h3, 
+  .solution-content-wrapper.active h4 {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 40px auto 15px auto !important; 
+      width: 100% !important; 
+      max-width: 100% !important;
+      color: #fff !important; 
+      text-align: center !important;
+      display: block;
+      font-weight: 700;
+      font-size: 20px; 
+  }
+
+  /* --- [본문 텍스트 (P, UL, LI) - 모바일 기본 크기 유지] --- */
+  .solution-content-wrapper p {
+    font-size: 15px; 
+  }
+  .solution-content-wrapper ul li {
+    font-size: 15px; 
+  }
+  .solution-content-wrapper ul.bullet-list li {
+    font-size: 14px; 
+  }
+  
+  /* H2 (Main Title) - 모바일 크기 */
+  .solution-content-wrapper.active h2 {
+      font-size: 24px; 
+      color: #00bfa5 !important;
+      border-top: 2px solid #00bfa5;
+      border-bottom: 2px solid #00bfa5;
+      padding: 15px 20px !important;
+      margin-top: 15px !important;
+      margin-bottom: 10px !important; 
+      width: fit-content !important;
+      max-width: 90% !important;
+      box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
+  }
+  
+  /* H3 (Section Title) - 모바일 크기 */
+  .solution-content-wrapper.active h3 {
+      text-align: left !important;
+      color: #fff !important;
+      font-size: 17px;
+      background-color: #222 !important; 
+      border-left: 5px solid #00bfa5 !important;
+      padding: 10px 15px !important;
+      border-radius: 0 5px 5px 0; 
+      margin: 20px auto 20px 0 !important; 
+      width: fit-content !important; 
+      max-width: 90% !important;
+  }
+  
+  /* H4 (Sub-section Title) - 모바일 크기 */
+  .solution-content-wrapper.active h4,
+  .solution-content-wrapper.active .sub-heading-left {
+      color: #00bfa5 !important; 
+      font-size: 15px;
+      border-bottom: 1px dashed #00bfa5 !important;
+      padding-bottom: 5px !important;
+      margin: 25px auto 10px 0 !important;
+      text-align: left !important; 
+      width: 100% !important;
+  }
+
+  .solution-content-wrapper .image-caption {
+      font-size: 12px;
+      color: #888;
+      margin-top: -10px; 
+      margin-bottom: 10px; 
+      text-align: center;
+      display: block;
+  }
+
+  .solution-content-wrapper strong {
+    color: #00bfa5;
+  }
+  .solution-content-wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 30px;
+  }
+  .solution-content-wrapper ul li {
+    background: #222;
+    margin-bottom: 8px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border-left: 4px solid #00bfa5;
+    font-size: 15px;
+  }
+  .solution-content-wrapper ul.bullet-list li {
+    list-style: disc;
+    margin-left: 20px;
+    background: none;
+    border-left: none;
+    padding: 0;
+    font-size: 14px;
+    color: #ccc;
+  }
+  
+  /* --- [서브 메뉴 스타일] --- */
+  .sub-menu {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+    position: sticky; 
+    top: 0; 
+    background: #111;
+    z-index: 900;
+  }
+  .sub-btn {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap; 
+    flex-shrink: 0; 
+  }
+  .sub-btn.active {
+    background-color: #00bfa5;
+    color: #fff;
+    border-color: #00bfa5;
+    font-weight: bold;
+  }
+
+  .sub-content {
+      display: none;
+      line-height: 1.6;
+      padding: 10px 0 30px;
+      animation: fadeIn 0.3s ease-in-out;
+      text-align: center; 
+  }
+  .sub-content.active {
+      display: block;
+  }
+
+  /* --- [이미지/갤러리 스타일] --- */
+  .solution-content-wrapper img {
+    max-width: 100%; 
+    height: auto;    
+    display: block;  
+    margin: 15px auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  .solution-img-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
+    padding: 10px 0;
+  }
+  .solution-img-gallery img {
+    width: 48%; 
+    margin: 0;
+  }
+  /* 사업자등록증 & 영업신고증 2개 이미지 나란히 배치 (이번 수정으로 사용되지 않음) */
+  .certificate-gallery img {
+    max-width: 48%; /* 너비를 48%로 설정하여 나란히 배치 */
+    display: inline-block;
+    vertical-align: top;
+    margin: 15px 1% 15px 1%;
+    height: auto;
+  }
+
+  .solution-img-gallery.vertical-images img {
+    width: 48%; 
+    height: auto;
+  }
+  
+  .seven-image-gallery {
+    display: block; 
+    padding: 10px 0;
+    text-align: center;
+  }
+  .seven-image-gallery > div {
+      display: block; 
+      width: 100%;
+      margin-bottom: 25px; 
+      overflow: hidden; 
+  }
+  .seven-image-gallery img {
+    max-width: 100%; 
+    width: 95%; 
+    height: auto;    
+    margin: 10px auto 15px auto !important; 
+    display: block;
+  }
+
+  /* --- [파트너 로고 갤러리 스타일] --- (추가됨) */
+  .partner-logo-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; 
+    gap: 10px;
+    padding: 10px 0;
+    max-width: 800px; /* PC 중앙 정렬을 위한 max-width */
+    margin: 0 auto;
+  }
+
+  .partner-logo-gallery img {
+    width: calc(50% - 5px); /* 2열 배치, 10px gap 고려 */
+    height: auto;
+    aspect-ratio: 1 / 1; /* 정사각형 유지 */
+    object-fit: contain; /* 이미지가 잘리지 않고, 여백을 포함하여 중앙에 오도록 */
+    background-color: #333; /* 로고 배경색 */
+    padding: 5px;
+    border-radius: 6px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
+    margin: 0; /* 기존 img 마진 오버라이드 */
+  }
+
+  /* --- [PC/태블릿 환경 스타일 (500px 이상)] --- */
+  @media (min-width: 500px) {
+    body {
+        overflow-y: auto !important; 
+        overflow-x: hidden !important; 
+    }
+
+    /* --- [레이아웃 및 메뉴바] --- */
+    #intro-screen,
+    #main-content-wrapper {
+        max-width: 1600px; 
+        margin: 0 auto; 
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
+    }
+
+    header, .main-menu, .fixed-buttons, footer {
+        width: 100%;
+        max-width: 1600px; 
+        left: 50%;
+        transform: translateX(-50%); 
+    }
+    
+    main {
+         height: auto;
+         min-height: calc(100vh - 122px - 85px); 
+    }
+    
+    /* 퀴즈 섹션 (원스톱상담) 위치 조정 - PC 화면 중앙으로 내리기 */
+    #quiz-section {
+        padding: 50px 0 0 0; 
+        max-width: 800px; 
+        margin: 0 auto; 
+        min-height: auto; 
+    }
+
+    /* --- [PC 폰트 크기 확장 (2차 수정)] --- */
+    
+    /* 메뉴 버튼 */
+    .menu-btn {
+      font-size: 16px; 
+      padding: 15px 10px; 
+    }
+
+    /* **본문 텍스트 및 리스트** */
+    .solution-content-wrapper p, 
+    .solution-content-wrapper ul.bullet-list li {
+        font-size: 18px; 
+        line-height: 1.8; 
+    }
+
+    /* 리스트 배경 있는 텍스트 */
+    .solution-content-wrapper ul li {
+        font-size: 18px; 
+        padding: 12px 20px;
+    }
+    
+    /* 서브 메뉴 버튼 */
+    .sub-btn {
+        font-size: 16px; 
+    }
+
+    /* --- [헤딩 태그 크기 확장] --- */
+    /* H2 (섹션 메인 타이틀) */
+    .solution-content-wrapper.active h2 {
+        font-size: 32px; 
+        padding: 20px 25px !important;
+    }
+
+    /* H3 (주요 주제) */
+    .solution-content-wrapper.active h3 {
+        font-size: 22px; 
+        padding: 14px 20px !important;
+        margin: 30px auto 30px 0 !important; 
+    }
+
+    /* H4 (소주제) */
+    .solution-content-wrapper.active h4,
+    .solution-content-wrapper.active .sub-heading-left {
+        font-size: 19px; 
+        margin: 35px auto 15px 0 !important;
+        }
+    
+    /* 퀴즈/상담 버튼 */
+    #sendSMS, .fixed-buttons button {
+        font-size: 18px; 
+        padding: 18px 30px; 
+    }
+    /* 푸터 텍스트 */
+    footer {
+        font-size: 13px; 
+    }
+
+    /* PC 환경에서 너비 조정 (파트너 갤러리) */
+    .partner-logo-gallery img {
+        width: calc(50% - 10px); /* PC에서 20px gap 고려 */
+    }
+  }
+</style>
+
+<!-- Auto-open target: company-section and disable copying/select -->
+<style>
+/* make text hard to select/copy */
+body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
+/* disable selection for inputs but keep functionality if needed */
+input, textarea { user-select: text !important; -webkit-user-select: text !important; }
+</style>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+    try {
+        // Prevent right-click
+        document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
+        // Prevent copy/cut
+        document.addEventListener('copy', function(e){ e.preventDefault(); });
+        document.addEventListener('cut', function(e){ e.preventDefault(); });
+    } catch(e){ console.warn(e); }
+    // If target is intro-screen, show intro only
+    const targetId = "company-section";
+    if (targetId === "intro-screen") {
+        // show intro and hide main wrapper
+        const intro = document.getElementById('intro-screen');
+        const main = document.getElementById('main-content-wrapper');
+        if (intro) intro.style.display = 'flex';
+        if (main) main.style.display = 'none';
+    } else {
+        // ensure main content is visible and activate requested section
+        const intro = document.getElementById('intro-screen');
+        const main = document.getElementById('main-content-wrapper');
+        if (intro) intro.style.display = 'none';
+        if (main) {
+            main.style.display = 'block';
+            main.style.opacity = '1';
+        }
+        // activate the target section if exists (use supplied scrollToSectionClick if present)
+        setTimeout(function(){
+            try {
+                if (typeof scrollToSectionClick === 'function') {
+                    scrollToSectionClick('company-section');
+                } else {
+                    // fallback: simple show/hide
+                    document.querySelectorAll('.content-section').forEach(function(s){ s.classList.remove('active'); });
+                    var t = document.getElementById('company-section');
+                    if (t) t.classList.add('active');
+                }
+            } catch(e){ console.warn(e); }
+        }, 50);
+    }
+});
+</script>
+
+</head>
+
+<body>
+  
+  <div id="intro-screen">
+    <span class="intro-item" data-phrase="1">커피머신</span>
+    <span class="intro-item" data-phrase="2">제빙기</span>
+    <span class="intro-item" data-phrase="3">냉장고</span>
+    <span class="intro-item" data-phrase="4">대형설비</span>
+    <span class="intro-item" data-phrase="5">친환경 설비 분해 청소</span>
+    <span class="intro-item final-phrase" data-phrase="7">원스톱 위생 솔루션</span>
+  </div>
+  
+  <div id="main-content-wrapper">
+    <header>
+      <img src="logo2.png" alt="클린메이트 로고" /> 
+      <h2>전문장비로 원스톱 위생 솔루션</h2> 
+    </header>
+
+    <nav class="main-menu">
+      <a href="#company" class="menu-btn" data-target="company-section">제안</a> 
+      <a href="#portfolio" class="menu-btn" data-target="portfolio-section">실적</a> 
+      <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
+      <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
+      <a href="#dryice" class="menu-btn" data-target="dryice-section">전자레인지</a>
+      <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
+      <a href="#partner" class="menu-btn" data-target="partner-section">협력</a> 
+      <a href="#quiz" class="menu-btn" data-target="quiz-section">원스톱상담</a> 
+    </nav>
+
+    <main>
+      
+      <div id="company-section" class="content-section solution-content-wrapper">
+          <h2>기업 위생 가전 소독 관리 전문 업체</h2>
+          
+          <h3 id="company-s01-anchor">제안 배경</h3>
+          <p>
+              직원들의 건강과 복지, 그리고 기업의 생산성은 안전한 근무 환경에서 시작됩니다. 다중이용 시설인 기업 사무실에서 공동으로 사용하는 위생 가전은 <strong>"보이지 않는 감염 위험 구역"</strong>입니다.
+          </p>
+          
+          <h4 class="sub-heading-left">A. 기업 내 위생 가전의 현실 (Risk Assessment)</h4>
+          <p>
+              기업 내 위생 가전은 가정용 대비 사용 빈도(하루 수백 회)가 현저히 높아 오염 가속도가 빠르고, 세균 번식에 취약합니다.
+          </p>
+          <ul class="bullet-list">
+              <li><strong>오염 가속:</strong> 냉장고, 정수기, 제빙기 내부 등에서 곰팡이와 물때 발생 속도 증가.</li>
+              <li><strong>감염 위험:</strong> 전자레인지, 키보드, 비데 노즐 등에서 식중독균 및 전염성 병원균 노출 위험 상존.</li>
+              <li><strong>관리 한계:</strong> 대부분의 기업이 단순 외관 청소에 그치거나 관리 시기를 놓쳐 근본적인 위생 문제가 해결되지 않고 내부 오염원이 방치됩니다.</li>
+          </ul>
+          
+          <div class="seven-image-gallery">
+              <div><img src="imege/0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
+              <div><img src="imege/0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
+              <div><img src="imege/0013.jpg" alt="냉장고 소독 전후"><p class="image-caption">냉장고의 소독 전후</p></div>
+              <div><img src="imege/0012.jpg" alt="전자렌지 소독 전후"><p class="image-caption">전자렌지의 소독 전후</p></div>
+              <div><img src="imege/0015.jpg" alt="화장실 비데 소독 전후"><p class="image-caption">화장실 비데의 소독 전후</p></div>
+              <div><img src="imege/0014.jpg" alt="사무실 책상 소독 전후"><p class="image-caption">사무실 책상의 소독 전후</p></div>
+              <div><img src="imege/0017.jpg" alt="인덕션 소독 전후"><p class="image-caption">인덕션의 소독 전후</p></div>
+          </div>
+
+          <h4 class="sub-heading-left">B. 중점 관리 대상 가전의 위협</h4>
+          <p>
+              당사의 전문 관리가 필요한 주요 대상입니다.
+          </p>
+          <ul class="bullet-list" style="list-style: none;">
+              <li>냉장고, 전자레인지, 제빙기, 정수기, 커피머신, 비데, 칫솔살균기, 에어컨, 공기청정기, 사무용품, PC/키보드 등</li>
+          </ul>
+          <img src="imege/0034.jpg" alt="중점 관리 대상 가전 사진"/>
+          <p class="image-caption">대상 가전의 종류</p>
+
+          
+          <h3 id="company-s04-anchor">기술력</h3>
+          <p> 첨단 기술을 기반으로 고객사의 위생 환경을 정밀하게 진단하고 과학적인 데이터를 제공하여 관리의 신뢰도를 높입니다. </p>
+          <ul class="bullet-list">
+              <li>ATP 측정: 고빈도 접촉 부위의 세균 오염도를 객관적인 수치(RLU)로 측정.</li>
+              <li>내시경 진단: 육안 확인이 불가능한 내부 깊은 곳의 오염 상태를 영상으로 진단.</li>
+              <li>AI 기반 데이터 처리: AI 기반 데이터 처리 기술을 적용하여 정확하고 신뢰성 높은 데이터를 제공합니다.</li>
+          </ul>
+          <img src="imege/0029.jpg" alt="기술력 관련 이미지 (placeholder)"/>
+          <p class="image-caption">ATP 측정 및 AI 진단</p>
+
+          
+          <h3 id="company-s03-anchor">인력풀</h3>
+          <p> 위생 가전별 제조사 서비스센터 경력의 <strong>전담 엔지니어</strong>와 HACCP/식품위생 관리 자격증을 보유한 <strong>위생 전문가</strong>로 구성된 전문 인력풀을 자체적으로 운영합니다. </p>
+          <ul class="bullet-list">
+              <li>국내 최대 규모의 전문 인력 확보.</li>
+              <li>위생 가전 청소 및 소독 관련 자체 교육 프로그램 수료 의무화.</li>
+              <li>주요 제조사 출신 전문 엔지니어의 경험과 노하우 결합.</li>
+          </ul>
+          <img src="imege/0028.jpg" alt="인력풀 관련 이미지 (placeholder)"/>
+          <p class="image-caption">전문 인력풀</p>
+
+          
+          <h3 id="company-s05-anchor">AI 도입</h3>
+          <p> AI 기술 기반의 데이터 분석을 통해 가장 효율적인 관리 동선을 설계하고, 잠재적인 고장 시점을 예측하여 고객사의 비용과 시간을 절감합니다. </p>
+          <ul class="bullet-list">
+              <li>고장 예측: 정기적인 점검 데이터를 분석하여 장비 고장 위험 시점을 사전에 감지.</li>
+              <li>최적 경로: AI 기반 동선 최적화로 서비스 시간을 단축하고 비용 효율성 증대.</li>
+              <li>자동 보고: 현장 진단 및 관리 결과가 실시간으로 자동 보고되어 투명한 관리 가능.</li>
+          </ul>
+          <img src="imege/0030.jpg" alt="AI 도입 관련 이미지 (placeholder)"/>
+          <p class="image-caption">AI 기반 스마트 관리 시스템</p>
+
+
+          <h3 id="company-s02-anchor">회사 소개</h3>
+          <p> 주식회사 디에이치씨솔루션은 20년간 위생 기술 선도력, 국내 최대 규모의 인력풀, 그리고 AI 시스템을 결합하여, 기업 위생 관리에 가장 빠르고 정확하며 신뢰할 수 있는 미래형 솔루션을 제공합니다. <br>클린메이트는 디에이치씨솔루션의 가전소독전문 브랜드명 입니다 </p>
+          <ul>
+              <li>상호: (주)디에이치씨솔루션 / 대표이사: 김동현 / 설립일: 2018년 1월 16일</li>
+              <li>사업 분야: 건물위생관리업 (영업신고증 보유), 위생가전 전문 청소/소독, 정기 케어 시스템 운영</li>
+              <li>본사 주소: 서울특별시 송파구 충민로 66, F동 8087호 (문정동, 가든파이브라이프) / 연락처: 1666-1757 / 이메일: dhc-solution@naver.com</li>
+          </ul>
+          
+          <img src="imege/0003_1.jpg" alt="사업자등록증 및 영업신고증 결합 이미지"/>
+          <p class="image-caption">사업자,영업신고증</p>
+          
+      </div>
+
+      <div id="portfolio-section" class="content-section solution-content-wrapper">
+          <h2>서비스 실적 및 포트폴리오</h2>
+      </div>
+
+      <div id="mos-section" class="content-section solution-content-wrapper">
+          <h2>냉장고 위생 관리 솔루션</h2>
+      </div>
+
+      <div id="avk-section" class="content-section solution-content-wrapper">
+          <h2>제빙기 위생 관리 솔루션</h2>
+      </div>
+
+      <div id="dryice-section" class="content-section solution-content-wrapper">
+          <h2>전자레인지 위생 관리 솔루션</h2>
+      </div>
+
+      <div id="tech-section" class="content-section solution-content-wrapper">
+          <h2>전문 기술 및 인증</h2>
+      </div>
+
+      <div id="partner-section" class="content-section solution-content-wrapper">
+          <h2>협력 및 상생</h2>
+          <div class="partner-logo-gallery" id="partner-logo-gallery">
+              </div>
+      </div>
+
+      <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
+          <h2>원스톱 상담</h2>
+          <p></p>
+          
+          <div class="question active" id="q1">
+              <h3>관리할 품목을 선택해주세요.</h3>
+              <div class="options" id="opt1"></div>
+          </div>
+          <div class="question" id="q2">
+              <h3>필요한 관리 방식을 선택해주세요.</h3>
+              <div class="options" id="opt2"></div>
+          </div>
+          <div class="question" id="q3">
+              <h3>사업장 유형을 선택해주세요.</h3>
+              <div class="options" id="opt3"></div>
+          </div>
+          <div class="question" id="q4">
+              <h3>상담을 원하는 지역을 선택해주세요.</h3>
+              <div class="options" id="opt4"></div>
+          </div>
+          <div class="question" id="q5">
+              <h3>상담을 원하는 도시를 선택해주세요.</h3>
+              <div class="options" id="opt5"></div>
+          </div>
+          <div class="question" id="result">
+              <h3>✨ 고객 맞춤 견적 확인</h3>
+              <p id="summary" class="summary-text">선택하신 내용: </p>
+              <button id="sendSMS" class="action-button" onclick="sendSummarySMS()">선택 내용 문자로 보내기</button>
+          </div>
+      </div>
+      </main>
+    <div class="fixed-buttons">
+      <button onclick="restartQuiz()">원스톱상담</button>
+      <button onclick="window.location.href='tel:01057138417'">전화상담</button>
+    </div>
+    <footer>
+      <div class="scroll-text">
+          상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 거여동 604-3 0806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp; 상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 거여동 604-3 0806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp;
+      </div>
+    </footer>
+  </div>
+
+<script>
+    
+    // --- [전역 변수 및 초기 로직] ---
+    const introScreen = document.getElementById('intro-screen');
+    const mainContentWrapper = document.getElementById('main-content-wrapper');
+    const introItems = document.querySelectorAll('.intro-item');
+    let introStep = 0;
+    const scrollText = document.querySelector('.scroll-text');
+
+    function showNextPhrase() {
+        if (introStep > 0) {
+            introItems[introStep - 1].classList.remove('active');
+            introItems[introStep - 1].classList.add('visible');
+        }
+
+        if (introStep < introItems.length) {
+            introItems[introStep].classList.add('active');
+            introStep++;
+            setTimeout(showNextPhrase, 600);
+        } else {
+            setTimeout(skipIntro, 1000);
+        }
+    }
+
+    function skipIntro() {
+        introScreen.classList.add('fade-out');
+        setTimeout(() => {
+            introScreen.style.display = 'none';
+            mainContentWrapper.style.display = 'block';
+            setTimeout(() => {
+                mainContentWrapper.style.opacity = '1';
+                // 인트로 스킵 후 첫 번째 섹션(회사 소개)으로 이동
+                scrollToSectionClick('company-section'); 
+            }, 10);
+        }, 500);
+    }
+
+    // --- [메인 메뉴 전환 로직] ---
+    const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
+    menuButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            const targetId = button.getAttribute('data-target');
+            scrollToSectionClick(targetId);
+            
+            // 메뉴 활성화 상태 변경
+            menuButtons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+        });
+    });
+
+    function scrollToSectionClick(targetId) {
+        document.querySelectorAll('.content-section').forEach(section => {
+            section.classList.remove('active');
+        });
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+            targetSection.classList.add('active');
+            
+            // 스크롤 위치 조정 (헤더와 메뉴바 높이 고려)
+            const offset = 122; // header(75px) + main-menu padding(47px)
+            const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
+            window.scrollTo({
+                top: elementPosition - offset,
+                behavior: 'smooth'
+            });
+
+            // 서브 메뉴가 있는 섹션이면 첫 번째 서브 콘텐츠 활성화
+            const subMenu = targetSection.querySelector('.sub-menu');
+            if (subMenu) {
+                const firstSubBtn = subMenu.querySelector('.sub-btn');
+                if (firstSubBtn) {
+                    handleSubMenuClick(firstSubBtn.getAttribute('data-content-id'), targetSection);
+                    subMenu.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+                    firstSubBtn.classList.add('active');
+                }
+            }
+        }
+    }
+
+    // --- [서브 메뉴 전환 로직] ---
+    const subMenuContainers = document.querySelectorAll('.solution-content-wrapper .sub-menu');
+    subMenuContainers.forEach(subMenu => {
+        subMenu.querySelectorAll('.sub-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const contentId = btn.getAttribute('data-content-id');
+                const parentSection = btn.closest('.solution-content-wrapper');
+                handleSubMenuClick(contentId, parentSection);
+                subMenu.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+    });
+
+    function handleSubMenuClick(contentId, parentSection) {
+        parentSection.querySelectorAll('.sub-content').forEach(content => {
+            content.classList.remove('active');
+        });
+        const targetContent = document.getElementById(contentId);
+        if (targetContent) {
+            targetContent.classList.add('active');
+        }
+    }
+
+    // --- [원스톱상담 퀴즈 로직] (요청에 따라 유지) ---
+    let questions;
+    let current = 0;
+    let answers = new Array(5).fill(undefined);
+    let selectedRegion = '';
+    const phoneNumber = '01057138417'; 
+
+    // Q1을 활성화하고 옵션을 생성하도록 resetQuiz 함수
+    function resetQuiz() {
+        if(!questions) questions = document.querySelectorAll('#quiz-section .question');
+        questions.forEach(q => q.classList.remove('active'));
+        current = 0;
+        answers = new Array(5).fill(undefined);
+        document.getElementById('summary').textContent = '선택하신 내용: ';
+        document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
+        document.getElementById('opt5').innerHTML = '';
+        selectedRegion = ''; 
+        generateOptions('q1');
+        questions[0].classList.add('active'); // Q1 (index 0)을 활성화
+    }
+
+    // 퀴즈 데이터
+    const data = {
+        q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '공기청정기', '사무기기', '에어컨', '대형설비', '특수장비', '중고매입', '기타'],
+        q2: ['정기관리', '분해청소', '필터교체', '제품교체', '제품이동', '긴급출동', '단순견적', '기타'],
+        q3: ['기업체', '호텔/리조트', '공장', '병원/의료시설', '교육/연구시설', '공공기관', '프랜차이즈', '기타'],
+        q4: ['전국', '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'],
+        cities: {
+            '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
+            '부산': ['중구', '서구', '동구', '영도구', '부산진구', '동래구', '남구', '북구', '해운대구', '사하구', '금정구', '강서구', '연제구', '수영구', '사상구', '기장군'],
+            '대구': ['중구', '동구', '서구', '남구', '북구', '수성구', '달서구', '달성군'],
+            '인천': ['중구', '동구', '미추홀구', '연수구', '남동구', '부평구', '계양구', '서구', '강화군', '옹진군'],
+            '광주': ['동구', '서구', '남구', '북구', '광산구'],
+            '대전': ['동구', '중구', '서구', '유성구', '대덕구'],
+            '울산': ['중구', '남구', '동구', '북구', '울주군'],
+            '세종': ['세종시'],
+            '경기': ['수원시', '고양시', '용인시', '성남시', '부천시', '화성시', '안산시', '남양주시', '안양시', '평택시', '시흥시', '의정부시', '파주시', '김포시', '광명시', '광주시', '군포시', '이천시', '오산시', '하남시', '양주시', '백석시', '구리시', '안성시', '포천시', '의왕시', '양평군', '여주시', '동두천시', '가평군', '과천시', '연천군'],
+            '강원': ['춘천시', '원주시', '강릉시', '동해시', '태백시', '속초시', '삼척시', '홍천군', '화천군', '횡성군', '영월군', '평창군', '정선군', '철원군', '고성군', '양양군', '인제군'],
+            '충북': ['청주시', '충주시', '제천시', '보은군', '옥천군', '영동군', '진천군', '괴산군', '음성군', '단양군', '증평군'],
+            '충남': ['천안시', '공주시', '보령시', '아산시', '서산시', '논산시', '계룡시', '당진시', '금산군', '부여군', '서천군', '청양군', '홍성군', '예산군', '태안군'],
+            '전북': ['전주시', '군산시', '익산시', '정읍시', '남원시', '김제시', '완주군', '진안군', '무주군', '장수군', '임실군', '순창군', '고창군', '부안군'],
+            '전남': ['목포시', '여수시', '순천시', '나주시', '광양시', '담양군', '곡성군', '구례군', '고흥군', '보성군', '화순군', '장흥군', '강진군', '해남군', '영암군', '무안군', '함평군', '영광군', '장성군', '완도군', '진도군', '신안군'],
+            '경북': ['포항시', '경주시', '김천시', '안동시', '구미시', '영주시', '영천시', '상주시', '문경시', '경산시', '군위군', '의성군', '청송군', '영양군', '영덕군', '청도군', '고령군', '성주군', '칠곡군', '예천군', '봉화군', '울진군', '울릉군'],
+            '경남': ['창원시', '진주시', '통영시', '사천시', '김해시', '밀양시', '거제시', '양산시', '의령군', '함안군', '창녕군', '고성군', '남해군', '하동군', '산청군', '함양군', '거창군', '합천군'],
+            '제주': ['제주시', '서귀포시'],
+            '전국': ['전국 전 지역'],
+            '지역 상세 없음': ['지역 상세 없음'] // 비상용 항목, 실제 사용되지 않음
+        }
+    };
+
+    // 옵션 버튼 생성 함수
+    function createOptionButton(text) {
+        const btn = document.createElement('button');
+        btn.textContent = text;
+        btn.classList.add('option-button');
+        btn.setAttribute('data-value', text);
+        return btn;
+    }
+
+    // 옵션 생성 함수
+    function generateOptions(questionId) {
+        const optionsContainer = document.getElementById(`opt${questionId.slice(-1)}`);
+        // Q1~Q4 데이터 사용, Q5는 별도 로직으로 생성하거나 data.cities 사용
+        const options = data[questionId] || (questionId === 'q5' && data.cities[selectedRegion]) || [];
+        
+        if (optionsContainer && options.length > 0) {
+            optionsContainer.innerHTML = ''; // 기존 옵션 클리어
+            options.forEach(option => {
+                const btn = createOptionButton(option);
+                // 동적으로 생성된 버튼에 이벤트 리스너 직접 연결
+                btn.addEventListener('click', () => {
+                    handleOptionClick(questionId, btn);
+                });
+                optionsContainer.appendChild(btn);
+            });
+        } else if (optionsContainer) {
+            optionsContainer.innerHTML = '';
+        }
+    }
+
+    // 옵션 클릭 처리 함수 (Q4에서 Q5 건너뛰기 로직 포함)
+    function handleOptionClick(questionId, button) {
+        const qIndex = parseInt(questionId.slice(-1)) - 1;
+        const value = button.getAttribute('data-value');
+        
+        // 현재 질문의 모든 버튼 비활성화 및 클릭된 버튼 활성화
+        const currentOptions = document.getElementById(`opt${qIndex + 1}`);
+        currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
+        button.classList.add('active');
+        
+        // 답변 저장
+        answers[qIndex] = value;
+        
+        // Q4 (지역) 선택 시 특수 로직 처리
+        if (questionId === 'q4') {
+            selectedRegion = value;
+            const regionCities = data.cities[selectedRegion];
+            
+            // Q5 건너뛰기 조건: '전국' 선택, 또는 도시 목록이 없거나 (ex: '세종'처럼 1개) 1개 이하일 경우
+            if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
+                // Q5 답변 자동 저장 (건너뛰기)
+                answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
+                setTimeout(() => nextQuestion(true), 200); // **true를 넘겨 Q5를 건너뛰고 결과로 이동**
+                return;
+            } else {
+                // Q5 옵션 생성
+                generateOptions('q5');
+            }
+        } else if (questionId === 'q5') {
+            // Q5는 선택 후 바로 다음 단계로 이동
+            answers[4] = value;
+        }
+        
+        // 다음 질문으로 이동 (Q4에서 건너뛰지 않았다면)
+        setTimeout(() => nextQuestion(), 200);
+    }
+
+    // 다음 질문으로 이동 함수 (isSkipQ5 플래그 추가)
+    function nextQuestion(isSkipQ5 = false) {
+        if (current >= 0 && current < questions.length) {
+             questions[current].classList.remove('active');
+        }
+
+        // Q4에서 Q5를 건너뛰도록 지시했는지 확인
+        const isLastStep = isSkipQ5;
+
+        // 다음 질문 인덱스 결정
+        if (isLastStep) {
+            current = questions.length - 1; // 'result' 인덱스로 강제 이동
+        } else {
+            current++;
+        }
+
+        if (current < questions.length) {
+            // 다음 질문 또는 result 화면 활성화
+            questions[current].classList.add('active');
+            
+            // Q1, Q2, Q3, Q4에 대해서만 옵션 생성 (Q5는 Q4에서 처리)
+            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
+                generateOptions(questions[current].id);
+            }
+        }
+        
+        // 현재 인덱스가 result (마지막 인덱스)이면 summarize 호출
+        if (current === questions.length - 1) summarize();
+    }
+
+    function summarize() {
+        // undefined 값을 제외하고 답변을 요약 (선택된 모든 답변 포함)
+        let finalAnswers = answers.filter(a => a !== undefined);
+        
+        // 최종 요약 텍스트 생성
+        let summaryText = `선택하신 내용: ${finalAnswers.join(' / ')}`;
+        document.getElementById('summary').textContent = summaryText;
+
+        const sendSMSButton = document.getElementById('sendSMS');
+        // 필수 질문(Q1~Q4) 중 하나라도 답변하지 않았거나 (answers.length < 4), 
+        // Q5를 건너뛰지 않았는데 Q5 답변이 없는 경우(answers[4] === undefined) 버튼 비활성화 (선택 사항)
+        const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; // 전국이 아니면서 Q5가 미선택이면 5개, 아니면 4개만 확인
+        // 현재 답변 개수가 최소 필수 개수보다 적으면 버튼 비활성화
+        sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
+        
+        // 만약 Q4에서 건너뛰었으나 answers 배열에 5번째 요소가 'undefined'가 아닌 경우, 즉 답변이 4개 이상이면 버튼 활성화
+        if (answers[3] && answers[4]) {
+            sendSMSButton.disabled = false;
+        }
+    }
+
+    function sendSummarySMS() {
+        // 답변 요약
+        const summaryText = answers.filter(a => a !== undefined).join(' / ');
+        const message = `[클린메이트 상담 요청]\n${summaryText}`;
+        
+        // URL 인코딩 (필수)
+        const encodedMessage = encodeURIComponent(message);
+        
+        const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
+        
+        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) {
+            window.location.href = smsLink;
+        }
+    }
+
+    // 초기화 함수를 하단 버튼에서 사용할 수 있도록 전역에 선언
+    function restartQuiz() {
+        resetQuiz();
+        scrollToSectionClick('quiz-section');
+    }
+    
+    // 갤러리 생성 로직 (유지)
+    function generateGallery(containerId, folder, start, end, baseName, padding = 0) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+        
+        let html = '';
+        const maxAttempts = end; 
+
+        for (let i = start; i <= maxAttempts; i++) {
+            let fileName;
+            let altText;
+            if (padding > 0) {
+              let fileNumber = i.toString().padStart(padding, '0');
+              fileName = `${fileNumber}.jpg`;
+              altText = `이미지 ${fileNumber}`;
+            } else {
+              fileName = `${baseName}${i}.jpg`;
+              altText = `${baseName} ${i}`;
+            }
+            const src = `imege/${folder}/${fileName}`;
+            html += `<img src="${src}" alt="${altText}" onerror="this.src='https://via.placeholder.com/200x120/333333/cccccc?text=이미지+누락'; this.style.opacity='0.7';">`;
+        }
+        container.innerHTML = html;
+    }
+
+    // 요청에 따라 추가된 협력사 로고 생성 함수
+    function generatePartnerLogos() {
+        const container = document.getElementById('partner-logo-gallery');
+        if (!container) return;
+
+        let html = '';
+        for (let i = 1; i <= 35; i++) {
+            const fileName = `partner_goloimg${i}.jpg`;
+            const src = `s04/${fileName}`;
+            html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
+        }
+        container.innerHTML = html;
+    }
+
+    // 페이지 로드 시 인트로 시작 및 클릭 이벤트 연결 (유지)
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(showNextPhrase, 500);
+        introScreen.addEventListener('click', skipIntro);
+        
+        // 갤러리 로드 실행
+        generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
+        generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
+        
+        // 새로 추가된 협력사 로고 로드
+        generatePartnerLogos(); 
+
+        // 퀴즈 초기화 및 Q1 활성화
+        resetQuiz(); 
+    });
+
+    // --- [스크롤 마퀴 텍스트 처리] (유지) ---
+    if (scrollText) {
+        scrollText.innerHTML += scrollText.innerHTML; // 텍스트 복사하여 부드럽게 이어지도록
+    }
+
+</script>
+</body>
+</html>
