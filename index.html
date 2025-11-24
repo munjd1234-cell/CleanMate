@@ -482,6 +482,46 @@
     margin: 0; /* 기존 img 마진 오버라이드 */
   }
 
+  /* --- [냉장고 체크리스트 테이블 스타일] --- (새로 추가됨) */
+  .checklist-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 15px;
+      color: #ccc;
+  }
+  .checklist-table th, .checklist-table td {
+      border: 1px solid #444;
+      padding: 10px;
+      text-align: left;
+  }
+  .checklist-table th {
+      background-color: #00bfa5;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      width: 30%;
+  }
+  .checklist-table td {
+      background-color: #222;
+  }
+  .checklist-caption {
+      font-size: 14px;
+      color: #ccc;
+      margin-top: 10px;
+      font-weight: bold;
+  }
+  @media (max-width: 500px) {
+      .checklist-table th {
+          font-size: 13px;
+          width: 35%;
+      }
+      .checklist-table td {
+          font-size: 13px;
+      }
+  }
+
+
   /* --- [PC/태블릿 환경 스타일 (500px 이상)] --- */
   @media (min-width: 500px) {
     body {
@@ -631,13 +671,13 @@
           </ul>
           
           <div class="seven-image-gallery">
-              <div><img src="imege/0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
-              <div><img src="imege/0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
-              <div><img src="imege/0013.jpg" alt="냉장고 소독 전후"><p class="image-caption">냉장고의 소독 전후</p></div>
-              <div><img src="imege/0012.jpg" alt="전자렌지 소독 전후"><p class="image-caption">전자렌지의 소독 전후</p></div>
-              <div><img src="imege/0015.jpg" alt="화장실 비데 소독 전후"><p class="image-caption">화장실 비데의 소독 전후</p></div>
-              <div><img src="imege/0014.jpg" alt="사무실 책상 소독 전후"><p class="image-caption">사무실 책상의 소독 전후</p></div>
-              <div><img src="imege/0017.jpg" alt="인덕션 소독 전후"><p class="image-caption">인덕션의 소독 전후</p></div>
+              <div><img src="0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
+              <div><img src="0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
+              <div><img src="0013.jpg" alt="냉장고 소독 전후"><p class="image-caption">냉장고의 소독 전후</p></div>
+              <div><img src="0012.jpg" alt="전자렌지 소독 전후"><p class="image-caption">전자렌지의 소독 전후</p></div>
+              <div><img src="0015.jpg" alt="화장실 비데 소독 전후"><p class="image-caption">화장실 비데의 소독 전후</p></div>
+              <div><img src="0014.jpg" alt="사무실 책상 소독 전후"><p class="image-caption">사무실 책상의 소독 전후</p></div>
+              <div><img src="0017.jpg" alt="인덕션 소독 전후"><p class="image-caption">인덕션의 소독 전후</p></div>
           </div>
 
           <h4 class="sub-heading-left">B. 중점 관리 대상 가전의 위협</h4>
@@ -647,7 +687,7 @@
           <ul class="bullet-list" style="list-style: none;">
               <li>냉장고, 전자레인지, 제빙기, 정수기, 커피머신, 비데, 칫솔살균기, 에어컨, 공기청정기, 사무용품, PC/키보드 등</li>
           </ul>
-          <img src="imege/0034.jpg" alt="중점 관리 대상 가전 사진"/>
+          <img src="0034.jpg" alt="중점 관리 대상 가전 사진"/>
           <p class="image-caption">대상 가전의 종류</p>
 
           
@@ -658,7 +698,7 @@
               <li>내시경 진단: 육안 확인이 불가능한 내부 깊은 곳의 오염 상태를 영상으로 진단.</li>
               <li>AI 기반 데이터 처리: AI 기반 데이터 처리 기술을 적용하여 정확하고 신뢰성 높은 데이터를 제공합니다.</li>
           </ul>
-          <img src="imege/0029.jpg" alt="기술력 관련 이미지 (placeholder)"/>
+          <img src="0029.jpg" alt="기술력 관련 이미지 (placeholder)"/>
           <p class="image-caption">ATP 측정 및 AI 진단</p>
 
           
@@ -669,7 +709,7 @@
               <li>위생 가전 청소 및 소독 관련 자체 교육 프로그램 수료 의무화.</li>
               <li>주요 제조사 출신 전문 엔지니어의 경험과 노하우 결합.</li>
           </ul>
-          <img src="imege/0028.jpg" alt="인력풀 관련 이미지 (placeholder)"/>
+          <img src="0028.jpg" alt="인력풀 관련 이미지 (placeholder)"/>
           <p class="image-caption">전문 인력풀</p>
 
           
@@ -680,7 +720,7 @@
               <li>최적 경로: AI 기반 동선 최적화로 서비스 시간을 단축하고 비용 효율성 증대.</li>
               <li>자동 보고: 현장 진단 및 관리 결과가 실시간으로 자동 보고되어 투명한 관리 가능.</li>
           </ul>
-          <img src="imege/0030.jpg" alt="AI 도입 관련 이미지 (placeholder)"/>
+          <img src="0030.jpg" alt="AI 도입 관련 이미지 (placeholder)"/>
           <p class="image-caption">AI 기반 스마트 관리 시스템</p>
 
 
@@ -692,17 +732,171 @@
               <li>본사 주소: 서울특별시 송파구 충민로 66, F동 8087호 (문정동, 가든파이브라이프) / 연락처: 1666-1757 / 이메일: dhc-solution@naver.com</li>
           </ul>
           
-          <img src="imege/0003_1.jpg" alt="사업자등록증 및 영업신고증 결합 이미지"/>
+          <img src="0003_1.jpg" alt="사업자등록증 및 영업신고증 결합 이미지"/>
           <p class="image-caption">사업자,영업신고증</p>
           
       </div>
 
       <div id="portfolio-section" class="content-section solution-content-wrapper">
           <h2>서비스 실적 및 포트폴리오</h2>
+          <div class="solution-img-gallery" id="portfolio-gallery-container"></div>
       </div>
 
       <div id="mos-section" class="content-section solution-content-wrapper">
           <h2>냉장고 위생 관리 솔루션</h2>
+          
+          <h3 id="mos-s01-anchor">냉장고 위생 점검 체크리스트</h3>
+          <p>
+              기업 환경에서 냉장고 위생 상태를 스스로 평가하거나, 정기 관리 필요 시점을 파악하는 데 아래 체크리스트가 사용됩니다. 문 손잡이의 끈적임이나 오염 흔적, 고무 패킹의 곰팡이 또는 변색 존재, 내부 선반의 얼룩·흘러내린 자국, 서랍 및 야채칸의 물고임 또는 누수 흔적이 없는지 확인해야 하며, 필터 및 도어 트레이 하단에 보이지 않는 오염 흔적과 외장부, 주변 정리 상태도 점검해야 합니다.
+              냉동칸에서는 얼음 표면이나 성에에 이물질이 있는지, 냉동칸 바닥의 얼음층이 변색되지는 않았는지, 보관 용기 외부에 얼룩·흘러내림 흔적이 없는지 확인합니다.
+              냄새 및 공기질 점검으로는 문을 열었을 때 강한 악취가 발생하는지, 식품 종류와 무관한 냄새가 지속되는지, 내부 공기 흐름이 약해진 느낌이 드는지 점검합니다.
+              직원들의 냄새 관련 불만 발생, 오래 보관된 음식물의 다량 존재, 보관 용도 외 물품(약품·비식품)이 섞여 있는 경우 관리 필요 신호로 간주됩니다.
+          </p>
+          
+          <table class="checklist-table">
+              <thead>
+                  <tr>
+                      <th>구분</th>
+                      <th>주요 점검 항목 (간략 명칭)</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <tr>
+                      <th>기본 점검</th>
+                      <td>손잡이/패킹 오염, 선반 얼룩, 서랍 물고임, 필터 오염, 외장 정리</td>
+                  </tr>
+                  <tr>
+                      <th>냉동칸 점검</th>
+                      <td>얼음 이물질, 바닥 얼음 변색, 용기 외부 얼룩</td>
+                  </tr>
+                  <tr>
+                      <th>냄새 및 공기질</th>
+                      <td>강한 악취, 지속되는 무관한 냄새, 약해진 공기 흐름</td>
+                  </tr>
+                  <tr>
+                      <th>관리 필요 신호</th>
+                      <td>직원 불만, 다량의 장기 보관 음식물, 용도 외 물품 혼입</td>
+                  </tr>
+              </tbody>
+          </table>
+          <p class="checklist-caption">냉장고 위생 체크리스트</p>
+          
+          <h3 id="mos-s02-anchor">기업용 냉장고, 왜 반드시 전문 관리가 필요한가?</h3>
+          <p>
+              기업 내 공용 냉장고는 하루 수십~수백 회 열리고 닫히며, 다양한 음식물과 용기가 드나드는 **고위험 위생 구역**입니다. 많은 사람이 사용하는 환경 특성상, 내부 온도가 자주 변하고, 다량의 식품 수분, 사용자의 손 접촉 등이 교차 오염을 유발하며, 세균과 곰팡이가 빠르게 번식하는 최적 조건을 갖추고 있습니다. 이는 사내 감염 위험 증가와 식중독 유발 요인이 됩니다.
+          </p>
+          <p>
+              특히, 실제 현장에서는 다음과 같은 문제 사례가 일반적입니다:
+          </p>
+          <ul>
+              <li>내부 패킹이나 선반에 곰팡이가 누적된 경우: <img src="n8/0032.jpg" alt="냉장고 패킹 곰팡이 이미지" style="width: 100%; max-width: 400px; margin: 10px auto;"></li>
+              <li>이름 없는 음식물 보관으로 발생하는 악취와 세균 확산: <img src="n8/0033.jpg" alt="냉장고 내 오염 음식물 이미지" style="width: 100%; max-width: 400px; margin: 10px auto;"></li>
+              <li>냉동칸의 성에·얼음층 사이에서 번식하는 고온성·저온성 균류: <img src="n8/0037.jpg" alt="냉동칸 성에 균류 이미지" style="width: 100%; max-width: 400px; margin: 10px auto;"></li>
+              <li>문 손잡이 및 고무 패킹의 반복 접촉으로 인한 고농도 ATP 수치: <img src="n8/0036.jpg" alt="냉장고 손잡이 ATP 측정 이미지" style="width: 100%; max-width: 400px; margin: 10px auto;"></li>
+              <li>외관, 주변, 필터 및 물받이 오염: <img src="n8/0035.jpg" alt="냉장고 외부/필터 오염 이미지" style="width: 100%; max-width: 400px; margin: 10px auto;"></li>
+          </ul>
+          <p>
+              기업은 직원 복지 향상, 위생 리스크 감소, 감염 예방을 위해 주기적 관리가 필수적이며, 단순한 내부 닦기 수준의 관리로는 이러한 오염 문제를 해결할 수 없습니다.
+          </p>
+          
+          <h3 id="mos-s03-anchor">냉장고 오염의 주요 원인 및 발생 과정</h3>
+          <p>
+              냉장고 내부 오염은 다음과 같은 요소들이 복합적으로 작용하여 발생합니다.
+          </p>
+          <ul class="bullet-list">
+              <li><strong>온도 변화:</strong> 직원들의 잦은 개폐로 내부 온도가 일시적으로 상승하여 세균 번식에 쉬운 환경이 형성됩니다.</li>
+              <li><strong>습도 증가:</strong> 보관 식품의 수분 증발, 성에, 녹는 얼음 등으로 인해 고수분 환경이 형성됩니다.</li>
+              <li><strong>사용자 접촉:</strong> 손잡이, 패킹, 서랍 손잡이 등은 수십 명이 매일 만지는 대표적인 접촉 오염 구간입니다.</li>
+              <li><strong>음식물 누수:</strong> 밀폐되지 않은 용기(김치류, 육류 등) 보관 시 발생하는 액체가 누수되어 오염됩니다.</li>
+              <li><strong>장기 보관 식품:</strong> 폐기되지 않은 음식물이 악취와 곰팡이를 유발하며 전체 공간을 오염시킵니다.</li>
+          </ul>
+          
+          <h4 class="sub-heading-left">실제 고농도 RLU 수치 기록 부위</h4>
+          <p>
+              실제 기업 위생 진단에서 가장 높은 RLU(Relative Light Unit) 수치를 기록하는 부위는 다음과 같습니다:
+          </p>
+          <ul class="bullet-list">
+              <li>냉장실 문 고무 패킹</li>
+              <li>야채칸 및 서랍 손잡이</li>
+              <li>선반 프레임과 틈새</li>
+              <li>냉동칸 얼음 주변 및 바닥</li>
+              <li>문 내부 수납함 하단</li>
+          </ul>
+
+          <h3 id="mos-s04-anchor">냉장고 전문 분해·소독 프로세스 (5단계)</h3>
+          <p>
+              클린메이트는 제조사별 구조 특성을 기반으로, 단순 표면 청소가 아닌 정밀 분해·살균·건조·재조립의 **5단계 전문 프로세스**를 적용합니다.
+          </p>
+          
+          <h4 class="sub-heading-left">▶ 1단계 — ATP 바이오 오염도 진단</h4>
+          <ul class="bullet-list">
+              <li>ATP 측정기를 활용해 손잡이·패킹·선반 프레임·서랍 내부 등 고접촉 구역의 오염도를 **수치(RLU)로 측정**합니다.</li>
+              <li>초기 오염도와 최종 개선도를 고객사에 데이터로 제공하여 과학적 위생 관리가 가능하도록 합니다.</li>
+              <li>위험 기준치 초과 항목을 별도 표시하여 집중 관리합니다.</li>
+          </ul>
+          <img src="n8/0041.jpg" alt="ATP 측정 진단 이미지"/>
+
+          <h4 class="sub-heading-left">▶ 2단계 — 냉장고 구조 분해</h4>
+          <ul class="bullet-list">
+              <li>선반, 패킹, 서랍, 냉동칸 구성품, 도어 트레이 등 탈부착 가능 항목을 모두 분리합니다.</li>
+              <li>▲보이지 않는 틈새 ▲물이 고이는 구간 ▲패킹 내부 틈 등 세균이 은폐되는 구역을 정확히 식별합니다.</li>
+              <li>부품별 오염 레벨 기록 후 다음 소독 단계에 반영합니다.</li>
+          </ul>
+          <img src="n8/0042.jpg" alt="냉장고 구조 분해 이미지"/>
+
+          <h4 class="sub-heading-left">▶ 3단계 — 고강도 살균 및 곰팡이 제거</h4>
+          <ul class="bullet-list">
+              <li>식품 안전 인증을 받은 **친환경 소독제**를 사용하여 살균합니다.</li>
+              <li>곰팡이, 바이오필름, 기름때, 음식물 잔여물이 집중 분포된 지점 중심으로 살균합니다.</li>
+              <li>내부 벽면·도어 패널·선반 결착부 등 공조가 어려운 지점까지 수기 및 장비 혼합 방식으로 작업합니다.</li>
+          </ul>
+          <img src="n8/0044.jpg" alt="고강도 살균 및 곰팡이 제거 이미지"/>
+
+          <h4 class="sub-heading-left">▶ 4단계 — 냄새·유증기·세균 재발 방지 소독</h4>
+          <ul class="bullet-list">
+              <li>냄새 요소(부패균·단백질 잔여물)를 분해하여 내부 공기질을 개선합니다.</li>
+              <li>**항균 자외선**을 추가 적용하여 일정 기간 세균 재번식을 억제합니다.</li>
+              <li>관리 주기 중 발생할 수 있는 악취 재발 현상을 최소화합니다.</li>
+          </ul>
+          <img src="n8/0045.jpg" alt="재발 방지 소독 이미지"/>
+
+          <h4 class="sub-heading-left">▶ 5단계 — 사후 ATP 재측정 및 보고서 제공</h4>
+          <ul class="bullet-list">
+              <li>작업 완료 후 동일 지점을 재측정하여 **개선 수치를 비교**합니다.</li>
+              <li>작업 전/후 사진, ATP 데이터, 권장 관리 주기 등이 포함된 **보고서로 제공**됩니다.</li>
+              <li>관리 이력 데이터는 향후 정기 관리 주기 추천에 활용됩니다.</li>
+          </ul>
+          <img src="n8/0046.jpg" alt="사후 ATP 재측정 및 보고서 이미지"/>
+
+
+          <h3 id="mos-s05-anchor">냉장고 위생 관리 권장 주기</h3>
+          <p>
+              기업 규모, 사용 패턴, 냉장고 수량에 따라 다음과 같은 주기를 권장합니다.
+          </p>
+          <ul>
+              <li><strong>월 1회:</strong> 일반 사무실(10~30명), 공용 냉장고 1~2대 사용 환경</li>
+              <li><strong>2주 1회:</strong> 30명 이상 기업, 냉장고 사용량 높은 공간(점심 도시락 보관 多)</li>
+              <li><strong>주 1회:</strong> 제조업 공장, 식품 취급 사업장, 병원·의료기관, 24시간 운영 시설</li>
+              <li><strong>격주 1회 + 월간 ATP 리포트:</strong> 감염 예방이 중요한 건물, 콜센터, 강의실 등 회전율 높은 장소</li>
+          </ul>
+          
+          <h3 id="mos-s06-anchor">냉장고 관리 후 기대 효과</h3>
+          <p>
+              정기 관리 후 기업이 얻는 효과는 단순한 '청결 유지'를 넘어섭니다. 다음과 같은 실질적 개선이 발생합니다.
+          </p>
+          <ul class="bullet-list">
+              <li>세균 수치(RLU) 평균 **70~95% 감소**</li>
+              <li>**악취 제거** 및 냉장 효율 정상화 → 냉기 순환 개선</li>
+              <li>직원들의 식품 보관 만족도 상승 → **복지 향상**</li>
+              <li>사내 감염 예방 → 병가 비용 감소 효과</li>
+              <li>위생 상태를 가시적으로 보여주는 보고서 제공 → 경영진 평가에 직접 활용 가능</li>
+          </ul>
+
+          <h3 id="mos-s07-anchor">종합 정리</h3>
+          <p>
+              기업 위생 관리에서 냉장고는 가장 과소평가되지만, 실제로는 세균 번식률, 접촉 빈도, 식품 오염 영향 측면에서 **위험도가 높은 장비**입니다. 전문 분해·살균 기반의 정기 관리를 통해 기업은 직원 건강 보호, 감염 예방, 냉장 기능 정상화, 회사 이미지 제고 등 **다방면의 효과**를 얻을 수 있습니다.
+          </p>
+          
       </div>
 
       <div id="avk-section" class="content-section solution-content-wrapper">
@@ -715,12 +909,12 @@
 
       <div id="tech-section" class="content-section solution-content-wrapper">
           <h2>전문 기술 및 인증</h2>
+          <div class="solution-img-gallery" id="tech-gallery-container"></div>
       </div>
 
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
-          <div class="partner-logo-gallery" id="partner-logo-gallery">
-              </div>
+          <div class="partner-logo-gallery" id="partner-logo-gallery"></div>
       </div>
 
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
@@ -1058,7 +1252,7 @@
         scrollToSectionClick('quiz-section');
     }
     
-    // 갤러리 생성 로직 (유지)
+    // 갤러리 생성 로직 (경로 수정)
     function generateGallery(containerId, folder, start, end, baseName, padding = 0) {
         const container = document.getElementById(containerId);
         if (!container) return;
@@ -1077,22 +1271,9 @@
               fileName = `${baseName}${i}.jpg`;
               altText = `${baseName} ${i}`;
             }
-            const src = `imege/${folder}/${fileName}`;
+            // 최종 수정: 'imege/' 접두사 제거
+            const src = `${folder}/${fileName}`;
             html += `<img src="${src}" alt="${altText}" onerror="this.src='https://via.placeholder.com/200x120/333333/cccccc?text=이미지+누락'; this.style.opacity='0.7';">`;
-        }
-        container.innerHTML = html;
-    }
-
-    // 요청에 따라 추가된 협력사 로고 생성 함수
-    function generatePartnerLogos() {
-        const container = document.getElementById('partner-logo-gallery');
-        if (!container) return;
-
-        let html = '';
-        for (let i = 1; i <= 35; i++) {
-            const fileName = `partner_goloimg${i}.jpg`;
-            const src = `s04/${fileName}`;
-            html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
         }
         container.innerHTML = html;
     }
@@ -1102,12 +1283,13 @@
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
         
-        // 갤러리 로드 실행
+        // 갤러리 로드 실행 (폴더명만 전달)
+        // tech-gallery-container는 's03' 폴더 사용
         generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
+        // portfolio-gallery-container는 'jpg' 폴더 사용
         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
-        
-        // 새로 추가된 협력사 로고 로드
-        generatePartnerLogos(); 
+        // partner-logo-gallery는 's04' 폴더 사용
+        generateGallery('partner-logo-gallery', 's04', 1, 35, 'partner_goloimg', 0); 
 
         // 퀴즈 초기화 및 Q1 활성화
         resetQuiz(); 
