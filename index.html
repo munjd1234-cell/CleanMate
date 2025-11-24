@@ -511,6 +511,7 @@
                 btn.classList.add('active');
             }
         });
+        // n8.html과 같이 data-target이 없는 버튼은 스크롤 시 active 처리를 하지 않습니다.
     }
 
     // 부드러운 스크롤 처리
@@ -566,11 +567,10 @@
                         answer.style.display = 'block';
                     }
                 } else if (this.getAttribute('data-answer')) {
-                    // data-answer가 있을 경우 바로 표시하는 로직 (기존 HTML 구조에 따라 다름)
-                    // 현재는 nextElementSibling을 사용하므로, data-answer를 innerHTML로 활용하는 로직을 추가
-                    const existingAnswer = this.querySelector('.quiz-answer');
-                    if(existingAnswer) {
-                        if (existingAnswer.style.display === 'block') {
+                    // data-answer가 있을 경우 바로 표시하는 로직
+                    const existingAnswer = this.nextElementSibling; // 다시 체크
+                    if(existingAnswer && existingAnswer.classList.contains('quiz-answer')) {
+                         if (existingAnswer.style.display === 'block') {
                             existingAnswer.style.display = 'none';
                         } else {
                             document.querySelectorAll('.quiz-answer').forEach(ans => {
@@ -579,8 +579,12 @@
                             existingAnswer.style.display = 'block';
                         }
                     } else {
-                        // nextElementSibling이 없는 경우를 대비하여 answer div를 생성하는 로직은 복잡해지므로,
-                        // HTML 마크업이 이미 .quiz-answer를 포함한다고 가정하고 위 로직을 따릅니다.
+                        // nextElementSibling이 없는 경우를 대비하여 answer div를 생성
+                        const answerDiv = document.createElement('div');
+                        answerDiv.classList.add('quiz-answer');
+                        answerDiv.innerHTML = this.getAttribute('data-answer');
+                        this.insertAdjacentElement('afterend', answerDiv);
+                        answerDiv.style.display = 'block';
                     }
                 }
             });
@@ -605,19 +609,7 @@
             }
         });
 
-        // 초기 로드 시 FAQ 답변 숨기기 (HTML 구조에 따라 .quiz-answer를 포함해야 합니다.)
-        document.querySelectorAll('.quiz-list li').forEach(li => {
-            const answer = li.nextElementSibling;
-            if (answer && answer.classList.contains('quiz-answer')) {
-                // li의 다음 형제가 .quiz-answer인 경우 (기존 HTML 구조 가정)
-            } else if (!li.querySelector('.quiz-answer') && li.getAttribute('data-answer')) {
-                 // li 내부에 답변이 없는 경우, 동적으로 생성 (안전 조치)
-                const answerDiv = document.createElement('div');
-                answerDiv.classList.add('quiz-answer');
-                answerDiv.innerHTML = li.getAttribute('data-answer');
-                li.insertAdjacentElement('afterend', answerDiv);
-            }
-        });
+        // 초기 로드 시 FAQ 답변 숨기기
         document.querySelectorAll('.quiz-answer').forEach(ans => {
             ans.style.display = 'none';
         });
