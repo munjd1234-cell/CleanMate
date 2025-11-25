@@ -1087,6 +1087,8 @@
     // 요청에 따라 수정된 협력사 로고 생성 함수 (imege/partner_goloimg1~35.jpg)
 
 
+
+/* 변경 (수정 후) - 이 코드를 복사해서 해당 함수 전체를 교체하세요 */
 function generatePartnerLogos() {
     const container = document.getElementById('partner-logo-gallery');
     if (!container) return;
@@ -1102,6 +1104,8 @@ function generatePartnerLogos() {
         html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
     }
     container.innerHTML = html;
+}
+
 
 
 
