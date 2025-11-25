@@ -604,6 +604,8 @@
       <a href="#company" class="menu-btn" data-target="company-section">제안</a> 
       <a href="#portfolio" class="menu-btn" data-target="portfolio-section">실적</a> 
       <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
+      <a href="#mcr-section" onclick="scrollToSectionClick('mcr-section'); return false;">전자레인지</a>
+
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자레인지</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
@@ -705,17 +707,18 @@
       <div id="mos-section" class="content-section solution-content-wrapper">
           
       </div>
-      <div id="avk-section" class="content-section solution-content-wrapper">
-          <h2>제빙기 위생 관리 솔루션</h2>
-      </div>
 
-      <div id="dryice-section" class="content-section solution-content-wrapper">
-          <h2>전자레인지 위생 관리 솔루션</h2>
-      </div>
 
-      <div id="tech-section" class="content-section solution-content-wrapper">
-          <h2>전문 기술 및 인증</h2>
-      </div>
+<div id="mcr-section" class="content-section solution-content-wrapper"> </div>
+<div id="avk-section" class="content-section solution-content-wrapper"> </div></div>
+
+
+
+<div id="tech-section" class="content-section solution-content-wrapper">
+    <h2>전문 기술 및 인증</h2>
+</div>
+
+
 
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
@@ -829,6 +832,11 @@
             }
             // ▲ 냉장고 섹션 클릭 시 외부 HTML을 로드하는 로직이 추가되었습니다. ▲
 
+	// ▼ 전자레인지 섹션 로드 로직 추가 ▼
+	if (targetId === 'mcr-section' && !targetSection.dataset.loaded) {
+    	loadSectionContent('mcr-section', 'microwave_solution.html'); // 새로 만든 전자레인지 파일명입니다.
+	}
+	// ▲ 전자레인지 섹션 로드 로직 추가 ▲
 
 	// ▼ 아래 한 줄을 추가해주세요! (제빙기 로직) ▼
         if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
