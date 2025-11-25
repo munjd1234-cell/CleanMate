@@ -431,7 +431,11 @@ body {
   .solution-img-gallery {
     padding: 10px 0;
   }
-  .solution-img-gallery img { width: 100%; /* 이미지를 크게 보이도록 100%로 변경 */ max-width: 600px; /* (선택 사항) 이미지 최대 너비 지정 */ margin: 15px auto; /* 중앙 정렬 및 여백 확보 */ }
+  .solution-img-gallery img { width: 100% !important; /* 모든 규칙을 무시하고 100%로 설정 (가장 중요) */
+    max-width: 650px; /* 최대 너비를 650px로 조정 (더 크게) */
+    margin: 15px auto; 
+    display: block; /* 혹시 모를 레이아웃 문제를 위해 추가 */
+}
   /* 사업자등록증 & 영업신고증 2개 이미지 나란히 배치 (이번 수정으로 사용되지 않음) */
   .certificate-gallery img {
     max-width: 48%; /* 너비를 48%로 설정하여 나란히 배치 */
