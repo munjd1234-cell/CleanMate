@@ -580,57 +580,6 @@
     }
   }
 </style>
-
-<!-- Auto-open target: intro-screen and disable copying/select -->
-<style>
-/* make text hard to select/copy */
-body { -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none; }
-/* disable selection for inputs but keep functionality if needed */
-input, textarea { user-select: text !important; -webkit-user-select: text !important; }
-</style>
-<script>
-document.addEventListener('DOMContentLoaded', function(){
-    try {
-        // Prevent right-click
-        document.addEventListener('contextmenu', function(e){ e.preventDefault(); });
-        // Prevent copy/cut
-        document.addEventListener('copy', function(e){ e.preventDefault(); });
-        document.addEventListener('cut', function(e){ e.preventDefault(); });
-    } catch(e){ console.warn(e); }
-    // If target is intro-screen, show intro only
-    const targetId = "intro-screen";
-    if (targetId === "intro-screen") {
-        // show intro and hide main wrapper
-        const intro = document.getElementById('intro-screen');
-        const main = document.getElementById('main-content-wrapper');
-        if (intro) intro.style.display = 'flex';
-        if (main) main.style.display = 'none';
-    } else {
-        // ensure main content is visible and activate requested section
-        const intro = document.getElementById('intro-screen');
-        const main = document.getElementById('main-content-wrapper');
-        if (intro) intro.style.display = 'none';
-        if (main) {
-            main.style.display = 'block';
-            main.style.opacity = '1';
-        }
-        // activate the target section if exists (use supplied scrollToSectionClick if present)
-        setTimeout(function(){
-            try {
-                if (typeof scrollToSectionClick === 'function') {
-                    scrollToSectionClick('intro-screen');
-                } else {
-                    // fallback: simple show/hide
-                    document.querySelectorAll('.content-section').forEach(function(s){ s.classList.remove('active'); });
-                    var t = document.getElementById('intro-screen');
-                    if (t) t.classList.add('active');
-                }
-            } catch(e){ console.warn(e); }
-        }, 50);
-    }
-});
-</script>
-
 </head>
 
 <body>
@@ -646,7 +595,7 @@ document.addEventListener('DOMContentLoaded', function(){
   
   <div id="main-content-wrapper">
     <header>
-      <img src="logo2.png" alt="클린메이트 로고" /> 
+      <img src=""imege/logo2.png" alt="클린메이트 로고" /> 
       <h2>전문장비로 원스톱 위생 솔루션</h2> 
     </header>
 
@@ -682,13 +631,13 @@ document.addEventListener('DOMContentLoaded', function(){
           </ul>
           
           <div class="seven-image-gallery">
-              <div><img src="imege/0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
-              <div><img src="imege/0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
-              <div><img src="imege/0013.jpg" alt="냉장고 소독 전후"><p class="image-caption">냉장고의 소독 전후</p></div>
-              <div><img src="imege/0012.jpg" alt="전자렌지 소독 전후"><p class="image-caption">전자렌지의 소독 전후</p></div>
-              <div><img src="imege/0015.jpg" alt="화장실 비데 소독 전후"><p class="image-caption">화장실 비데의 소독 전후</p></div>
-              <div><img src="imege/0014.jpg" alt="사무실 책상 소독 전후"><p class="image-caption">사무실 책상의 소독 전후</p></div>
-              <div><img src="imege/0017.jpg" alt="인덕션 소독 전후"><p class="image-caption">인덕션의 소독 전후</p></div>
+              <div><img src="imege/a0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
+              <div><img src="imege/a0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
+              <div><img src="imege/a0013.jpg" alt="냉장고 소독 전후"><p class="image-caption">냉장고의 소독 전후</p></div>
+              <div><img src="imege/a0012.jpg" alt="전자렌지 소독 전후"><p class="image-caption">전자렌지의 소독 전후</p></div>
+              <div><img src="imege/a0015.jpg" alt="화장실 비데 소독 전후"><p class="image-caption">화장실 비데의 소독 전후</p></div>
+              <div><img src="imege/a0014.jpg" alt="사무실 책상 소독 전후"><p class="image-caption">사무실 책상의 소독 전후</p></div>
+              <div><img src="imege/a0017.jpg" alt="인덕션 소독 전후"><p class="image-caption">인덕션의 소독 전후</p></div>
           </div>
 
           <h4 class="sub-heading-left">B. 중점 관리 대상 가전의 위협</h4>
@@ -698,7 +647,7 @@ document.addEventListener('DOMContentLoaded', function(){
           <ul class="bullet-list" style="list-style: none;">
               <li>냉장고, 전자레인지, 제빙기, 정수기, 커피머신, 비데, 칫솔살균기, 에어컨, 공기청정기, 사무용품, PC/키보드 등</li>
           </ul>
-          <img src="imege/0034.jpg" alt="중점 관리 대상 가전 사진"/>
+          <img src="imege/a0034.jpg" alt="중점 관리 대상 가전 사진"/>
           <p class="image-caption">대상 가전의 종류</p>
 
           
@@ -709,7 +658,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <li>내시경 진단: 육안 확인이 불가능한 내부 깊은 곳의 오염 상태를 영상으로 진단.</li>
               <li>AI 기반 데이터 처리: AI 기반 데이터 처리 기술을 적용하여 정확하고 신뢰성 높은 데이터를 제공합니다.</li>
           </ul>
-          <img src="imege/0029.jpg" alt="기술력 관련 이미지 (placeholder)"/>
+          <img src="imege/a0029.jpg" alt="기술력 관련 이미지 (placeholder)"/>
           <p class="image-caption">ATP 측정 및 AI 진단</p>
 
           
@@ -720,7 +669,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <li>위생 가전 청소 및 소독 관련 자체 교육 프로그램 수료 의무화.</li>
               <li>주요 제조사 출신 전문 엔지니어의 경험과 노하우 결합.</li>
           </ul>
-          <img src="imege/0028.jpg" alt="인력풀 관련 이미지 (placeholder)"/>
+          <img src="imege/a0028.jpg" alt="인력풀 관련 이미지 (placeholder)"/>
           <p class="image-caption">전문 인력풀</p>
 
           
@@ -731,7 +680,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <li>최적 경로: AI 기반 동선 최적화로 서비스 시간을 단축하고 비용 효율성 증대.</li>
               <li>자동 보고: 현장 진단 및 관리 결과가 실시간으로 자동 보고되어 투명한 관리 가능.</li>
           </ul>
-          <img src="imege/0030.jpg" alt="AI 도입 관련 이미지 (placeholder)"/>
+          <img src="imege/a0030.jpg" alt="AI 도입 관련 이미지 (placeholder)"/>
           <p class="image-caption">AI 기반 스마트 관리 시스템</p>
 
 
@@ -743,7 +692,7 @@ document.addEventListener('DOMContentLoaded', function(){
               <li>본사 주소: 서울특별시 송파구 충민로 66, F동 8087호 (문정동, 가든파이브라이프) / 연락처: 1666-1757 / 이메일: dhc-solution@naver.com</li>
           </ul>
           
-          <img src="imege/0003_1.jpg" alt="사업자등록증 및 영업신고증 결합 이미지"/>
+          <img src="imege/a0003_1.jpg" alt="사업자등록증 및 영업신고증 결합 이미지"/>
           <p class="image-caption">사업자,영업신고증</p>
           
       </div>
@@ -1142,7 +1091,7 @@ document.addEventListener('DOMContentLoaded', function(){
         let html = '';
         for (let i = 1; i <= 35; i++) {
             const fileName = `partner_goloimg${i}.jpg`;
-            const src = `s04/${fileName}`;
+            const src = `imege/${fileName}`;
             html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
         }
         container.innerHTML = html;
