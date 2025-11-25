@@ -5,31 +5,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>클린메이트 Clean Mate</title>
 <style>
-
-
   /* --- [디자인 복원/유지] --- */
-
-body {
+  body {
     margin: 0;
     font-family: 'Pretendard', sans-serif;
     background-color: #111; /* 배경색 유지 */
     color: #fff; /* 기본 글자색 유지 */
-  } /* <-- body 스타일이 여기서 닫힙니다. */
-
-
-/* [추가할 코드] 원스톱 상담(퀴즈 섹션) 상단 빈 공간 문제 해결 (정상 위치) */
-#quiz-section {
-    padding-top: 20px !important;  
-}
-
-#quiz-start-screen {
-    margin-top: 0 !important;
-}
-
+  }
 
   /* --- [인트로 화면 스타일 및 애니메이션] --- */
   #intro-screen {
-    position: fixed;    top: 0;
+    position: fixed;
+    top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
@@ -429,13 +416,16 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   }
   .solution-img-gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    gap: 10px;
     padding: 10px 0;
   }
-  .solution-img-gallery img { width: 100% !important; /* 모든 규칙을 무시하고 100%로 설정 (가장 중요) */
-    max-width: 650px; /* 최대 너비를 650px로 조정 (더 크게) */
-    margin: 15px auto; 
-    display: block; /* 혹시 모를 레이아웃 문제를 위해 추가 */
-}
+  .solution-img-gallery img {
+    width: 48%; 
+    margin: 0;
+  }
   /* 사업자등록증 & 영업신고증 2개 이미지 나란히 배치 (이번 수정으로 사용되지 않음) */
   .certificate-gallery img {
     max-width: 48%; /* 너비를 48%로 설정하여 나란히 배치 */
@@ -612,11 +602,9 @@ body {
 
     <nav class="main-menu">
       <a href="#company" class="menu-btn" data-target="company-section">제안</a> 
-
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
       <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
-      <a href="#mcr" class="menu-btn" data-target="mcr-section">전자레인지</a> 
-
+      <a href="#dryice" class="menu-btn" data-target="dryice-section">전자레인지</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력</a> 
       <a href="#quiz" class="menu-btn" data-target="quiz-section">원스톱상담</a> 
@@ -709,23 +697,20 @@ body {
           
       </div>
 
-
-      <div id="avk-section" class="content-section solution-content-wrapper"> 
+      <div id="mos-section" class="content-section solution-content-wrapper">
+          
       </div>
-      <div id="mos-section" class="content-section solution-content-wrapper">       
-      </div>
-      <div id="mcr-section" class="content-section solution-content-wrapper"> 
-      </div>
-      
+      <div id="avk-section" class="content-section solution-content-wrapper">
+          
       </div>
 
+      <div id="dryice-section" class="content-section solution-content-wrapper">
+          
+      </div>
 
-
-<div id="tech-section" class="content-section solution-content-wrapper">
-    <h2>전문 기술 및 인증</h2>
-</div>
-
-
+      <div id="tech-section" class="content-section solution-content-wrapper">
+          
+      </div>
 
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
@@ -833,33 +818,22 @@ body {
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             
-            // ▼ 냉장고 섹션 클릭 시 외부 HTML을 로드하는 로직이 추가되었습니다. ▼
+            // ▼ 콘텐츠 로드 로직 확장 (요청에 따라 수정됨) ▼
             if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
-                loadSectionContent('mos-section', 'mos_refrigerator_content.html'); 
+                loadSectionContent('mos-section', 'mos_refrigerator_content.html'); // 냉장고 연결
+            } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
+                loadSectionContent('avk-section', 'mos_icemaker_content.html'); // 제빙기 연결
+            } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
+                loadSectionContent('dryice-section', 'microwave_solution.html'); // 전자레인지 연결
+            } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
+                loadSectionContent('tech-section', 'technology.html'); // 기술 연결
             }
-            // ▲ 냉장고 섹션 클릭 시 외부 HTML을 로드하는 로직이 추가되었습니다. ▲
-
-	// ▼ 전자레인지 섹션 로드 로직 추가 ▼
-	if (targetId === 'mcr-section' && !targetSection.dataset.loaded) {
-    	loadSectionContent('mcr-section', 'microwave_solution.html'); // 새로 만든 전자레인지 파일명입니다.
-	}
-	// ▲ 전자레인지 섹션 로드 로직 추가 ▲
-
-	// ▼ 아래 한 줄을 추가해주세요! (제빙기 로직) ▼
-        if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
-            loadSectionContent('avk-section', 'mos_icemaker_content.html');
-        }
-        // ▲ 여기까지만 추가하면 됩니다. ▲
-
-
-
-
-
+            // ▲ 콘텐츠 로드 로직 확장 (요청에 따라 수정됨) ▲
+            
             targetSection.classList.add('active');
             
             // 스크롤 위치 조정 (헤더와 메뉴바 높이 고려)
-            const offset = 150; // 헤더 높이(75px)만 남기고 수정
-
+            const offset = 122; // header(75px) + main-menu padding(47px)
             const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
             window.scrollTo({
                 top: elementPosition - offset,
