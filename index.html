@@ -595,7 +595,8 @@
   
   <div id="main-content-wrapper">
     <header>
-      <img src=""imege/logo2.png" alt="클린메이트 로고" /> 
+      <img src="imege/logo2.png" alt="클린메이트 로고" /> 
+
       <h2>전문장비로 원스톱 위생 솔루션</h2> 
     </header>
 
@@ -1083,15 +1084,16 @@
         container.innerHTML = html;
     }
 
-    // 요청에 따라 추가된 협력사 로고 생성 함수
+    // 요청에 따라 수정된 협력사 로고 생성 함수 (imege/partner_goloimg1~35.jpg)
     function generatePartnerLogos() {
         const container = document.getElementById('partner-logo-gallery');
         if (!container) return;
 
         let html = '';
+        // 1번부터 35번까지 반복
         for (let i = 1; i <= 35; i++) {
-            const fileName = `partner_goloimg${i}.jpg`;
-            const src = `s04/${fileName}`;
+            // 폴더: imege, 파일명: partner_goloimg + 번호 + .jpg
+            const src = `imege/partner_goloimg${i}.jpg`;
             html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
         }
         container.innerHTML = html;
@@ -1106,7 +1108,7 @@
         generateGallery('tech-gallery-container', 's03', 1, 10, 'certificate_img', 0);
         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
         
-        // 새로 추가된 협력사 로고 로드
+        // 수정된 협력사 로고 로드 실행
         generatePartnerLogos(); 
 
         // 퀴즈 초기화 및 Q1 활성화
