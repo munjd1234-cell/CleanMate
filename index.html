@@ -829,6 +829,17 @@
             }
             // ▲ 냉장고 섹션 클릭 시 외부 HTML을 로드하는 로직이 추가되었습니다. ▲
 
+
+	// ▼ 아래 한 줄을 추가해주세요! (제빙기 로직) ▼
+        if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
+            loadSectionContent('avk-section', 'mos_icemaker_content.html');
+        }
+        // ▲ 여기까지만 추가하면 됩니다. ▲
+
+
+
+
+
             targetSection.classList.add('active');
             
             // 스크롤 위치 조정 (헤더와 메뉴바 높이 고려)
