@@ -1085,19 +1085,26 @@
     }
 
     // 요청에 따라 수정된 협력사 로고 생성 함수 (imege/partner_goloimg1~35.jpg)
-    function generatePartnerLogos() {
-        const container = document.getElementById('partner-logo-gallery');
-        if (!container) return;
 
-        let html = '';
-        // 1번부터 35번까지 반복
-        for (let i = 1; i <= 35; i++) {
-            // 폴더: imege, 파일명: partner_goloimg + 번호 + .jpg
-            const src = `imege/partner_goloimg${i}.jpg`;
-            html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
-        }
-        container.innerHTML = html;
+
+function generatePartnerLogos() {
+    const container = document.getElementById('partner-logo-gallery');
+    if (!container) return;
+
+    let html = '';
+    
+    // 1번부터 35번까지 반복
+    for (let i = 1; i <= 35; i++) {
+        // ▼ 핵심 수정: 폴더명(imege)과 파일명(partner_goloimg)을 직접 연결
+        const src = `imege/partner_goloimg${i}.jpg`;
+
+        // 이미지 태그 생성 (에러 시 회색 박스로 대체하는 코드 포함)
+        html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
     }
+    container.innerHTML = html;
+
+
+
 
     // 페이지 로드 시 인트로 시작 및 클릭 이벤트 연결 (유지)
     document.addEventListener('DOMContentLoaded', () => {
