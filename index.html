@@ -416,16 +416,9 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   }
   .solution-img-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 10px;
     padding: 10px 0;
   }
-  .solution-img-gallery img {
-    width: 48%; 
-    margin: 0;
-  }
+  .solution-img-gallery img { width: 100%; /* 이미지를 크게 보이도록 100%로 변경 */ max-width: 600px; /* (선택 사항) 이미지 최대 너비 지정 */ margin: 15px auto; /* 중앙 정렬 및 여백 확보 */ }
   /* 사업자등록증 & 영업신고증 2개 이미지 나란히 배치 (이번 수정으로 사용되지 않음) */
   .certificate-gallery img {
     max-width: 48%; /* 너비를 48%로 설정하여 나란히 배치 */
@@ -602,7 +595,7 @@
 
     <nav class="main-menu">
       <a href="#company" class="menu-btn" data-target="company-section">제안</a> 
-      <a href="#portfolio" class="menu-btn" data-target="portfolio-section">실적</a> 
+
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
       <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
       <a href="#mcr" class="menu-btn" data-target="mcr-section">전자레인지</a> 
@@ -699,9 +692,6 @@
           
       </div>
 
-      <div id="portfolio-section" class="content-section solution-content-wrapper">
-          <h2>서비스 실적 및 포트폴리오</h2>
-      </div>
 
       <div id="avk-section" class="content-section solution-content-wrapper"> 
       </div>
@@ -851,7 +841,8 @@
             targetSection.classList.add('active');
             
             // 스크롤 위치 조정 (헤더와 메뉴바 높이 고려)
-            const offset = 122; // header(75px) + main-menu padding(47px)
+            const offset = 75; // 헤더 높이(75px)만 남기고 수정
+
             const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
             window.scrollTo({
                 top: elementPosition - offset,
