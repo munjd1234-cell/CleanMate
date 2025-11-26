@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>CleanMate Premium Proposal (Full Ver)</title>
+<style>
+    /* --- [폰트 및 컬러 설정] --- */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;900&family=Pretendard:wght@300;400;500;700&display=swap');
+
+    :root {
+        --main-green: #153E35;     /* 더 깊은 딥 그린 */
+        --accent-coral: #D65A45;   /* 포인트 코랄 */
+        --bg-cream: #F9F8F6;       /* 따뜻한 크림색 */
+        --text-dark: #222222;
+        --text-gray: #555555;
+        --border-color: #e0e0e0;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background: #555;
+        font-family: 'Pretendard', sans-serif;
+        color: var(--text-dark);
+        -webkit-print-color-adjust: exact;
+    }
+
+    /* --- [A4 페이지 규격 (꽉 찬 레이아웃)] --- */
+    .page {
+        width: 210mm;
+        height: 297mm;
+        background: white;
+        margin: 20px auto;
+        position: relative;
+        box-shadow: 0 0 15px rgba(0,0,0,0.5);
+        overflow: hidden;
+        page-break-after: always;
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media print {
+        body { background: none; }
+        .page { margin: 0; box-shadow: none; border: none; }
+        @page { size: A4; margin: 0; }
+    }
+
+    /* --- [타이포그래피] --- */
+    h1, h2, h3, h4 { font-family: 'Noto Serif KR', serif; margin: 0; }
+    
+    .title-serif { font-family: 'Noto Serif KR', serif; font-weight: 700; }
+    .text-body { font-size: 10.5pt; line-height: 1.65; color: var(--text-gray); text-align: justify; word-break: keep-all; }
+    .text-accent { color: var(--accent-coral); font-weight: bold; }
+    
+    /* 섹션 헤더 스타일 */
+    .section-header {
+        padding: 30px 40px;
+        border-bottom: 2px solid var(--main-green);
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+    }
+    .section-header h2 { font-size: 26pt; color: var(--main-green); line-height: 1; }
+    .section-header span { font-size: 10pt; color: #888; letter-spacing: 2px; }
+
+    /* --- [레이아웃 유틸리티] --- */
+    .padding-box { padding: 40px; }
+    .row { display: flex; width: 100%; }
+    .col-50 { width: 50%; }
+    .col-60 { width: 60%; }
+    .col-40 { width: 40%; }
+    
+    .bg-green { background-color: var(--main-green); color: white; }
+    .bg-cream { background-color: var(--bg-cream); }
+    
+    .img-box { width: 100%; overflow: hidden; position: relative; }
+    .img-full { width: 100%; height: 100%; object-fit: cover; display: block; }
+    
+    /* 리스트 스타일 */
+    ul.dot-list { list-style: none; padding: 0; margin: 10px 0; }
+    ul.dot-list li { 
+        padding-left: 15px; position: relative; margin-bottom: 8px; 
+        font-size: 10pt; color: var(--text-gray);
+    }
+    ul.dot-list li::before { 
+        content: ''; position: absolute; left: 0; top: 8px; 
+        width: 4px; height: 4px; background: var(--accent-coral); border-radius: 50%; 
+    }
+
+    /* 푸터 */
+    .footer {
+        position: absolute; bottom: 25px; left: 40px; right: 40px;
+        border-top: 1px solid #ddd; padding-top: 10px;
+        display: flex; justify-content: space-between; font-size: 9pt; color: #999;
+    }
+
+    /* --- [이미지 그리드 스타일] --- */
+    .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+    .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
+    .grid-4 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    
+    .caption { font-size: 8pt; color: #666; margin-top: 5px; text-align: center; }
+
+</style>
+</head>
+<body>
+
+    <!-- PAGE 1: COVER -->
+    <div class="page">
+        <div style="height: 65%; position: relative;">
+            <img src="imege/n0035.jpg" class="img-full" onerror="this.src='https://via.placeholder.com/800x600/ccc?text=Cover+Image'">
+            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(to bottom, rgba(0,0,0,0.1), rgba(21,62,53,0.9));"></div>
+        </div>
+        <div style="height: 35%; background: var(--main-green); padding: 50px; color: white; display: flex; flex-direction: column; justify-content: center;">
+            <img src="imege/logo2.png" style="width: 180px; filter: brightness(0) invert(1); margin-bottom: 30px;">
+            <h1 class="title-serif" style="font-size: 42pt; line-height: 1.1; margin-bottom: 15px;">TOTAL HYGIENE<br>SOLUTIONS</h1>
+            <p style="font-size: 14pt; font-weight: 300; opacity: 0.8; letter-spacing: 1px;">Corporate Appliance Sterilization Proposal 2025</p>
+            <div style="width: 60px; height: 3px; background: var(--accent-coral); margin-top: 30px;"></div>
+        </div>
+    </div>
+
+    <!-- PAGE 2: COMPANY INTRODUCTION -->
+    <div class="page">
+        <div class="section-header">
+            <h2>ABOUT US</h2>
+            <span>COMPANY PROFILE</span>
+        </div>
+        <div class="row" style="height: 100%;">
+            <div class="col-60 padding-box">
+                <h3 class="title-serif" style="font-size: 20pt; margin-bottom: 20px; color: var(--main-green);">
+                    보이지 않는 감염 위험,<br>
+                    <span class="text-accent">클린메이트</span>가 해결합니다.
+                </h3>
+                <p class="text-body" style="margin-bottom: 20px;">
+                    주식회사 디에이치씨솔루션의 프리미엄 브랜드 '클린메이트'는 20년간의 위생 기술 선도력과 국내 최대 규모의 인력풀을 바탕으로 탄생했습니다.<br><br>
+                    기업 사무실의 공용 위생 가전은 다수가 사용하여 오염에 취약하지만, 전문적인 관리가 부족한 것이 현실입니다. 우리는 AI 기반 데이터 분석과 HACCP 수준의 소독 기술을 결합하여, 단순 청소를 넘어선 **'감염 예방 솔루션'**을 제공합니다.
+                </p>
+                
+                <div style="background: var(--bg-cream); padding: 20px; margin-top: 30px; border-left: 5px solid var(--main-green);">
+                    <ul class="dot-list">
+                        <li><strong>상호명:</strong> (주)디에이치씨솔루션 (브랜드: 클린메이트)</li>
+                        <li><strong>설립일:</strong> 2018년 1월 16일</li>
+                        <li><strong>본사:</strong> 서울특별시 송파구 충민로 66, F동 8087호</li>
+                        <li><strong>사업분야:</strong> 위생가전 정기 케어, 건물위생관리, AI 솔루션</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col-40 bg-green padding-box" style="display: flex; flex-direction: column; justify-content: center;">
+                <img src="imege/a0028.jpg" class="img-full" style="height: 300px; margin-bottom: 20px; border-radius: 4px;">
+                <p style="color: white; font-size: 10pt; text-align: center;">국내 최대 규모 전문 엔지니어 인력풀</p>
+            </div>
+        </div>
+        <div class="footer"><span>CleanMate Proposal</span><span>02</span></div>
+    </div>
+
+    <!-- PAGE 3: RISK ASSESSMENT (RICH IMAGES) -->
+    <div class="page">
+        <div class="section-header">
+            <h2>RISK ASSESSMENT</h2>
+            <span>WHY PROFESSIONAL CARE?</span>
+        </div>
+        <div class="padding-box">
+            <h3 class="title-serif" style="font-size: 18pt; margin-bottom: 15px;">기업 내 위생 가전의 오염 현실</h3>
+            <p class="text-body" style="margin-bottom: 30px;">
+                기업 내 냉장고, 제빙기, 커피머신 등은 하루 수백 회 이상 사용되는 **고위험 오염 구역**입니다. 
+                관리가 소홀할 경우 식중독균, 곰팡이, 바이오필름이 급속도로 번식하며 직원들의 건강을 위협합니다.
+                아래는 실제 기업 현장에서 발견된 오염 사례입니다.
+            </p>
+
+            <!-- 이미지 그리드: 현장의 오염된 모습들을 보여줌 -->
+            <div class="grid-2" style="height: 450px;">
+                <div class="img-box">
+                    <img src="imege/n0032.jpg" class="img-full">
+                    <p class="caption">냉장고 내부 고무 패킹 곰팡이 및 오염</p>
+                </div>
+                <div class="img-box">
+                    <img src="imege/i0003.jpg" class="img-full">
+                    <p class="caption">제빙기 내부 석회질(스케일) 및 곰팡이</p>
+                </div>
+                <div class="img-box">
+                    <img src="imege/i0005.jpg" class="img-full">
+                    <p class="caption">물탱크 및 호스 내부의 핑크색 슬라임</p>
+                </div>
+                <div class="img-box">
+                    <img src="imege/n0033.jpg" class="img-full">
+                    <p class="caption">방치된 음식물로 인한 교차 오염</p>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 20px; margin-top: 30px;">
+                <div style="flex: 1; padding: 20px; background: #fff0f0; border: 1px solid #ffd0d0;">
+                    <h4 style="color: #c00; margin-bottom: 10px;">🔴 오염 가속화</h4>
+                    <p style="font-size: 9pt;">가정용 대비 사용량 10배 이상.<br>고온다습한 환경으로 세균 증식 최적화.</p>
+                </div>
+                <div style="flex: 1; padding: 20px; background: #fff0f0; border: 1px solid #ffd0d0;">
+                    <h4 style="color: #c00; margin-bottom: 10px;">🔴 교차 감염 위험</h4>
+                    <p style="font-size: 9pt;">다중 접촉(Touch-point)을 통한<br>전염성 병원균 및 바이러스 전파.</p>
+                </div>
+                <div style="flex: 1; padding: 20px; background: #fff0f0; border: 1px solid #ffd0d0;">
+                    <h4 style="color: #c00; margin-bottom: 10px;">🔴 관리의 한계</h4>
+                    <p style="font-size: 9pt;">단순 겉면 청소로는 내부 부품의<br>근본적인 오염원을 제거 불가.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><span>Risk Assessment</span><span>03</span></div>
+    </div>
+
+    <!-- PAGE 4: TECHNOLOGY 1 (ATP & Endoscope) -->
+    <div class="page">
+        <div class="section-header">
+            <h2>TECHNOLOGY</h2>
+            <span>DIAGNOSIS SYSTEM</span>
+        </div>
+        <div class="row" style="height: 100%;">
+            <div class="col-50 padding-box" style="border-right: 1px solid #eee;">
+                <h3 class="title-serif" style="color: var(--main-green);">01. ATP 오염도 측정</h3>
+                <p class="text-body" style="margin: 15px 0;">
+                    ATP(Adenosine Triphosphate) 생물발광 측정 기술을 활용하여 눈에 보이지 않는 세균 오염도를 객관적인 수치(RLU)로 즉시 측정합니다.
+                </p>
+                <div style="margin: 20px 0;">
+                    <img src="imege/h0002.jpg" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px;">
+                </div>
+                <ul class="dot-list">
+                    <li><strong>청결 기준:</strong> RLU 0~10 (매우 청결)</li>
+                    <li><strong>주의 기준:</strong> RLU 11~30 (관리 필요)</li>
+                    <li><strong>위험 기준:</strong> RLU 31 이상 (즉시 소독)</li>
+                </ul>
+                <p class="text-body" style="font-size: 9pt; background: #eee; padding: 10px;">
+                    * 측정 대상: 냉장고 손잡이, 제빙기 스쿠프, 정수기 코크 등 고빈도 접촉 부위
+                </p>
+            </div>
+            
+            <div class="col-50 padding-box">
+                <h3 class="title-serif" style="color: var(--main-green);">02. 내시경 정밀 진단</h3>
+                <p class="text-body" style="margin: 15px 0;">
+                    직경 5mm의 고해상도 산업용 내시경을 사용하여 분해하지 않고는 볼 수 없는 배관 내부, 증발기 후면 등 사각지대를 촬영하고 진단합니다.
+                </p>
+                <div style="margin: 20px 0;">
+                    <img src="imege/h0006.jpg" style="width: 100%; height: 200px; object-fit: cover; border-radius: 4px;">
+                </div>
+                <ul class="dot-list">
+                    <li><strong>제빙기:</strong> 급수 호스 내부 슬라임, 증발기 오염</li>
+                    <li><strong>에어컨:</strong> 열교환기 틈새 곰팡이</li>
+                    <li><strong>정수기:</strong> 탱크 내부 및 배관 상태 확인</li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer"><span>Core Technology</span><span>04</span></div>
+    </div>
+
+    <!-- PAGE 5: TECHNOLOGY 2 (Sterilization & AI) -->
+    <div class="page">
+        <div class="section-header">
+            <h2>TECHNOLOGY</h2>
+            <span>STERILIZATION & AI</span>
+        </div>
+        <div class="padding-box">
+            <!-- 섹션 1: 살균 기술 -->
+            <div style="margin-bottom: 40px;">
+                <h3 class="title-serif" style="font-size: 18pt; margin-bottom: 15px;">친환경 살균 & 고온 스팀</h3>
+                <div class="row" style="gap: 20px;">
+                    <div class="col-50">
+                        <img src="imege/h0008.jpg" class="img-full" style="height: 200px; border-radius: 4px;">
+                        <p class="caption">FDA 인증 친환경 소독제 사용</p>
+                    </div>
+                    <div class="col-50">
+                        <img src="imege/h0011.jpg" class="img-full" style="height: 200px; border-radius: 4px;">
+                        <p class="caption">120°C 고온 스팀 살균 작업</p>
+                    </div>
+                </div>
+                <div style="margin-top: 15px;">
+                    <p class="text-body">
+                        클린메이트는 인체에 무해한 <strong>식품첨가물 등급의 친환경 소독제</strong>만을 사용합니다. 
+                        또한 화학 약품으로 제거하기 힘든 찌든 때와 기름때는 <strong>120°C 이상의 고온 스팀</strong>으로 물리적으로 융해하여 완벽하게 제거합니다.
+                        마무리 단계에서는 <strong>UV-C 자외선 살균</strong>을 통해 공기 중 부유 세균까지 박멸합니다.
+                    </p>
+                </div>
+            </div>
+
+            <!-- 섹션 2: AI 시스템 -->
+            <div style="background: var(--bg-cream); padding: 30px; border-radius: 8px;">
+                <h3 class="title-serif" style="font-size: 18pt; margin-bottom: 15px; color: var(--main-green);">AI 기반 스마트 관리 시스템</h3>
+                <div class="row">
+                    <div class="col-60" style="padding-right: 20px;">
+                        <ul class="dot-list">
+                            <li><strong>빅데이터 분석:</strong> 장비별 오염 패턴을 분석하여 최적의 관리 주기를 자동으로 산출합니다.</li>
+                            <li><strong>고장 예측:</strong> 온도, 소음, 진동 데이터를 기반으로 장비 고장을 사전에 경고합니다.</li>
+                            <li><strong>실시간 리포트:</strong> 작업 완료 즉시 현장 사진과 데이터가 포함된 보고서를 전송합니다.</li>
+                        </ul>
+                    </div>
+                    <div class="col-40">
+                        <img src="imege/h0015.jpg" class="img-full" style="height: 150px; border-radius: 4px;">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><span>Sterilization & AI</span><span>05</span></div>
+    </div>
+
+    <!-- PAGE 6: SOLUTION - REFRIGERATOR -->
+    <div class="page">
+        <div class="section-header">
+            <h2>REFRIGERATOR</h2>
+            <span>SOLUTION</span>
+        </div>
+        <div class="padding-box">
+            <h3 class="title-serif" style="font-size: 18pt; margin-bottom: 20px;">냉장고 전문 위생 케어</h3>
+            
+            <!-- 체크리스트 & 원인 -->
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col-50" style="padding-right: 20px;">
+                    <h4 style="color: var(--accent-coral); margin-bottom: 10px;">⚠️ 점검 체크리스트</h4>
+                    <ul class="dot-list">
+                        <li>문 손잡이 끈적임 및 고무 패킹 곰팡이</li>
+                        <li>냉장고 문 개폐 시 강한 악취 발생</li>
+                        <li>선반 유리면의 얼룩 및 서랍 내부 오염</li>
+                        <li>냉동실 성에의 변색 및 이물질</li>
+                    </ul>
+                </div>
+                <div class="col-50">
+                     <img src="imege/n0042.jpg" class="img-full" style="height: 200px; border-radius: 4px;">
+                     <p class="caption">냉장고 내부 부품 전체 탈거 및 분해</p>
+                </div>
+            </div>
+
+            <!-- 5단계 프로세스 상세 -->
+            <h4 class="title-serif" style="background: var(--main-green); color: white; padding: 10px 15px; display: inline-block; margin-bottom: 20px;">5-STEP PROCESS</h4>
+            
+            <div style="border-left: 3px solid #ddd; padding-left: 20px; display: flex; flex-direction: column; gap: 15px;">
+                <div>
+                    <strong style="color: var(--main-green);">STEP 1. ATP 오염도 진단</strong>
+                    <p class="text-body" style="margin: 5px 0;">손잡이, 패킹 등 주요 접촉부의 오염도를 수치화하여 진단합니다.</p>
+                </div>
+                <div>
+                    <strong style="color: var(--main-green);">STEP 2. 구조 분해</strong>
+                    <p class="text-body" style="margin: 5px 0;">선반, 서랍, 가스켓 등 탈부착 가능한 모든 부품을 분리합니다.</p>
+                </div>
+                <div>
+                    <strong style="color: var(--main-green);">STEP 3. 고강도 살균 세척</strong>
+                    <p class="text-body" style="margin: 5px 0;">친환경 세정제와 고온 스팀으로 곰팡이와 찌든 때를 제거합니다.</p>
+                </div>
+                <div>
+                    <strong style="color: var(--main-green);">STEP 4. 악취 제거 & UV 코팅</strong>
+                    <p class="text-body" style="margin: 5px 0;">내부 유증기를 제거하고 자외선 살균으로 공기를 정화합니다.</p>
+                </div>
+                <div>
+                    <strong style="color: var(--main-green);">STEP 5. 사후 측정 및 리포트</strong>
+                    <p class="text-body" style="margin: 5px 0;">개선된 오염도를 재측정하고 관리 리포트를 제공합니다.</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: right;">
+                <img src="imege/n0044.jpg" style="width: 48%; height: 120px; object-fit: cover; display: inline-block;">
+                <img src="imege/n0045.jpg" style="width: 48%; height: 120px; object-fit: cover; display: inline-block;">
+                <p class="caption" style="text-align: right; padding-right: 10px;">작업 진행 모습 (살균 / 마무리)</p>
+            </div>
+        </div>
+        <div class="footer"><span>Solution: Refrigerator</span><span>06</span></div>
+    </div>
+
+    <!-- PAGE 7: SOLUTION - ICE MAKER -->
+    <div class="page">
+        <div class="section-header">
+            <h2>ICE MAKER</h2>
+            <span>SOLUTION</span>
+        </div>
+        <div class="padding-box">
+            <h3 class="title-serif" style="font-size: 18pt; margin-bottom: 10px;">제빙기 분해 살균 & 스케일 제거</h3>
+            <p class="text-body" style="margin-bottom: 25px;">
+                상업용 제빙기는 물때(슬라임)와 석회질(스케일)이 가장 큰 문제입니다. 이는 식중독의 원인이 되며 기계 고장을 유발합니다.
+            </p>
+
+            <!-- Before & After Grid -->
+            <div class="grid-3" style="margin-bottom: 30px;">
+                <div class="img-box">
+                    <img src="imege/i0003.jpg" class="img-full" style="height: 150px;">
+                    <p class="caption">오염된 증발기 (스케일)</p>
+                </div>
+                <div class="img-box">
+                    <img src="imege/i0005.jpg" class="img-full" style="height: 150px;">
+                    <p class="caption">물탱크 핑크 슬라임</p>
+                </div>
+                <div class="img-box">
+                    <img src="imege/i0044.jpg" class="img-full" style="height: 150px;">
+                    <p class="caption">전문 약품 세척 과정</p>
+                </div>
+            </div>
+
+            <!-- 프로세스 상세 -->
+            <div style="background: var(--bg-cream); padding: 30px; border-radius: 8px;">
+                <h4 class="title-serif" style="color: var(--main-green); margin-bottom: 15px;">Professional Care Process</h4>
+                <ul class="dot-list" style="font-size: 11pt; line-height: 1.8;">
+                    <li><strong>1. 오염 진단:</strong> ATP 측정 및 내시경으로 급수 라인 내부 확인.</li>
+                    <li><strong>2. 부품 분해:</strong> 상판, 도어, 워터 펌프, 노즐 등 주요 부품 탈거.</li>
+                    <li><strong>3. 스케일 제거:</strong> 전용 산성 세정제로 증발기에 고착된 석회질 용해.</li>
+                    <li><strong>4. 슬라임 멸균:</strong> 물탱크 및 배수관 내부의 바이오필름 고압 세척.</li>
+                    <li><strong>5. 항균 코팅:</strong> 제빙고(얼음 저장소) 내부 FDA 인증 항균 코팅 처리.</li>
+                </ul>
+            </div>
+
+            <div style="margin-top: 30px; display: flex; gap: 20px; align-items: center;">
+                <img src="imege/i0046.jpg" style="width: 150px; height: 100px; object-fit: cover;">
+                <div>
+                    <strong style="color: var(--accent-coral); font-size: 14pt;">Effect</strong>
+                    <p class="text-body">제빙 효율 20~40% 향상 / 악취 및 이물질 완벽 제거 / 기기 수명 연장</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><span>Solution: Ice Maker</span><span>07</span></div>
+    </div>
+
+    <!-- PAGE 8: SOLUTION - MICROWAVE & OTHERS -->
+    <div class="page">
+        <div class="section-header">
+            <h2>OFFICE APPLIANCES</h2>
+            <span>MICROWAVE & COFFEE MACHINE</span>
+        </div>
+        <div class="padding-box">
+            
+            <!-- 전자레인지 섹션 -->
+            <div style="margin-bottom: 40px;">
+                <h3 class="title-serif" style="color: var(--main-green); border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;">
+                    전자레인지 (Microwave)
+                </h3>
+                <div class="row">
+                    <div class="col-50" style="padding-right: 20px;">
+                        <p class="text-body">
+                            내부 벽면에 튀어 굳은 음식물 찌꺼기와 마이카 플레이트의 오염은 세균 번식뿐만 아니라 **화재의 원인**이 됩니다.
+                        </p>
+                        <ul class="dot-list">
+                            <li>마이카 플레이트 탄화 오염 제거</li>
+                            <li>고온 스팀으로 찌든 기름때 용해</li>
+                            <li>UV-C 자외선 살균으로 냄새 제거</li>
+                        </ul>
+                    </div>
+                    <div class="col-50">
+                        <img src="imege/m0044.jpg" class="img-full" style="height: 180px; border-radius: 4px;">
+                        <p class="caption">고온 스팀 세척 작업</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 커피머신/기타 섹션 -->
+            <div>
+                <h3 class="title-serif" style="color: var(--main-green); border-bottom: 1px solid #ccc; padding-bottom: 10px; margin-bottom: 15px;">
+                    커피머신 & 사무기기 (Others)
+                </h3>
+                <div class="row">
+                    <div class="col-50">
+                        <img src="imege/a0016.jpg" class="img-full" style="height: 180px; border-radius: 4px;">
+                        <p class="caption">커피머신 보일러/추출구 세척</p>
+                    </div>
+                    <div class="col-50" style="padding-left: 20px;">
+                        <p class="text-body">
+                            커피머신 내부의 오일 찌꺼기와 스케일은 커피 맛을 변질시키고 관 막힘을 유발합니다.
+                        </p>
+                        <ul class="dot-list">
+                            <li>추출구 및 그룹헤드 완전 분해 세척</li>
+                            <li>보일러 내부 스케일링 작업</li>
+                            <li>정수기 코크, 비데 노즐, 공기청정기 필터 케어 가능</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 통합 이미지 그리드 -->
+            <div class="grid-4" style="margin-top: 30px;">
+                <img src="imege/a0012.jpg" class="img-full" style="height: 120px;">
+                <img src="imege/a0015.jpg" class="img-full" style="height: 120px;">
+                <img src="imege/a0014.jpg" class="img-full" style="height: 120px;">
+                <img src="imege/a0017.jpg" class="img-full" style="height: 120px;">
+            </div>
+            <p class="caption">전자레인지 / 비데 / 사무용품 / 인덕션 케어 예시</p>
+
+        </div>
+        <div class="footer"><span>Solution: Office Appliances</span><span>08</span></div>
+    </div>
+
+    <!-- PAGE 9: WORKFLOW & SAFETY -->
+    <div class="page">
+        <div class="section-header">
+            <h2>WORKFLOW</h2>
+            <span>SAFETY FIRST</span>
+        </div>
+        <div class="padding-box">
+            <h3 class="title-serif" style="text-align: center; margin-bottom: 40px; font-size: 22pt;">STANDARDIZED SYSTEM</h3>
+            
+            <div style="display: flex; justify-content: space-between; text-align: center; margin-bottom: 50px;">
+                <div style="width: 18%;">
+                    <div style="font-size: 24pt; color: var(--main-green); margin-bottom: 10px;">01</div>
+                    <strong>사전 진단</strong>
+                    <p style="font-size: 9pt; color: #666;">ATP/내시경 점검</p>
+                </div>
+                <div style="width: 18%;">
+                    <div style="font-size: 24pt; color: var(--main-green); margin-bottom: 10px;">02</div>
+                    <strong>안전 보양</strong>
+                    <p style="font-size: 9pt; color: #666;">주변 오염 방지</p>
+                </div>
+                <div style="width: 18%;">
+                    <div style="font-size: 24pt; color: var(--main-green); margin-bottom: 10px;">03</div>
+                    <strong>분해 세척</strong>
+                    <p style="font-size: 9pt; color: #666;">전문가 정밀 케어</p>
+                </div>
+                <div style="width: 18%;">
+                    <div style="font-size: 24pt; color: var(--main-green); margin-bottom: 10px;">04</div>
+                    <strong>살균 코팅</strong>
+                    <p style="font-size: 9pt; color: #666;">UV 및 항균 처리</p>
+                </div>
+                <div style="width: 18%;">
+                    <div style="font-size: 24pt; color: var(--main-green); margin-bottom: 10px;">05</div>
+                    <strong>결과 보고</strong>
+                    <p style="font-size: 9pt; color: #666;">데이터 리포트</p>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+            <h3 class="title-serif" style="margin-bottom: 20px;">안전 관리 수칙 (Safety Protocol)</h3>
+            <div class="row">
+                <div class="col-50 padding-box bg-cream">
+                    <ul class="dot-list">
+                        <li><strong>작업 안전:</strong> 전원 차단 후 작업, 개인보호구(마스크, 장갑, 보안경) 필수 착용.</li>
+                        <li><strong>화학 안전:</strong> 승인된 친환경 약품 사용 및 환기 철저.</li>
+                        <li><strong>환경 보호:</strong> 오수 적법 처리 및 일회용품 사용 최소화.</li>
+                    </ul>
+                </div>
+                <div class="col-50" style="padding-left: 20px;">
+                    <img src="imege/h0017.jpg" class="img-full" style="height: 200px; border-radius: 4px;">
+                    <p class="caption">안전 교육을 이수한 전문 인력 투입</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><span>Workflow & Safety</span><span>09</span></div>
+    </div>
+
+    <!-- PAGE 10: PORTFOLIO GALLERY -->
+    <div class="page">
+        <div class="section-header">
+            <h2>GALLERY</h2>
+            <span>PROFESSIONAL TOUCH</span>
+        </div>
+        <div class="padding-box">
+            <p class="text-body" style="text-align: center; margin-bottom: 30px;">
+                클린메이트의 손길이 닿은 곳은 완벽하게 변화합니다.<br>
+                수많은 기업 현장에서 검증된 전문 기술력을 확인하세요.
+            </p>
+            
+            <div class="grid-2" style="gap: 20px;">
+                <!-- 이미지 경로들을 순환하며 배치 -->
+                <div class="img-box" style="height: 220px;">
+                    <img src="imege/a0018.jpg" class="img-full">
+                    <div style="position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; font-size: 9pt;">제빙기 스케일 제거 전후</div>
+                </div>
+                <div class="img-box" style="height: 220px;">
+                    <img src="imege/a0013.jpg" class="img-full">
+                    <div style="position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; font-size: 9pt;">냉장고 내부 살균 전후</div>
+                </div>
+                <div class="img-box" style="height: 220px;">
+                    <img src="imege/a0016.jpg" class="img-full">
+                    <div style="position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; font-size: 9pt;">커피머신 내부 세척 전후</div>
+                </div>
+                <div class="img-box" style="height: 220px;">
+                    <img src="imege/h0021.jpg" class="img-full">
+                    <div style="position: absolute; bottom: 0; width: 100%; background: rgba(0,0,0,0.6); color: white; padding: 5px 10px; font-size: 9pt;">전문가 현장 작업 모습</div>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><span>Portfolio Gallery</span><span>10</span></div>
+    </div>
+
+    <!-- PAGE 11: CERTIFICATIONS & PARTNERS -->
+    <div class="page">
+        <div class="section-header">
+            <h2>TRUST</h2>
+            <span>CERTS & PARTNERS</span>
+        </div>
+        <div class="padding-box">
+            <h3 class="title-serif" style="margin-bottom: 20px;">보유 인증 현황</h3>
+            <div class="grid-3" style="margin-bottom: 40px;">
+                <div style="text-align: center;">
+                    <img src="imege/certificate_img1.jpg" style="height: 180px; border: 1px solid #eee;" onerror="this.src='https://via.placeholder.com/150x200?text=Cert'">
+                    <p class="caption">중소기업확인서</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="imege/certificate_img2.jpg" style="height: 180px; border: 1px solid #eee;" onerror="this.src='https://via.placeholder.com/150x200?text=Cert'">
+                    <p class="caption">직접생산확인서</p>
+                </div>
+                <div style="text-align: center;">
+                    <img src="imege/certificate_img3.jpg" style="height: 180px; border: 1px solid #eee;" onerror="this.src='https://via.placeholder.com/150x200?text=Cert'">
+                    <p class="caption">특허증</p>
+                </div>
+            </div>
+
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 30px 0;">
+
+            <h3 class="title-serif" style="margin-bottom: 20px;">주요 협력사</h3>
+            <p class="text-body" style="margin-bottom: 20px;">국내 유수의 기업과 공공기관이 클린메이트와 함께하고 있습니다.</p>
+            
+            <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: space-between;">
+                <!-- 파트너 로고 자동 생성 스크립트 -->
+                <script>
+                    for(let i=1; i<=18; i++) {
+                        document.write(`<img src="imege/partner_goloimg${i}.jpg" style="width: 15%; height: 60px; object-fit: contain; border: 1px solid #eee; padding: 5px;" onerror="this.style.display='none'">`);
+                    }
+                </script>
+            </div>
+        </div>
+        <div class="footer"><span>Certifications & Partners</span><span>11</span></div>
+    </div>
+
+    <!-- PAGE 12: SERVICE PLANS -->
+    <div class="page">
+        <div class="section-header">
+            <h2>SERVICE PLANS</h2>
+            <span>OPTIMIZED CARE</span>
+        </div>
+        <div class="padding-box">
+            <p class="text-body" style="text-align: center; margin-bottom: 40px;">
+                고객사의 규모, 인원, 장비 사용 빈도에 맞춰 가장 효율적인 플랜을 제안합니다.
+            </p>
+
+            <div style="display: flex; gap: 20px; height: 500px;">
+                <!-- PLAN A -->
+                <div style="flex: 1; border: 1px solid #ddd; border-top: 6px solid #888; padding: 30px 20px; text-align: center;">
+                    <h3 style="font-size: 16pt; color: #555;">STANDARD</h3>
+                    <p style="font-size: 9pt; color: #999; margin-bottom: 20px;">일반 사무실 (10~30명)</p>
+                    <div style="font-size: 24pt; font-weight: bold; margin-bottom: 30px;">월 1회</div>
+                    <ul class="dot-list" style="text-align: left; margin-left: 10px;">
+                        <li>표면 세척 및 소독</li>
+                        <li>필터 먼지 제거</li>
+                        <li>ATP 간이 측정</li>
+                        <li>기본 리포트 제공</li>
+                    </ul>
+                </div>
+
+                <!-- PLAN B (Highlight) -->
+                <div style="flex: 1; border: 1px solid var(--main-green); background: #f4fcf9; border-top: 6px solid var(--main-green); padding: 30px 20px; text-align: center; transform: scale(1.05); box-shadow: 0 10px 20px rgba(0,0,0,0.1);">
+                    <div style="background: var(--accent-coral); color: white; font-size: 8pt; padding: 3px 10px; border-radius: 10px; display: inline-block; margin-bottom: 10px;">BEST CHOICE</div>
+                    <h3 style="font-size: 18pt; color: var(--main-green);">PREMIUM</h3>
+                    <p style="font-size: 9pt; color: #666; margin-bottom: 20px;">대형 오피스 / 병원</p>
+                    <div style="font-size: 26pt; font-weight: bold; color: var(--main-green); margin-bottom: 30px;">2주 1회</div>
+                    <ul class="dot-list" style="text-align: left; margin-left: 10px;">
+                        <li><strong>완전 분해 정밀 살균</strong></li>
+                        <li><strong>내시경 & ATP 정밀 진단</strong></li>
+                        <li>AI 데이터 리포트</li>
+                        <li>긴급 출동 서비스</li>
+                    </ul>
+                </div>
+
+                <!-- PLAN C -->
+                <div style="flex: 1; border: 1px solid #ddd; border-top: 6px solid #333; padding: 30px 20px; text-align: center;">
+                    <h3 style="font-size: 16pt; color: #333;">INTENSIVE</h3>
+                    <p style="font-size: 9pt; color: #999; margin-bottom: 20px;">공장 / 식품 시설</p>
+                    <div style="font-size: 24pt; font-weight: bold; margin-bottom: 30px;">주 1회</div>
+                    <ul class="dot-list" style="text-align: left; margin-left: 10px;">
+                        <li>HACCP 기준 관리</li>
+                        <li>전수 검사 및 리포트</li>
+                        <li>맞춤형 위생 솔루션</li>
+                        <li>전담 매니저 배정</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer"><span>Service Plans</span><span>12</span></div>
+    </div>
+
+    <!-- PAGE 13: REPORT SAMPLE -->
+    <div class="page">
+        <div class="section-header">
+            <h2>REPORT SAMPLE</h2>
+            <span>INTELLIGENT DATA</span>
+        </div>
+        <div class="padding-box">
+            <h3 class="title-serif" style="margin-bottom: 20px;">투명한 관리 리포트</h3>
+            <p class="text-body" style="margin-bottom: 30px;">
+                작업이 완료되면 아래와 같은 상세 리포트가 고객님께 전달됩니다. 데이터에 기반하여 위생 상태를 한눈에 파악할 수 있습니다.
+            </p>
+
+            <div style="border: 1px solid #ccc; padding: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.05);">
+                <div style="display: flex; justify-content: space-between; border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
+                    <strong>CleanMate Hygiene Report</strong>
+                    <span>Date: 2025.10.25</span>
+                </div>
+                
+                <div class="row" style="margin-bottom: 20px;">
+                    <div class="col-50">
+                        <p style="font-size: 10pt; font-weight: bold;">[Before] 작업 전 상태</p>
+                        <div style="background: #eee; height: 150px; display: flex; align-items: center; justify-content: center; color: #888;">작업 전 사진 (자동첨부)</div>
+                        <p style="color: red; font-weight: bold; margin-top: 5px;">ATP: 3,450 RLU (위험)</p>
+                    </div>
+                    <div class="col-50" style="padding-left: 20px;">
+                        <p style="font-size: 10pt; font-weight: bold;">[After] 작업 후 상태</p>
+                        <div style="background: #eee; height: 150px; display: flex; align-items: center; justify-content: center; color: #888;">작업 후 사진 (자동첨부)</div>
+                        <p style="color: green; font-weight: bold; margin-top: 5px;">ATP: 15 RLU (청결)</p>
+                    </div>
+                </div>
+
+                <div style="background: #f9f9f9; padding: 15px;">
+                    <strong style="font-size: 10pt;">AI Analysis Comment:</strong>
+                    <p style="font-size: 9pt; color: #555; margin-top: 5px;">
+                        지난달 대비 오염도가 99% 개선되었습니다. 제빙기 노즐 스케일이 발견되어 제거하였으며, 다음 관리 권장일은 11월 10일입니다.
+                    </p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 30px; text-align: center;">
+                <img src="imege/h0004.jpg" style="max-width: 100%; height: 200px; object-fit: contain;">
+                <p class="caption">실제 관리 데이터베이스 화면</p>
+            </div>
+        </div>
+        <div class="footer"><span>Report Sample</span><span>13</span></div>
+    </div>
+
+    <!-- PAGE 14: CONTACT (BACK COVER) -->
+    <div class="page bg-green" style="display: flex; flex-direction: column; justify-content: center; align-items: center; color: white; text-align: center;">
+        <img src="imege/logo2.png" style="width: 220px; filter: brightness(0) invert(1); margin-bottom: 60px;">
+        
+        <h2 class="title-serif" style="font-size: 36pt; margin-bottom: 20px;">CONTACT US</h2>
+        <div style="width: 80px; height: 4px; background: var(--accent-coral); margin-bottom: 50px;"></div>
+        
+        <div style="font-size: 14pt; line-height: 2;">
+            <p><strong>Tel.</strong> 1666-1757 / 010-5713-8417</p>
+            <p><strong>Email.</strong> dhc-solution@naver.com</p>
+            <p><strong>Address.</strong> 서울특별시 송파구 충민로 66, F동 8087호</p>
+        </div>
+
+        <div style="margin-top: 80px; opacity: 0.7; font-size: 10pt;">
+            <p>Copyright © 2025 CleanMate (DHC Solution). All rights reserved.</p>
+        </div>
+    </div>
+
+</body>
+</html>
