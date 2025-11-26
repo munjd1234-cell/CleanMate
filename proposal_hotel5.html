@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>클린메이트 B2B 호텔 제안서</title>
+<!-- PDF 변환 라이브러리 -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+<!-- 아이콘 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+    /* --- [Fonts & Variables] --- */
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@400;600;700&family=Pretendard:wght@300;400;500;600;700;800&display=swap');
+
+    :root {
+        --dark-navy: #1B263B;    /* 신뢰, 무게감 */
+        --vivid-blue: #3A86FF;   /* 기술, 위생, 포인트 */
+        --clean-teal: #00B4D8;   /* 청결 */
+        --cool-gray: #F8F9FA;    /* 배경 */
+        --text-main: #343A40;
+        --text-sub: #6C757D;
+    }
+
+    * { box-sizing: border-box; -webkit-print-color-adjust: exact; }
+
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #525252;
+        font-family: 'Pretendard', sans-serif;
+        color: var(--text-main);
+    }
+
+    /* --- [Floating Sidebar (Buttons)] --- */
+    .floating-sidebar {
+        position: fixed;
+        right: 30px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        z-index: 9999;
+    }
+    .float-btn {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        transition: all 0.3s;
+        color: var(--dark-navy);
+        font-size: 10px;
+        font-weight: 700;
+    }
+    .float-btn i { font-size: 20px; margin-bottom: 4px; color: var(--vivid-blue); }
+    .float-btn:hover { transform: scale(1.1); background: var(--vivid-blue); color: white; }
+    .float-btn:hover i { color: white; }
+
+    /* --- [A4 Page Layout] --- */
+    /* 중요: height를 고정하여 html2pdf가 페이지를 정확히 자르도록 유도 */
+    .page {
+        width: 210mm;
+        height: 297mm;
+        background: white;
+        margin: 40px auto;
+        position: relative;
+        overflow: hidden; 
+        box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        display: flex;
+        flex-direction: column;
+        page-break-after: always; /* 인쇄 시 페이지 나누기 */
+    }
+
+    @media print {
+        body { background: none; }
+        .floating-sidebar { display: none; }
+        .page { margin: 0; box-shadow: none; border: none; page-break-after: always; }
+    }
+
+    /* --- [Typography] --- */
+    h1, h2, h3, h4 { margin: 0; font-family: 'Pretendard', sans-serif; letter-spacing: -0.5px; }
+    .serif { font-family: 'Noto Serif KR', serif; }
+    
+    p { margin: 0; line-height: 1.6; font-size: 10pt; color: var(--text-sub); word-break: keep-all; }
+    
+    .txt-blue { color: var(--vivid-blue); }
+    .txt-navy { color: var(--dark-navy); }
+    
+    /* --- [Layout Components] --- */
+    .header {
+        padding: 40px 50px 20px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        border-bottom: 2px solid #E9ECEF;
+    }
+    .header h2 { font-size: 20pt; font-weight: 800; color: var(--dark-navy); }
+    .header span { font-size: 9pt; font-weight: 700; color: var(--vivid-blue); letter-spacing: 1px; }
+
+    .content { padding: 40px 50px; flex: 1; display: flex; flex-direction: column; }
+    
+    .row { display: flex; gap: 30px; width: 100%; }
+    .col { flex: 1; display: flex; flex-direction: column; }
+    .col-60 { flex: 1.5; }
+    .col-40 { flex: 1; }
+
+    /* Images */
+    .img-box { width: 100%; overflow: hidden; border-radius: 4px; background: #eee; position: relative; }
+    .img-fit { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .label-tag { position: absolute; bottom: 0; left: 0; padding: 4px 12px; font-size: 9pt; color: white; font-weight: bold; }
+
+    /* Tables */
+    table { width: 100%; border-collapse: collapse; font-size: 9.5pt; margin-top: 15px; }
+    th { text-align: left; padding: 12px; background: #F8F9FA; border-bottom: 2px solid #DEE2E6; color: var(--dark-navy); }
+    td { padding: 12px; border-bottom: 1px solid #E9ECEF; color: var(--text-main); vertical-align: middle; }
+
+    /* Footer */
+    .footer {
+        padding: 20px 50px;
+        border-top: 1px solid #E9ECEF;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 8pt;
+        color: #ADB5BD;
+    }
+</style>
+</head>
+<body>
+
+    <!-- [Buttons] -->
+    <div class="floating-sidebar">
+        <button class="float-btn" onclick="downloadPDF()">
+            <i class="fa-solid fa-file-pdf"></i> PDF저장
+        </button>
+        <button class="float-btn" onclick="window.print()">
+            <i class="fa-solid fa-print"></i> 인쇄하기
+        </button>
+    </div>
+
+    <!-- [PAGE 1: COVER] -->
+    <div class="page">
+        <div style="height: 65%; position: relative;">
+            <!-- 요청하신 스팀청소 이미지 -->
+            <img src="imege/l0123.jpg" class="img-fit" style="object-position: center;" onerror="this.src='https://via.placeholder.com/800x600/1B263B/ffffff?text=Steam+Cleaning'">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,38,59,1) 0%, rgba(27,38,59,0.1) 60%);"></div>
+            
+            <div style="position: absolute; bottom: 60px; left: 50px; width: 80%;">
+                <div style="display: inline-block; background: var(--vivid-blue); color: white; padding: 6px 15px; font-weight: 700; font-size: 10pt; margin-bottom: 20px; border-radius: 4px;">B2B PROPOSAL</div>
+                <h1 style="font-size: 44pt; line-height: 1.2; font-weight: 800; color: white; margin-bottom: 15px; text-shadow: 0 4px 10px rgba(0,0,0,0.5);">
+                    호텔 및 기업을 위한<br>
+                    <span style="color: var(--clean-teal);">프리미엄 제빙기</span><br>
+                    위생 엔지니어링
+                </h1>
+                <p style="color: #DEE2E6; font-size: 14pt; font-weight: 300;">Safe, Clean, and Scientific Hygiene Solutions</p>
+            </div>
+        </div>
+        
+        <div style="height: 35%; padding: 50px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="row">
+                <div class="col">
+                    <strong style="font-size: 13pt; color: var(--dark-navy); margin-bottom: 10px; display: block;">제안 배경</strong>
+                    <p>호텔 위생 등급 평가 및 법정 수질 검사 기준 준수.<br>식중독(노로바이러스) 원천 차단.</p>
+                </div>
+                <div class="col">
+                    <strong style="font-size: 13pt; color: var(--dark-navy); margin-bottom: 10px; display: block;">핵심 역량</strong>
+                    <p>식품첨가물 등급 약품 사용, 완전 분해 기술,<br>ATP 데이터 기반의 과학적 관리.</p>
+                </div>
+            </div>
+            <div style="text-align: right; border-top: 1px solid #E9ECEF; padding-top: 20px;">
+                <img src="imege/logo2.png" style="height: 35px; margin-bottom: 5px;">
+                <p style="font-size: 9pt;">(주)디에이치씨솔루션 | 클린메이트</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- [PAGE 2: EXECUTIVE SUMMARY] -->
+    <div class="page">
+        <div class="header">
+            <h2>EXECUTIVE SUMMARY</h2>
+            <span>WHY CLEANMATE?</span>
+        </div>
+        <div class="content">
+            <h3 class="serif" style="font-size: 24pt; color: var(--dark-navy); line-height: 1.4; margin-bottom: 30px;">
+                "제빙기는 주방에서 가장 위험한<br>
+                <span style="color: var(--vivid-blue); text-decoration: underline; text-underline-offset: 8px;">위생 사각지대</span>입니다."
+            </h3>
+
+            <div class="row" style="margin-bottom: 40px;">
+                <div class="col-60">
+                    <p style="margin-bottom: 20px; font-size: 11pt;">
+                        호텔과 기업 라운지의 제빙기는 '식품위생법'상 관리 대상이지만, 복잡한 내부 구조로 인해 <strong>일반적인 관리로는 내부 급수 라인과 증발기 뒷면의 오염을 제거할 수 없습니다.</strong> 
+                        수질 검사 부적합 판정의 80% 이상은 이러한 내부 오염 방치에서 기인합니다.
+                    </p>
+                    
+                    <div style="background: #FFF5F5; border-left: 4px solid #E03131; padding: 25px; margin-top: 20px;">
+                        <strong style="color: #C92A2A; font-size: 12pt; display: block; margin-bottom: 10px;">⚠ 관리 부재 시 발생하는 치명적 리스크</strong>
+                        <ul style="list-style: none; padding: 0; margin: 0; font-size: 10pt; color: #495057; line-height: 1.8;">
+                            <li><i class="fa-solid fa-triangle-exclamation" style="color:#E03131; margin-right:5px;"></i> <strong>법적 제재:</strong> 수질 검사 불합격 시 영업 정지 및 과태료</li>
+                            <li><i class="fa-solid fa-triangle-exclamation" style="color:#E03131; margin-right:5px;"></i> <strong>브랜드 타격:</strong> 얼음 이물질/악취 발생으로 인한 고객 불만</li>
+                            <li><i class="fa-solid fa-triangle-exclamation" style="color:#E03131; margin-right:5px;"></i> <strong>건강 위협:</strong> 살모넬라, 레지오넬라, 대장균 검출 위험</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-40">
+                    <div class="img-box" style="height: 320px;">
+                        <img src="imege/i0005.jpg" class="img-fit">
+                        <div class="label-tag" style="background: rgba(224, 49, 49, 0.9);">▲ 실제 물탱크 내부 핑크 슬라임 오염</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 일반 청소 vs 전문 케어 비교 -->
+            <h4 style="font-size: 12pt; color: var(--dark-navy); margin-bottom: 10px;">관리 방식 비교 (Comparison)</h4>
+            <table>
+                <thead style="background: #F1F3F5;">
+                    <tr>
+                        <th width="20%">구분</th>
+                        <th width="40%">일반 용역 청소</th>
+                        <th width="40%" style="color: var(--vivid-blue);">클린메이트 전문 케어</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>작업 범위</strong></td>
+                        <td>눈에 보이는 외관 및 저장고 세척</td>
+                        <td><strong>부품 완전 분해</strong> (급수펌프, 노즐, 증발기)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>사용 약품</strong></td>
+                        <td>일반 세제 (독성 잔류 위험)</td>
+                        <td><strong>식품첨가물 등급</strong> 전용 세정제 & 린싱</td>
+                    </tr>
+                    <tr>
+                        <td><strong>결과 검증</strong></td>
+                        <td>육안 확인 (주관적)</td>
+                        <td><strong>ATP 측정 데이터</strong> 제공 (객관적)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <span>CleanMate B2B Proposal</span>
+            <span>02</span>
+        </div>
+    </div>
+
+    <!-- [PAGE 3: TECHNICAL DIAGNOSIS] -->
+    <div class="page">
+        <div class="header">
+            <h2>TECHNICAL DIAGNOSIS</h2>
+            <span>ROOT CAUSE ANALYSIS</span>
+        </div>
+        <div class="content">
+            <h3 style="font-size: 18pt; margin-bottom: 25px;">제빙기 오염의 공학적 메커니즘</h3>
+            <p style="margin-bottom: 30px;">
+                왜 제빙기는 쉽게 더러워질까요? 물, 공기, 온도가 만나는 구조적 특성 때문입니다.
+            </p>
+
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col">
+                    <div class="img-box" style="height: 180px; margin-bottom: 15px;">
+                        <img src="imege/i0003.jpg" class="img-fit">
+                    </div>
+                    <strong class="txt-navy">1. 스케일 (Scale) 고착</strong>
+                    <p style="font-size: 9.5pt; margin-top: 5px;">물속 미네랄(칼슘)이 증발기에 돌처럼 굳어 열교환을 방해하고, 제빙 시간을 지연시켜 <strong>전력 소모를 증가</strong>시킵니다.</p>
+                </div>
+                <div class="col">
+                    <div class="img-box" style="height: 180px; margin-bottom: 15px;">
+                        <img src="imege/n0032.jpg" class="img-fit">
+                    </div>
+                    <strong class="txt-navy">2. 바이오필름 (Biofilm)</strong>
+                    <p style="font-size: 9.5pt; margin-top: 5px;">물과 공기가 만나는 트러프(물받이)에 형성되는 끈적한 세균막입니다. 이곳은 <strong>식중독균의 인큐베이터</strong> 역할을 합니다.</p>
+                </div>
+                <div class="col">
+                    <div class="img-box" style="height: 180px; margin-bottom: 15px;">
+                        <img src="imege/i0006.jpg" class="img-fit">
+                    </div>
+                    <strong class="txt-navy">3. 공기 중 오염 유입</strong>
+                    <p style="font-size: 9.5pt; margin-top: 5px;">응축기 팬이 작동하며 외부의 먼지, 기름때, 곰팡이 포자를 빨아들여 얼음 생성 구역으로 유입시킵니다.</p>
+                </div>
+            </div>
+
+            <div style="width: 100%; height: 1px; background: #E9ECEF; margin: 10px 0 20px 0;"></div>
+
+            <h4 style="font-size: 13pt; margin-bottom: 10px; color: var(--dark-navy);">오염 유형별 운영 리스크 (Operational Impact)</h4>
+            <table>
+                <thead style="background: #F8F9FA;">
+                    <tr>
+                        <th width="20%">오염 유형</th>
+                        <th width="25%">주요 발생 위치</th>
+                        <th>운영 및 위생 리스크</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 700; color: #FA5252;">Pink Slime<br><span style="font-size:8pt; font-weight:400;">(효모/곰팡이)</span></td>
+                        <td>물탱크, 배수관, 패킹</td>
+                        <td>수질 검사 부적합, 비린내 발생, 알레르기 유발</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #FAB005;">Scale<br><span style="font-size:8pt; font-weight:400;">(석회질)</span></td>
+                        <td>증발기(노즐), 펌프</td>
+                        <td>제빙 시간 증가로 인한 <strong>전기료 20% 상승</strong>, 부품 고장</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #495057;">먼지/기름때</td>
+                        <td>응축기 필터, 컴프레서</td>
+                        <td>냉각 효율 저하, 컴프레서 과열로 인한 <strong>화재 위험 및 고장</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="footer">
+            <span>Technical Diagnosis</span>
+            <span>03</span>
+        </div>
+    </div>
+
+    <!-- [PAGE 4: SCOPE OF WORK] -->
+    <div class="page">
+        <div class="header">
+            <h2>SCOPE OF WORK</h2>
+            <span>5-STEP PROTOCOL</span>
+        </div>
+        <div class="content">
+            <h3 style="font-size: 18pt; margin-bottom: 30px;">전문 엔지니어의 5단계 정밀 케어 프로세스</h3>
+            
+            <div class="row">
+                <div class="col-60">
+                    <div style="border-left: 2px solid #E9ECEF; padding-left: 30px; margin-left: 10px;">
+                        
+                        <!-- Step 1 -->
+                        <div style="margin-bottom: 25px; position: relative;">
+                            <div style="position: absolute; left: -41px; top: 0; width: 22px; height: 22px; background: var(--vivid-blue); color: white; border-radius: 50%; text-align: center; font-size: 10pt; line-height: 22px; font-weight: bold;">1</div>
+                            <strong class="txt-navy" style="font-size: 12pt;">ATP 진단 및 완전 분해 (Diagnosis)</strong>
+                            <p style="margin-top: 5px;">오염도(ATP) 측정 후 상판, 도어, 워터 펌프, 노즐 등 핵심 부품을 안전하게 탈거하여 보이지 않는 사각지대를 확보합니다.</p>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div style="margin-bottom: 25px; position: relative;">
+                            <div style="position: absolute; left: -41px; top: 0; width: 22px; height: 22px; background: var(--vivid-blue); color: white; border-radius: 50%; text-align: center; font-size: 10pt; line-height: 22px; font-weight: bold;">2</div>
+                            <strong class="txt-navy" style="font-size: 12pt;">약품 침적 및 스케일링 (Descaling)</strong>
+                            <p style="margin-top: 5px;">니켈 도금 손상이 없는 <strong>전용 산성 세정제</strong>를 순환시켜 증발기에 고착된 석회질을 화학적으로 안전하게 용해합니다.</p>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div style="margin-bottom: 25px; position: relative;">
+                            <div style="position: absolute; left: -41px; top: 0; width: 22px; height: 22px; background: var(--vivid-blue); color: white; border-radius: 50%; text-align: center; font-size: 10pt; line-height: 22px; font-weight: bold;">3</div>
+                            <strong class="txt-navy" style="font-size: 12pt;">고온 스팀 살균 (Sterilization)</strong>
+                            <p style="margin-top: 5px;"><strong>120°C 고온 스팀</strong>과 고압 세척기를 사용하여 용해된 잔여 약품 및 미세 슬라임을 완벽하게 배출시킵니다.</p>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div style="margin-bottom: 25px; position: relative;">
+                            <div style="position: absolute; left: -41px; top: 0; width: 22px; height: 22px; background: var(--vivid-blue); color: white; border-radius: 50%; text-align: center; font-size: 10pt; line-height: 22px; font-weight: bold;">4</div>
+                            <strong class="txt-navy" style="font-size: 12pt;">항균 코팅 (Coating)</strong>
+                            <p style="margin-top: 5px;">저빙고(얼음 저장소) 내부에 FDA 인증 항균 코팅을 시공하여 다음 관리 주기까지 세균 번식을 억제합니다.</p>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div style="position: relative;">
+                            <div style="position: absolute; left: -41px; top: 0; width: 22px; height: 22px; background: var(--dark-navy); color: white; border-radius: 50%; text-align: center; font-size: 10pt; line-height: 22px; font-weight: bold;">5</div>
+                            <strong class="txt-navy" style="font-size: 12pt;">검증 및 리포팅 (Reporting)</strong>
+                            <p style="margin-top: 5px;">정상 작동 테스트, ATP 재측정, 작업 전후 사진이 포함된 완료 보고서를 제출하여 품질을 보증합니다.</p>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="col-40">
+                    <div class="img-box" style="height: 220px; margin-bottom: 20px;">
+                        <img src="imege/i0044.jpg" class="img-fit">
+                        <div class="label-tag" style="background: rgba(0,0,0,0.6);">고온 스팀 살균</div>
+                    </div>
+                    <div class="img-box" style="height: 220px;">
+                        <img src="imege/i0045.jpg" class="img-fit">
+                        <div class="label-tag" style="background: rgba(0,0,0,0.6);">항균 코팅 및 검수</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="margin-top: auto; border: 1px solid #A5D8FF; background: #E7F5FF; padding: 20px; border-radius: 4px;">
+                <strong style="color: #1971C2;"><i class="fa-solid fa-shield-halved"></i> Safety First (식품 안전 보장)</strong>
+                <p style="font-size: 9.5pt; margin-top: 5px; color: #343A40;">
+                    모든 세척 약품은 식품첨가물 등급(Food Grade) 승인 제품을 사용하며, 리트머스 테스트 및 충분한 린싱(Rinsing) 과정을 통해 잔류 독성이 0%임을 보장합니다.
+                </p>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Scope of Work</span>
+            <span>04</span>
+        </div>
+    </div>
+
+    <!-- [PAGE 5: VERIFICATION] -->
+    <div class="page">
+        <div class="header">
+            <h2>VERIFICATION</h2>
+            <span>ATP DATA ANALYSIS</span>
+        </div>
+        <div class="content">
+            <h3 style="font-size: 18pt; margin-bottom: 15px;">객관적 데이터로 위생 품질 증명</h3>
+            <p style="margin-bottom: 40px;">
+                "깨끗해 보입니다"라는 주관적 판단이 아닙니다. 클린메이트는 ATP(세균 오염도) 측정기를 통해 수치화된 결과를 제공합니다.
+            </p>
+
+            <div style="display: flex; justify-content: center; gap: 40px; margin-bottom: 40px; background: #F8F9FA; padding: 40px; border-radius: 8px;">
+                <!-- Before -->
+                <div style="text-align: center;">
+                    <span style="font-size: 10pt; color: #ADB5BD;">작업 전 (Before)</span>
+                    <div style="font-size: 40pt; font-weight: 800; color: #E03131; margin: 10px 0;">3,450</div>
+                    <span style="background: #E03131; color: white; padding: 4px 12px; border-radius: 20px; font-size: 9pt; font-weight: bold;">위험 (Danger)</span>
+                </div>
+                
+                <!-- Arrow -->
+                <div style="font-size: 30pt; color: #DEE2E6; align-self: center;">
+                    <i class="fa-solid fa-arrow-right"></i>
+                </div>
+                
+                <!-- After -->
+                <div style="text-align: center;">
+                    <span style="font-size: 10pt; color: #ADB5BD;">작업 후 (After)</span>
+                    <div style="font-size: 40pt; font-weight: 800; color: #099268; margin: 10px 0;">15</div>
+                    <span style="background: #099268; color: white; padding: 4px 12px; border-radius: 20px; font-size: 9pt; font-weight: bold;">안전 (Safe)</span>
+                </div>
+            </div>
+
+            <h4 style="font-size: 12pt; margin-bottom: 10px; color: var(--dark-navy);">ATP 오염도 기준표 (식품위생 안전 가이드)</h4>
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%">구분 (RLU)</th>
+                        <th width="20%">상태</th>
+                        <th>조치 사항</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: 700; color: #099268;">0 ~ 30</td>
+                        <td>청결 (Pass)</td>
+                        <td>안전한 상태. 즉시 사용 가능.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #F08C00;">31 ~ 100</td>
+                        <td>주의 (Caution)</td>
+                        <td>세균 증식 시작. 24시간 내 세척 요망.</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: 700; color: #E03131;">101 이상</td>
+                        <td>위험 (Fail)</td>
+                        <td>식중독 위험 높음. <strong>즉시 사용 중단 및 전문 살균.</strong></td>
+                    </tr>
+                </tbody>
+            </table>
+            
+            <div style="margin-top: auto; display: flex; gap: 20px; justify-content: center;">
+                 <div class="img-box" style="width: 160px; height: 110px;">
+                    <img src="imege/h0002.jpg" class="img-fit">
+                 </div>
+                 <div class="img-box" style="width: 160px; height: 110px;">
+                    <img src="imege/i0046.jpg" class="img-fit">
+                 </div>
+            </div>
+            <p class="caption">▲ ATP 측정 장비 및 현장 검수 모습</p>
+        </div>
+        <div class="footer">
+            <span>Performance Verification</span>
+            <span>05</span>
+        </div>
+    </div>
+
+    <!-- [PAGE 6: CASE STUDY] -->
+    <div class="page">
+        <div class="header">
+            <h2>CASE STUDY</h2>
+            <span>BEFORE & AFTER</span>
+        </div>
+        <div class="content">
+            <h3 style="font-size: 18pt; margin-bottom: 30px;">실제 관리 현장 비교</h3>
+            
+            <!-- Case 1 -->
+            <div style="margin-bottom: 30px; border: 1px solid #E9ECEF; border-radius: 6px; overflow: hidden;">
+                <div style="padding: 12px 20px; background: #F8F9FA; border-bottom: 1px solid #E9ECEF;">
+                    <strong class="txt-navy">CASE 01. 호텔 라운지 제빙기 (스케일 오염)</strong>
+                </div>
+                <div class="row" style="gap: 0;">
+                    <div class="col img-box" style="border-radius: 0; height: 200px;">
+                        <img src="imege/i0003.jpg" class="img-fit">
+                        <div class="label-tag" style="background: #E03131;">BEFORE</div>
+                    </div>
+                    <div class="col img-box" style="border-radius: 0; height: 200px;">
+                        <img src="imege/a0018.jpg" class="img-fit">
+                        <div class="label-tag" style="background: #099268;">AFTER</div>
+                    </div>
+                </div>
+                <div style="padding: 15px 20px;">
+                    <p>증발기에 하얗게 굳어있던 석회질(스케일)을 전용 약품으로 완전히 용해하여, 얼음 투명도를 회복하고 제빙 효율을 정상화했습니다.</p>
+                </div>
+            </div>
+
+            <!-- Case 2 -->
+            <div style="border: 1px solid #E9ECEF; border-radius: 6px; overflow: hidden;">
+                <div style="padding: 12px 20px; background: #F8F9FA; border-bottom: 1px solid #E9ECEF;">
+                    <strong class="txt-navy">CASE 02. 기업 사내식당 제빙기 (물때/곰팡이)</strong>
+                </div>
+                <div class="row" style="gap: 0;">
+                    <div class="col img-box" style="border-radius: 0; height: 200px;">
+                        <img src="imege/i0005.jpg" class="img-fit">
+                        <div class="label-tag" style="background: #E03131;">BEFORE</div>
+                    </div>
+                    <div class="col img-box" style="border-radius: 0; height: 200px;">
+                        <img src="imege/i0045.jpg" class="img-fit">
+                        <div class="label-tag" style="background: #099268;">AFTER</div>
+                    </div>
+                </div>
+                <div style="padding: 15px 20px;">
+                    <p>물탱크 내부의 핑크 슬라임과 곰팡이를 고압 세척 및 스팀으로 박멸하고, 항균 코팅 처리하여 수질 검사 적합 판정을 받았습니다.</p>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Case Study</span>
+            <span>06</span>
+        </div>
+    </div>
+
+    <!-- [PAGE 7: TOTAL CARE] -->
+    <div class="page">
+        <div class="header">
+            <h2>TOTAL CARE</h2>
+            <span>EXPANDED SERVICES</span>
+        </div>
+        <div class="content">
+            <h3 style="font-size: 18pt; margin-bottom: 25px;">제빙기 외 필수 위생 가전 통합 관리</h3>
+            
+            <!-- Item 1 -->
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col-40 img-box" style="height: 180px;">
+                    <img src="imege/a0016.jpg" class="img-fit">
+                </div>
+                <div class="col-60">
+                    <strong class="txt-navy" style="font-size: 13pt;">1. 커피머신 (Coffee Machine)</strong>
+                    <p style="margin-top: 5px;">보일러 스케일 제거 및 추출 그룹헤드 오일 세척.</p>
+                    <ul class="check-list" style="margin-top: 10px; color: #495057;">
+                        <li>커피 맛 변질 방지 및 펌프 고장 예방</li>
+                        <li>객실 캡슐머신 및 라운지 전자동 머신 전문 케어</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Item 2 -->
+            <div class="row" style="margin-bottom: 30px;">
+                <div class="col-40 img-box" style="height: 180px;">
+                    <img src="imege/n0042.jpg" class="img-fit">
+                </div>
+                <div class="col-60">
+                    <strong class="txt-navy" style="font-size: 13pt;">2. 냉장고 (Refrigerator)</strong>
+                    <p style="margin-top: 5px;">고무 패킹 곰팡이 제거 및 기계실 먼지 제거.</p>
+                    <ul class="check-list" style="margin-top: 10px; color: #495057;">
+                        <li>식자재 교차 오염 방지 및 악취 제거</li>
+                        <li>냉각 효율 개선으로 전기료 절감</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Item 3 -->
+            <div class="row">
+                <div class="col-40 img-box" style="height: 180px;">
+                    <img src="imege/a0012.jpg" class="img-fit">
+                </div>
+                <div class="col-60">
+                    <strong class="txt-navy" style="font-size: 13pt;">3. 공기청정기 & 비데</strong>
+                    <p style="margin-top: 5px;">필터 및 노즐 부위 고온 스팀 살균.</p>
+                    <ul class="check-list" style="margin-top: 10px; color: #495057;">
+                        <li>실내 공기질 개선 및 호흡기 질환 예방</li>
+                        <li>공용 화장실 위생 만족도 향상</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <span>Total Hygiene Services</span>
+            <span>07</span>
+        </div>
+    </div>
+
+    <!-- [PAGE 8: SERVICE PLANS] -->
+    <div class="page">
+        <div class="header">
+            <h2>SERVICE PLANS</h2>
+            <span>COST & EFFICIENCY</span>
+        </div>
+        <div class="content">
+            <h3 style="font-size: 18pt; margin-bottom: 30px;">예산과 환경에 맞춘 최적의 관리 플랜</h3>
+            
+            <div style="display: flex; gap: 20px; flex: 1; align-items: stretch;">
+                
+                <!-- Plan: Regular -->
+                <div style="flex: 1; border: 1px solid #DEE2E6; border-radius: 8px; padding: 25px 20px; display: flex; flex-direction: column; text-align: center; background: #F8F9FA;">
+                    <h4 style="font-size: 14pt; color: #6C757D; margin-bottom: 5px;">REGULAR</h4>
+                    <span style="font-size: 9pt; color: #ADB5BD;">일반 사무실 / 휴게실</span>
+                    
+                    <div style="font-size: 24pt; font-weight: 800; color: var(--text-main); margin: 25px 0;">분기 1회</div>
+                    
+                    <ul class="check-list" style="text-align: left; margin-top: auto; font-size: 9.5pt; color: #495057; line-height: 2;">
+                        <li>제빙기 내/외부 세척</li>
+                        <li>필터 교체 및 점검</li>
+                        <li>기본 결과 리포트</li>
+                    </ul>
+                </div>
+
+                <!-- Plan: Premium -->
+                <div style="flex: 1.1; border: 2px solid var(--vivid-blue); border-radius: 8px; padding: 25px 20px; display: flex; flex-direction: column; text-align: center; background: #E7F5FF; box-shadow: 0 10px 20px rgba(58, 134, 255, 0.15); transform: scaleY(1.02); z-index: 1;">
+                    <div style="background: var(--vivid-blue); color: white; display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 8pt; font-weight: bold; align-self: center; margin-bottom: 10px;">HOTEL PICK</div>
+                    <h4 style="font-size: 16pt; color: var(--vivid-blue); margin-bottom: 5px;">PREMIUM</h4>
+                    <span style="font-size: 9pt; color: #6C757D;">호텔 F&B / 대형 라운지</span>
+                    
+                    <div style="font-size: 28pt; font-weight: 800; color: var(--vivid-blue); margin: 25px 0;">월 1회</div>
+                    
+                    <ul class="check-list" st
