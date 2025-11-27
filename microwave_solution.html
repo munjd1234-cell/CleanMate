@@ -1,3 +1,5 @@
+--- START OF FILE microwave_solution (Final_Rev).html ---
+
 <h2>전자렌지 위생 관리 솔루션</h2>
     
     <h3 id="microwave-s01-anchor">전자렌지 위생 점검 체크리스트</h3>
@@ -15,7 +17,8 @@
         .rolling-wrapper {
             width: 100%;
             overflow: hidden;
-            margin: 20px 0;
+            margin-top: 20px;
+            margin-bottom: 5px; /* 캡션과의 간격 좁힘 */
             position: relative;
         }
         .rolling-track {
@@ -40,13 +43,21 @@
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
             line-height: 1.2; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
         }
+        
+        /* 롤링 이미지 전체 설명 (고정형) */
+        .rolling-main-caption {
+            text-align: center;
+            font-weight: bold;
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 30px; /* 아래 내용과의 간격 */
+        }
 
         /* 2. 모던 투명 테이블 스타일 */
         .modern-table-wrapper {
             width: 100%;
             overflow-x: auto;
             margin: 20px 0;
-            /* 배경 투명 */
             background: transparent; 
         }
         .modern-table {
@@ -54,22 +65,24 @@
             min-width: 500px; /* 모바일 가로 스크롤 */
             border-collapse: collapse;
             font-family: 'Noto Sans KR', sans-serif;
-            font-size: 13px; /* 글씨 크기 축소 */
-            color: #333;
+            font-size: 13px;
         }
         .modern-table th {
             text-align: left;
-            padding: 8px 10px; /* 여백 축소 */
-            color: #2E7D32; /* 짙은 녹색 텍스트로 포인트 */
-            border-bottom: 2px solid #4CAF50; /* 하단 라인만 강조 */
+            padding: 8px 10px;
+            color: #2E7D32; /* 짙은 녹색 텍스트 */
+            border-bottom: 2px solid #4CAF50;
             font-weight: 700;
-            background: transparent; /* 헤더 배경 투명 */
+            background: transparent;
         }
         .modern-table td {
-            padding: 8px 10px; /* 여백 축소 */
-            border-bottom: 1px solid rgba(0,0,0,0.1); /* 아주 연한 구분선 */
+            padding: 8px 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.15); /* 구분선 약간 진하게 */
             vertical-align: middle;
-            background: transparent; /* 셀 배경 투명 */
+            background: transparent;
+            /* [수정됨] 글자색 진하게 변경 */
+            color: #000; 
+            font-weight: 500; 
         }
         .modern-table tr:last-child td {
             border-bottom: none;
@@ -78,7 +91,7 @@
         .check-box-modern {
             display: inline-block;
             width: 14px; height: 14px;
-            border: 1.5px solid #aaa;
+            border: 1.5px solid #555; /* 체크박스 테두리도 조금 더 진하게 */
             border-radius: 3px;
         }
     </style>
@@ -110,6 +123,9 @@
             <div class="rolling-img-item"><img src="imege/t10.jpg" style="width:100%; display:block;"><div class="img-caption">오염도재검사<br>최종기록</div></div>
         </div>
     </div>
+    
+    <!-- [추가됨] 이미지 롤링 하단 고정 설명 -->
+    <p class="rolling-main-caption">전자렌지 위생 관리 순서</p>
     <!-- [END] 이미지 롤링 섹션 -->
 
 
@@ -122,7 +138,7 @@
     </ul>
 
 
-    <!-- [START] 투명하고 모던한 체크리스트 (손으로 스크롤) -->
+    <!-- [START] 투명하고 모던한 체크리스트 (글씨 진하게 수정됨) -->
     <div class="modern-table-wrapper">
         <table class="modern-table">
             <thead>
