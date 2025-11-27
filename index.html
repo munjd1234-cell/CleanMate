@@ -161,7 +161,7 @@
     box-sizing: border-box;
   }
 
-  /* --- [하단 고정 버튼] --- */
+  /* --- [하단 고정 버튼 4개] --- */
   .fixed-buttons {
     position: fixed;
     bottom: 35px; 
@@ -397,24 +397,6 @@
     display: block;
   }
 
-  /* --- [기술력 페이지용 인증서 그리드] --- */
-  .cert-grid {
-      display: flex;
-      gap: 10px;
-      justify-content: space-between;
-      margin: 20px 0;
-  }
-  .cert-item {
-      flex: 1; 
-      text-align: center;
-  }
-  .cert-item img {
-      width: 100%;
-      height: auto;
-      margin-bottom: 5px;
-      border: 1px solid #444;
-  }
-
   /* --- [파트너 로고 1열 세로 롤링] --- */
   .partner-logo-gallery-wrapper {
       width: 100%;
@@ -479,13 +461,18 @@
     background: #00bfa5; color: white; border: none; border-radius: 30px;
     padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 20px;
   }
+  
+  /* [수정됨] 퀴즈 결과 텍스트 강조 스타일 */
   #summary {
-      color: #00bfa5; 
+      color: #00bfa5; /* 밝은 민트색으로 강조 */
       font-weight: bold;
-      font-size: 18px;
-      margin: 20px 0;
-      line-height: 1.5;
+      font-size: 20px; /* 크기 키움 */
+      margin: 30px 0;
+      line-height: 1.6;
       word-break: keep-all;
+      padding: 10px;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
   }
 
   /* --- [PC/태블릿] --- */
@@ -525,7 +512,6 @@
   
   <div id="main-content-wrapper">
     <header>
-      <!-- 로고 중앙 정렬, 클릭 시 새로고침 -->
       <div class="header-top">
           <img src="imege/logo2.png" alt="클린메이트 로고" onclick="location.reload()" />
       </div>
@@ -627,7 +613,7 @@
       <div id="mos-section" class="content-section solution-content-wrapper"></div>
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
-      <!-- 기술력 (단독 파일 로드) -->
+      <!-- 기술력 섹션 -->
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
 
       <!-- 협력사 섹션 -->
@@ -758,10 +744,8 @@
             loadPromise.then(() => {
                 targetSection.classList.add('active');
                 
-                // 기술력 섹션 로드 직후 포트폴리오 생성 (technology.html의 빈 div에)
                 if (targetId === 'tech-section') {
                     const galleryContainer = targetSection.querySelector('#portfolio-gallery-container');
-                    // 갤러리가 비어있으면 생성 (중복 실행 방지)
                     if (galleryContainer && galleryContainer.innerHTML.trim() === '') {
                         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3);
                     }
@@ -867,27 +851,35 @@
     function generateOptions(questionId) {
         const optionsContainer = document.getElementById(`opt${questionId.slice(-1)}`);
         const options = data[questionId] || (questionId === 'q5' && data.cities[selectedRegion]) || [];
-        if (optionsContainer) {
+        
+        if (optionsContainer && options.length > 0) {
             optionsContainer.innerHTML = ''; 
             options.forEach(option => {
                 const btn = createOptionButton(option);
-                btn.addEventListener('click', () => handleOptionClick(questionId, btn));
+                btn.addEventListener('click', () => {
+                    handleOptionClick(questionId, btn);
+                });
                 optionsContainer.appendChild(btn);
             });
+        } else if (optionsContainer) {
+            optionsContainer.innerHTML = '';
         }
     }
 
     function handleOptionClick(questionId, button) {
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
+        
         const currentOptions = document.getElementById(`opt${qIndex + 1}`);
         currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
+        
         answers[qIndex] = value;
         
         if (questionId === 'q4') {
             selectedRegion = value;
             const regionCities = data.cities[selectedRegion];
+            
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
                 setTimeout(() => nextQuestion(true), 200); 
@@ -898,16 +890,30 @@
         } else if (questionId === 'q5') {
             answers[4] = value;
         }
+        
         setTimeout(() => nextQuestion(), 200);
     }
 
     function nextQuestion(isSkipQ5 = false) {
-        if (current >= 0 && current < questions.length) questions[current].classList.remove('active');
-        current = isSkipQ5 ? questions.length - 1 : current + 1;
+        if (current >= 0 && current < questions.length) {
+             questions[current].classList.remove('active');
+        }
+
+        const isLastStep = isSkipQ5;
+
+        if (isLastStep) {
+            current = questions.length - 1; 
+        } else {
+            current++;
+        }
+
         if (current < questions.length) {
             questions[current].classList.add('active');
-            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') generateOptions(questions[current].id);
+            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
+                generateOptions(questions[current].id);
+            }
         }
+        
         if (current === questions.length - 1) summarize();
     }
 
@@ -917,7 +923,10 @@
         const sendSMSButton = document.getElementById('sendSMS');
         const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
         sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
-        if (answers[3] && answers[4]) sendSMSButton.disabled = false;
+        
+        if (answers[3] && answers[4]) {
+            sendSMSButton.disabled = false;
+        }
     }
 
     function sendSummarySMS() {
@@ -925,7 +934,10 @@
         const message = `[클린메이트 상담 요청]\n${summaryText}`;
         const encodedMessage = encodeURIComponent(message);
         const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
-        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) window.location.href = smsLink;
+        
+        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) {
+            window.location.href = smsLink;
+        }
     }
 
     function restartQuiz() {
@@ -974,6 +986,10 @@
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
+        
+        // [수정됨] 기술력 하단 이미지 생성 코드 제거됨 (요청 반영)
+        // 포트폴리오 생성 코드는 유지
+        generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
         
         generatePartnerLogos(); 
         resetQuiz(); 
