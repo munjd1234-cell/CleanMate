@@ -30,7 +30,7 @@
         color: var(--text);
     }
 
-    /* [Floating Button] - 인쇄 기능 유지 */
+    /* [Floating Button] - 인쇄 기능 유지 (인쇄 시 숨김) */
     .floating-sidebar {
         position: fixed; right: 30px; top: 50%; transform: translateY(-50%);
         z-index: 9999;
@@ -44,10 +44,10 @@
     .float-btn i { font-size: 24px; margin-bottom: 5px; color: var(--sky); }
     .float-btn:hover { background: var(--blue); transform: scale(1.1); }
 
-    /* [A4 Page Layout] */
+    /* [A4 Page Layout] - A4 크기 및 페이지 분할 설정 */
     .page {
         width: 210mm;
-        height: 296mm;
+        min-height: 296mm; /* 내용이 적어도 A4 높이를 유지하도록 min-height 설정 */
         background: white;
         margin: 40px auto;
         position: relative;
@@ -55,14 +55,27 @@
         box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         display: flex;
         flex-direction: column;
+        /* 인쇄 시 핵심: 페이지 끝에서 무조건 다음 페이지로 넘어감 */
         page-break-after: always; 
-        page-break-inside: avoid;
+        page-break-inside: avoid; /* 중간에 내용이 잘리지 않도록 함 */
+    }
+    
+    /* 마지막 페이지는 page-break-after를 적용하지 않음 */
+    .page:last-child {
+        page-break-after: avoid;
     }
 
     @media print {
         body { background: none; }
         .floating-sidebar { display: none; }
-        .page { margin: 0; box-shadow: none; border: none; width: 210mm; height: 297mm; }
+        .page { 
+            margin: 0; 
+            box-shadow: none; 
+            border: none; 
+            width: 210mm; 
+            height: 297mm; /* 인쇄 시 정확한 A4 높이 */
+            overflow: hidden; /* 안전을 위해 오버플로우 숨김 */
+        }
         @page { margin: 0; } 
     }
 
@@ -101,54 +114,48 @@
     .footer { padding: 15px 50px; border-top: 1px solid #E5E7EB; display: flex; justify-content: space-between; font-size: 9pt; color: #9CA3AF; background: white; }
     .info-box { background: #F0F9FF; border-left: 4px solid var(--blue); padding: 25px; border-radius: 0 4px 4px 0; margin-bottom: 20px; }
     .risk-box { background: #FEF2F2; border-left: 4px solid #EF4444; padding: 25px; border-radius: 0 4px 4px 0; margin-bottom: 20px; }
-
-    /* [mos_icemaker_content.html - Rolling Images Style] */
-    @keyframes scroll-left {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
     
-    .rolling-wrapper {
-        width: 100%;
-        overflow: hidden;
-        margin-top: 20px;
-        margin-bottom: 10px;
-        position: relative;
-        /* 터치나 마우스 이벤트를 차단하여 스크롤 방해 없이 계속 움직이게 함 */
-        pointer-events: none; 
-        border-radius: 4px;
-    }
-
-    .rolling-track {
+    /* [Static Grid for Print - New Style] */
+    .static-grid-5 {
         display: flex;
-        width: max-content;
-        /* 40초 동안 끊김 없이 계속 흐름 */
-        animation: scroll-left 40s linear infinite; 
+        flex-wrap: wrap;
+        gap: 10px; /* 아이템 간 간격 */
+        margin-top: 20px;
+        margin-bottom: 20px;
+        justify-content: space-between; /* 양 끝 정렬 */
     }
-
-    .rolling-img-item {
-        flex: 0 0 45vw; /* 모바일: 약 2.2개 보임 */
-        max-width: 240px; /* PC: 최대 240px */
-        min-width: 180px;
-        margin-right: 10px;
+    .grid-item {
+        width: calc(20% - 8px); /* 5개 아이템 (40px) / 5 = 8px 간격 */
         position: relative;
-        border-radius: 4px;
         overflow: hidden;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        text-align: center;
+        page-break-inside: avoid; /* 그리드 아이템이 페이지 중간에 잘리지 않도록 */
+    }
+    .grid-item img {
+        width: 100%;
+        height: 80px; /* 높이 고정 */
+        object-fit: cover;
+        display: block;
+    }
+    .img-caption-static {
+        padding: 5px 0;
+        font-size: 7pt;
+        font-weight: 500;
+        color: var(--text);
+        background: #F1F5F9;
+        min-height: 25px; /* 캡션 높이 고정 */
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
-    .img-caption {
-        position: absolute; bottom: 0; left: 0; width: 100%; padding: 8px 0;
-        text-align: center; color: #fff; font-size: 13px; font-weight: bold;
-        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-        line-height: 1.2; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-    }
-    
     /* [mos_icemaker_content.html - Modern Table Style] */
     .modern-table-wrapper {
         width: 100%;
         overflow-x: auto;
         margin: 20px 0;
-        /* 배경색을 제안서 디자인에 맞게 조정 (흰색 배경) */
         background: #F8FAFC; 
         padding: 15px;
         border-radius: 8px;
@@ -158,7 +165,6 @@
         width: 100%;
         min-width: 500px;
         border-collapse: collapse;
-        font-family: 'Noto Sans KR', sans-serif;
         font-size: 13px;
     }
     .modern-table th {
@@ -167,7 +173,7 @@
         color: var(--navy); 
         border-bottom: 2px solid var(--sky);
         font-weight: 700;
-        background: #EAF8FF; /* 밝은 하늘색 배경 */
+        background: #EAF8FF; 
     }
     .modern-table td {
         padding: 8px 10px;
@@ -181,7 +187,6 @@
     .modern-table tr:last-child td {
         border-bottom: none;
     }
-    /* 체크박스: 밝은 회색 테두리 */
     .check-box-modern {
         display: inline-block;
         width: 14px; height: 14px;
@@ -203,13 +208,13 @@
     <div class="floating-sidebar">
         <button class="float-btn" onclick="window.print()">
             <i class="fa-solid fa-print"></i>
-            인쇄
+            인쇄하기
         </button>
     </div>
 
     <div class="page">
         <div style="height: 70%; position: relative;">
-            <img src="imege/l0123.jpg" class="img-fit" style="object-position: center;" onerror="this.src='https://via.placeholder.com/800x1000/1B263B/ffffff?text=Main+Image'">
+            <img src="imege/l0123.jpg" class="img-fit" style="object-position: center;" onerror="this.src='https://via.placeholder.com/800x1000/1B263B/ffffff?text=Main+Image+L0123'">
             
             <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(27,38,59,1) 0%, rgba(27,38,59,0.1) 50%, rgba(27,38,59,0) 100%);"></div>
             
@@ -238,7 +243,7 @@
                 </div>
             </div>
             <div style="text-align: right; margin-top: 30px; border-top: 1px solid #eee; padding-top: 15px;">
-                <img src="imege/logo2.png" style="height: 35px; margin-bottom: 5px;">
+                <img src="imege/logo2.png" style="height: 35px; margin-bottom: 5px;" onerror="this.src='https://via.placeholder.com/100x35/1B263B/ffffff?text=LOGO'">
                 <p style="font-size: 9pt; margin: 0; color: #888;">(주)디에이치씨솔루션 | 클린메이트</p>
             </div>
         </div>
@@ -286,7 +291,7 @@
                 </div>
                 <div class="col-40">
                     <div class="img-box" style="height: 350px;">
-                        <img src="imege/i0005.jpg" class="img-fit">
+                        <img src="imege/i0005.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/350x350/B91C1C/ffffff?text=I0005+Icemaker+Slime'">
                         <div style="position: absolute; bottom: 0; left: 0; width: 100%; background: rgba(220, 38, 38, 0.8); color: white; padding: 8px; font-size: 9pt; text-align: center;">▲ 실제 물탱크 내부 핑크 슬라임(곰팡이)</div>
                     </div>
                 </div>
@@ -337,7 +342,7 @@
             <div class="row" style="margin-bottom: 30px;">
                 <div class="col">
                     <div class="img-box" style="height: 180px; margin-bottom: 12px;">
-                        <img src="imege/i0003.jpg" class="img-fit">
+                        <img src="imege/i0003.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/7F8C8D/ffffff?text=I0003+Scale'">
                     </div>
                     <strong class="txt-navy">1. 스케일 (Scale) 고착</strong>
                     <p style="font-size: 9.5pt; margin-top: 5px;">
@@ -346,7 +351,7 @@
                 </div>
                 <div class="col">
                     <div class="img-box" style="height: 180px; margin-bottom: 12px;">
-                        <img src="imege/n0032.jpg" class="img-fit">
+                        <img src="imege/n0032.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/7F8C8D/ffffff?text=N0032+Biofilm'">
                     </div>
                     <strong class="txt-navy">2. 바이오필름 (Biofilm)</strong>
                     <p style="font-size: 9.5pt; margin-top: 5px;">
@@ -355,7 +360,7 @@
                 </div>
                 <div class="col">
                     <div class="img-box" style="height: 180px; margin-bottom: 12px;">
-                        <img src="imege/i0006.jpg" class="img-fit">
+                        <img src="imege/i0006.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/7F8C8D/ffffff?text=I0006+Air+Contamination'">
                     </div>
                     <strong class="txt-navy">3. 공기 중 오염 유입</strong>
                     <p style="font-size: 9.5pt; margin-top: 5px;">
@@ -412,7 +417,7 @@
                         </tbody>
                     </table>
                 </div>
-                </div>
+            </div>
         </div>
         <div class="footer"><span>Technical Diagnosis</span><span>03</span></div>
     </div>
@@ -431,7 +436,7 @@
             <div class="row" style="margin-bottom: 30px; align-items: center;">
                 <div class="col-40">
                     <div class="img-box" style="height: 250px;">
-                        <img src="imege/h0006.jpg" class="img-fit">
+                        <img src="imege/h0006.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/250x250/005F9E/ffffff?text=H0006+Endoscopy'">
                     </div>
                     <p class="caption">내시경 내부 촬영장비</p>
                 </div>
@@ -448,7 +453,7 @@
                 </div>
             </div>
 
-            <h3 style="font-size: 18pt; margin-bottom: 20px;">제빙기발 유해 병원균 리스크</h3>
+            <h3 style="font-size: 18pt; margin-bottom: 20px; border-top: 1px solid #eee; padding-top: 20px;">제빙기발 유해 병원균 리스크</h3>
             <div style="display: flex; gap: 20px; border: 1px solid #eee; padding: 20px; border-radius: 8px; align-items: center; margin-bottom: 15px;">
                 <div style="width: 120px; height: 120px; background: #ffebee; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
                     <i class="fa-solid fa-virus-covid" style="font-size: 50px; color: #d32f2f;"></i>
@@ -480,29 +485,46 @@
             <h3 style="font-size: 18pt; margin-bottom: 25px;">클린메이트 5단계 전문 분해·소독 프로세스</h3>
             <p>클린메이트는 제조사별 구조 특성 및 상업용 환경을 고려하여, 단순 세척이 아닌 정밀 분해·살균·스케일 제거·항균 코팅의 5단계 전문 프로세스를 적용하여 근본적인 위생 문제를 해결합니다.</p>
             
-            <div class="rolling-wrapper">
-                <div class="rolling-track">
-                    <div class="rolling-img-item"><img src="imege/f01.jpg" style="width:100%; display:block;"><div class="img-caption">초기 오염도 검사</div></div>
-                    <div class="rolling-img-item"><img src="imege/f02.jpg" style="width:100%; display:block;"><div class="img-caption">청소 전 기록 작업</div></div>
-                    <div class="rolling-img-item"><img src="imege/f03.jpg" style="width:100%; display:block;"><div class="img-caption">내용물 비우기</div></div>
-                    <div class="rolling-img-item"><img src="imege/f04.jpg" style="width:100%; display:block;"><div class="img-caption">부속 분리</div></div>
-                    <div class="rolling-img-item"><img src="imege/f05.jpg" style="width:100%; display:block;"><div class="img-caption">분리된 부품 세척</div></div>
-                    <div class="rolling-img-item"><img src="imege/f06.jpg" style="width:100%; display:block;"><div class="img-caption">본체 내부 스팀 세척</div></div>
-                    <div class="rolling-img-item"><img src="imege/f07.jpg" style="width:100%; display:block;"><div class="img-caption">외장부 청소</div></div>
-                    <div class="rolling-img-item"><img src="imege/f08.jpg" style="width:100%; display:block;"><div class="img-caption">세척된 부품 재조립</div></div>
-                    <div class="rolling-img-item"><img src="imege/f09.jpg" style="width:100%; display:block;"><div class="img-caption">UV 소독</div></div>
-                    <div class="rolling-img-item"><img src="imege/f10.jpg" style="width:100%; display:block;"><div class="img-caption">오염도재검사<br>최종기록</div></div>
-
-                    <div class="rolling-img-item"><img src="imege/f01.jpg" style="width:100%; display:block;"><div class="img-caption">초기 오염도 검사</div></div>
-                    <div class="rolling-img-item"><img src="imege/f02.jpg" style="width:100%; display:block;"><div class="img-caption">청소 전 기록 작업</div></div>
-                    <div class="rolling-img-item"><img src="imege/f03.jpg" style="width:100%; display:block;"><div class="img-caption">내용물 비우기</div></div>
-                    <div class="rolling-img-item"><img src="imege/f04.jpg" style="width:100%; display:block;"><div class="img-caption">부속 분리</div></div>
-                    <div class="rolling-img-item"><img src="imege/f05.jpg" style="width:100%; display:block;"><div class="img-caption">분리된 부품 세척</div></div>
-                    <div class="rolling-img-item"><img src="imege/f06.jpg" style="width:100%; display:block;"><div class="img-caption">본체 내부 스팀 세척</div></div>
-                    <div class="rolling-img-item"><img src="imege/f07.jpg" style="width:100%; display:block;"><div class="img-caption">외장부 청소</div></div>
-                    <div class="rolling-img-item"><img src="imege/f08.jpg" style="width:100%; display:block;"><div class="img-caption">세척된 부품 재조립</div></div>
-                    <div class="rolling-img-item"><img src="imege/f09.jpg" style="width:100%; display:block;"><div class="img-caption">UV 소독</div></div>
-                    <div class="rolling-img-item"><img src="imege/f10.jpg" style="width:100%; display:block;"><div class="img-caption">오염도재검사<br>최종기록</div></div>
+            <div class="static-grid-5">
+                <div class="grid-item">
+                    <img src="imege/f01.jpg" alt="초기 오염도 검사" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F01'">
+                    <div class="img-caption-static">1. 초기 오염도 검사</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f02.jpg" alt="청소 전 기록 작업" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F02'">
+                    <div class="img-caption-static">2. 청소 전 기록 작업</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f03.jpg" alt="내용물 비우기" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F03'">
+                    <div class="img-caption-static">3. 내용물 비우기</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f04.jpg" alt="부속 분리" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F04'">
+                    <div class="img-caption-static">4. 부속 분리</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f05.jpg" alt="분리된 부품 세척" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F05'">
+                    <div class="img-caption-static">5. 분리된 부품 세척</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f06.jpg" alt="본체 내부 스팀 세척" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F06'">
+                    <div class="img-caption-static">6. 본체 내부 스팀 세척</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f07.jpg" alt="외장부 청소" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F07'">
+                    <div class="img-caption-static">7. 외장부 청소</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f08.jpg" alt="세척된 부품 재조립" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F08'">
+                    <div class="img-caption-static">8. 세척된 부품 재조립</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f09.jpg" alt="UV 소독" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F09'">
+                    <div class="img-caption-static">9. UV 소독</div>
+                </div>
+                <div class="grid-item">
+                    <img src="imege/f10.jpg" alt="오염도 재검사 최종기록" onerror="this.src='https://via.placeholder.com/100x80/2980b9/ffffff?text=F10'">
+                    <div class="img-caption-static">10. 오염도 재검사</div>
                 </div>
             </div>
             <h3 style="font-size: 18pt; margin-bottom: 25px; margin-top: 20px;">1단계 ~ 3단계 상세 작업 내역</h3>
@@ -511,7 +533,7 @@
                 <div class="col-40">
                     <strong class="txt-navy" style="font-size: 13pt; margin-bottom: 10px;">1단계: ATP 바이오 오염도 진단</strong>
                     <div class="img-box" style="height: 150px; margin-bottom: 10px;">
-                        <img src="imege/i0041.jpg" class="img-fit">
+                        <img src="imege/i0041.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/180x150/005F9E/ffffff?text=I0041+ATP'">
                     </div>
                     <p style="font-size: 9.5pt; margin-top: 5px;">ATP 측정기를 활용해 저빙고 스쿠프, 출빙구, 물탱크 입구 등 고접촉 및 고오염 구역의 오염도를 객관적인 수치(RLU)로 측정합니다.</p>
                 </div>
@@ -527,7 +549,7 @@
                         </div>
                         <div class="col" style="flex: 1; min-width: 150px;">
                             <div class="img-box" style="height: 120px;">
-                                <img src="imege/i0042.jpg" class="img-fit">
+                                <img src="imege/i0042.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/150x120/005F9E/ffffff?text=I0042+Disassembly'">
                             </div>
                             <p class="caption">부품 완전 분해 작업</p>
                         </div>
@@ -562,7 +584,7 @@
                 <div class="col">
                     <strong class="txt-navy" style="font-size: 13pt; display: block; margin-bottom: 10px;">4-1. 고온 스팀 살균 (친환경 살균 기술)</strong>
                     <div class="img-box" style="height: 180px; margin-bottom: 10px;">
-                        <img src="imege/h0011.jpg" class="img-fit">
+                        <img src="imege/h0011.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/005F9E/ffffff?text=H0011+Steam'">
                     </div>
                     <p class="caption">스팀 살균 청소 작업</p>
                     <p style="font-size: 9.5pt; margin-top: 5px;">
@@ -572,7 +594,7 @@
                 <div class="col">
                     <strong class="txt-navy" style="font-size: 13pt; display: block; margin-bottom: 10px;">4-2. UV-C 자외선 살균 (친환경 살균 기술)</strong>
                     <div class="img-box" style="height: 180px; margin-bottom: 10px;">
-                        <img src="imege/h0013.jpg" class="img-fit">
+                        <img src="imege/h0013.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/005F9E/ffffff?text=H0013+UVC'">
                     </div>
                     <p class="caption">UV-C 자외선 소독 작업</p>
                     <p style="font-size: 9.5pt; margin-top: 5px;">
@@ -595,7 +617,7 @@
                 </div>
                 <div class="col-40">
                     <div class="img-box" style="height: 150px;">
-                        <img src="imege/i0044.jpg" class="img-fit">
+                        <img src="imege/i0044.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/150x150/005F9E/ffffff?text=I0044+Finishing'">
                     </div>
                     <p class="caption">중화/재조립 및 항균 코팅</p>
                 </div>
@@ -607,14 +629,14 @@
                     작업 완료 후 동일 지점을 재측정하여 개선 수치(RLU)를 비교합니다. 작업 전/후 사진, ATP 데이터, 장비 점검 리포트가 포함된 보고서를 제공하며, 이력 데이터는 향후 장비 고장 예측 및 정기 관리 주기 추천에 활용됩니다.
                 </p>
                 <div class="img-box" style="height: 120px; margin-top: 10px;">
-                    <img src="imege/i0046.jpg" class="img-fit">
+                    <img src="imege/i0046.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x120/005F9E/ffffff?text=I0046+Report'">
                 </div>
                 <p class="caption">사후 ATP 재측정 및 보고서 제공</p>
             </div>
         </div>
         <div class="footer"><span>Scope of Work II</span><span>06</span></div>
     </div>
-
+    
     <div class="page">
         <div class="header">
             <h2>VERIFICATION</h2>
@@ -665,7 +687,7 @@
 
             <div style="text-align: center; margin-top: 20px;">
                 <div class="img-box" style="height: 120px; width: 50%; margin: 0 auto;">
-                    <img src="imege/h0004.jpg" class="img-fit">
+                    <img src="imege/h0004.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x120/005F9E/ffffff?text=H0004+ATP+System'">
                 </div>
                 <p class="caption">ATP 데이터 관리 시스템</p>
             </div>
@@ -687,11 +709,11 @@
                 </div>
                 <div class="row no-gap">
                     <div class="col img-box" style="border-radius: 0; height: 200px;">
-                        <img src="imege/i0003.jpg" class="img-fit">
+                        <img src="imege/i0003.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x200/EF4444/ffffff?text=I0003+Before'">
                         <div style="position: absolute; bottom: 10px; left: 10px; background: #EF4444; color: white; padding: 3px 10px; font-size: 8pt; font-weight: 700; border-radius: 4px;">BEFORE</div>
                     </div>
                     <div class="col img-box" style="border-radius: 0; height: 200px;">
-                        <img src="imege/a0018.jpg" class="img-fit">
+                        <img src="imege/a0018.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x200/10B981/ffffff?text=A0018+After'">
                         <div style="position: absolute; bottom: 10px; left: 10px; background: #10B981; color: white; padding: 3px 10px; font-size: 8pt; font-weight: 700; border-radius: 4px;">AFTER</div>
                     </div>
                 </div>
@@ -707,11 +729,11 @@
                 </div>
                 <div class="row no-gap">
                     <div class="col img-box" style="border-radius: 0; height: 200px;">
-                        <img src="imege/n0032.jpg" class="img-fit">
+                        <img src="imege/n0032.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x200/EF4444/ffffff?text=N0032+Before'">
                         <div style="position: absolute; bottom: 10px; left: 10px; background: #EF4444; color: white; padding: 3px 10px; font-size: 8pt; font-weight: 700; border-radius: 4px;">BEFORE</div>
                     </div>
                     <div class="col img-box" style="border-radius: 0; height: 200px;">
-                        <img src="imege/a0019.jpg" class="img-fit">
+                        <img src="imege/a0019.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x200/10B981/ffffff?text=A0019+After'">
                         <div style="position: absolute; bottom: 10px; left: 10px; background: #10B981; color: white; padding: 3px 10px; font-size: 8pt; font-weight: 700; border-radius: 4px;">AFTER</div>
                     </div>
                 </div>
@@ -734,7 +756,7 @@
 
             <div class="row" style="margin-bottom: 25px;">
                 <div class="col-40 img-box" style="height: 180px;">
-                    <img src="imege/a0010.jpg" class="img-fit">
+                    <img src="imege/a0010.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/005F9E/ffffff?text=A0010+Refregirator'">
                 </div>
                 <div class="col-60">
                     <strong class="txt-navy" style="font-size: 13pt;">1. 냉장고 및 냉동고</strong>
@@ -750,7 +772,7 @@
 
             <div class="row" style="margin-bottom: 25px;">
                 <div class="col-40 img-box" style="height: 180px;">
-                    <img src="imege/a0011.jpg" class="img-fit">
+                    <img src="imege/a0011.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/005F9E/ffffff?text=A0011+Coffee'">
                 </div>
                 <div class="col-60">
                     <strong class="txt-navy" style="font-size: 13pt;">2. 커피머신 및 급수/정수기</strong>
@@ -766,7 +788,7 @@
 
             <div class="row">
                 <div class="col-40 img-box" style="height: 180px;">
-                    <img src="imege/a0012.jpg" class="img-fit">
+                    <img src="imege/a0012.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/200x180/005F9E/ffffff?text=A0012+Air+Bidet'">
                 </div>
                 <div class="col-60">
                     <strong class="txt-navy" style="font-size: 13pt;">3. 공기청정기 & 비데</strong>
@@ -803,7 +825,7 @@
                         **정규 교육 이수:** 청소뿐만 아니라, 제빙기/가전 장비의 원리와 구조를 이해하여 재조립 과정에서 고장 위험을 최소화합니다.
                     </p>
                     <div class="img-box" style="height: 100px; margin-top: 15px;">
-                        <img src="imege/h0021.jpg" class="img-fit">
+                        <img src="imege/h0021.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x100/005F9E/ffffff?text=H0021+Professional'">
                     </div>
                     <p class="caption">프로페셔널 현장</p>
                 </div>
@@ -820,7 +842,7 @@
                         **맞춤형 관리 제안:** 누적 데이터 분석을 통해 각 장비의 사용 환경에 최적화된 청소 주기 및 관리 방안을 제안합니다.
                     </p>
                     <div class="img-box" style="height: 100px; margin-top: 15px;">
-                        <img src="imege/h0019.jpg" class="img-fit">
+                        <img src="imege/h0019.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x100/005F9E/ffffff?text=H0019+System'">
                     </div>
                     <p class="caption">통합 서비스 관리 시스템</p>
                 </div>
@@ -834,7 +856,7 @@
                         <li>**제조사 협력 연구:** 국내외 주요 위생 가전 제조사와 협력하여 신제품 출시 전 세척 매뉴얼을 공동 개발합니다.</li>
                     </ul>
                     <div class="img-box" style="height: 120px; margin-top: 10px;">
-                        <img src="imege/h0022.jpg" class="img-fit">
+                        <img src="imege/h0022.jpg" class="img-fit" onerror="this.src='https://via.placeholder.com/300x120/005F9E/ffffff?text=H0022+R%26D'">
                     </div>
                     <p class="caption">R&D</p>
                 </div>
@@ -919,13 +941,13 @@
             <div class="row" style="margin-bottom: 30px; justify-content: space-around;">
                 <div class="col" style="text-align: center;">
                     <div class="img-box" style="height: 220px; border: 1px solid #eee; background: white;">
-                        <img src="imege/certificate_img1.jpg" class="img-fit" style="object-fit: contain;">
+                        <img src="imege/certificate_img1.jpg" class="img-fit" style="object-fit: contain;" onerror="this.src='https://via.placeholder.com/200x220/1B263B/ffffff?text=영업신고증'">
                     </div>
                     <strong class="txt-navy" style="display:block; margin-top:10px;">영업신고증</strong>
                 </div>
                 <div class="col" style="text-align: center;">
                     <div class="img-box" style="height: 220px; border: 1px solid #eee; background: white;">
-                        <img src="imege/certificate_img2.jpg" class="img-fit" style="object-fit: contain;">
+                        <img src="imege/certificate_img2.jpg" class="img-fit" style="object-fit: contain;" onerror="this.src='https://via.placeholder.com/200x220/1B263B/ffffff?text=사업자등록증'">
                     </div>
                     <strong class="txt-navy" style="display:block; margin-top:10px;">사업자등록증</strong>
                 </div>
