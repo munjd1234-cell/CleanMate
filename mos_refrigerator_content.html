@@ -14,7 +14,152 @@
         <li><strong>공기 오염:</strong> 문 개폐 시 강한 악취 발생, 식품과 무관한 냄새 지속, 공기 흐름 약화.</li>
         <li><strong>관리 시급:</strong> 직원들의 냄새 불만, 오래된 음식물 방치, 비식품/약품 혼재 보관.</li>
     </ul>
+
+<!-- [START] 냉장고 위생 체크리스트 테이블 섹션 -->
+<style>
+    /* 체크리스트 스타일 정의 */
+    .checklist-wrapper {
+        width: 100%;
+        margin: 30px 0 10px 0;
+        overflow-x: auto; /* 모바일에서 표가 잘리지 않도록 가로 스크롤 허용 */
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05); /* 부드러운 그림자 */
+        border-radius: 8px;
+        border: 1px solid #eee;
+    }
+
+    .checklist-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: 'Noto Sans KR', sans-serif;
+        background-color: #fff;
+        min-width: 500px; /* 모바일에서 너무 찌그러지지 않게 최소 너비 설정 */
+    }
+
+    /* 헤더 스타일 */
+    .checklist-table thead th {
+        background-color: #4CAF50; /* 위생적인 느낌의 녹색 (기존 이미지와 유사) */
+        color: #fff;
+        padding: 14px 10px;
+        text-align: left;
+        font-weight: 600;
+        font-size: 15px;
+        border-bottom: 2px solid #388E3C;
+    }
     
+    .checklist-table thead th:last-child {
+        text-align: center;
+        width: 60px; /* 이행 체크박스 열 너비 고정 */
+    }
+
+    /* 본문 셀 스타일 */
+    .checklist-table tbody td {
+        padding: 12px 10px;
+        border-bottom: 1px solid #e0e0e0;
+        color: #333;
+        font-size: 14px;
+        vertical-align: middle;
+        line-height: 1.5;
+    }
+
+    /* 줄무늬 효과 (가독성 향상) */
+    .checklist-table tbody tr:nth-child(even) {
+        background-color: #f8f9fa;
+    }
+
+    /* 항목 강조 스타일 */
+    .item-category {
+        font-weight: bold;
+        color: #2c3e50;
+        white-space: nowrap; /* 항목명 줄바꿈 방지 */
+    }
+
+    /* 체크박스 디자인 */
+    .check-box-display {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+        background-color: #fff;
+    }
+
+    /* 모바일 반응형 조정 */
+    @media (max-width: 768px) {
+        .checklist-wrapper {
+            margin: 20px 0;
+        }
+        .checklist-table thead th {
+            font-size: 14px;
+            padding: 10px;
+        }
+        .checklist-table tbody td {
+            font-size: 13px;
+            padding: 10px;
+        }
+    }
+</style>
+
+<div class="checklist-wrapper">
+    <table class="checklist-table">
+        <thead>
+            <tr>
+                <th style="width: 20%;">항목</th>
+                <th>확인 사항 (내용)</th>
+                <th>이행</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td class="item-category">청소 전 촬영</td>
+                <td>상세 위치 표시된 스티커와 내부가 선명하게 보이도록 촬영 하였는가?</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category">임시보관 (내용물)</td>
+                <td>음식물 아이스박스에 임시 보관 후 진행 하였는가?</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category">청소 (내부)</td>
+                <td>이물질 제거, 내부선반 및 야채칸 포함 스팀, 물 세척을 진행 하였는가?</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category">청소 (외부)</td>
+                <td>고무패킹, 냉장고 상부, 주변도 진행하였는가?</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category">소독</td>
+                <td>자외선 살균 소독 확인</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category">청소 후 촬영</td>
+                <td>작업 완료 사진을 촬영하였는가?</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category">음식물 정리</td>
+                <td>원래의 위치에 정리를 마쳤는가?</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category">마무리</td>
+                <td>스티커 제거 및 작동 확인<br>주변정리 청소</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+            <tr>
+                <td class="item-category" style="color: #d32f2f;">특이사항</td>
+                <td style="color: #d32f2f;">상한음식물이 있거나 작동불량 및 특이사항 발생시 냉장고 전면에 부착</td>
+                <td align="center"><span class="check-box-display"></span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+<!-- [END] 냉장고 위생 체크리스트 테이블 섹션 -->
+
+
     <p class="image-caption">냉장고 위생 체크리스트</p>
 
     
