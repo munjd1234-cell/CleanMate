@@ -7,39 +7,38 @@
 
     <!-- [STYLE] 스타일 정의 -->
     <style>
-        /* 1. 인터랙티브 롤링 슬라이더 스타일 */
-        .slider-container {
+        /* 1. 단순 무한 롤링 스타일 (터치 무시) */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .rolling-wrapper {
             width: 100%;
             overflow: hidden;
             margin-top: 20px;
             margin-bottom: 10px;
             position: relative;
-            cursor: grab; /* 잡을 수 있다는 표시 */
-            touch-action: pan-y; /* 수직 스크롤은 허용, 수평은 JS로 제어 */
+            /* 터치나 마우스 이벤트를 차단하여 스크롤 방해 없이 계속 움직이게 함 */
+            pointer-events: none; 
         }
-        .slider-container:active {
-            cursor: grabbing;
-        }
-        .slider-track {
+
+        .rolling-track {
             display: flex;
-            width: max-content; /* 내용물만큼 길어짐 */
-            will-change: transform; /* 성능 최적화 */
+            width: max-content;
+            /* 40초 동안 끊김 없이 계속 흐름 */
+            animation: scroll-left 40s linear infinite; 
         }
-        .slider-item {
-            flex: 0 0 45vw; /* 모바일: 화면의 45% 차지 */
-            max-width: 240px; /* PC: 최대 너비 제한 */
+
+        .rolling-img-item {
+            flex: 0 0 45vw; /* 모바일: 약 2.2개 보임 */
+            max-width: 240px; /* PC: 최대 240px */
             margin-right: 10px;
             position: relative;
             border-radius: 4px;
             overflow: hidden;
-            user-select: none; /* 드래그 시 이미지 선택 방지 */
-            -webkit-user-drag: none;
         }
-        .slider-item img {
-            width: 100%;
-            display: block;
-            pointer-events: none; /* 이미지 자체 드래그 방지 */
-        }
+
         .img-caption {
             position: absolute; bottom: 0; left: 0; width: 100%; padding: 8px 0;
             text-align: center; color: #fff; font-size: 13px; font-weight: bold;
@@ -52,11 +51,11 @@
             text-align: center;
             font-weight: bold;
             font-size: 15px;
-            color: #fff; /* 배경이 어두울 것으로 예상되어 흰색으로 변경 (필요시 #333) */
+            color: #fff; 
             margin-bottom: 30px;
         }
 
-        /* 2. 모던 투명 체크리스트 스타일 */
+        /* 2. 모던 투명 체크리스트 스타일 (흰색 글씨) */
         .modern-table-wrapper {
             width: 100%;
             overflow-x: auto;
@@ -73,148 +72,64 @@
         .modern-table th {
             text-align: left;
             padding: 8px 10px;
-            color: #4CAF50; /* 밝은 녹색 텍스트 */
+            color: #4CAF50; /* 밝은 녹색 포인트 */
             border-bottom: 2px solid #4CAF50;
             font-weight: 700;
             background: transparent;
         }
         .modern-table td {
             padding: 8px 10px;
-            border-bottom: 1px solid rgba(255,255,255,0.2); /* 구분선을 연한 흰색으로 */
+            /* 구분선: 흰색 투명도 20% */
+            border-bottom: 1px solid rgba(255,255,255,0.2); 
             vertical-align: middle;
             background: transparent;
-            /* [수정됨] 본문 글씨를 흰색으로 변경 */
+            /* 본문 글씨: 완전 흰색 */
             color: #ffffff; 
             font-weight: 400; 
         }
         .modern-table tr:last-child td {
             border-bottom: none;
         }
+        /* 체크박스: 밝은 회색 테두리 */
         .check-box-modern {
             display: inline-block;
             width: 14px; height: 14px;
-            border: 1.5px solid #ddd; /* 체크박스 테두리 밝게 */
+            border: 1.5px solid #ddd; 
             border-radius: 3px;
         }
     </style>
 
-    <!-- [START] 자바스크립트 기반 터치 슬라이더 -->
-    <div class="slider-container" id="sliderContainer">
-        <div class="slider-track" id="sliderTrack">
-            <!-- 이미지 아이템들 (JS로 복제되어 무한 루프됨) -->
-            <div class="slider-item"><img src="imege/t01.jpg"><div class="img-caption">초기 오염도 검사</div></div>
-            <div class="slider-item"><img src="imege/t02.jpg"><div class="img-caption">청소 전 기록 작업</div></div>
-            <div class="slider-item"><img src="imege/t03.jpg"><div class="img-caption">부속 분리</div></div>
-            <div class="slider-item"><img src="imege/t04.jpg"><div class="img-caption">분리된 부품 세척</div></div>
-            <div class="slider-item"><img src="imege/t05.jpg"><div class="img-caption">스팀 살균 청소</div></div>
-            <div class="slider-item"><img src="imege/t06.jpg"><div class="img-caption">본체 내부 세척</div></div>
-            <div class="slider-item"><img src="imege/t07.jpg"><div class="img-caption">외장부 청소</div></div>
-            <div class="slider-item"><img src="imege/t08.jpg"><div class="img-caption">세척된 부품 재조립</div></div>
-            <div class="slider-item"><img src="imege/t09.jpg"><div class="img-caption">UV 소독</div></div>
-            <div class="slider-item"><img src="imege/t10.jpg"><div class="img-caption">오염도재검사<br>최종기록</div></div>
+    <!-- [START] 단순 무한 롤링 이미지 (자바스크립트 없음) -->
+    <div class="rolling-wrapper">
+        <div class="rolling-track">
+            <!-- [SET 1 : 원본] -->
+            <div class="rolling-img-item"><img src="imege/t01.jpg" style="width:100%; display:block;"><div class="img-caption">초기 오염도 검사</div></div>
+            <div class="rolling-img-item"><img src="imege/t02.jpg" style="width:100%; display:block;"><div class="img-caption">청소 전 기록 작업</div></div>
+            <div class="rolling-img-item"><img src="imege/t03.jpg" style="width:100%; display:block;"><div class="img-caption">부속 분리</div></div>
+            <div class="rolling-img-item"><img src="imege/t04.jpg" style="width:100%; display:block;"><div class="img-caption">분리된 부품 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t05.jpg" style="width:100%; display:block;"><div class="img-caption">스팀 살균 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t06.jpg" style="width:100%; display:block;"><div class="img-caption">본체 내부 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t07.jpg" style="width:100%; display:block;"><div class="img-caption">외장부 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t08.jpg" style="width:100%; display:block;"><div class="img-caption">세척된 부품 재조립</div></div>
+            <div class="rolling-img-item"><img src="imege/t09.jpg" style="width:100%; display:block;"><div class="img-caption">UV 소독</div></div>
+            <div class="rolling-img-item"><img src="imege/t10.jpg" style="width:100%; display:block;"><div class="img-caption">오염도재검사<br>최종기록</div></div>
+
+            <!-- [SET 2 : 복제본 (끊김 방지용)] -->
+            <div class="rolling-img-item"><img src="imege/t01.jpg" style="width:100%; display:block;"><div class="img-caption">초기 오염도 검사</div></div>
+            <div class="rolling-img-item"><img src="imege/t02.jpg" style="width:100%; display:block;"><div class="img-caption">청소 전 기록 작업</div></div>
+            <div class="rolling-img-item"><img src="imege/t03.jpg" style="width:100%; display:block;"><div class="img-caption">부속 분리</div></div>
+            <div class="rolling-img-item"><img src="imege/t04.jpg" style="width:100%; display:block;"><div class="img-caption">분리된 부품 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t05.jpg" style="width:100%; display:block;"><div class="img-caption">스팀 살균 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t06.jpg" style="width:100%; display:block;"><div class="img-caption">본체 내부 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t07.jpg" style="width:100%; display:block;"><div class="img-caption">외장부 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t08.jpg" style="width:100%; display:block;"><div class="img-caption">세척된 부품 재조립</div></div>
+            <div class="rolling-img-item"><img src="imege/t09.jpg" style="width:100%; display:block;"><div class="img-caption">UV 소독</div></div>
+            <div class="rolling-img-item"><img src="imege/t10.jpg" style="width:100%; display:block;"><div class="img-caption">오염도재검사<br>최종기록</div></div>
         </div>
     </div>
     
     <p class="slider-main-caption">전자렌지 위생 관리 순서</p>
-
-    <!-- 슬라이더 동작 스크립트 -->
-    <script>
-        (function() {
-            const container = document.getElementById('sliderContainer');
-            const track = document.getElementById('sliderTrack');
-            
-            // 1. 무한 루프를 위해 아이템 복제
-            // (충분히 길게 만들기 위해 2번 복제)
-            const items = Array.from(track.children);
-            items.forEach(item => {
-                const clone = item.cloneNode(true);
-                track.appendChild(clone);
-            });
-            items.forEach(item => {
-                const clone = item.cloneNode(true);
-                track.appendChild(clone);
-            });
-
-            let position = 0;
-            const speed = 0.8; // 자동 이동 속도
-            let isDragging = false;
-            let startX = 0;
-            let currentTranslate = 0;
-            let prevTranslate = 0;
-            let animationID;
-            
-            // 원본 1세트의 너비 계산 (대략적)
-            // 정확한 루프를 위해 첫 번째 아이템 너비 * 개수 + 마진 계산이 필요하지만
-            // 시각적 무한 루프를 위해 track 너비의 1/3 지점에서 리셋
-            
-            function animate() {
-                if (!isDragging) {
-                    position -= speed;
-                }
-                
-                // 무한 루프 로직 (왼쪽으로 너무 가면 초기화)
-                const trackWidth = track.scrollWidth;
-                const oneThird = trackWidth / 3;
-                
-                if (Math.abs(position) >= oneThird * 2) {
-                    position += oneThird; // 위치 재조정 (티 안나게)
-                    prevTranslate = position;
-                }
-                if (position > 0) {
-                    position -= oneThird;
-                    prevTranslate = position;
-                }
-
-                track.style.transform = `translateX(${position}px)`;
-                animationID = requestAnimationFrame(animate);
-            }
-
-            // 터치 및 마우스 이벤트 핸들러
-            function touchStart(index) {
-                return function(event) {
-                    isDragging = true;
-                    startX = getPositionX(event);
-                    prevTranslate = position;
-                    cancelAnimationFrame(animationID); // 자동 이동 일시 정지
-                }
-            }
-
-            function touchMove(event) {
-                if (isDragging) {
-                    const currentX = getPositionX(event);
-                    const diff = currentX - startX;
-                    position = prevTranslate + diff;
-                    track.style.transform = `translateX(${position}px)`;
-                }
-            }
-
-            function touchEnd() {
-                isDragging = false;
-                prevTranslate = position;
-                animationID = requestAnimationFrame(animate); // 자동 이동 재개
-            }
-
-            function getPositionX(event) {
-                return event.type.includes('mouse') ? event.pageX : event.touches[0].clientX;
-            }
-
-            // 이벤트 리스너 등록
-            container.addEventListener('touchstart', touchStart(0), {passive: true});
-            container.addEventListener('touchend', touchEnd);
-            container.addEventListener('touchmove', touchMove, {passive: true});
-
-            container.addEventListener('mousedown', touchStart(0));
-            container.addEventListener('mouseup', touchEnd);
-            container.addEventListener('mouseleave', () => {
-                if(isDragging) touchEnd();
-            });
-            container.addEventListener('mousemove', touchMove);
-
-            // 애니메이션 시작
-            animationID = requestAnimationFrame(animate);
-        })();
-    </script>
-    <!-- [END] 슬라이더 섹션 -->
+    <!-- [END] 롤링 이미지 섹션 -->
 
 
     <h4 class="sub-heading-left">점검 항목 요약 및 위험 신호</h4>
@@ -226,7 +141,7 @@
     </ul>
 
 
-    <!-- [START] 투명하고 모던한 체크리스트 (글씨 흰색 적용) -->
+    <!-- [START] 투명 체크리스트 (흰색 글씨) -->
     <div class="modern-table-wrapper">
         <table class="modern-table">
             <thead>
@@ -275,7 +190,7 @@
             </tbody>
         </table>
     </div>
-    <!-- [END] 투명하고 모던한 체크리스트 -->
+    <!-- [END] 투명 체크리스트 -->
     
     <p class="image-caption">전자렌지 위생 체크리스트</p>
     
