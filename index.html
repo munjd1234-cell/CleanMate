@@ -86,7 +86,6 @@
   /* --- [HEADER & NEW BUTTON STYLES] --- */
   header img { height: 40px; } 
 
-  /* ▼ 수정 시작: 모바일 충돌 해결을 위해 Flexbox 배치로 변경 */
   header {
     position: fixed;
     top: 0;
@@ -103,16 +102,15 @@
   
   .header-top {
       display: flex;
-      justify-content: space-between; /* 로고와 버튼을 양쪽 끝으로 분리 */
+      justify-content: space-between; 
       align-items: center;
       width: 100%;
       position: relative; 
-      padding: 0 15px; /* 양쪽에 여백 추가 */
+      padding: 0 15px; 
       box-sizing: border-box;
   }
 
   .header-buttons {
-    /* 기존의 절대 위치(absolute) 설정 제거 */
     display: flex;
     gap: 5px; 
   }
@@ -137,7 +135,6 @@
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
-  /* ▲ 수정 종료 */
 
   header img { height: 40px; } 
   header h2 {
@@ -192,7 +189,7 @@
     box-sizing: border-box;
   }
 
-  /* --- [퀴즈 및 섹션 스타일 유지] --- */
+  /* --- [퀴즈 및 섹션 스타일] --- */
   .content-section {
     display: none; 
     animation: fadeIn 0.3s ease-in-out;
@@ -297,12 +294,11 @@
     text-align: left;
     max-width: 1000px; 
     margin: 0 auto;
-    line-height: 1.6; /* 모바일 기본 행간 */
+    line-height: 1.6;
     color: #ccc;
     padding: 0 1% 30px; 
   }
   
-  /* --- [제안 섹션 제목 (New Clean Accent Style)] --- */
   .solution-content-wrapper.active h2, 
   .solution-content-wrapper.active h3, 
   .solution-content-wrapper.active h4 {
@@ -320,18 +316,10 @@
       font-size: 20px; 
   }
 
-  /* --- [본문 텍스트 (P, UL, LI) - 모바일 기본 크기 유지] --- */
-  .solution-content-wrapper p {
-    font-size: 15px; 
-  }
-  .solution-content-wrapper ul li {
-    font-size: 15px; 
-  }
-  .solution-content-wrapper ul.bullet-list li {
-    font-size: 15px; 
-  }
+  .solution-content-wrapper p { font-size: 15px; }
+  .solution-content-wrapper ul li { font-size: 15px; }
+  .solution-content-wrapper ul.bullet-list li { font-size: 15px; }
   
-  /* H2 (Main Title) - 모바일 크기 */
   .solution-content-wrapper.active h2 {
       font-size: 24px; 
       color: #00bfa5 !important;
@@ -345,7 +333,6 @@
       box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
   }
   
-  /* H3 (Section Title) - 모바일 크기 */
   .solution-content-wrapper.active h3 {
       text-align: left !important;
       color: #fff !important;
@@ -359,7 +346,6 @@
       max-width: 90% !important;
   }
   
-  /* H4 (Sub-section Title) - 모바일 크기 */
   .solution-content-wrapper.active h4,
   .solution-content-wrapper.active .sub-heading-left {
       color: #00bfa5 !important; 
@@ -380,9 +366,7 @@
       display: block;
   }
 
-  .solution-content-wrapper strong {
-    color: #00bfa5;
-  }
+  .solution-content-wrapper strong { color: #00bfa5; }
   .solution-content-wrapper ul {
     list-style: none;
     padding: 0;
@@ -471,19 +455,6 @@
     width: 48%; 
     margin: 0;
   }
-  /* 사업자등록증 & 영업신고증 2개 이미지 나란히 배치 (이번 수정으로 사용되지 않음) */
-  .certificate-gallery img {
-    max-width: 48%; /* 너비를 48%로 설정하여 나란히 배치 */
-    display: inline-block;
-    vertical-align: top;
-    margin: 15px 1% 15px 1%;
-    height: auto;
-  }
-
-  .solution-img-gallery.vertical-images img {
-    width: 48%; 
-    height: auto;
-  }
   
   .seven-image-gallery {
     display: block; 
@@ -504,27 +475,42 @@
     display: block;
   }
 
-  /* --- [파트너 로고 갤러리 스타일] --- (추가됨) */
+  /* --- [파트너 로고 갤러리 스타일 (개편됨)] --- */
   .partner-logo-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around; 
-    gap: 10px;
-    padding: 10px 0;
-    max-width: 800px; /* PC 중앙 정렬을 위한 max-width */
+    display: grid;
+    /* 모바일: 2열, PC: 미디어쿼리에서 4~5열로 변경 */
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px; 
+    padding: 20px 10px;
+    max-width: 1200px;
     margin: 0 auto;
   }
 
-  .partner-logo-gallery img {
-    width: calc(50% - 5px); /* 2열 배치, 10px gap 고려 */
-    height: auto;
-    aspect-ratio: 1 / 1; /* 정사각형 유지 */
-    object-fit: contain; /* 이미지가 잘리지 않고, 여백을 포함하여 중앙에 오도록 */
-    background-color: #333; /* 로고 배경색 */
-    padding: 5px;
-    border-radius: 6px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.5);
-    margin: 0; /* 기존 img 마진 오버라이드 */
+  .partner-item {
+    background-color: #fff; /* 흰색 카드 배경 */
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 3 / 2; /* 가로형 비율 고정 */
+    padding: 15px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    transition: transform 0.2s;
+  }
+  
+  /* PC 등 큰 화면에서 호버 효과 */
+  .partner-item:hover {
+      transform: translateY(-3px);
+  }
+
+  .partner-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* 비율 유지하며 박스 안에 맞춤 */
+    margin: 0 !important; /* 기본 마진 제거 */
+    border-radius: 0;
+    box-shadow: none;
   }
 
   /* --- [PC/태블릿 환경 스타일 (500px 이상)] --- */
@@ -554,7 +540,6 @@
          min-height: calc(100vh - 122px - 85px); 
     }
     
-    /* 퀴즈 섹션 (원스톱상담) 위치 조정 - PC 화면 중앙으로 내리기 */
     #quiz-section {
         padding: 50px 0 0 0; 
         max-width: 800px; 
@@ -562,66 +547,26 @@
         min-height: auto; 
     }
 
-    /* --- [PC 폰트 크기 확장 (2차 수정)] --- */
-    
-    /* 메뉴 버튼 */
-    .menu-btn {
-      font-size: 16px; 
-      padding: 15px 10px; 
-    }
-
-    /* **본문 텍스트 및 리스트** */
+    /* --- [PC 폰트 크기 확장] --- */
+    .menu-btn { font-size: 16px; padding: 15px 10px; }
     .solution-content-wrapper p, 
-    .solution-content-wrapper ul.bullet-list li {
-        font-size: 18px; 
-        line-height: 1.8; 
-    }
+    .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
+    .solution-content-wrapper ul li { font-size: 18px; padding: 12px 20px; }
+    .sub-btn { font-size: 16px; }
 
-    /* 리스트 배경 있는 텍스트 */
-    .solution-content-wrapper ul li {
-        font-size: 18px; 
-        padding: 12px 20px;
-    }
-    
-    /* 서브 메뉴 버튼 */
-    .sub-btn {
-        font-size: 16px; 
-    }
-
-    /* --- [헤딩 태그 크기 확장] --- */
-    /* H2 (섹션 메인 타이틀) */
-    .solution-content-wrapper.active h2 {
-        font-size: 32px; 
-        padding: 20px 25px !important;
-    }
-
-    /* H3 (주요 주제) */
-    .solution-content-wrapper.active h3 {
-        font-size: 22px; 
-        padding: 14px 20px !important;
-        margin: 30px auto 30px 0 !important; 
-    }
-
-    /* H4 (소주제) */
+    .solution-content-wrapper.active h2 { font-size: 32px; padding: 20px 25px !important; }
+    .solution-content-wrapper.active h3 { font-size: 22px; padding: 14px 20px !important; margin: 30px auto 30px 0 !important; }
     .solution-content-wrapper.active h4,
-    .solution-content-wrapper.active .sub-heading-left {
-        font-size: 19px; 
-        margin: 35px auto 15px 0 !important;
-        }
+    .solution-content-wrapper.active .sub-heading-left { font-size: 19px; margin: 35px auto 15px 0 !important; }
     
-    /* 퀴즈/상담 버튼 */
-    #sendSMS, .fixed-buttons button {
-        font-size: 18px; 
-        padding: 18px 30px; 
-    }
-    /* 푸터 텍스트 */
-    footer {
-        font-size: 13px; 
-    }
+    #sendSMS, .fixed-buttons button { font-size: 18px; padding: 18px 30px; }
+    footer { font-size: 13px; }
 
-    /* PC 환경에서 너비 조정 (파트너 갤러리) */
-    .partner-logo-gallery img {
-        width: calc(50% - 10px); /* PC에서 20px gap 고려 */
+    /* 파트너 로고 PC 버전: 4열로 확장 */
+    .partner-logo-gallery {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        padding: 30px;
     }
   }
 </style>
@@ -753,24 +698,24 @@
       </div>
 
       <div id="mos-section" class="content-section solution-content-wrapper">
-          
+          <!-- 냉장고 내용 로드 -->
       </div>
       <div id="avk-section" class="content-section solution-content-wrapper">
-          
+          <!-- 제빙기 내용 로드 -->
       </div>
 
       <div id="dryice-section" class="content-section solution-content-wrapper">
-          
+          <!-- 전자렌지 내용 로드 -->
       </div>
 
       <div id="tech-section" class="content-section solution-content-wrapper">
-          
+          <!-- 기술력 내용 로드 -->
       </div>
 
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
-          <div class="partner-logo-gallery" id="partner-logo-gallery">
-              </div>
+          <!-- [수정됨] 협력사 로고 갤러리 컨테이너 -->
+          <div class="partner-logo-gallery" id="partner-logo-gallery"></div>
       </div>
 
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
@@ -946,14 +891,13 @@
         }
     }
 
-    // --- [원스톱상담 퀴즈 로직] (요청에 따라 유지) ---
+    // --- [원스톱상담 퀴즈 로직] (유지) ---
     let questions;
     let current = 0;
     let answers = new Array(5).fill(undefined);
     let selectedRegion = '';
     const phoneNumber = '01037710081'; 
 
-    // Q1을 활성화하고 옵션을 생성하도록 resetQuiz 함수
     function resetQuiz() {
         if(!questions) questions = document.querySelectorAll('#quiz-section .question');
         questions.forEach(q => q.classList.remove('active'));
@@ -964,10 +908,9 @@
         document.getElementById('opt5').innerHTML = '';
         selectedRegion = ''; 
         generateOptions('q1');
-        questions[0].classList.add('active'); // Q1 (index 0)을 활성화
+        questions[0].classList.add('active'); 
     }
 
-    // 퀴즈 데이터
     const data = {
         q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '공기청정기', '사무기기', '에어컨', '중고매입', '기타'],
         q2: ['정기관리', '분해청소', '필터교체', '제품교체', '제품이동', '긴급출동', '단순견적', '기타'],
@@ -992,11 +935,10 @@
             '경남': ['창원시', '진주시', '통영시', '사천시', '김해시', '밀양시', '거제시', '양산시', '의령군', '함안군', '창녕군', '고성군', '남해군', '하동군', '산청군', '함양군', '거창군', '합천군'],
             '제주': ['제주시', '서귀포시'],
             '전국': ['전국 전 지역'],
-            '지역 상세 없음': ['지역 상세 없음'] // 비상용 항목, 실제 사용되지 않음
+            '지역 상세 없음': ['지역 상세 없음'] 
         }
     };
 
-    // 옵션 버튼 생성 함수
     function createOptionButton(text) {
         const btn = document.createElement('button');
         btn.textContent = text;
@@ -1005,17 +947,14 @@
         return btn;
     }
 
-    // 옵션 생성 함수
     function generateOptions(questionId) {
         const optionsContainer = document.getElementById(`opt${questionId.slice(-1)}`);
-        // Q1~Q4 데이터 사용, Q5는 별도 로직으로 생성하거나 data.cities 사용
         const options = data[questionId] || (questionId === 'q5' && data.cities[selectedRegion]) || [];
         
         if (optionsContainer && options.length > 0) {
-            optionsContainer.innerHTML = ''; // 기존 옵션 클리어
+            optionsContainer.innerHTML = ''; 
             options.forEach(option => {
                 const btn = createOptionButton(option);
-                // 동적으로 생성된 버튼에 이벤트 리스너 직접 연결
                 btn.addEventListener('click', () => {
                     handleOptionClick(questionId, btn);
                 });
@@ -1026,102 +965,75 @@
         }
     }
 
-    // 옵션 클릭 처리 함수 (Q4에서 Q5 건너뛰기 로직 포함)
     function handleOptionClick(questionId, button) {
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
         
-        // 현재 질문의 모든 버튼 비활성화 및 클릭된 버튼 활성화
         const currentOptions = document.getElementById(`opt${qIndex + 1}`);
         currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
         
-        // 답변 저장
         answers[qIndex] = value;
         
-        // Q4 (지역) 선택 시 특수 로직 처리
         if (questionId === 'q4') {
             selectedRegion = value;
             const regionCities = data.cities[selectedRegion];
             
-            // Q5 건너뛰기 조건: '전국' 선택, 또는 도시 목록이 없거나 (ex: '세종'처럼 1개) 1개 이하일 경우
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
-                // Q5 답변 자동 저장 (건너뛰기)
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
-                setTimeout(() => nextQuestion(true), 200); // **true를 넘겨 Q5를 건너뛰고 결과로 이동**
+                setTimeout(() => nextQuestion(true), 200); 
                 return;
             } else {
-                // Q5 옵션 생성
                 generateOptions('q5');
             }
         } else if (questionId === 'q5') {
-            // Q5는 선택 후 바로 다음 단계로 이동
             answers[4] = value;
         }
         
-        // 다음 질문으로 이동 (Q4에서 건너뛰지 않았다면)
         setTimeout(() => nextQuestion(), 200);
     }
 
-    // 다음 질문으로 이동 함수 (isSkipQ5 플래그 추가)
     function nextQuestion(isSkipQ5 = false) {
         if (current >= 0 && current < questions.length) {
              questions[current].classList.remove('active');
         }
 
-        // Q4에서 Q5를 건너뛰도록 지시했는지 확인
         const isLastStep = isSkipQ5;
 
-        // 다음 질문 인덱스 결정
         if (isLastStep) {
-            current = questions.length - 1; // 'result' 인덱스로 강제 이동
+            current = questions.length - 1; 
         } else {
             current++;
         }
 
         if (current < questions.length) {
-            // 다음 질문 또는 result 화면 활성화
             questions[current].classList.add('active');
-            
-            // Q1, Q2, Q3, Q4에 대해서만 옵션 생성 (Q5는 Q4에서 처리)
             if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
                 generateOptions(questions[current].id);
             }
         }
         
-        // 현재 인덱스가 result (마지막 인덱스)이면 summarize 호출
         if (current === questions.length - 1) summarize();
     }
 
     function summarize() {
-        // undefined 값을 제외하고 답변을 요약 (선택된 모든 답변 포함)
         let finalAnswers = answers.filter(a => a !== undefined);
-        
-        // 최종 요약 텍스트 생성
         let summaryText = `선택하신 내용: ${finalAnswers.join(' / ')}`;
         document.getElementById('summary').textContent = summaryText;
 
         const sendSMSButton = document.getElementById('sendSMS');
-        // 필수 질문(Q1~Q4) 중 하나라도 답변하지 않았거나 (answers.length < 4), 
-        // Q5를 건너뛰지 않았는데 Q5 답변이 없는 경우(answers[4] === undefined) 버튼 비활성화 (선택 사항)
-        const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; // 전국이 아니면서 Q5가 미선택이면 5개, 아니면 4개만 확인
-        // 현재 답변 개수가 최소 필수 개수보다 적으면 버튼 비활성화
+        const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
         sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
         
-        // 만약 Q4에서 건너뛰었으나 answers 배열에 5번째 요소가 'undefined'가 아닌 경우, 즉 답변이 4개 이상이면 버튼 활성화
         if (answers[3] && answers[4]) {
             sendSMSButton.disabled = false;
         }
     }
 
     function sendSummarySMS() {
-        // 답변 요약
         const summaryText = answers.filter(a => a !== undefined).join(' / ');
         const message = `[클린메이트 상담 요청]\n${summaryText}`;
-        
-        // URL 인코딩 (필수)
         const encodedMessage = encodeURIComponent(message);
-        
         const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
         
         if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) {
@@ -1129,7 +1041,6 @@
         }
     }
 
-    // 초기화 함수를 하단 버튼에서 사용할 수 있도록 전역에 선언
     function restartQuiz() {
         resetQuiz();
         scrollToSectionClick('quiz-section');
@@ -1160,20 +1071,25 @@
         container.innerHTML = html;
     }
 
-    // 요청에 따라 수정된 협력사 로고 생성 함수 (imege/partner_goloimg1~35.jpg)
+    // [수정됨] 협력사 로고 생성 함수 (b001.jpg ~ b014.jpg)
     function generatePartnerLogos() {
         const container = document.getElementById('partner-logo-gallery');
         if (!container) return;
 
         let html = '';
         
-        // 1번부터 35번까지 반복
-        for (let i = 1; i <= 35; i++) {
-            // ▼ 핵심 수정: 폴더명(imege)과 파일명(partner_goloimg)을 직접 연결
-            const src = `imege/partner_goloimg${i}.jpg`;
+        // 1번부터 14번까지 (b001 ~ b014)
+        for (let i = 1; i <= 14; i++) {
+            // 3자리 숫자로 포맷팅 (001, 002...)
+            const fileNum = i.toString().padStart(3, '0');
+            const src = `imege/b${fileNum}.jpg`;
 
-            // 이미지 태그 생성 (에러 시 회색 박스로 대체하는 코드 포함)
-            html += `<img src="${src}" alt="협력사 로고 ${i}" onerror="this.src='https://via.placeholder.com/100x100/333333/cccccc?text=로고+${i}+누락';">`;
+            // 각 로고를 흰색 카드(div.partner-item)로 감싸서 생성
+            html += `
+                <div class="partner-item">
+                    <img src="${src}" alt="협력사 로고 ${i}" onerror="this.style.display='none';">
+                </div>
+            `;
         }
         container.innerHTML = html;
     }
