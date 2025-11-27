@@ -478,49 +478,20 @@
   }
 
   /* --- [퀴즈 스타일] --- */
-  .content-section {
-    display: none; 
-    animation: fadeIn 0.3s ease-in-out;
-  }
-  .content-section.active {
-    display: block; 
-  }
+  .content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+  .content-section.active { display: block; }
   .question { display: none; text-align: center; }
   .question.active { display: block; }
   .question h3 { margin-top: 20px; color: #00bfa5; }
-  .options { 
-    display: flex; 
-    flex-wrap: wrap; 
-    justify-content: center; 
-    gap: 10px; 
-    margin-bottom: 20px; 
-  }
+  .options { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 20px; }
   .option-button {
-    background-color: #333;
-    color: #fff;
-    border: 1px solid #555;
-    padding: 10px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 14px;
-    transition: background-color 0.2s;
+    background: #333; color: #fff; border: 1px solid #555; padding: 10px 15px;
+    border-radius: 20px; cursor: pointer; font-size: 14px;
   }
-  .option-button:hover { background-color: #444; }
-  .option-button.active {
-    background-color: #00bfa5;
-    color: #fff;
-    border-color: #00bfa5;
-    font-weight: bold;
-  }
+  .option-button.active { background: #00bfa5; border-color: #00bfa5; font-weight: bold; }
   #sendSMS {
-    background-color: #00bfa5;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    padding: 15px 25px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 20px;
+    background: #00bfa5; color: white; border: none; border-radius: 30px;
+    padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 20px;
   }
   #summary {
       color: #00bfa5; 
@@ -703,7 +674,7 @@
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
 
-      <!-- [수정됨] 기술력 섹션: HTML 구조 개편 (인증서 1열 2개 배치, 하단 삭제) -->
+      <!-- [수정됨] 기술력 섹션: HTML 직접 구조 (2열 인증서) -->
       <div id="tech-section" class="content-section solution-content-wrapper">
           <h2>기술력 및 인증</h2>
           
@@ -846,7 +817,7 @@
         if (targetSection) {
             let loadPromise = Promise.resolve(); 
 
-            // 기술력 섹션은 HTML에 직접 작성했으므로 로드 로직 제외
+            // 기술력(tech-section)은 HTML에 직접 넣었으므로 로드 로직에서 제외
             if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
             } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
@@ -961,27 +932,35 @@
     function generateOptions(questionId) {
         const optionsContainer = document.getElementById(`opt${questionId.slice(-1)}`);
         const options = data[questionId] || (questionId === 'q5' && data.cities[selectedRegion]) || [];
-        if (optionsContainer) {
+        
+        if (optionsContainer && options.length > 0) {
             optionsContainer.innerHTML = ''; 
             options.forEach(option => {
                 const btn = createOptionButton(option);
-                btn.addEventListener('click', () => handleOptionClick(questionId, btn));
+                btn.addEventListener('click', () => {
+                    handleOptionClick(questionId, btn);
+                });
                 optionsContainer.appendChild(btn);
             });
+        } else if (optionsContainer) {
+            optionsContainer.innerHTML = '';
         }
     }
 
     function handleOptionClick(questionId, button) {
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
+        
         const currentOptions = document.getElementById(`opt${qIndex + 1}`);
         currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
+        
         answers[qIndex] = value;
         
         if (questionId === 'q4') {
             selectedRegion = value;
             const regionCities = data.cities[selectedRegion];
+            
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
                 setTimeout(() => nextQuestion(true), 200); 
@@ -992,26 +971,45 @@
         } else if (questionId === 'q5') {
             answers[4] = value;
         }
+        
         setTimeout(() => nextQuestion(), 200);
     }
 
     function nextQuestion(isSkipQ5 = false) {
-        if (current >= 0 && current < questions.length) questions[current].classList.remove('active');
-        current = isSkipQ5 ? questions.length - 1 : current + 1;
+        if (current >= 0 && current < questions.length) {
+             questions[current].classList.remove('active');
+        }
+
+        const isLastStep = isSkipQ5;
+
+        if (isLastStep) {
+            current = questions.length - 1; 
+        } else {
+            current++;
+        }
+
         if (current < questions.length) {
             questions[current].classList.add('active');
-            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') generateOptions(questions[current].id);
+            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
+                generateOptions(questions[current].id);
+            }
         }
+        
         if (current === questions.length - 1) summarize();
     }
 
     function summarize() {
         let finalAnswers = answers.filter(a => a !== undefined);
-        document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
+        let summaryText = `선택하신 내용: ${finalAnswers.join(' / ')}`;
+        document.getElementById('summary').textContent = summaryText;
+
         const sendSMSButton = document.getElementById('sendSMS');
         const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
         sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
-        if (answers[3] && answers[4]) sendSMSButton.disabled = false;
+        
+        if (answers[3] && answers[4]) {
+            sendSMSButton.disabled = false;
+        }
     }
 
     function sendSummarySMS() {
@@ -1019,7 +1017,10 @@
         const message = `[클린메이트 상담 요청]\n${summaryText}`;
         const encodedMessage = encodeURIComponent(message);
         const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
-        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) window.location.href = smsLink;
+        
+        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) {
+            window.location.href = smsLink;
+        }
     }
 
     function restartQuiz() {
@@ -1030,11 +1031,23 @@
     function generateGallery(containerId, folder, start, end, baseName, padding = 0) {
         const container = document.getElementById(containerId);
         if (!container) return;
+        
         let html = '';
-        for (let i = start; i <= end; i++) {
-            let fileName = padding > 0 ? `${i.toString().padStart(padding, '0')}.jpg` : `${baseName}${i}.jpg`;
+        const maxAttempts = end; 
+
+        for (let i = start; i <= maxAttempts; i++) {
+            let fileName;
+            let altText;
+            if (padding > 0) {
+              let fileNumber = i.toString().padStart(padding, '0');
+              fileName = `${fileNumber}.jpg`;
+              altText = `이미지 ${fileNumber}`;
+            } else {
+              fileName = `${baseName}${i}.jpg`;
+              altText = `${baseName} ${i}`;
+            }
             const src = `imege/${folder}/${fileName}`;
-            html += `<img src="${src}" alt="이미지" onerror="this.style.display='none'">`;
+            html += `<img src="${src}" alt="${altText}" onerror="this.src='https://via.placeholder.com/200x120/333333/cccccc?text=이미지+누락'; this.style.opacity='0.7';">`;
         }
         container.innerHTML = html;
     }
@@ -1042,38 +1055,65 @@
     function generatePartnerLogos() {
         const track = document.getElementById('partner-logo-track');
         if (!track) return;
+
         let html = '';
+        
+        // 1번부터 14번까지 (b001 ~ b014)
         for (let i = 1; i <= 14; i++) {
             const fileNum = i.toString().padStart(3, '0');
             const src = `imege/b${fileNum}.jpg`;
-            html += `<div class="partner-item"><img src="${src}" alt="협력사 ${i}" onerror="this.style.display='none';"></div>`;
+
+            html += `
+                <div class="partner-item">
+                    <img src="${src}" alt="협력사 로고 ${i}" onerror="this.style.display='none';">
+                </div>
+            `;
         }
+        
+        // 무한 롤링을 위해 2번 반복 (원본 + 복사본)
         track.innerHTML = html + html; 
     }
 
+
+    // ▼ 외부 콘텐츠 로드 함수 ▼
     async function loadSectionContent(targetId, contentPath) {
         const targetSection = document.getElementById(targetId);
         if (!targetSection || targetSection.dataset.loaded) return; 
+
         try {
             const response = await fetch(contentPath);
-            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
             const content = await response.text();
             targetSection.innerHTML = content;
-            targetSection.dataset.loaded = 'true'; 
+            targetSection.dataset.loaded = 'true'; // 로드 완료 표시
         } catch (error) {
-            console.error(`Error loading content:`, error);
+            console.error(`Error loading content for ${targetId}:`, error);
+            targetSection.innerHTML = `<h2 style="color:red; text-align:center; padding-top: 50px;">콘텐츠 로드 실패: ${contentPath} 파일을 확인해주세요.</h2>`;
         }
     }
 
+    // 페이지 로드 시 실행
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
+        
+        // [수정됨] 기술력 하단 이미지 생성 코드 제거됨 (요청 반영)
+        // 포트폴리오 생성 코드는 유지
         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
+        
+        // 협력사 로고 로드 실행
         generatePartnerLogos(); 
+
+        // 퀴즈 초기화
         resetQuiz(); 
     });
 
-    if (scrollText) scrollText.innerHTML += scrollText.innerHTML; 
+    if (scrollText) {
+        scrollText.innerHTML += scrollText.innerHTML; 
+    }
+
 </script>
 </body>
 </html>
