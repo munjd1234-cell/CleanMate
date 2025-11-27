@@ -80,7 +80,7 @@
     width: 100%;
   }
 
-  /* --- [HEADER 수정: 버튼 삭제, 로고 중앙 정렬] --- */
+  /* --- [HEADER] --- */
   header {
     position: fixed;
     top: 0;
@@ -97,7 +97,7 @@
   
   .header-top {
       display: flex;
-      justify-content: center; /* 중앙 정렬 */
+      justify-content: center; /* 로고 중앙 정렬 */
       align-items: center;
       width: 100%;
       padding: 0 15px; 
@@ -106,7 +106,7 @@
 
   header img { 
       height: 45px; 
-      cursor: pointer; /* 클릭 가능 커서 */
+      cursor: pointer; 
   } 
   
   header h2 {
@@ -119,7 +119,7 @@
   /* --- [메뉴바] --- */
   .main-menu {
     position: fixed;
-    top: 79px; /* 헤더 높이에 맞춰 조정 */
+    top: 79px; 
     left: 0;
     width: 100%;
     background: #222;
@@ -151,8 +151,8 @@
   }
 
   main {
-    margin-top: 126px; /* 헤더 + 메뉴바 높이 */
-    margin-bottom: 80px; /* 하단 버튼 공간 확보 */
+    margin-top: 126px; 
+    margin-bottom: 80px; 
     min-height: calc(100vh - 126px - 80px); 
     height: auto;
     overflow-y: visible; 
@@ -161,7 +161,7 @@
     box-sizing: border-box;
   }
 
-  /* --- [하단 고정 버튼 수정: 4개 배치] --- */
+  /* --- [하단 고정 버튼 4개] --- */
   .fixed-buttons {
     position: fixed;
     bottom: 35px; 
@@ -169,33 +169,31 @@
     width: 100%;
     display: flex;
     justify-content: center;
-    gap: 5px; /* 버튼 간격 좁힘 */
+    gap: 5px;
     z-index: 999;
     padding: 0 5px;
     box-sizing: border-box;
   }
 
   .fixed-buttons button {
-    flex: 1; /* 4등분 */
+    flex: 1; 
     border: none;
     border-radius: 10px;
     padding: 12px 0;
-    font-size: 13px; /* 4개 배치 위해 폰트 조정 */
+    font-size: 13px;
     font-weight: bold;
     cursor: pointer;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
     white-space: nowrap;
   }
 
-  /* 상담 버튼 (기존 민트색) */
   .btn-primary {
       background: #00bfa5;
       color: white;
   }
 
-  /* 제안서 버튼 (구분되는 색상 - 짙은 회색) */
   .btn-proposal-bottom {
-      background: #455a64; /* 짙은 블루그레이 */
+      background: #455a64; 
       color: white;
   }
 
@@ -234,7 +232,6 @@
     padding: 0 1% 30px; 
   }
   
-  /* 타이틀 스타일 */
   .solution-content-wrapper.active h2, 
   .solution-content-wrapper.active h3, 
   .solution-content-wrapper.active h4 {
@@ -326,7 +323,7 @@
     color: #ccc;
   }
   
-  /* --- [서브 메뉴 스타일] --- */
+  /* --- [서브 메뉴] --- */
   .sub-menu {
     display: flex;
     justify-content: flex-start;
@@ -371,7 +368,7 @@
       display: block;
   }
 
-  /* --- [이미지/갤러리 스타일] --- */
+  /* --- [이미지] --- */
   .solution-content-wrapper img {
     max-width: 100%; 
     height: auto;    
@@ -379,17 +376,6 @@
     margin: 15px auto;
     border-radius: 6px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  }
-  .solution-img-gallery {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    gap: 10px;
-    padding: 10px 0;
-  }
-  .solution-img-gallery img {
-    width: 48%; 
-    margin: 0;
   }
   
   .seven-image-gallery {
@@ -411,25 +397,7 @@
     display: block;
   }
 
-  /* --- [기술력 섹션 인증서 그리드 스타일] --- */
-  .cert-grid {
-      display: flex;
-      gap: 10px;
-      justify-content: space-between;
-      margin: 20px 0;
-  }
-  .cert-item {
-      flex: 1; /* 2개 균등 분할 */
-      text-align: center;
-  }
-  .cert-item img {
-      width: 100%;
-      height: auto;
-      margin-bottom: 5px;
-      border: 1px solid #444; /* 테두리 추가 */
-  }
-
-  /* --- [파트너 로고 1열 세로 롤링 스타일] --- */
+  /* --- [파트너 로고 1열 세로 롤링] --- */
   .partner-logo-gallery-wrapper {
       width: 100%;
       max-width: 300px; 
@@ -502,40 +470,11 @@
       word-break: keep-all;
   }
 
-  /* --- [PC/태블릿 환경 스타일 (500px 이상)] --- */
+  /* --- [PC/태블릿] --- */
   @media (min-width: 500px) {
-    body {
-        overflow-y: auto !important; 
-        overflow-x: hidden !important; 
-    }
-
-    #intro-screen,
-    #main-content-wrapper {
-        max-width: 1600px; 
-        margin: 0 auto; 
-        box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); 
-    }
-
-    header, .main-menu, .fixed-buttons, footer {
-        width: 100%;
-        max-width: 1600px; 
-        left: 50%;
-        transform: translateX(-50%); 
-    }
-    
-    main {
-         height: auto;
-         min-height: calc(100vh - 122px - 85px); 
-    }
-    
-    #quiz-section {
-        padding: 50px 0 0 0; 
-        max-width: 800px; 
-        margin: 0 auto; 
-        min-height: auto; 
-    }
-
-    /* --- [PC 폰트 크기 확장] --- */
+    body { overflow-y: auto !important; }
+    #intro-screen, #main-content-wrapper { max-width: 1600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+    header, .main-menu, .fixed-buttons, footer { width: 100%; max-width: 1600px; left: 50%; transform: translateX(-50%); }
     .menu-btn { font-size: 16px; padding: 15px 10px; }
     .solution-content-wrapper p, 
     .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
@@ -550,10 +489,7 @@
     #sendSMS, .fixed-buttons button { font-size: 18px; padding: 18px 0; }
     footer { font-size: 13px; }
 
-    .partner-logo-gallery-wrapper {
-        max-width: 400px; 
-        height: 600px; 
-    }
+    .partner-logo-gallery-wrapper { max-width: 400px; height: 600px; }
   }
 </style>
 </head>
@@ -571,7 +507,7 @@
   
   <div id="main-content-wrapper">
     <header>
-      <!-- [수정됨] 로고 중앙 배치 및 클릭 이동 -->
+      <!-- 로고 중앙 정렬, 클릭 시 새로고침 -->
       <div class="header-top">
           <img src="imege/logo2.png" alt="클린메이트 로고" onclick="location.reload()" />
       </div>
@@ -673,31 +609,8 @@
       <div id="mos-section" class="content-section solution-content-wrapper"></div>
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
-
-      <!-- [수정됨] 기술력 섹션: HTML 직접 구조 (2열 인증서) -->
-      <div id="tech-section" class="content-section solution-content-wrapper">
-          <h2>기술력 및 인증</h2>
-          
-          <h3>보유 기술 및 장비</h3>
-          <p>클린메이트는 최첨단 ATP 측정 장비와 산업용 내시경, 고압 스팀 살균기를 보유하여 보이지 않는 곳까지 케어합니다.</p>
-          
-          <!-- 인증서 1열 2개 배치 -->
-          <div class="cert-grid">
-              <div class="cert-item">
-                  <img src="imege/s03/certificate_img1.jpg" alt="중소기업 확인서" onerror="this.src='https://via.placeholder.com/300x400?text=중소기업확인서'">
-                  <p class="image-caption">중소기업 확인서</p>
-              </div>
-              <div class="cert-item">
-                  <img src="imege/s03/certificate_img2.jpg" alt="직접생산 확인서" onerror="this.src='https://via.placeholder.com/300x400?text=직접생산확인서'">
-                  <p class="image-caption">직접생산 확인서</p>
-              </div>
-          </div>
-          
-          <!-- 특허증 및 시험성적서 이미지는 제거됨 -->
-
-          <h3>현장 포트폴리오</h3>
-          <div id="portfolio-gallery-container" class="solution-img-gallery"></div>
-      </div>
+      <!-- [원상복구] 기술력 섹션: 외부 파일 로드 방식 -->
+      <div id="tech-section" class="content-section solution-content-wrapper"></div>
 
       <!-- 협력사 섹션 -->
       <div id="partner-section" class="content-section solution-content-wrapper">
@@ -711,7 +624,6 @@
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
           <h2>원스톱 상담</h2>
           <p></p>
-          
           <div class="question active" id="q1">
               <h3>관리할 품목을 선택해주세요.</h3>
               <div class="options" id="opt1"></div>
@@ -740,7 +652,6 @@
       </div>
     </main>
 
-    <!-- [수정됨] 하단 고정 버튼: 4개 배치, 제안서 디자인 변경 -->
     <div class="fixed-buttons">
       <button id="btn-onestop" class="btn-primary" onclick="restartQuiz()">원스톱상담</button>
       <button class="btn-primary" onclick="window.location.href='tel:1666-1757'">전화상담</button>
@@ -799,13 +710,11 @@
         });
     });
 
-    // [수정됨] 버튼 이름 변경 로직 포함
     function scrollToSectionClick(targetId) {
         document.querySelectorAll('.content-section').forEach(section => {
             section.classList.remove('active');
         });
 
-        // 하단 버튼 텍스트 변경
         const onestopBtn = document.getElementById('btn-onestop');
         if (targetId === 'quiz-section') {
             onestopBtn.textContent = '다시선택';
@@ -817,13 +726,15 @@
         if (targetSection) {
             let loadPromise = Promise.resolve(); 
 
-            // 기술력(tech-section)은 HTML에 직접 넣었으므로 로드 로직에서 제외
+            // [복구됨] 기술력도 외부 파일 로드
             if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
             } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('avk-section', 'mos_icemaker_content.html');
             } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('dryice-section', 'microwave_solution.html');
+            } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
+                loadPromise = loadSectionContent('tech-section', 'technology.html');
             }
             
             loadPromise.then(() => {
@@ -842,10 +753,7 @@
                 setTimeout(() => {
                     const offset = 126; 
                     const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
-                    window.scrollTo({
-                        top: elementPosition - offset,
-                        behavior: 'smooth'
-                    });
+                    window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
                 }, 50); 
             });
         }
@@ -932,35 +840,27 @@
     function generateOptions(questionId) {
         const optionsContainer = document.getElementById(`opt${questionId.slice(-1)}`);
         const options = data[questionId] || (questionId === 'q5' && data.cities[selectedRegion]) || [];
-        
-        if (optionsContainer && options.length > 0) {
+        if (optionsContainer) {
             optionsContainer.innerHTML = ''; 
             options.forEach(option => {
                 const btn = createOptionButton(option);
-                btn.addEventListener('click', () => {
-                    handleOptionClick(questionId, btn);
-                });
+                btn.addEventListener('click', () => handleOptionClick(questionId, btn));
                 optionsContainer.appendChild(btn);
             });
-        } else if (optionsContainer) {
-            optionsContainer.innerHTML = '';
         }
     }
 
     function handleOptionClick(questionId, button) {
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
-        
         const currentOptions = document.getElementById(`opt${qIndex + 1}`);
         currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
-        
         answers[qIndex] = value;
         
         if (questionId === 'q4') {
             selectedRegion = value;
             const regionCities = data.cities[selectedRegion];
-            
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
                 setTimeout(() => nextQuestion(true), 200); 
@@ -971,45 +871,26 @@
         } else if (questionId === 'q5') {
             answers[4] = value;
         }
-        
         setTimeout(() => nextQuestion(), 200);
     }
 
     function nextQuestion(isSkipQ5 = false) {
-        if (current >= 0 && current < questions.length) {
-             questions[current].classList.remove('active');
-        }
-
-        const isLastStep = isSkipQ5;
-
-        if (isLastStep) {
-            current = questions.length - 1; 
-        } else {
-            current++;
-        }
-
+        if (current >= 0 && current < questions.length) questions[current].classList.remove('active');
+        current = isSkipQ5 ? questions.length - 1 : current + 1;
         if (current < questions.length) {
             questions[current].classList.add('active');
-            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
-                generateOptions(questions[current].id);
-            }
+            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') generateOptions(questions[current].id);
         }
-        
         if (current === questions.length - 1) summarize();
     }
 
     function summarize() {
         let finalAnswers = answers.filter(a => a !== undefined);
-        let summaryText = `선택하신 내용: ${finalAnswers.join(' / ')}`;
-        document.getElementById('summary').textContent = summaryText;
-
+        document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
         const sendSMSButton = document.getElementById('sendSMS');
         const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
         sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
-        
-        if (answers[3] && answers[4]) {
-            sendSMSButton.disabled = false;
-        }
+        if (answers[3] && answers[4]) sendSMSButton.disabled = false;
     }
 
     function sendSummarySMS() {
@@ -1017,10 +898,7 @@
         const message = `[클린메이트 상담 요청]\n${summaryText}`;
         const encodedMessage = encodeURIComponent(message);
         const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
-        
-        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) {
-            window.location.href = smsLink;
-        }
+        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) window.location.href = smsLink;
     }
 
     function restartQuiz() {
@@ -1031,23 +909,11 @@
     function generateGallery(containerId, folder, start, end, baseName, padding = 0) {
         const container = document.getElementById(containerId);
         if (!container) return;
-        
         let html = '';
-        const maxAttempts = end; 
-
-        for (let i = start; i <= maxAttempts; i++) {
-            let fileName;
-            let altText;
-            if (padding > 0) {
-              let fileNumber = i.toString().padStart(padding, '0');
-              fileName = `${fileNumber}.jpg`;
-              altText = `이미지 ${fileNumber}`;
-            } else {
-              fileName = `${baseName}${i}.jpg`;
-              altText = `${baseName} ${i}`;
-            }
+        for (let i = start; i <= end; i++) {
+            let fileName = padding > 0 ? `${i.toString().padStart(padding, '0')}.jpg` : `${baseName}${i}.jpg`;
             const src = `imege/${folder}/${fileName}`;
-            html += `<img src="${src}" alt="${altText}" onerror="this.src='https://via.placeholder.com/200x120/333333/cccccc?text=이미지+누락'; this.style.opacity='0.7';">`;
+            html += `<img src="${src}" alt="이미지" onerror="this.style.display='none'">`;
         }
         container.innerHTML = html;
     }
@@ -1055,65 +921,42 @@
     function generatePartnerLogos() {
         const track = document.getElementById('partner-logo-track');
         if (!track) return;
-
         let html = '';
-        
-        // 1번부터 14번까지 (b001 ~ b014)
         for (let i = 1; i <= 14; i++) {
             const fileNum = i.toString().padStart(3, '0');
             const src = `imege/b${fileNum}.jpg`;
-
-            html += `
-                <div class="partner-item">
-                    <img src="${src}" alt="협력사 로고 ${i}" onerror="this.style.display='none';">
-                </div>
-            `;
+            html += `<div class="partner-item"><img src="${src}" alt="협력사 ${i}" onerror="this.style.display='none';"></div>`;
         }
-        
-        // 무한 롤링을 위해 2번 반복 (원본 + 복사본)
         track.innerHTML = html + html; 
     }
 
-
-    // ▼ 외부 콘텐츠 로드 함수 ▼
     async function loadSectionContent(targetId, contentPath) {
         const targetSection = document.getElementById(targetId);
         if (!targetSection || targetSection.dataset.loaded) return; 
-
         try {
             const response = await fetch(contentPath);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
+            if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
             const content = await response.text();
             targetSection.innerHTML = content;
-            targetSection.dataset.loaded = 'true'; // 로드 완료 표시
+            targetSection.dataset.loaded = 'true'; 
         } catch (error) {
-            console.error(`Error loading content for ${targetId}:`, error);
-            targetSection.innerHTML = `<h2 style="color:red; text-align:center; padding-top: 50px;">콘텐츠 로드 실패: ${contentPath} 파일을 확인해주세요.</h2>`;
+            console.error(`Error loading content:`, error);
         }
     }
 
-    // 페이지 로드 시 실행
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
         
-        // [수정됨] 기술력 하단 이미지 생성 코드 제거됨 (요청 반영)
+        // [중요] 특허증 등 이미지 자동 생성 코드 제거됨 (요청 반영)
         // 포트폴리오 생성 코드는 유지
         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
         
-        // 협력사 로고 로드 실행
         generatePartnerLogos(); 
-
-        // 퀴즈 초기화
         resetQuiz(); 
     });
 
-    if (scrollText) {
-        scrollText.innerHTML += scrollText.innerHTML; 
-    }
-
+    if (scrollText) scrollText.innerHTML += scrollText.innerHTML; 
 </script>
 </body>
 </html>
