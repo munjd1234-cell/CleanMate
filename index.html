@@ -866,45 +866,59 @@
         });
     });
 
+    // [수정됨] 스크롤 이동 함수 (로딩 대기 기능 추가)
     function scrollToSectionClick(targetId) {
+        // 1. 모든 섹션 숨김 처리 (초기화)
         document.querySelectorAll('.content-section').forEach(section => {
             section.classList.remove('active');
         });
+
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             
-            // ▼ 콘텐츠 로드 로직 확장 (요청에 따라 수정됨) ▼
-            if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
-                loadSectionContent('mos-section', 'mos_refrigerator_content.html'); // 냉장고 연결
-            } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
-                loadSectionContent('avk-section', 'mos_icemaker_content.html'); // 제빙기 연결
-            } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
-                loadSectionContent('dryice-section', 'microwave_solution.html'); // 전자렌지 연결
-            } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
-                loadSectionContent('tech-section', 'technology.html'); // 기술 연결
-            }
-            // ▲ 콘텐츠 로드 로직 확장 (요청에 따라 수정됨) ▲
-            
-            targetSection.classList.add('active');
-            
-            // 스크롤 위치 조정 (헤더와 메뉴바 높이 고려)
-            const offset = 122; // header(75px) + main-menu padding(47px)
-            const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
-            window.scrollTo({
-                top: elementPosition - offset,
-                behavior: 'smooth'
-            });
+            // 로딩이 필요한 경우를 대비해 약속(Promise) 변수를 만듭니다.
+            // 기본적으로는 "할 일 없음(즉시 완료)" 상태입니다.
+            let loadPromise = Promise.resolve(); 
 
-            // 서브 메뉴가 있는 섹션이면 첫 번째 서브 콘텐츠 활성화
-            const subMenu = targetSection.querySelector('.sub-menu');
-            if (subMenu) {
-                const firstSubBtn = subMenu.querySelector('.sub-btn');
-                if (firstSubBtn) {
-                    handleSubMenuClick(firstSubBtn.getAttribute('data-content-id'), targetSection);
-                    subMenu.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
-                    firstSubBtn.classList.add('active');
-                }
+            // ▼ 콘텐츠 로드 로직 (비동기 처리) ▼
+            // 만약 아직 로드되지 않은 섹션이라면, loadSectionContent 함수가 끝날 때까지 기다리게 설정합니다.
+            if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
+                loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
+            } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
+                loadPromise = loadSectionContent('avk-section', 'mos_icemaker_content.html');
+            } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
+                loadPromise = loadSectionContent('dryice-section', 'microwave_solution.html');
+            } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
+                loadPromise = loadSectionContent('tech-section', 'technology.html');
             }
+            
+            // ▼ 로딩 완료 후 실행되는 부분 ▼
+            loadPromise.then(() => {
+                // 1. 내용을 보여줌
+                targetSection.classList.add('active');
+                
+                // 2. 서브 메뉴 처리 (기존 로직 유지)
+                const subMenu = targetSection.querySelector('.sub-menu');
+                if (subMenu) {
+                    const firstSubBtn = subMenu.querySelector('.sub-btn');
+                    if (firstSubBtn) {
+                        handleSubMenuClick(firstSubBtn.getAttribute('data-content-id'), targetSection);
+                        subMenu.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+                        firstSubBtn.classList.add('active');
+                    }
+                }
+
+                // 3. 화면 그리기 안전장치 (0.05초 대기)
+                // 내용이 화면에 그려지는 찰나의 시간을 기다려준 뒤 스크롤을 이동합니다.
+                setTimeout(() => {
+                    const offset = 122; // 헤더 높이 보정값
+                    const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
+                    window.scrollTo({
+                        top: elementPosition - offset,
+                        behavior: 'smooth'
+                    });
+                }, 50); 
+            });
         }
     }
 
