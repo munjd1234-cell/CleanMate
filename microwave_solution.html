@@ -1,3 +1,5 @@
+--- START OF FILE microwave_solution (4).html ---
+
 <h2>전자렌지 위생 관리 솔루션</h2>
     
     <h3 id="microwave-s01-anchor">전자렌지 위생 점검 체크리스트</h3>
@@ -5,98 +7,104 @@
         전자렌지는 '음식물 조리'라는 오해 때문에 청결하다고 생각하기 쉽지만, 공용 전자렌지는 다수가 접촉하며 고온다습한 내부 환경은 세균이 빠르게 증식하는 위험 구역입니다. 아래 체크리스트는 관리 시급성을 파악하는 데 중요합니다.
     </p>
 
-    <!-- [START] 전자렌지 작업 공정 이미지 갤러리 (냉장고와 동일한 방식) -->
-    <div style="width: 100%; margin: 20px 0; overflow-x: auto;">
-        <!-- 그리드 컨테이너: 최소 너비를 600px로 고정하여 모바일에서 이미지가 작아지지 않고 스크롤되게 함 -->
-        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; min-width: 600px;">
+    <!-- [STYLE] 무한 롤링 애니메이션 정의 -->
+    <style>
+        /* 롤링 애니메이션 키프레임 */
+        @keyframes scroll-left {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); } /* 전체 길이의 절반(원본 세트)만큼 이동 */
+        }
+
+        /* 공통 롤링 컨테이너 */
+        .rolling-wrapper {
+            width: 100%;
+            overflow: hidden;
+            margin: 20px 0;
+            position: relative;
+        }
+
+        .rolling-track {
+            display: flex;
+            width: max-content; /* 내용물만큼 넓어짐 */
+            animation: scroll-left 40s linear infinite; /* 40초 동안 천천히 이동 */
+        }
+
+        /* 마우스 올리면 멈춤 (내용 확인용) */
+        .rolling-track:hover {
+            animation-play-state: paused;
+        }
+
+        /* 이미지 아이템 스타일 */
+        .rolling-img-item {
+            flex: 0 0 30vw; /* 모바일에서 약 3.3개 보이게 설정 (화면의 30%) */
+            max-width: 160px; /* PC에서는 너무 커지지 않게 제한 */
+            margin-right: 10px;
+            position: relative;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        /* 도표 아이템 스타일 */
+        .rolling-table-item {
+            flex: 0 0 auto;
+            width: 90vw; /* 모바일에서 표의 90% 정도가 보이게 설정 (약간 잘려서 뒤가 궁금하게) */
+            max-width: 600px; /* PC 최대 너비 */
+            margin-right: 40px; /* 표 사이 간격 */
+        }
+
+        /* 텍스트 스타일 */
+        .img-caption {
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            padding: 5px 0; 
+            text-align: center; 
+            color: #fff; 
+            font-size: 11px; 
+            font-weight: bold; 
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; 
+            line-height: 1.2;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        }
+    </style>
+
+    <!-- [START] 전자렌지 작업 공정 이미지 (무한 롤링) -->
+    <!-- 원본 10장 + 복사본 10장 = 총 20장을 연속 배치하여 끊김 없는 무한 루프 구현 -->
+    <div class="rolling-wrapper">
+        <div class="rolling-track">
             
-            <!-- 1. 초기 오염도 검사 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t01.jpg" alt="초기 오염도 검사" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    초기 오염도 검사
-                </div>
-            </div>
+            <!-- [SET 1 : 원본] -->
+            <div class="rolling-img-item"><img src="imege/t01.jpg" style="width:100%; display:block;"><div class="img-caption">초기 오염도 검사</div></div>
+            <div class="rolling-img-item"><img src="imege/t02.jpg" style="width:100%; display:block;"><div class="img-caption">청소 전 기록 작업</div></div>
+            <div class="rolling-img-item"><img src="imege/t03.jpg" style="width:100%; display:block;"><div class="img-caption">부속 분리</div></div>
+            <div class="rolling-img-item"><img src="imege/t04.jpg" style="width:100%; display:block;"><div class="img-caption">분리된 부품 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t05.jpg" style="width:100%; display:block;"><div class="img-caption">스팀 살균 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t06.jpg" style="width:100%; display:block;"><div class="img-caption">본체 내부 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t07.jpg" style="width:100%; display:block;"><div class="img-caption">외장부 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t08.jpg" style="width:100%; display:block;"><div class="img-caption">세척된 부품 재조립</div></div>
+            <div class="rolling-img-item"><img src="imege/t09.jpg" style="width:100%; display:block;"><div class="img-caption">UV 소독</div></div>
+            <div class="rolling-img-item"><img src="imege/t10.jpg" style="width:100%; display:block;"><div class="img-caption">오염도재검사<br>최종기록</div></div>
 
-            <!-- 2. 청소 전 기록 작업 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t02.jpg" alt="청소 전 기록 작업" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    청소 전 기록 작업
-                </div>
-            </div>
-
-            <!-- 3. 부속 분리 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t03.jpg" alt="부속 분리" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    부속 분리
-                </div>
-            </div>
-
-            <!-- 4. 분리된 부품 세척 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t04.jpg" alt="분리된 부품 세척" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    분리된 부품 세척
-                </div>
-            </div>
-
-            <!-- 5. 스팀 살균 청소 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t05.jpg" alt="스팀 살균 청소" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    스팀 살균 청소
-                </div>
-            </div>
-
-            <!-- 6. 본체 내부 세척 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t06.jpg" alt="본체 내부 세척" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    본체 내부 세척
-                </div>
-            </div>
-
-            <!-- 7. 외장부 청소 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t07.jpg" alt="외장부 청소" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    외장부 청소
-                </div>
-            </div>
-
-            <!-- 8. 세척된 부품 재조립 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t08.jpg" alt="세척된 부품 재조립" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    세척된 부품 재조립
-                </div>
-            </div>
-
-            <!-- 9. UV 소독 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t09.jpg" alt="UV 소독" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    UV 소독
-                </div>
-            </div>
-
-            <!-- 10. 오염도재검사, 최종기록 -->
-            <div style="position: relative; border-radius: 4px; overflow: hidden;">
-                <img src="imege/t10.jpg" alt="오염도재검사, 최종기록" style="width: 100%; height: auto; display: block;">
-                <div style="position: absolute; bottom: 5px; width: 100%; text-align: center; color: #fff; font-size: 12px; font-weight: bold; text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; line-height: 1.2; padding: 0 2px;">
-                    오염도재검사<br>최종기록
-                </div>
-            </div>
+            <!-- [SET 2 : 복사본 (자연스러운 연결용)] -->
+            <div class="rolling-img-item"><img src="imege/t01.jpg" style="width:100%; display:block;"><div class="img-caption">초기 오염도 검사</div></div>
+            <div class="rolling-img-item"><img src="imege/t02.jpg" style="width:100%; display:block;"><div class="img-caption">청소 전 기록 작업</div></div>
+            <div class="rolling-img-item"><img src="imege/t03.jpg" style="width:100%; display:block;"><div class="img-caption">부속 분리</div></div>
+            <div class="rolling-img-item"><img src="imege/t04.jpg" style="width:100%; display:block;"><div class="img-caption">분리된 부품 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t05.jpg" style="width:100%; display:block;"><div class="img-caption">스팀 살균 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t06.jpg" style="width:100%; display:block;"><div class="img-caption">본체 내부 세척</div></div>
+            <div class="rolling-img-item"><img src="imege/t07.jpg" style="width:100%; display:block;"><div class="img-caption">외장부 청소</div></div>
+            <div class="rolling-img-item"><img src="imege/t08.jpg" style="width:100%; display:block;"><div class="img-caption">세척된 부품 재조립</div></div>
+            <div class="rolling-img-item"><img src="imege/t09.jpg" style="width:100%; display:block;"><div class="img-caption">UV 소독</div></div>
+            <div class="rolling-img-item"><img src="imege/t10.jpg" style="width:100%; display:block;"><div class="img-caption">오염도재검사<br>최종기록</div></div>
 
         </div>
     </div>
-    <!-- [END] 전자렌지 작업 공정 이미지 갤러리 -->
+    <!-- [END] 이미지 롤링 섹션 -->
+
 
     <h4 class="sub-heading-left">점검 항목 요약 및 위험 신호</h4>
     
-    <!-- [수정됨] 냉장고 스타일과 동일한 리스트 형태로 변경 -->
     <ul class="bullet-list">
         <li><strong>접촉부 오염:</strong> 문 손잡이, 버튼부의 끈적임이나 오염 흔적, ATP 측정 시 기준치 초과(RLU 200 이상).</li>
         <li><strong>내부 오염:</strong> 벽면에 딱딱하게 굳은 음식물 튀김 자국, 회전판 및 회전링 물때, 마이카 플레이트 변색.</li>
@@ -104,79 +112,121 @@
         <li><strong>관리 시급:</strong> 문 고무 패킹 틈새에 피어난 곰팡이나 검은 물때 형성.</li>
     </ul>
 
-    <!-- [수정됨] 전자렌지 위생 체크리스트 테이블 (인라인 스타일 적용으로 깨짐 방지) -->
-    <div style="width: 100%; margin: 30px 0 10px 0; overflow-x: auto; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; border: 1px solid #eee;">
-        <table style="width: 100%; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; background-color: #fff; min-width: 500px;">
-            <thead>
-                <tr>
-                    <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: left; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C; width: 20%;">항목</th>
-                    <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: left; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C;">확인 사항 (내용)</th>
-                    <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: center; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C; width: 60px;">이행</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- 1행 -->
-                <tr>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #2c3e50; font-size: 14px; vertical-align: middle; line-height: 1.5; font-weight: bold; white-space: nowrap;">청소 전 촬영</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #333; font-size: 14px; vertical-align: middle; line-height: 1.5;">상세 위치 표시된 스티커와 내부가 선명하게 보이도록 촬영 하였는가?</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; text-align: center; vertical-align: middle;">
-                        <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; background-color: #fff;"></span>
-                    </td>
-                </tr>
-                <!-- 2행 (배경색 적용) -->
-                <tr style="background-color: #f8f9fa;">
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #2c3e50; font-size: 14px; vertical-align: middle; line-height: 1.5; font-weight: bold; white-space: nowrap;">청소 (내부)</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #333; font-size: 14px; vertical-align: middle; line-height: 1.5;">이물질 제거 및 스팀청소를 진행 하였는가?<br>회전 유리판 분리 스팀 세척 하였는가?</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; text-align: center; vertical-align: middle;">
-                        <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; background-color: #fff;"></span>
-                    </td>
-                </tr>
-                <!-- 3행 -->
-                <tr>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #2c3e50; font-size: 14px; vertical-align: middle; line-height: 1.5; font-weight: bold; white-space: nowrap;">청소 (외부)</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #333; font-size: 14px; vertical-align: middle; line-height: 1.5;">외부 및 틈새를 스팀 청소 하였는가?</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; text-align: center; vertical-align: middle;">
-                        <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; background-color: #fff;"></span>
-                    </td>
-                </tr>
-                <!-- 4행 (배경색 적용) -->
-                <tr style="background-color: #f8f9fa;">
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #2c3e50; font-size: 14px; vertical-align: middle; line-height: 1.5; font-weight: bold; white-space: nowrap;">소독</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #333; font-size: 14px; vertical-align: middle; line-height: 1.5;">자외선 살균 소독 확인</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; text-align: center; vertical-align: middle;">
-                        <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; background-color: #fff;"></span>
-                    </td>
-                </tr>
-                <!-- 5행 -->
-                <tr>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #2c3e50; font-size: 14px; vertical-align: middle; line-height: 1.5; font-weight: bold; white-space: nowrap;">청소 후 촬영</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #333; font-size: 14px; vertical-align: middle; line-height: 1.5;">스티커 재 부착 후 작업 완료 사진을 촬영하였는가?</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; text-align: center; vertical-align: middle;">
-                        <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; background-color: #fff;"></span>
-                    </td>
-                </tr>
-                <!-- 6행 (배경색 적용) -->
-                <tr style="background-color: #f8f9fa;">
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #2c3e50; font-size: 14px; vertical-align: middle; line-height: 1.5; font-weight: bold; white-space: nowrap;">마무리</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #333; font-size: 14px; vertical-align: middle; line-height: 1.5;">스티커 제거 및 작동 확인<br>주변정리 청소</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; text-align: center; vertical-align: middle;">
-                        <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; background-color: #fff;"></span>
-                    </td>
-                </tr>
-                <!-- 7행 (특이사항 - 강조) -->
-                <tr>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #d32f2f; font-size: 14px; vertical-align: middle; line-height: 1.5; font-weight: bold; white-space: nowrap;">특이사항</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; color: #d32f2f; font-size: 14px; vertical-align: middle; line-height: 1.5;">작동 불량 등 특이사항 발생시 전면 부착</td>
-                    <td style="padding: 12px 10px; border-bottom: 1px solid #e0e0e0; text-align: center; vertical-align: middle;">
-                        <span style="display: inline-block; width: 18px; height: 18px; border: 2px solid #ddd; border-radius: 4px; background-color: #fff;"></span>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+
+    <!-- [START] 체크리스트 도표 (무한 롤링) -->
+    <!-- 도표 2개를 연속 배치하여 끊김 없는 무한 루프 구현 -->
+    <div class="rolling-wrapper" style="box-shadow: none;">
+        <div class="rolling-track" style="animation-duration: 50s;"> <!-- 도표는 글씨가 많으니 더 천천히(50초) -->
+            
+            <!-- [TABLE SET 1 : 원본] -->
+            <div class="rolling-table-item">
+                <div style="box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; border: 1px solid #eee; background: #fff;">
+                    <table style="width: 100%; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; background-color: #fff;">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: left; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C; width: 25%;">항목</th>
+                                <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: left; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C;">확인 사항 (내용)</th>
+                                <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: center; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C; width: 50px;">이행</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 전 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">상세 위치 표시된 스티커와 내부 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr style="background-color: #f8f9fa;">
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 (내부)</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">이물질 제거, 스팀청소, 회전판 분리 세척</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 (외부)</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">외부 및 틈새 스팀 청소 진행</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr style="background-color: #f8f9fa;">
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">소독</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">자외선 살균 소독 확인</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 후 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">작업 완료 사진 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr style="background-color: #f8f9fa;">
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">마무리</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">작동 확인 및 주변 정리</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px; color: #d32f2f;">특이사항</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #d32f2f;">작동 불량 등 발생 시 전면 부착</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- [TABLE SET 2 : 복사본 (자연스러운 연결용)] -->
+            <div class="rolling-table-item">
+                <div style="box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; border: 1px solid #eee; background: #fff;">
+                    <table style="width: 100%; border-collapse: collapse; font-family: 'Noto Sans KR', sans-serif; background-color: #fff;">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: left; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C; width: 25%;">항목</th>
+                                <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: left; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C;">확인 사항 (내용)</th>
+                                <th style="background-color: #4CAF50; color: #fff; padding: 14px 10px; text-align: center; font-weight: 600; font-size: 15px; border-bottom: 2px solid #388E3C; width: 50px;">이행</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 전 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">상세 위치 표시된 스티커와 내부 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr style="background-color: #f8f9fa;">
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 (내부)</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">이물질 제거, 스팀청소, 회전판 분리 세척</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 (외부)</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">외부 및 틈새 스팀 청소 진행</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr style="background-color: #f8f9fa;">
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">소독</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">자외선 살균 소독 확인</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">청소 후 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">작업 완료 사진 촬영</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr style="background-color: #f8f9fa;">
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px;">마무리</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px;">작동 확인 및 주변 정리</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                            <tr>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-weight: bold; font-size: 14px; color: #d32f2f;">특이사항</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; font-size: 13px; color: #d32f2f;">작동 불량 등 발생 시 전면 부착</td>
+                                <td style="padding: 10px; border-bottom: 1px solid #e0e0e0; text-align: center;"><span style="display:inline-block;width:14px;height:14px;border:1px solid #ddd;"></span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
     </div>
-    <!-- [END] 전자렌지 위생 체크리스트 테이블 -->
+    <!-- [END] 도표 롤링 섹션 -->
     
-    <p class="image-caption">전자렌지 위생 체크리스트</p>
+    <p class="image-caption">전자렌지 위생 체크리스트 (터치시 멈춤)</p>
     
     <h3 id="microwave-s02-anchor">상업용 전자렌지, 왜 반드시 전문 관리가 필요한가?</h3>
     <p>
