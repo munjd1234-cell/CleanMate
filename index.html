@@ -397,6 +397,24 @@
     display: block;
   }
 
+  /* --- [기술력 인증서 그리드] --- */
+  .cert-grid {
+      display: flex;
+      gap: 10px;
+      justify-content: space-between;
+      margin: 20px 0;
+  }
+  .cert-item {
+      flex: 1; 
+      text-align: center;
+  }
+  .cert-item img {
+      width: 100%;
+      height: auto;
+      margin-bottom: 5px;
+      border: 1px solid #444;
+  }
+
   /* --- [파트너 로고 1열 세로 롤링] --- */
   .partner-logo-gallery-wrapper {
       width: 100%;
@@ -609,8 +627,31 @@
       <div id="mos-section" class="content-section solution-content-wrapper"></div>
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
-      <!-- [원상복구] 기술력 섹션: 외부 파일 로드 방식 -->
-      <div id="tech-section" class="content-section solution-content-wrapper"></div>
+      
+      <!-- [수정됨] 기술력 섹션: HTML 직접 구조 (2열 인증서, 특허증 삭제) -->
+      <div id="tech-section" class="content-section solution-content-wrapper">
+          <h2>기술력 및 인증</h2>
+          
+          <h3>보유 기술 및 장비</h3>
+          <p>클린메이트는 최첨단 ATP 측정 장비와 산업용 내시경, 고압 스팀 살균기를 보유하여 보이지 않는 곳까지 케어합니다.</p>
+          
+          <!-- 인증서 1열 2개 배치 -->
+          <div class="cert-grid">
+              <div class="cert-item">
+                  <img src="imege/s03/certificate_img1.jpg" alt="중소기업 확인서" onerror="this.src='https://via.placeholder.com/300x400?text=중소기업확인서'">
+                  <p class="image-caption">중소기업 확인서</p>
+              </div>
+              <div class="cert-item">
+                  <img src="imege/s03/certificate_img2.jpg" alt="직접생산 확인서" onerror="this.src='https://via.placeholder.com/300x400?text=직접생산확인서'">
+                  <p class="image-caption">직접생산 확인서</p>
+              </div>
+          </div>
+          
+          <!-- 특허증 및 시험성적서 이미지는 제거됨 -->
+
+          <h3>현장 포트폴리오</h3>
+          <div id="portfolio-gallery-container" class="solution-img-gallery"></div>
+      </div>
 
       <!-- 협력사 섹션 -->
       <div id="partner-section" class="content-section solution-content-wrapper">
@@ -624,6 +665,7 @@
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
           <h2>원스톱 상담</h2>
           <p></p>
+          
           <div class="question active" id="q1">
               <h3>관리할 품목을 선택해주세요.</h3>
               <div class="options" id="opt1"></div>
@@ -652,6 +694,7 @@
       </div>
     </main>
 
+    <!-- [수정됨] 하단 고정 버튼 4개 -->
     <div class="fixed-buttons">
       <button id="btn-onestop" class="btn-primary" onclick="restartQuiz()">원스톱상담</button>
       <button class="btn-primary" onclick="window.location.href='tel:1666-1757'">전화상담</button>
@@ -726,15 +769,13 @@
         if (targetSection) {
             let loadPromise = Promise.resolve(); 
 
-            // [복구됨] 기술력도 외부 파일 로드
+            // [수정됨] 기술력(tech-section)은 HTML에 직접 넣었으므로 로드 로직 제외
             if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
             } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('avk-section', 'mos_icemaker_content.html');
             } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('dryice-section', 'microwave_solution.html');
-            } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
-                loadPromise = loadSectionContent('tech-section', 'technology.html');
             }
             
             loadPromise.then(() => {
@@ -948,7 +989,7 @@
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
         
-        // [중요] 특허증 등 이미지 자동 생성 코드 제거됨 (요청 반영)
+        // [수정됨] 기술력 하단 이미지 생성 코드 제거됨 (요청 반영)
         // 포트폴리오 생성 코드는 유지
         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3); 
         
