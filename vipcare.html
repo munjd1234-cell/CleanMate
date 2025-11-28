@@ -1,253 +1,559 @@
-<!-- START OF FILE vipcare.html -->
-
-<h2>VIP 프리미엄 홈 & 오피스 토탈 케어</h2>
-    
-    <h3 id="vip-s01-anchor">당신의 공간, 그 이상의 가치를 케어합니다</h3>
-    <p>
-        클린메이트 VIP CARE는 <strong>가정의 침실과 거실</strong>부터 <strong>사무실의 공조 시스템</strong>까지, 
-        공간에 존재하는 모든 위생 요소를 관리하는 프리미엄 통합 솔루션입니다. 
-        매트리스, 소파 같은 가구부터 에어컨, 세탁기 등 전문 가전까지 한 번에 케어해 드립니다.
-    </p>
-
-    <!-- [STYLE] 스타일 정의 -->
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VIP CARE 서비스</title>
     <style>
-        /* 1. 무한 롤링 스타일 (터치 무시) */
-        @keyframes scroll-left {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        /*
+        [냉장고,HTML] 파일의 CSS 스타일을 여기에 복사하여 붙여넣으시면,
+        동일한 디자인과 레이아웃이 적용됩니다.
+        */
+        body { font-family: 'Noto Sans KR', sans-serif; margin: 0; padding: 0; background-color: #f8f8f8; color: #333; }
+        .container { width: 90%; max-width: 1200px; margin: 20px auto; background-color: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 15px rgba(0,0,0,0.05); }
+        h1, h2, h3 { color: #2c3e50; }
+        h1 { text-align: center; margin-bottom: 40px; }
+        .section { margin-bottom: 50px; padding: 20px; background-color: #fdfdfd; border-left: 5px solid #3498db; border-radius: 5px; }
+        .section h2 { margin-top: 0; color: #3498db; }
+        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
+        th, td { border: 1px solid #ddd; padding: 12px; text-align: left; }
+        th { background-color: #ecf0f1; font-weight: bold; }
+        ul { list-style-type: disc; margin-left: 20px; }
+        ul li { margin-bottom: 10px; }
+        .image-container { text-align: center; margin-top: 30px; margin-bottom: 30px; }
+        .image-container img { max-width: 100%; height: auto; border-radius: 8px; box-shadow: 0 4px 8px rgba(0,0,0,0.1); }
+        .highlight { color: #e74c3c; font-weight: bold; }
+        
+        /* 고정(Sticky) 버튼 스타일 */
+        .sticky-buttons {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 1000;
         }
-        .rolling-wrapper {
-            width: 100%; overflow: hidden; margin-top: 20px; margin-bottom: 10px; position: relative; pointer-events: none; 
+        .sticky-buttons button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 100px; 
         }
-        .rolling-track {
-            display: flex; width: max-content; animation: scroll-left 90s linear infinite; /* 부드럽게 천천히 */
+        .sticky-buttons button:hover {
+            background-color: #2980b9;
+            transform: scale(1.05);
         }
-        .rolling-img-item {
-            flex: 0 0 45vw; max-width: 240px; margin-right: 10px; position: relative; border-radius: 4px; overflow: hidden;
-        }
-        .img-caption {
-            position: absolute; bottom: 0; left: 0; width: 100%; padding: 8px 0;
-            text-align: center; color: #fff; font-size: 13px; font-weight: bold;
-            text-shadow: -1px -1px 0 #000;
-            line-height: 1.2; background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+        .sticky-buttons button.active {
+            background-color: #e74c3c; /* 활성화 버튼 색상 */
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
         }
         
-        /* 2. 모던 테이블 & 섹션 스타일 */
-        .modern-table-wrapper {
-            width: 100%; overflow-x: auto; margin: 20px 0 40px 0; background: transparent; 
-        }
-        .modern-table {
-            width: 100%; min-width: 600px; border-collapse: collapse; font-family: 'Pretendard', sans-serif; font-size: 14px;
-        }
-        .modern-table th {
-            text-align: left; padding: 12px 10px; color: #4CAF50; border-bottom: 2px solid #4CAF50; font-weight: 700; background: rgba(76, 175, 80, 0.05);
-        }
-        .modern-table td {
-            padding: 12px 10px; border-bottom: 1px solid rgba(255,255,255,0.15); vertical-align: middle; color: #ffffff; font-weight: 400; line-height: 1.6;
-        }
-        .modern-table tr:last-child td { border-bottom: none; }
+        /* 콘텐츠 섹션 스타일 */
+        .content-section { display: none; }
+        .content-section.active { display: block; }
         
-        .category-title {
-            font-size: 18px; font-weight: bold; color: #00bfa5; margin-top: 50px; margin-bottom: 15px; border-bottom: 1px solid #555; padding-bottom: 10px;
-        }
-        .service-detail {
-            color: #ccc; font-size: 15px; line-height: 1.8; margin-bottom: 20px;
-        }
-        .highlight { color: #fff; font-weight: 600; }
-        
-        .check-box-modern {
-            display: inline-block; width: 14px; height: 14px; border: 1.5px solid #ddd; border-radius: 3px;
+        /* CTA 스타일 */
+        .call-to-action { text-align: center; margin-top: 50px; background-color: #eaf6ff; padding: 30px; border-radius: 10px; border: 1px dashed #3498db; }
+        .call-to-action h2 { color: #3498db; margin-bottom: 20px; }
+        .call-to-action .phone-number { font-size: 2em; font-weight: bold; color: #e74c3c; margin-top: 20px; }
+
+        /* 모바일 반응형 */
+        @media (max-width: 768px) {
+            .sticky-buttons {
+                position: static; 
+                transform: none;
+                flex-direction: row;
+                justify-content: center;
+                margin-top: 20px;
+                margin-bottom: 20px;
+                left: 0;
+                right: 0;
+            }
+            .sticky-buttons button {
+                width: 80px; 
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+            .container { padding: 15px; }
         }
     </style>
+</head>
+<body>
+    <div class="container">
+        <h1>💎 VIP CARE 서비스</h1>
+        <p style="text-align: center; font-size: 1.1em; margin-bottom: 50px; color: #555;">
+            가정 및 기업 환경의 필수 전자제품을 위한 전문 위생 관리 서비스
+        </p>
 
-    <!-- [START] VIP 통합 갤러리 (거주 + 가전 + 상업) -->
-    <!-- v01~v10(거주), v11~v30(가전/상업) 혼합 배치 -->
-    <div class="rolling-wrapper">
-        <div class="rolling-track">
-            <!-- [SET 1] -->
-            <div class="rolling-img-item"><img src="imege/v01.jpg" style="width:100%; display:block;"><div class="img-caption">프리미엄 거실 토탈 케어</div></div>
-            <div class="rolling-img-item"><img src="imege/v03.jpg" style="width:100%; display:block;"><div class="img-caption">매트리스 집먼지진드기 케어</div></div>
-            <div class="rolling-img-item"><img src="imege/v11.jpg" style="width:100%; display:block;"><div class="img-caption">시스템 에어컨 고압 세척</div></div>
-            <div class="rolling-img-item"><img src="imege/v07.jpg" style="width:100%; display:block;"><div class="img-caption">패브릭 소파 습식 청소</div></div>
-            <div class="rolling-img-item"><img src="imege/v13.jpg" style="width:100%; display:block;"><div class="img-caption">드럼 세탁기 완전 분해</div></div>
-            <div class="rolling-img-item"><img src="imege/v02.jpg" style="width:100%; display:block;"><div class="img-caption">주방 후드 기름때 제거</div></div>
-            <div class="rolling-img-item"><img src="imege/v14.jpg" style="width:100%; display:block;"><div class="img-caption">냉장고 내부 스팀 살균</div></div>
-            <div class="rolling-img-item"><img src="imege/v06.jpg" style="width:100%; display:block;"><div class="img-caption">욕실 나노 코팅/살균</div></div>
-            <div class="rolling-img-item"><img src="imege/v22.jpg" style="width:100%; display:block;"><div class="img-caption">스타일러(의류관리기) 케어</div></div>
-            <div class="rolling-img-item"><img src="imege/v08.jpg" style="width:100%; display:block;"><div class="img-caption">사무실 바닥 왁싱</div></div>
-            <div class="rolling-img-item"><img src="imege/v15.jpg" style="width:100%; display:block;"><div class="img-caption">건조기 콘덴서 청소</div></div>
-            <div class="rolling-img-item"><img src="imege/v09.jpg" style="width:100%; display:block;"><div class="img-caption">공간 전체 방역 소독</div></div>
-            <div class="rolling-img-item"><img src="imege/v26.jpg" style="width:100%; display:block;"><div class="img-caption">대형 공조/환기팬 청소</div></div>
+        <div class="sticky-buttons">
+            <button id="btnBusiness" class="active" onclick="switchContent('business')">기업</button>
+            <button id="btnHome" onclick="switchContent('home')">가정</button>
+        </div>
 
-            <!-- [SET 2 : 복제본] -->
-            <div class="rolling-img-item"><img src="imege/v01.jpg" style="width:100%; display:block;"><div class="img-caption">프리미엄 거실 토탈 케어</div></div>
-            <div class="rolling-img-item"><img src="imege/v03.jpg" style="width:100%; display:block;"><div class="img-caption">매트리스 집먼지진드기 케어</div></div>
-            <div class="rolling-img-item"><img src="imege/v11.jpg" style="width:100%; display:block;"><div class="img-caption">시스템 에어컨 고압 세척</div></div>
-            <div class="rolling-img-item"><img src="imege/v07.jpg" style="width:100%; display:block;"><div class="img-caption">패브릭 소파 습식 청소</div></div>
-            <div class="rolling-img-item"><img src="imege/v13.jpg" style="width:100%; display:block;"><div class="img-caption">드럼 세탁기 완전 분해</div></div>
-            <div class="rolling-img-item"><img src="imege/v02.jpg" style="width:100%; display:block;"><div class="img-caption">주방 후드 기름때 제거</div></div>
-            <div class="rolling-img-item"><img src="imege/v14.jpg" style="width:100%; display:block;"><div class="img-caption">냉장고 내부 스팀 살균</div></div>
-            <div class="rolling-img-item"><img src="imege/v06.jpg" style="width:100%; display:block;"><div class="img-caption">욕실 나노 코팅/살균</div></div>
-            <div class="rolling-img-item"><img src="imege/v22.jpg" style="width:100%; display:block;"><div class="img-caption">스타일러(의류관리기) 케어</div></div>
-            <div class="rolling-img-item"><img src="imege/v08.jpg" style="width:100%; display:block;"><div class="img-caption">사무실 바닥 왁싱</div></div>
-            <div class="rolling-img-item"><img src="imege/v15.jpg" style="width:100%; display:block;"><div class="img-caption">건조기 콘덴서 청소</div></div>
-            <div class="rolling-img-item"><img src="imege/v09.jpg" style="width:100%; display:block;"><div class="img-caption">공간 전체 방역 소독</div></div>
-            <div class="rolling-img-item"><img src="imege/v26.jpg" style="width:100%; display:block;"><div class="img-caption">대형 공조/환기팬 청소</div></div>
+        <div id="businessContent" class="content-section active">
+            
+            <div class="section">
+                <h2>1. VIP CARE 서비스 체크리스트 (기업)</h2>
+                <p>기업 환경에서 더 나은 비즈니스 환경과 직원 복지를 위한 VIP CARE 서비스를 소개합니다.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**주요 대상 제품**</td>
+                            <td>시스템 에어컨, 사무용 정수기, 제빙기, 공기청정기, 대용량 냉난방기, 환기 장치</td>
+                        </tr>
+                        <tr>
+                            <td>**관리 목표**</td>
+                            <td>직원 복지 향상, 위생 법규 준수, 제품 고장률 감소, <span class="highlight">업무 환경 청결 유지</span></td>
+                        </tr>
+                        <tr>
+                            <td>**핵심 서비스**</td>
+                            <td>사용 인원 밀집에 따른 바이러스/세균 집중 관리, 대용량 장비 <span class="highlight">전문 분해 청소</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>2. 점검 항목 및 위험 신호 (기업)</h2>
+                <p>🚨 혹시 기업 환경에서 이런 신호들이 감지되나요?</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>기업 환경에서 놓치기 쉬운 신호</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>정수기/제빙기</td>
+                            <td>식수대 주변의 <span class="highlight">물 비린내</span>, 제빙기 내부의 붉거나 미끄러운 이물질 (생물막)</td>
+                        </tr>
+                        <tr>
+                            <td>에어컨/냉난방기</td>
+                            <td>시스템 에어컨 바람 구멍 주변의 <span class="highlight">검은 먼지 띠</span>, 냉방 효율 저하로 인한 전기세 증가</td>
+                        </tr>
+                        <tr>
+                            <td>공기청정기</td>
+                            <td>다수의 인원이 사용하는 필터가 빠르게 색이 변하고, 직원들이 <span class="highlight">이유 없는 기침</span>을 자주 하는 경우</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>3. 체크리스트: 지금 바로 VIP CARE가 필요한 제품은? (기업)</h2>
+                <p>자가진단 1분이면 OK! 특히 <span class="highlight">사용량이 많은 제품</span>이 오염에 취약합니다.</p>
+                <ul>
+                    <li>✅ 6개월 이상 시스템 에어컨 내부 청소를 한 적이 없다.</li>
+                    <li>✅ 제품을 켰을 때 <span class="highlight">불쾌한 냄새(곰팡이, 비린내)</span>가 난다.</li>
+                    <li>✅ 정수기 코크 주변에 <span class="highlight">물때가 자주 끼고</span> 미끄럽다.</li>
+                    <li>✅ <span class="highlight">임직원 수가 많아</span> (50인 이상) 제품 사용량이 매우 높다.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>4. 전문 관리의 필요성 (기업)</h2>
+                <p>🧼 왜 전문가에게 맡겨야 할까요? (쉬운 설명)</p>
+                <ul>
+                    <li>**직원들의 건강 보호:** 기업용 제품은 여러 사람이 함께 쓰기 때문에, 세균과 바이러스가 쉽게 퍼질 수 있습니다. 전문가의 소독은 <span class="highlight">단체 감염 위험</span>을 줄입니다.</li>
+                    <li>**손이 닿지 않는 대용량 장비:** 시스템 에어컨처럼 복잡하고 큰 장비는 일반인이 분해할 수 없습니다. 전문가는 장비를 <span class="highlight">안전하게 분해</span>하고 깊은 곳까지 청소합니다.</li>
+                    <li>**운영 비용 절감:** 에어컨 냉각핀의 곰팡이와 먼지를 제거하면 기계가 일을 덜 하게 되어 <span class="highlight">전기 요금이 절약</span>되고, 고장률이 줄어듭니다.</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>5. 고회전율 제품의 위험성 (기업)</h2>
+                <p>🔄 많이 쓸수록 오염 속도가 빨라집니다. (쉽게 설명)</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>고회전율 환경</th>
+                            <th>주요 위험성</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**기업용 정수기/제빙기**</td>
+                            <td>하루에도 수십 명이 사용하며 물이 끊임없이 흐름</td>
+                            <td>물이 마르지 않는 환경으로 인해 <span class="highlight">미끈거리는 생물막(Biofilm)</span> 형성 및 세균 번식</td>
+                        </tr>
+                        <tr>
+                            <td>**시스템 에어컨**</td>
+                            <td>하루 종일 가동, 넓은 공간의 먼지를 순환시킴</td>
+                            <td>먼지, 곰팡이가 에어컨 속에서 증식해 <span class="highlight">전염성 질환을 퍼뜨리는 매개체</span>가 될 위험</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>6. 오염의 주요 원인 및 발생 과정 (기업)</h2>
+                <p>오염은 어떻게 시작되고 위험해지나요? (쉬운 설명)</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>단계</th>
+                            <th>오염 원인 (쉽게 설명)</th>
+                            <th>위험 발생 과정 (쉽게 설명)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**1단계: 습기 + 먹이**</td>
+                            <td><span class="highlight">습기</span> (응축수) + <span class="highlight">유기물</span> (사무실 먼지, 직원들의 인체 각질)</td>
+                            <td>제품이 작동하며 습기가 차고, 주변의 먼지나 찌꺼기가 젖으면서 곰팡이와 세균의 <span class="highlight">좋은 먹이</span>가 됩니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**2단계: 악취와 확산**</td>
+                            <td>어둡고 좁은 공간 (시스템 에어컨 냉각핀 사이 등)</td>
+                            <td>오염된 제품을 다시 사용할 때, 곰팡이 포자나 세균이 <span class="highlight">강력한 바람</span>과 함께 공기 중으로 퍼져 불쾌한 냄새와 호흡기 문제를 유발합니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>7. 실제 현장에서의 주요 오염 부위 (기업)</h2>
+                <p>눈에 보이지 않는 오염의 핵심 위치를 알려드립니다.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>주요 오염 부위</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**제빙기/정수기**</td>
+                            <td>**제빙기 내부 물통** 및 **물 순환 라인**, **음료수 디스펜서 노즐** (세균, 미끈거림 집중)</td>
+                        </tr>
+                        <tr>
+                            <td>**시스템 에어컨**</td>
+                            <td>**냉각핀** (가장 습하고 곰팡이가 집중되는 곳), **송풍 팬** (바람을 일으키며 먼지를 뿌리는 곳)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="image-container">
+                    <img src="image/business_dirty_ac_coil.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>8. 전문 분해·소독 프로세스 (기업 제품 예시 - 시스템 에어컨)</h2>
+                <p>🛠️ 눈에 보이지 않는 곳까지 확실하게! (쉬운 설명)</p>
+                <ol>
+                    <li>**안전 점검 및 보양:** 작동 확인 후 주변 사무 가구 및 집기들을 비닐로 꼼꼼하게 덮어 보호합니다.</li>
+                    <li>**전원 차단 및 완전 분해:** 전원을 끄고, 겉 케이스, 필터, 날개, <span class="highlight">대형 송풍 팬</span>, 냉각핀 등을 모두 분리합니다.</li>
+                    <li>**전문 약품 도포 및 불림:** 인체에 안전한 전용 약품을 도포하여 두꺼운 오염 물질을 불립니다.</li>
+                    <li>**고압 세척 및 헹굼:** 전문 <span class="highlight">고압 세척기</span>를 이용해 냉각핀 사이의 찌꺼기를 깨끗하게 씻어냅니다. (오염된 검은 물이 배출되는 것을 확인할 수 있습니다.)</li>
+                    <li>**살균 소독 및 탈취:** 강력한 스팀 살균 장비 또는 친환경 살균제로 <span class="highlight">바이러스와 세균을 완벽하게 제거</span>합니다.</li>
+                    <li>**건조 및 조립:** 부품들을 건조 후 재조립하고, 정상 작동을 확인하며 마무리합니다.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>9. 위생 관리 권장 주기 (기업)</h2>
+                <p>🗓️ 깨끗함을 유지하는 습관</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>권장 주기</th>
+                            <th>쉽게 설명 (왜 이 주기가 필요한가요?)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>시스템 에어컨, 제빙기</td>
+                            <td><span class="highlight">6개월 1회</span> (계절 시작 전)</td>
+                            <td>다수가 사용하는 만큼 오염 속도가 가정용보다 2배 빠릅니다. 특히 냉방/제빙을 많이 쓰는 계절 전에 반드시 필요합니다.</td>
+                        </tr>
+                        <tr>
+                            <td>공기청정기, 환기장치</td>
+                            <td><span class="highlight">3개월 ~ 6개월 1회</span></td>
+                            <td>실내 공기 질과 직결되며, 인원 밀도가 높아 오염물질 축적이 빠르므로 필터 교체와 함께 내부 청소가 필요합니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>10. 관리 후 기대 효과 (기업)</h2>
+                <p>🎉 전문 관리 후 얻게 되는 긍정적인 변화</p>
+                <ul>
+                    <li>**직원 건강과 만족도 향상:** 깨끗한 환경은 <span class="highlight">업무 효율</span>을 높이고 직원들의 건강을 지킵니다.</li>
+                    <li>**전기료 절감:** 오염물 제거로 기계가 효율적으로 작동하여 <span class="highlight">운영 비용이 절약</span>됩니다.</li>
+                    <li>**기업 이미지 제고:** 방문 고객에게 깨끗하고 위생적인 기업이라는 <span class="highlight">신뢰감</span>을 심어줍니다.</li>
+                </ul>
+            </div>
+
+            <div class="section call-to-action">
+                <h2>11. 종합 정리: VIP CARE 서비스, 이런 기업에 강력 추천합니다.</h2>
+                <p>✅ **병원, 요양원, 학교** 등 위생이 <span class="highlight">최우선</span>인 시설</p>
+                <p>✅ 직원이 많아 **정수기, 냉난방기** 사용량이 매우 높은 사업장</p>
+                <p>✅ **복지 향상**과 **법규 준수**를 위해 전문적인 위생 관리 시스템이 필요한 경영진</p>
+                <p class="phone-number">지금 바로 문의하세요! (문의전화: XXXX-XXXX)</p>
+            </div>
+        </div>
+
+        <div id="homeContent" class="content-section">
+            
+            <div class="section">
+                <h2>1. VIP CARE 서비스 체크리스트 (가정)</h2>
+                <p>사랑하는 가족의 건강과 쾌적한 주거 환경을 위한 VIP CARE 서비스를 소개합니다.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>구분</th>
+                            <th>내용</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**주요 대상 제품**</td>
+                            <td>냉장고, 세탁기, 에어컨, 공기청정기, 정수기, 매트리스</td>
+                        </tr>
+                        <tr>
+                            <td>**관리 목표**</td>
+                            <td>가족 건강 보호, <span class="highlight">주거 환경 쾌적성 향상</span>, 제품 수명 연장</td>
+                        </tr>
+                        <tr>
+                            <td>**핵심 서비스**</td>
+                            <td>생활 오염(곰팡이, 물때, 먼지) 분해 및 소독, <span class="highlight">주부도 안심할 수 있는</span> 친환경 살균</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>2. 점검 항목 및 위험 신호 (가정)</h2>
+                <p>🚨 혹시 가정에서 이런 신호들이 감지되나요?</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>가정에서 놓치기 쉬운 신호</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>냉장고</td>
+                            <td>문 고무 패킹에 <span class="highlight">검은 물때</span>나 곰팡이가 보이고 끈적인다.</td>
+                        </tr>
+                        <tr>
+                            <td>세탁기</td>
+                            <td>옷에 <span class="highlight">검은 미역 줄기</span> 같은 이물질이 묻어 나오고 퀴퀴한 냄새가 난다.</td>
+                        </tr>
+                        <tr>
+                            <td>에어컨</td>
+                            <td>켜자마자 <span class="highlight">시큼하거나 곰팡이 냄새</span>가 나고, 바람이 약해진다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>3. 체크리스트: 지금 바로 VIP CARE가 필요한 제품은? (가정)</h2>
+                <p>자가진단 1분이면 OK! 특히 <span class="highlight">습기가 많은 곳</span>이 위험합니다.</p>
+                <ul>
+                    <li>✅ 1년 이상 에어컨/세탁기 내부 청소를 한 적이 없다.</li>
+                    <li>✅ 냉장고 문 고무 패킹에 곰팡이나 검은 물때가 보인다.</li>
+                    <li>✅ 제품을 켰을 때 <span class="highlight">불쾌한 냄새</span>가 나서 사용이 꺼려진다.</li>
+                    <li>✅ <span class="highlight">어린 아이나 노약자</span> 등 면역력이 약한 가족 구성원이 있다.</li>
+                </ul>
+            </div>
+
+            <div class="section">
+                <h2>4. 전문 관리의 필요성 (가정)</h2>
+                <p>🧼 왜 전문가에게 맡겨야 할까요? (주부도 쉽게 이해)</p>
+                <ul>
+                    <li>**눈에 안 보이는 곰팡이 제거:** 세탁조 바깥쪽이나 에어컨 냉각핀처럼 <span class="highlight">분해하지 않으면 절대 손이 닿지 않는 곳</span>에 곰팡이가 가득합니다. 전문가는 이를 완벽하게 제거합니다.</li>
+                    <li>**가족 건강 지키기:** 세균과 곰팡이 포자는 공기나 옷을 통해 가족의 호흡기로 들어갈 수 있습니다. 전문가의 **고온 살균 소독**이 근본적인 위험을 차단합니다.</li>
+                    <li>**고장 걱정 없는 청소:** 복잡한 전자제품을 개인이 잘못 분해하면 고장날 수 있습니다. 전문가는 제품별 특성을 알고 <span class="highlight">안전하게 청소</span>합니다.</li>
+                </ul>
+            </div>
+            
+            <div class="section">
+                <h2>5. 고회전율 제품의 위험성 (가정)</h2>
+                <p>🔄 매일 쓰는 가전은 오염 속도가 빠릅니다. (쉬운 설명)</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>고회전율 환경</th>
+                            <th>주요 위험성</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**세탁기**</td>
+                            <td>매일 빨래, 특히 젖은 옷을 오래 방치하는 경우</td>
+                            <td>세탁조 겉면(눈에 안 보이는 부분)에 세제 찌꺼기가 뭉쳐 <span class="highlight">곰팡이 포자</span>가 쌓여 옷으로 옮겨 붙음</td>
+                        </tr>
+                        <tr>
+                            <td>**에어컨**</td>
+                            <td>여름철 매일 사용하며 껐을 때 습기가 가득 찰 경우</td>
+                            <td>냉각핀의 물기가 마르지 않아 <span class="highlight">곰팡이가 증식</span>하고, 켤 때마다 악취와 함께 포자가 배출됨</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>6. 오염의 주요 원인 및 발생 과정 (가정)</h2>
+                <p>오염은 어떻게 시작되고 위험해지나요? (쉬운 설명)</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>단계</th>
+                            <th>오염 원인 (쉽게 설명)</th>
+                            <th>위험 발생 과정 (쉽게 설명)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**1단계: 습기 + 먹이**</td>
+                            <td><span class="highlight">습기</span> (물기) + <span class="highlight">유기물</span> (세제 찌꺼기, 음식물 냄새, 인체 각질)</td>
+                            <td>제품 내부에 습기가 차고, 주변의 찌꺼기가 젖으면서 곰팡이와 세균의 <span class="highlight">좋은 집이자 먹이</span>가 됩니다.</td>
+                        </tr>
+                        <tr>
+                            <td>**2단계: 악취와 위험**</td>
+                            <td>어둡고 좁은 곳 (냉장고 고무 패킹 틈새, 세탁조 겉면)</td>
+                            <td>곰팡이가 번식하며 <span class="highlight">불쾌한 냄새</span>를 만듭니다. 이 곰팡이 포자나 세균이 바람이나 물을 통해 나와 가족의 <span class="highlight">호흡기와 피부</span>를 위협합니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>7. 실제 현장에서의 주요 오염 부위 (가정)</h2>
+                <p>주부님들이 미처 알지 못했던 오염의 핵심 위치를 알려드립니다.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>주요 오염 부위</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>**냉장고**</td>
+                            <td>**문 고무 패킹** (음식물 찌꺼기), **물받이** (물때), **선반 틈** (곰팡이)</td>
+                        </tr>
+                        <tr>
+                            <td>**세탁기**</td>
+                            <td>**세탁조 외부** (세제 찌꺼기가 뭉쳐 미역처럼 되는 곳), **세제 투입구** (물때와 곰팡이)</td>
+                        </tr>
+                        <tr>
+                            <td>**에어컨**</td>
+                            <td>**냉각핀** (가장 습하고 곰팡이가 집중되는 곳), **드레인 팬** (물 고이는 곳)</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="image-container">
+                    <img src="image/home_dirty_washing_machine_drum.jpg" alt="">
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>8. 전문 분해·소독 프로세스 (가정 제품 예시 - 세탁기)</h2>
+                <p>🛠️ 눈에 보이지 않는 곳까지 확실하게! (쉬운 설명)</p>
+                <ol>
+                    <li>**작동 및 안전 점검:** 제품의 이상 유무 확인 및 주변 욕실/베란다 보양 작업.</li>
+                    <li>**전원 차단 및 완전 분해:** 전원을 끄고, 세탁조를 꺼내기 위해 <span class="highlight">외부 통, 내부 통, 거름망</span> 등을 모두 분리.</li>
+                    <li>**전문 약품 도포 및 불림:** 인체에 무해한 전용 약품을 도포하여 세제 찌꺼기와 곰팡이를 불림.</li>
+                    <li>**고압 세척 및 헹굼:** 전문 고압 세척기로 세탁조 외부의 <span class="highlight">검은 곰팡이</span>와 찌꺼기를 깨끗하게 씻어냄.</li>
+                    <li>**살균 소독 및 탈취:** 스팀 살균 장비 또는 친환경 살균제로 <span class="highlight">세균을 완벽하게 제거</span>하고 악취를 없앱니다.</li>
+                    <li>**건조 및 조립:** 분해된 부품들을 건조 후 재조립하고, 정상 작동 확인.</li>
+                </ol>
+            </div>
+
+            <div class="section">
+                <h2>9. 위생 관리 권장 주기 (가정)</h2>
+                <p>🗓️ 깨끗함을 유지하는 습관</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>제품</th>
+                            <th>권장 주기</th>
+                            <th>쉽게 설명 (왜 이 주기가 필요한가요?)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>에어컨, 세탁기</td>
+                            <td><span class="highlight">1년 1회</span> (계절 시작 전)</td>
+                            <td>에어컨은 여름 직전, 세탁기는 봄철 곰팡이 번식 전, 주기적인 점검이 가장 효율적입니다.</td>
+                        </tr>
+                        <tr>
+                            <td>냉장고, 정수기</td>
+                            <td><span class="highlight">6개월 ~ 1년 1회</span></td>
+                            <td>음식을 보관하거나 직접 마시는 물이므로, 곰팡이와 물때가 생기기 전에 관리하는 것이 좋습니다.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="section">
+                <h2>10. 관리 후 기대 효과 (가정)</h2>
+                <p>🎉 전문 관리 후 얻게 되는 긍정적인 변화</p>
+                <ul>
+                    <li>**가족 건강 보호:** 곰팡이, 세균, 미세먼지 제거로 <span class="highlight">비염, 아토피, 호흡기 질환 예방</span>에 도움을 줍니다.</li>
+                    <li>**악취 완전 제거:** 제품에서 나는 <span class="highlight">퀴퀴한 냄새</span>가 사라지고 쾌적한 실내 환경이 조성됩니다.</li>
+                    <li>**주부의 관리 부담 해소:** <span class="highlight">눈에 안 보이던 오염</span>까지 제거되어 주부님의 마음이 편안해집니다.</li>
+                </ul>
+            </div>
+
+            <div class="section call-to-action">
+                <h2>11. 종합 정리: VIP CARE 서비스, 이런 가정에 강력 추천합니다.</h2>
+                <p>✅ **어린아이**나 **노인**, **반려동물**을 키우는 가정</p>
+                <p>✅ 에어컨/세탁기에서 <span class="highlight">냄새</span>가 나서 사용이 망설여지는 주부님</p>
+                <p>✅ **자가 분해 청소**에 자신이 없거나, 제품을 오래 사용하고 싶은 분</p>
+                <p class="phone-number">지금 바로 문의하세요! (문의전화: XXXX-XXXX)</p>
+            </div>
         </div>
     </div>
-    <p class="image-caption" style="margin-bottom: 30px;">VIP 프리미엄 케어 현장</p>
 
+    <script>
+        // 콘텐츠 전환 스크립트
+        function switchContent(target) {
+            const business = document.getElementById('businessContent');
+            const home = document.getElementById('homeContent');
+            const btnBusiness = document.getElementById('btnBusiness');
+            const btnHome = document.getElementById('btnHome');
 
-    <!-- [LIVING & FABRIC CARE] -->
-    <div class="category-title">1. LIVING & FABRIC (주거 공간 케어)</div>
-    <p class="service-detail">
-        피부에 직접 닿는 매트리스와 소파는 집먼지진드기와 세균의 온상입니다. 
-        <span class="highlight">건식(먼지 제거)과 습식(얼룩/냄새 제거)을 결합한 듀얼 케어</span>로 쾌적한 침실과 거실을 만들어 드립니다.
-    </p>
-    <div class="modern-table-wrapper">
-        <table class="modern-table">
-            <thead>
-                <tr>
-                    <th style="width: 25%;">서비스 품목</th>
-                    <th>세부 관리 내용</th>
-                    <th style="width: 15%;">효과</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>매트리스 (싱글~킹)</td>
-                    <td>프레임 청소, 자외선 살균, 진드기 패치 부착, 심층 먼지 제거</td>
-                    <td>아토피 예방<br>숙면 유도</td>
-                </tr>
-                <tr>
-                    <td>패브릭 소파 / 의자</td>
-                    <td>전용 세제로 얼룩 및 찌든 때 습식 세탁, 냄새 제거, 건조</td>
-                    <td>얼룩 제거<br>색감 복원</td>
-                </tr>
-                <tr>
-                    <td>카페트 / 러그</td>
-                    <td>고온 스팀 및 버블 세척으로 섬유 속 미세먼지 및 오염물 박리</td>
-                    <td>공기질 개선<br>세균 박멸</td>
-                </tr>
-                <tr>
-                    <td>욕실 / 화장실 케어</td>
-                    <td>천장, 벽면, 환풍구 곰팡이 제거, 도기 스팀 살균, 나노 코팅</td>
-                    <td>물때 방지<br>악취 제거</td>
-                </tr>
-                <tr>
-                    <td>주방 후드 (렌지후드)</td>
-                    <td>필터망 기름때 불림 세척, 모터 하우징 내부 유증기 제거</td>
-                    <td>화재 예방<br>배기 원활</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- [HOME APPLIANCES CARE] -->
-    <div class="category-title">2. HOME APPLIANCES (생활 가전 케어)</div>
-    <p class="service-detail">
-        보이지 않는 가전제품 내부의 곰팡이와 찌꺼기는 가족 건강을 위협합니다. 
-        <span class="highlight">완전 분해 기술</span>로 새 제품처럼 깨끗하게 되돌려 드립니다.
-    </p>
-    <div class="modern-table-wrapper">
-        <table class="modern-table">
-            <thead>
-                <tr>
-                    <th style="width: 25%;">대상 기기</th>
-                    <th>전문 케어 포인트</th>
-                    <th style="width: 15%;">효과</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>에어컨 (벽걸이/스탠드)</td>
-                    <td>필터, 송풍팬, 냉각핀(열교환기) 고압 세척 및 곰팡이 제거</td>
-                    <td>냉방병 예방<br>전기료 절감</td>
-                </tr>
-                <tr>
-                    <td>세탁기 (통돌이/드럼)</td>
-                    <td>세탁조 완전 분해, 스파이더 오염 제거, 고무패킹 곰팡이 제거</td>
-                    <td>빨래 냄새<br>찌꺼기 해결</td>
-                </tr>
-                <tr>
-                    <td>의류 건조기</td>
-                    <td>콘덴서(열교환기) 핀 세척, 먼지 필터 하우징 및 배수통 살균</td>
-                    <td>건조 효율↑<br>에러 방지</td>
-                </tr>
-                <tr>
-                    <td>냉장고 / 김치냉장고</td>
-                    <td>내부 선반 탈거 세척, <strong>기계실 먼지 제거</strong>, 고온 스팀 살균</td>
-                    <td>식중독 예방<br>화재 방지</td>
-                </tr>
-                <tr>
-                    <td>의류관리기 (스타일러)</td>
-                    <td>보일러 히터 물때 제거, 급/배수통 소독, 스팀 노즐 청소</td>
-                    <td>스팀 분사력↑<br>냄새 제거</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    <!-- [COMMERCIAL & OFFICE CARE] -->
-    <div class="category-title">3. OFFICE & COMMERCIAL (상업/공공 시설)</div>
-    <p class="service-detail">
-        다수가 이용하는 사무실과 상업 공간은 정기적인 관리가 필수입니다. 
-        <span class="highlight">대용량 공조 시스템과 바닥 관리</span>로 쾌적한 업무 환경과 매장 이미지를 만듭니다.
-    </p>
-    <div class="modern-table-wrapper">
-        <table class="modern-table">
-            <thead>
-                <tr>
-                    <th style="width: 25%;">서비스 품목</th>
-                    <th>세부 관리 내용</th>
-                    <th style="width: 15%;">효과</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>시스템 에어컨 (천장형)</td>
-                    <td>드레인판, 송풍팬 분해 고압 세척, 핀 세정, PCB 점검</td>
-                    <td>공기질 개선<br>에너지 절감</td>
-                </tr>
-                <tr>
-                    <td>사무실/매장 바닥</td>
-                    <td>기존 왁스 박리(벗겨냄) 후 기계 세척 및 고급 왁스 코팅</td>
-                    <td>광택 복원<br>바닥 보호</td>
-                </tr>
-                <tr>
-                    <td>대형 공기청정기</td>
-                    <td>헤파필터 교체 지원, 내부 터보팬 분해 세척, 센서 청소</td>
-                    <td>성능 유지<br>소음 감소</td>
-                </tr>
-                <tr>
-                    <td>비데 (공용 화장실)</td>
-                    <td>노즐 팁 분해 스팀, 도기 결합부(사각지대) 오염물 제거</td>
-                    <td>위생 강화<br>교차감염 방지</td>
-                </tr>
-                <tr>
-                    <td>방역 소독</td>
-                    <td>공간 전체 초미립자 살균 소독 (법정 의무 소독 지원)</td>
-                    <td>바이러스<br>해충 퇴치</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-
-    
-    <h3 id="vip-s03-anchor">VIP CARE 권장 관리 주기</h3>
-    <p>
-        최상의 위생 상태와 기기 성능 유지를 위한 전문가 권장 주기입니다.
-    </p>
-    <ul class="bullet-list">
-        <li><strong>에어컨:</strong> 연 1~2회 (여름 전/후, 필터는 월 1회)</li>
-        <li><strong>세탁기/건조기:</strong> 연 1회 (사용 빈도 높으면 6개월)</li>
-        <li><strong>매트리스/소파:</strong> 6개월 ~ 1년 (반려동물/아이 있는 경우 3~4개월)</li>
-        <li><strong>사무실/상업시설:</strong> 시스템 에어컨 및 바닥 관리는 연 1~2회 정기 계약 권장</li>
-    </ul>
-
-    <h3 id="vip-s04-anchor">종합 정리</h3>
-    <p>
-        클린메이트 VIP CARE는 <strong>'집'이라는 휴식 공간과 '일터'라는 생산 공간</strong> 모두를 케어합니다.<br>
-        가정에서는 가족의 건강을 지키는 든든한 파트너로, 기업에서는 쾌적한 업무 환경을 조성하는 전문 매니저로 함께합니다.<br>
-        보이지 않는 곳까지 찾아내는 전문 장비와 노하우로, 공간의 품격을 높여드립니다.
-    </p>
+            if (target === 'business') {
+                business.classList.add('active');
+                home.classList.remove('active');
+                btnBusiness.classList.add('active');
+                btnHome.classList.remove('active');
+            } else if (target === 'home') {
+                business.classList.remove('active');
+                home.classList.add('active');
+                btnBusiness.classList.remove('active');
+                btnHome.classList.add('active');
+            }
+        }
+        
+        // 초기 로드 시 기업(business)이 활성화되도록 설정
+        document.addEventListener('DOMContentLoaded', () => {
+            switchContent('business');
+        });
+    </script>
+</body>
+</html>
