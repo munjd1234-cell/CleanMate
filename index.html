@@ -150,26 +150,23 @@
     color: #fff;
   }
 
-
-/* [VIP CARE 버튼 전용 골드 스타일] */
-  .menu-btn[data-target="vip-section"] {
-    /* 고급스러운 골드 그라데이션 */
-    background: linear-gradient(135deg, #bfa05f 0%, #e6c885 50%, #bfa05f 100%);
-    background-size: 200% auto;
-    color: #fff !important;
-    font-weight: 900; /* 폰트 더 두껍게 */
-    text-shadow: 1px 1px 3px rgba(0,0,0,0.4); /* 글자 잘 보이게 그림자 */
-    border-left: 1px solid #8e7236;
-    transition: 0.5s;
-    letter-spacing: 1px; /* 글자 간격 넓혀서 고급스럽게 */
+/* ✅ [VIP CARE 텍스트 골드 깜빡임 효과] */
+  @keyframes gold-blink {
+      0%, 100% { color: #FFD700; text-shadow: none; } /* 황금색 */
+      50% { color: #fff; text-shadow: 0 0 10px #FFD700; } /* 하얗게 빛남 */
   }
 
-  /* VIP 버튼에 마우스 올리거나 선택됐을 때 */
-  .menu-btn[data-target="vip-section"]:hover,
+  /* 평소 상태: 배경은 그대로 두고 글자만 깜빡임 */
+  .menu-btn[data-target="vip-section"] {
+      font-weight: 900; 
+      animation: gold-blink 2s infinite ease-in-out; /* 2초 간격 깜빡임 */
+  }
+
+  /* 클릭해서 활성화된 상태: 민트색 배경 위에서도 글자는 골드 유지 */
   .menu-btn[data-target="vip-section"].active {
-    background-position: right center; /* 빛나는 애니메이션 */
-    color: #fff !important;
-    box-shadow: inset 0 0 15px rgba(139, 109, 39, 0.6); /* 깊이감 */
+      color: #FFD700 !important;
+      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
+      animation: none; /* 선택되면 깜빡임 멈춤 (계속 깜빡이게 하려면 이 줄 삭제) */
   }
 
 
