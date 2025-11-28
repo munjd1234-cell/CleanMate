@@ -150,31 +150,21 @@
     color: #fff;
   }
 
-/* ✅ [VIP CARE 텍스트 골드 깜빡임 효과] */
+  /* [VIP CARE 텍스트 골드 깜빡임 효과] */
   @keyframes gold-blink {
-      0%, 100% { color: #FFD700; text-shadow: none; } /* 황금색 */
-      50% { color: #fff; text-shadow: 0 0 10px #FFD700; } /* 하얗게 빛남 */
+      0%, 100% { color: #FFD700; text-shadow: none; }
+      50% { color: #fff; text-shadow: 0 0 10px #FFD700; }
   }
-
-  /* 평소 상태: 배경은 그대로 두고 글자만 깜빡임 */
   .menu-btn[data-target="vip-section"] {
       font-weight: 900; 
-      animation: gold-blink 2s infinite ease-in-out; /* 2초 간격 깜빡임 */
+      animation: gold-blink 2s infinite ease-in-out;
   }
-
-  /* 클릭해서 활성화된 상태: 민트색 배경 위에서도 글자는 골드 유지 */
   .menu-btn[data-target="vip-section"].active {
       color: #FFD700 !important;
       text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-      animation: none; /* 선택되면 깜빡임 멈춤 (계속 깜빡이게 하려면 이 줄 삭제) */
+      animation: none;
   }
 
-
-
-
-
-
-  
   main {
     margin-top: 126px; 
     margin-bottom: 80px; 
@@ -215,6 +205,12 @@
   .btn-primary {
       background: #00bfa5;
       color: white;
+  }
+  
+  /* 하단 버튼 활성화 상태 */
+  .btn-primary.active {
+      background: #008f7a;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
   }
 
   .btn-proposal-bottom {
@@ -535,6 +531,7 @@
   
   <div id="main-content-wrapper">
     <header>
+      <!-- 로고 중앙 정렬, 클릭 시 새로고침 -->
       <div class="header-top">
           <img src="imege/logo2.png" alt="클린메이트 로고" onclick="location.reload()" />
       </div>
@@ -548,12 +545,11 @@
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자렌지</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력사</a> 
-      <!-- [수정됨] 빠른상담 -> VIP CARE로 변경 -->
       <a href="#vip" class="menu-btn" data-target="vip-section">VIP CARE</a> 
     </nav>
 
     <main>
-      <!-- 회사 소개 (내용 원상 복구됨) -->
+      <!-- 회사 소개 (전체 내용 포함) -->
       <div id="company-section" class="content-section solution-content-wrapper">
           <h2>기업 위생가전 소독관리</h2>
           
@@ -643,8 +639,6 @@
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
-      
-      <!-- [추가됨] VIP CARE 섹션 영역 -->
       <div id="vip-section" class="content-section solution-content-wrapper"></div>
 
       <!-- 협력사 섹션 -->
@@ -655,7 +649,7 @@
           </div>
       </div>
 
-      <!-- 빠른 상담 섹션 (메뉴에는 없지만 하단 버튼으로 접근) -->
+      <!-- 빠른 상담 섹션 -->
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
           <h2>원스톱 상담</h2>
           <p></p>
@@ -743,6 +737,8 @@
             scrollToSectionClick(targetId);
             menuButtons.forEach(btn => btn.classList.remove('active'));
             button.classList.add('active');
+            
+            document.getElementById('btn-onestop').classList.remove('active');
         });
     });
 
@@ -754,15 +750,17 @@
         const onestopBtn = document.getElementById('btn-onestop');
         if (targetId === 'quiz-section') {
             onestopBtn.textContent = '다시선택';
+            onestopBtn.classList.add('active');
+            menuButtons.forEach(btn => btn.classList.remove('active'));
         } else {
             onestopBtn.textContent = '원스톱상담';
+            onestopBtn.classList.remove('active');
         }
 
         const targetSection = document.getElementById(targetId);
         if (targetSection) {
             let loadPromise = Promise.resolve(); 
 
-            // [수정됨] VIP CARE 섹션 연결 (vipcare.html 로드)
             if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
             } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
@@ -885,35 +883,27 @@
     function generateOptions(questionId) {
         const optionsContainer = document.getElementById(`opt${questionId.slice(-1)}`);
         const options = data[questionId] || (questionId === 'q5' && data.cities[selectedRegion]) || [];
-        
-        if (optionsContainer && options.length > 0) {
+        if (optionsContainer) {
             optionsContainer.innerHTML = ''; 
             options.forEach(option => {
                 const btn = createOptionButton(option);
-                btn.addEventListener('click', () => {
-                    handleOptionClick(questionId, btn);
-                });
+                btn.addEventListener('click', () => handleOptionClick(questionId, btn));
                 optionsContainer.appendChild(btn);
             });
-        } else if (optionsContainer) {
-            optionsContainer.innerHTML = '';
         }
     }
 
     function handleOptionClick(questionId, button) {
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
-        
         const currentOptions = document.getElementById(`opt${qIndex + 1}`);
         currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
-        
         answers[qIndex] = value;
         
         if (questionId === 'q4') {
             selectedRegion = value;
             const regionCities = data.cities[selectedRegion];
-            
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
                 setTimeout(() => nextQuestion(true), 200); 
@@ -924,30 +914,16 @@
         } else if (questionId === 'q5') {
             answers[4] = value;
         }
-        
         setTimeout(() => nextQuestion(), 200);
     }
 
     function nextQuestion(isSkipQ5 = false) {
-        if (current >= 0 && current < questions.length) {
-             questions[current].classList.remove('active');
-        }
-
-        const isLastStep = isSkipQ5;
-
-        if (isLastStep) {
-            current = questions.length - 1; 
-        } else {
-            current++;
-        }
-
+        if (current >= 0 && current < questions.length) questions[current].classList.remove('active');
+        current = isSkipQ5 ? questions.length - 1 : current + 1;
         if (current < questions.length) {
             questions[current].classList.add('active');
-            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') {
-                generateOptions(questions[current].id);
-            }
+            if (questions[current].id.startsWith('q') && questions[current].id !== 'q5') generateOptions(questions[current].id);
         }
-        
         if (current === questions.length - 1) summarize();
     }
 
@@ -957,10 +933,7 @@
         const sendSMSButton = document.getElementById('sendSMS');
         const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
         sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
-        
-        if (answers[3] && answers[4]) {
-            sendSMSButton.disabled = false;
-        }
+        if (answers[3] && answers[4]) sendSMSButton.disabled = false;
     }
 
     function sendSummarySMS() {
@@ -968,10 +941,7 @@
         const message = `[클린메이트 상담 요청]\n${summaryText}`;
         const encodedMessage = encodeURIComponent(message);
         const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
-        
-        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) {
-            window.location.href = smsLink;
-        }
+        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) window.location.href = smsLink;
     }
 
     function restartQuiz() {
@@ -1020,7 +990,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
-        
         generatePartnerLogos(); 
         resetQuiz(); 
     });
