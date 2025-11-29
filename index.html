@@ -87,9 +87,7 @@
     left: 0;
     width: 100%;
     background: #fff;
-    display: flex; 
-    flex-direction: column; 
-    align-items: center; 
+    display: block; /* 내부 flex 처리를 위해 block으로 변경 */
     padding: 10px 0 15px 0; 
     z-index: 1000;
     box-sizing: border-box;
@@ -97,23 +95,47 @@
   
   .header-top {
       display: flex;
-      justify-content: center; /* 로고 중앙 정렬 */
+      justify-content: space-between; /* 로고와 새 로고를 양 끝에 배치 */
       align-items: center;
       width: 100%;
       padding: 0 15px; 
       box-sizing: border-box;
   }
 
-  header img { 
+  .header-left-content {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* 기존 로고와 문구 왼쪽 정렬 */
+  }
+
+  .main-logo-img { /* 기존 로고: logo2.png */
       height: 45px; 
       cursor: pointer; 
   } 
   
-  header h2 {
+  .header-text { /* 기존 h2 문구 */
     margin: 5px 0 0 0; 
     font-size: 14px;
     color: #333;
     font-weight: bold;
+    text-align: left; /* 왼쪽 정렬 */
+  }
+
+  .header-right-logo-box { /* 새 로고 컨테이너: top_logo.jpg */
+      display: block;
+      padding: 3px;
+      border: 1px solid #ccc; /* 박스 처리 */
+      border-radius: 5px;
+      line-height: 0; 
+      cursor: pointer;
+      flex-shrink: 0;
+  }
+  
+  .header-right-logo-box img { /* 새 로고 이미지 */
+      height: 22.5px; /* 기존 로고 (45px)의 1/2 크기 */
+      width: auto;
+      display: block;
+      margin: 0;
   }
 
   /* --- [메뉴바] --- */
@@ -500,6 +522,15 @@
     footer { font-size: 13px; }
 
     .partner-logo-gallery-wrapper { max-width: 400px; height: 600px; }
+    
+    /* PC/태블릿 Header Logo Size 조정 */
+    .main-logo-img { /* PC에서 기존 로고 크기 */
+        height: 60px; 
+    } 
+    
+    .header-right-logo-box img { /* PC에서 새 로고 크기 (1/2) */
+        height: 30px; 
+    }
   }
 </style>
 </head>
@@ -518,9 +549,15 @@
   <div id="main-content-wrapper">
     <header>
       <div class="header-top">
-          <img src="imege/logo2.png" alt="클린메이트 로고" onclick="location.reload()" />
+          <div class="header-left-content">
+              <img src="imege/logo2.png" alt="클린메이트 로고" class="main-logo-img" onclick="location.reload()" /> 
+              <h2 class="header-text">전문장비로 원스톱 위생관리 솔루션</h2>
+          </div>
+          
+          <a href="http://www.dhcsolution.com/" target="_blank" class="header-right-logo-box">
+              <img src="imege/top_logo.jpg" alt="디에이치씨솔루션 홈페이지 바로가기" />
+          </a>
       </div>
-      <h2>전문장비로 원스톱 위생관리 솔루션</h2> 
     </header>
 
     <nav class="main-menu">
@@ -619,7 +656,7 @@
           <p class="image-caption">사업자,영업신고증</p>
           
           <img src="imege/vv01.jpg" alt="회사 추가 정보 이미지" style="margin-top: 30px;"/>
-          <p class="image-caption">VVIP 긴급 대응팀</p>
+          <p class="image-caption">추가 정보 이미지</p>
 
       </div>
 
