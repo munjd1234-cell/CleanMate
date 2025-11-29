@@ -235,29 +235,38 @@
   }
 
   /* --- [푸터] --- */
-  footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #111;
-    color: #888;
-    font-size: 11px;
-    white-space: nowrap;
-    overflow: hidden;
-    height: 30px; 
-    line-height: 30px;
-    z-index: 998; 
-  }
-  .scroll-text {
-    display: inline-block;
-    animation: marquee 60s linear infinite; /* 👈 60초 적용 완료 */
-    padding-left: 0;
-  }
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  color: #666;
+  font-size: 11px;
+  height: 30px;
+  line-height: 30px;
+  z-index: 998;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid #222;
+}
+
+.scroll-text {
+  display: flex;          /* 가로로 정렬 */
+  width: max-content;     /* 글자 길이만큼 폭 확보 */
+  animation: marquee 60s linear infinite; /* 40초 동안 흐름 */
+}
+
+/* 글자 덩어리 사이의 간격 */
+.scroll-text span {
+    padding-right: 50px; 
+}
+
+/* 왼쪽으로 50%(절반)만 이동해서 무한반복 효과 냄 */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
 
   /* --- [공통 콘텐츠 스타일] --- */
   .solution-content-wrapper { 
@@ -737,11 +746,15 @@
       <button class="btn-proposal-bottom" onclick="window.open('proposal_corporate.html')">기업제안서</button>
     </div>
 
-    <footer>
-      <div class="scroll-text">
-          상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp; 상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp;
-      </div>
-    </footer>
+<footer>
+  <div class="scroll-text">
+      <!-- 내용 1번 -->
+      <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
+      
+      <!-- 내용 2번 (위와 똑같은 내용을 한번 더 넣습니다) -->
+      <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
+  </div>
+</footer>
   </div>
 
 <script>
