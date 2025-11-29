@@ -1,9 +1,8 @@
 <h2>전문 기술 및 인증 보고서</h2>
-<!-- ▼▼▼▼▼ [수정완료] 최첨단 기술력(ATP 스캔) 배너 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [수정완료] 레이더 강화 + 변종 곰팡이 추가 버전 ▼▼▼▼▼ -->
 <style>
     /* 기술력 배너 전용 스타일 */
     .tech-banner-wrapper {
-        /* PC 화면 꽉 채우기 */
         width: 100vw;
         position: relative;
         left: 50%;
@@ -12,9 +11,9 @@
         height: auto;
         padding: 50px 0;
         margin-bottom: 30px;
-        border-bottom: 1px solid #7c4dff; /* 네온 보라색 선 */
+        border-bottom: 1px solid #7c4dff;
         
-        /* 배경: 최첨단 연구소 느낌의 딥 바이올렛~블랙 */
+        /* 배경: 깊은 연구소 느낌 (딥 바이올렛) */
         background: radial-gradient(circle at center, #311b92 0%, #000000 90%);
         
         display: flex;
@@ -27,20 +26,57 @@
         margin-top: 40px !important;
     }
 
-    /* 배경 디지털 그리드 (모눈종이 효과) */
+    /* ▦ 배경 디지털 그리드 (더 선명하게) */
     .digital-grid {
         position: absolute;
         top: 0; left: 0;
         width: 100%; height: 100%;
         background-image: 
-            linear-gradient(rgba(124, 77, 255, 0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(124, 77, 255, 0.1) 1px, transparent 1px);
-        background-size: 30px 30px;
+            linear-gradient(rgba(124, 77, 255, 0.2) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(124, 77, 255, 0.2) 1px, transparent 1px);
+        background-size: 40px 40px;
         z-index: 0;
-        perspective: 1000px;
     }
 
-    /* 중앙 박스 (홀로그램 패널 느낌) */
+    /* 📡 [핵심 1] 레이더 스캔 효과 (빠르고 선명하게!) */
+    .radar-scan {
+        position: absolute;
+        top: 50%; left: 50%;
+        width: 120vh; height: 120vh; /* 화면보다 크게 */
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        
+        /* 레이더 빛: 투명 -> 형광 하늘색으로 진하게 */
+        background: conic-gradient(
+            from 0deg, 
+            transparent 0deg, 
+            rgba(0, 229, 255, 0.1) 40deg, 
+            rgba(0, 229, 255, 0.8) 60deg, /* 끝부분 아주 밝게 */
+            transparent 60.1deg
+        );
+        
+        /* 회전 속도 2s (아주 빠름) */
+        animation: radarSpin 2s linear infinite;
+        z-index: 1;
+        pointer-events: none;
+        
+        /* 레이더 테두리 선 */
+        border: 1px dashed rgba(0, 229, 255, 0.3);
+    }
+
+    /* 레이더 스캔 선 (확실히 보이게 추가) */
+    .radar-scan::after {
+        content: '';
+        position: absolute;
+        top: 0; left: 50%;
+        width: 2px; height: 50%; /* 반지름만큼 */
+        background: #fff; /* 하얀색 실선 */
+        box-shadow: 0 0 10px #00e5ff; /* 형광 빛 */
+        transform-origin: bottom center;
+        transform: rotate(60deg); /* 그라데이션 끝에 맞춤 */
+    }
+
+    /* 중앙 박스 */
     .tech-glass-box {
         position: relative;
         width: 90%;
@@ -54,49 +90,44 @@
         border-radius: 10px;
         box-shadow: 0 0 30px rgba(101, 31, 255, 0.3);
         backdrop-filter: blur(5px);
-        
-        /* 박스 테두리에 빛이 흐르는 애니메이션 */
-        animation: borderPulse 3s infinite alternate;
     }
 
-    /* 🎯 [핵심 1] 타겟팅 조준경 (세균 포착) */
+    /* 🎯 타겟 조준경 */
     .target-scope {
         position: absolute;
-        width: 40px; height: 40px;
-        border: 2px dashed #00e5ff; /* 형광 하늘색 */
+        width: 50px; height: 50px;
+        border: 2px solid #00e5ff; 
         border-radius: 50%;
         z-index: 5;
-        animation: searchMove 6s infinite ease-in-out;
+        box-shadow: 0 0 10px #00e5ff;
+        animation: searchMove 4s infinite ease-in-out;
     }
-    .target-scope::after { /* 십자선 */
-        content: ''; position: absolute;
-        top: 50%; left: 50%; transform: translate(-50%, -50%);
-        width: 4px; height: 4px; background: #ff5252;
-    }
-    .ts1 { top: 20%; left: 20%; animation-delay: 0s; }
-    .ts2 { bottom: 30%; right: 20%; animation-delay: 2s; border-color: #ff4081; }
+    /* 십자선 */
+    .target-scope::before { content: ''; position: absolute; top: 50%; left: 0; width: 100%; height: 1px; background: #00e5ff; }
+    .target-scope::after { content: ''; position: absolute; left: 50%; top: 0; width: 1px; height: 100%; background: #00e5ff; }
 
-    /* 🦠 [핵심 2] 스캔되는 세균 (깜빡거리며 사라짐) */
-    .detected-germ {
-        position: absolute;
-        font-size: 24px;
-        opacity: 0.7;
-        filter: hue-rotate(90deg); /* 보라색 배경에 맞게 색조 변경 */
-        animation: germBlink 2s infinite;
-    }
-    .dg1 { top: 22%; left: 21%; animation: germBlink 2s infinite 0.1s; }
-    .dg2 { bottom: 32%; right: 21%; animation: germBlink 2s infinite 2.1s; }
+    /* 위치 설정 */
+    .ts1 { top: 15%; left: 15%; animation-delay: 0s; border-color: #ff4081; } /* 붉은 타겟 */
+    .ts2 { bottom: 20%; right: 15%; animation-delay: 1s; } /* 파란 타겟 */
 
-    /* 📡 [핵심 3] 레이더 스캔 효과 (빙글빙글) */
-    .radar-scan {
+    /* 🦠 [핵심 2] 곰팡이들 (종류 추가) */
+    
+    /* 1번: 일반 세균 (녹색) */
+    .germ-normal {
         position: absolute;
-        top: 50%; left: 50%;
-        width: 150%; height: 150%;
-        transform: translate(-50%, -50%);
-        background: conic-gradient(from 0deg, transparent 0deg, rgba(124, 77, 255, 0.1) 60deg, transparent 60deg);
-        animation: radarSpin 4s linear infinite;
-        z-index: 1;
-        pointer-events: none;
+        font-size: 30px;
+        top: 18%; left: 18%;
+        animation: germBlink 1s infinite; /* 빨리 깜빡임 */
+        filter: drop-shadow(0 0 5px #00ff00);
+    }
+
+    /* 2번: 변종 곰팡이 (붉은색 - 추가됨!) */
+    .germ-mutant {
+        position: absolute;
+        font-size: 35px;
+        bottom: 23%; right: 18%;
+        animation: germBlink 0.5s infinite alternate; /* 더 빨리 위협적으로 깜빡임 */
+        filter: hue-rotate(150deg) drop-shadow(0 0 8px #ff0000); /* 붉은색으로 변경 */
     }
 
     /* 텍스트 스타일 */
@@ -123,7 +154,6 @@
     .tech-highlight {
         font-size: 28px; font-weight: 900;
         color: #fff;
-        /* 데이터/숫자 느낌의 네온 효과 */
         text-shadow: 0 0 10px #7c4dff, 0 0 20px #651fff; 
     }
 
@@ -134,48 +164,41 @@
         text-shadow: 0 0 15px rgba(179, 136, 255, 0.4);
     }
 
-    /* --- 애니메이션 정의 --- */
-    
-    /* 1. 타겟 조준경 이동 */
-    @keyframes searchMove {
-        0% { transform: translate(0, 0) scale(1); }
-        50% { transform: translate(20px, -20px) scale(1.1); }
-        100% { transform: translate(0, 0) scale(1); }
-    }
-
-    /* 2. 세균 깜빡임 (감지됨) */
-    @keyframes germBlink {
-        0%, 100% { opacity: 0.2; transform: scale(0.8); }
-        50% { opacity: 1; transform: scale(1.2); filter: drop-shadow(0 0 5px red); }
-    }
-
-    /* 3. 레이더 회전 */
+    /* --- 애니메이션 --- */
     @keyframes radarSpin {
         0% { transform: translate(-50%, -50%) rotate(0deg); }
         100% { transform: translate(-50%, -50%) rotate(360deg); }
     }
 
-    /* 4. 박스 테두리 숨쉬기 */
-    @keyframes borderPulse {
-        from { border-color: rgba(124, 77, 255, 0.3); }
-        to { border-color: rgba(0, 229, 255, 0.6); box-shadow: 0 0 40px rgba(0, 229, 255, 0.2); }
+    @keyframes germBlink {
+        0% { opacity: 0.3; transform: scale(0.9); }
+        100% { opacity: 1; transform: scale(1.1); }
+    }
+
+    @keyframes searchMove {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(10px, 10px); }
+        50% { transform: translate(0, 20px); }
+        75% { transform: translate(-10px, 10px); }
+        100% { transform: translate(0, 0); }
     }
 </style>
 
 <div class="tech-banner-wrapper">
-    <!-- ▦ 배경 디지털 그리드 -->
+    <!-- ▦ 배경 그리드 -->
     <div class="digital-grid"></div>
     
-    <!-- 📡 레이더 스캔 (빙글빙글) -->
+    <!-- 📡 레이더 스캔 (선명하고 빠름!) -->
     <div class="radar-scan"></div>
 
     <div class="tech-glass-box">
-        <!-- 🎯 타겟 조준경 & 세균 -->
+        <!-- 🎯 타겟 1: 일반 세균 -->
         <div class="target-scope ts1"></div>
-        <div class="detected-germ dg1">🦠</div>
+        <div class="germ-normal">🦠</div>
         
+        <!-- 🎯 타겟 2: 변종 곰팡이 (추가됨!) -->
         <div class="target-scope ts2"></div>
-        <div class="detected-germ dg2">🦠</div>
+        <div class="germ-mutant">🦠</div>
 
         <div class="tech-text-layer">
             <div class="tech-badge">ATP DATA ANALYSIS</div>
@@ -187,7 +210,7 @@
         </div>
     </div>
 </div>
-<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ -->        
+<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ -->      
         <h3>1-1. ATP 측정 기술 개요</h3>
         <p><strong>ATP(Adenosine Triphosphate, 아데노신 삼인산)</strong>는 모든 살아있는 세포에 존재하는 에너지 분자입니다. 클린메이트는 ATP 생물발광 측정 기술을 활용하여 위생 가전 표면의 미생물 오염도를 객관적인 수치(RLU, Relative Light Units)로 즉시 측정합니다.</p>
         
