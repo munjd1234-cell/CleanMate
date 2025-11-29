@@ -17,19 +17,21 @@
 
 /* 1. 배너 영역 설정 */
 .visual-hero-banner {
+    /* [핵심 수정] 부모 폭 무시하고 화면 꽉 채우기 */
     width: 100vw;
-    margin-left: -15px;
-    height: auto; /* 높이 자동 */
-    padding: 30px 0;
-    background: #000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    
+    height: 150px; /* 높이 유지 */
+    
+    margin-top: 0px;
+    margin-bottom: 0px;
     overflow: hidden;
-    margin-bottom: 20px;
+    background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
     border-bottom: 1px solid #333;
 }
-
+/* ▲▲▲ 여기까지 ▲▲▲ */
 /* 아래 '제안 배경' 제목과 거리 벌리기 (구분감 주기 위해) */
 .visual-hero-banner + h3 {
     margin-top: 40px !important;
