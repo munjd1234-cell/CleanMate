@@ -81,31 +81,40 @@
   }
 
   /* --- [HEADER] --- */
+  /* [변경] 기존 중앙 정렬/세로 배치에서 좌우 배치로 변경 (모바일) */
   header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     background: #fff;
-    display: flex; 
-    flex-direction: column; 
+    display: flex; /* Flexbox 활성화 */
+    justify-content: space-between; /* 로고와 메인 정보 양쪽 끝으로 배치 */
     align-items: center; 
-    padding: 10px 0 15px 0; 
+    padding: 10px 15px; /* 양쪽 여백 추가 */
     z-index: 1000;
     box-sizing: border-box;
   }
   
   .header-top {
+      display: none; /* 기존 헤더 중앙 정렬 컨테이너는 사용하지 않음 */
+  }
+
+  /* [추가] 새 로고 이미지 스타일 (모바일 - 1/2 사이즈) */
+  .new-logo-img {
+      height: 22.5px; /* 기존 로고 (45px)의 1/2 사이즈 */
+      display: block;
+  }
+
+  /* [추가] 기존 로고와 문구 컨테이너 (모바일) */
+  .header-main-info {
       display: flex;
-      justify-content: center; /* 로고 중앙 정렬 */
-      align-items: center;
-      width: 100%;
-      padding: 0 15px; 
-      box-sizing: border-box;
+      flex-direction: column; /* 세로 배치 */
+      align-items: flex-end; /* 오른쪽 정렬 */
   }
 
   header img { 
-      height: 45px; 
+      height: 45px; /* 기존 로고 사이즈는 유지 */
       cursor: pointer; 
   } 
   
@@ -114,6 +123,7 @@
     font-size: 14px;
     color: #333;
     font-weight: bold;
+    text-align: right; /* [변경] 문구 오른쪽 정렬 */
   }
 
   /* --- [메뉴바] --- */
@@ -375,7 +385,7 @@
       display: block;
   }
 
-  /* --- [이미지] --- */
+  /* ---  --- */
   .solution-content-wrapper img {
     max-width: 100%; 
     height: auto;    
@@ -484,6 +494,27 @@
   @media (min-width: 500px) {
     body { overflow-y: auto !important; }
     #intro-screen, #main-content-wrapper { max-width: 1600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
+    /* [변경/추가] PC 레이아웃 관련 스타일 */
+    header {
+        padding: 10px 15px;
+    }
+    .new-logo-img {
+        height: 22.5px; /* PC에서도 1/2 사이즈 유지 */
+    }
+    .header-main-info {
+        flex-direction: row; /* PC: 기존 로고와 문구를 가로로 배치 */
+        align-items: center; 
+        gap: 15px;
+    }
+    .header-main-info img {
+        height: 45px; /* 기존 로고는 45px 그대로 유지 */
+    }
+    header h2 {
+        margin: 0;
+        text-align: left; /* 문구 왼쪽 정렬 */
+        font-size: 16px;
+    }
+    
     header, .main-menu, .fixed-buttons, footer { width: 100%; max-width: 1600px; left: 50%; transform: translateX(-50%); }
     .menu-btn { font-size: 16px; padding: 15px 10px; }
     .solution-content-wrapper p, 
@@ -517,11 +548,13 @@
   
   <div id="main-content-wrapper">
     <header>
-      <!-- 로고 중앙 정렬, 클릭 시 새로고침 -->
-      <div class="header-top">
+      <a href="http://www.dhcsolution.com/" target="_blank" class="new-logo-link">
+          <img src="imege/top_logo.jpg" alt="디에이치씨솔루션 로고" class="new-logo-img" />
+      </a>
+      <div class="header-main-info">
           <img src="imege/logo2.png" alt="클린메이트 로고" onclick="location.reload()" />
+          <h2>전문장비로 원스톱 위생관리 솔루션</h2> 
       </div>
-      <h2>전문장비로 원스톱 위생관리 솔루션</h2> 
     </header>
 
     <nav class="main-menu">
@@ -536,7 +569,6 @@
     </nav>
 
     <main>
-      <!-- 회사 소개 (전체 내용 포함) -->
       <div id="company-section" class="content-section solution-content-wrapper">
           <h2>기업 위생가전 소독관리</h2>
           
@@ -621,14 +653,12 @@
           <p class="image-caption">사업자,영업신고증</p>
       </div>
 
-      <!-- 외부 콘텐츠 로드 영역 -->
       <div id="mos-section" class="content-section solution-content-wrapper"></div>
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
       <div id="aircond-section" class="content-section solution-content-wrapper"></div>
 
-      <!-- 협력사 섹션 -->
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
           <div class="partner-logo-gallery-wrapper">
@@ -636,7 +666,6 @@
           </div>
       </div>
 
-      <!-- 빠른 상담 섹션 -->
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
           <h2>원스톱 상담</h2>
           <p></p>
