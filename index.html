@@ -1007,7 +1007,7 @@
         const message = `[클린메이트]\n${summaryText}`;
         const encodedMessage = encodeURIComponent(message);
         const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
-        if (confirm(`[상담 요청 내용]\n${message}`)) window.location.href = smsLink;
+        if (confirm(`상담 요청 내용\n${message}`)) window.location.href = smsLink;
     }
 
     function restartQuiz() {
