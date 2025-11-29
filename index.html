@@ -5,164 +5,193 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>클린메이트 Clean Mate</title>
 <style>
-  /* --- [기본 스타일] --- */
+  /* ==========================================================================
+     [1. 기본 스타일 및 레이아웃]
+     ========================================================================== */
   body {
     margin: 0;
     font-family: 'Pretendard', sans-serif;
     background-color: #111;
     color: #fff;
+    overflow-x: hidden; /* 가로 스크롤 방지 */
   }
 
-  /* --- [인트로 화면] --- */
-/* --- [인트로 화면: 오버레이 스타일] --- */
-#intro-screen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background-color: #000;
-    display: flex; justify-content: center; align-items: center;
-    z-index: 9999; overflow: hidden;
-    transition: opacity 0.8s;
-}
-#intro-screen.fade-out { opacity: 0; }
+  /* ==========================================================================
+     [2. 인트로 화면 디자인: Design 2 (Overlay Style)]
+     - 배경: imege/cm1.jpg (어둡게 처리)
+     - 효과: 글자가 중앙에서 튀어나오며 전환
+     ========================================================================== */
+  #intro-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100vh;
+      background-color: #000;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+      overflow: hidden;
+      transition: opacity 0.8s ease-out;
+  }
 
-/* 배경 사진 */
-.bg-photo {
-    position: absolute;
-    width: 300px; /* 사진 크기 */
-    height: auto;
-    border-radius: 40px; /* 둥근 모서리 */
-    opacity: 0.8;
-    filter: brightness(0.6); /* 사진을 어둡게 (글자 잘 보이게) */
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
-}
+  /* 인트로가 끝날 때 적용되는 클래스 */
+  #intro-screen.fade-out {
+      opacity: 0;
+      pointer-events: none;
+  }
 
-/* 글자 컨테이너 */
-.text-center-box {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    width: 100%;
-}
+  /* 배경 사진 스타일 */
+  .bg-photo {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.6;
+      filter: brightness(0.5) blur(3px); /* 글자 강조를 위한 블러 처리 */
+      transform: scale(1.1);
+      animation: introZoom 4s ease-out forwards;
+  }
 
-/* 글자 공통 */
-.intro-item {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0;
-    color: #fff;
-    font-size: 26px;
-    font-weight: 700;
-    transition: all 0.4s ease-out;
-    width: 100%;
-}
+  @keyframes introZoom {
+      to { transform: scale(1.0); }
+  }
 
-/* 글자 활성화 */
-.intro-item.active {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1); /* 확 커짐 */
-    color: #00bfa5;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
+  /* 중앙 텍스트 박스 */
+  .text-center-box {
+      position: relative;
+      z-index: 10;
+      text-align: center;
+      width: 100%;
+      height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+  }
 
-/* 사라질 때 */
-.intro-item.visible {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.5); /* 더 커지며 사라짐 */
-    filter: blur(5px);
-}
+  /* 인트로 글자 공통 스타일 */
+  .intro-item {
+      position: absolute;
+      opacity: 0;
+      color: #fff;
+      font-size: 28px;
+      font-weight: 800;
+      transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      white-space: nowrap;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.5);
+      transform: scale(0.8);
+  }
 
-.intro-item.final-phrase.active {
-    font-size: 32px;
-    color: #fff;
-    border: 2px solid #00bfa5;
-    padding: 10px 20px;
-    border-radius: 10px;
-    background: rgba(0,0,0,0.5);
-}
+  /* 글자가 나타날 때 */
+  .intro-item.active {
+      opacity: 1;
+      transform: scale(1.1);
+      color: #00bfa5; /* 브랜드 포인트 컬러 */
+  }
 
-  /* --- [메인 레이아웃] --- */
+  /* 글자가 사라질 때 */
+  .intro-item.visible {
+      opacity: 0;
+      transform: scale(1.5);
+      filter: blur(5px);
+  }
+
+  /* 마지막 문구 'VVIP 위생 솔루션' 스타일 */
+  .intro-item.final-phrase.active {
+      font-size: 34px;
+      color: #fff;
+      border: 2px solid #00bfa5;
+      padding: 15px 35px;
+      border-radius: 50px;
+      background: rgba(0,0,0,0.5);
+      box-shadow: 0 0 30px rgba(0, 191, 165, 0.4);
+  }
+
+  /* ==========================================================================
+     [3. 메인 콘텐츠 및 헤더]
+     ========================================================================== */
   #main-content-wrapper {
     display: none; 
     opacity: 0;
-    transition: opacity 0.5s;
+    transition: opacity 1.0s;
     width: 100%;
   }
 
-  /* --- [HEADER] --- */
   header {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
-    background: #fff;
-    display: block; /* 내부 flex 처리를 위해 block으로 변경 */
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
     padding: 10px 0 15px 0; 
     z-index: 1000;
-    box-sizing: border-box;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
   }
   
   .header-top {
       display: flex;
-      justify-content: space-between; /* 로고와 새 로고를 양 끝에 배치 */
+      justify-content: space-between;
       align-items: center;
       width: 100%;
-      padding: 0 15px; 
+      padding: 0 15px;
       box-sizing: border-box;
   }
 
   .header-left-content {
       display: flex;
       flex-direction: column;
-      align-items: flex-start; /* 기존 로고와 문구 왼쪽 정렬 */
+      align-items: flex-start;
   }
 
-  .main-logo-img { /* 기존 로고: logo2.png */
-      height: 45px; 
-      cursor: pointer; 
+  .main-logo-img {
+      height: 45px;
+      cursor: pointer;
   } 
   
-  .header-text { /* 기존 h2 문구 */
-    margin: 5px 0 0 0; 
-    font-size: 14px;
-    color: #333;
-    font-weight: bold;
-    text-align: left; /* 왼쪽 정렬 */
+  .header-text {
+      margin: 5px 0 0 0;
+      font-size: 14px;
+      color: #333;
+      font-weight: bold;
+      text-align: left;
   }
 
-  .header-right-logo-box { /* 새 로고 컨테이너: top_logo.jpg */
+  .header-right-logo-box {
       display: block;
       padding: 3px;
-      border: 1px solid #ccc; /* 박스 처리 */
+      border: 1px solid #ccc;
       border-radius: 5px;
-      line-height: 0; 
+      line-height: 0;
       cursor: pointer;
       flex-shrink: 0;
   }
   
-  .header-right-logo-box img { /* 새 로고 이미지 */
-      height: 22.5px; /* 기존 로고 (45px)의 1/2 크기 */
+  .header-right-logo-box img {
+      height: 22.5px;
       width: auto;
       display: block;
-      margin: 0;
   }
 
-  /* --- [메뉴바] --- */
+  /* 메뉴바 스타일 */
   .main-menu {
     position: fixed;
-    top: 79px; 
+    top: 79px;
     left: 0;
     width: 100%;
     background: #222;
     display: flex;
-    flex-wrap: nowrap; 
+    flex-wrap: nowrap;
     justify-content: space-around;
     border-bottom: 1px solid #444;
     z-index: 1000;
-    overflow-x: auto; 
+    overflow-x: auto;
     -webkit-overflow-scrolling: touch;
   }
+
   .menu-btn {
-    padding: 12px 5px; 
+    padding: 12px 5px;
     color: #ccc;
     text-decoration: none;
     font-size: 13px; 
@@ -171,397 +200,449 @@
     text-align: center;
     border-left: 1px solid #444;
     cursor: pointer;
+    white-space: nowrap;
   }
-  .menu-btn:first-child {
-    border-left: none;
-  }
+
+  .menu-btn:first-child { border-left: none; }
+  
   .menu-btn.active {
     background-color: #00bfa5;
     color: #fff;
+    font-weight: bold;
   }
-
 
   main {
-    margin-top: 126px; 
+    margin-top: 130px;
     margin-bottom: 80px; 
-    min-height: calc(100vh - 126px - 80px); 
-    height: auto;
-    overflow-y: visible; 
+    min-height: calc(100vh - 210px);
+    padding: 0 15px;
+    box-sizing: border-box;
     text-align: center;
-    padding: 0 15px; 
-    box-sizing: border-box;
   }
 
-  /* --- [하단 고정 버튼 4개] --- */
-  .fixed-buttons {
-    position: fixed;
-    bottom: 35px; 
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    z-index: 999;
-    padding: 0 5px;
-    box-sizing: border-box;
+  /* ==========================================================================
+     [4. ✨ NEW 히어로 배너: 디자인 강조형]
+     - 이미지: imege/vv05.jpg
+     - 효과: 켄번(Ken Burns) 줌 효과, 강렬한 그라데이션, 타이포그래피 강조
+     ========================================================================== */
+  .visual-hero-banner {
+      position: relative;
+      width: 100vw; /* 화면 전체 너비 사용 */
+      margin-left: -15px; /* 부모 패딩 상쇄 */
+      height: 350px; /* 높이 크게 설정 */
+      margin-top: 20px;
+      margin-bottom: 50px;
+      overflow: hidden;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.6);
   }
 
-  .fixed-buttons button {
-    flex: 1; 
-    border: none;
-    border-radius: 10px;
-    padding: 12px 0;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    white-space: nowrap;
+  .hero-bg-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      /* 천천히 확대되었다가 축소되는 애니메이션 */
+      animation: kenBurns 20s ease infinite alternate;
   }
 
-  .btn-primary {
-      background: #00bfa5;
-      color: white;
+  @keyframes kenBurns {
+      from { transform: scale(1.0); }
+      to { transform: scale(1.15); }
+  }
+
+  /* 배너 위 어두운 막 & 텍스트 컨테이너 */
+  .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      /* 글자가 잘 보이도록 하단으로 갈수록 진해지는 그라데이션 */
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.95) 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end; /* 텍스트 하단 정렬 */
+      padding: 0 25px 40px 25px;
+      box-sizing: border-box;
+      text-align: left;
+  }
+
+  /* 배너 상단 작은 태그 */
+  .hero-tag {
+      display: inline-block;
+      background-color: #00bfa5;
+      color: #fff;
+      font-size: 13px;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 4px;
+      margin-bottom: 15px;
+      width: fit-content;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+      letter-spacing: 1px;
+  }
+
+  /* 메인 카피 스타일 */
+  .hero-title {
+      color: #fff;
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.35;
+      margin: 0;
+      text-shadow: 0 2px 15px rgba(0,0,0,0.9);
+  }
+
+  /* 강조 문구 (민트색) */
+  .hero-title .highlight {
+      color: #00bfa5;
+      position: relative;
+      display: inline-block;
   }
   
-  /* 하단 버튼 활성화 상태 */
-  .btn-primary.active {
-      background: #008f7a;
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-  }
-
-  .btn-proposal-bottom {
-      background: #455a64; 
-      color: white;
-  }
-
-  /* --- [푸터] --- */
-  footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background: #111;
-    color: #888;
-    font-size: 11px;
-    white-space: nowrap;
-    overflow: hidden;
-    height: 30px; 
-    line-height: 30px;
-    z-index: 998; 
-  }
-  .scroll-text {
-    display: inline-block;
-    animation: marquee 60s linear infinite; /* 👈 60초 적용 완료 */
-    padding-left: 0;
-  }
-  @keyframes marquee {
-    0% { transform: translateX(0); }
-    100% { transform: translateX(-100%); }
-  }
-
-  /* --- [공통 콘텐츠 스타일] --- */
+  /* ==========================================================================
+     [5. 콘텐츠 섹션 스타일]
+     ========================================================================== */
   .solution-content-wrapper { 
     text-align: left;
-    max-width: 1000px; 
+    max-width: 1000px;
     margin: 0 auto;
     line-height: 1.6;
     color: #ccc;
     padding: 0 1% 30px; 
   }
   
-  .solution-content-wrapper.active h2, 
-  .solution-content-wrapper.active h3, 
-  .solution-content-wrapper.active h4 {
-      background: none !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      margin: 40px auto 15px auto !important; 
-      width: 100% !important; 
-      max-width: 100% !important;
-      color: #fff !important; 
-      text-align: center !important;
-      display: block;
-      font-weight: 700;
-      font-size: 20px; 
-  }
-
-  .solution-content-wrapper p { font-size: 15px; }
-  .solution-content-wrapper ul li { font-size: 15px; }
-  .solution-content-wrapper ul.bullet-list li { font-size: 15px; }
-  
+  /* 섹션 제목 H2 */
   .solution-content-wrapper.active h2 {
-      font-size: 24px; 
+      font-size: 26px;
       color: #00bfa5 !important;
       border-top: 2px solid #00bfa5;
       border-bottom: 2px solid #00bfa5;
       padding: 15px 20px !important;
-      margin-top: 15px !important;
-      margin-bottom: 10px !important; 
+      margin: 40px auto 30px auto !important;
       width: fit-content !important;
       max-width: 90% !important;
-      box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
+      text-align: center !important;
+      display: block;
+      box-shadow: 0 0 15px rgba(0, 191, 165, 0.2);
+      font-weight: 800;
   }
-  
+
+  /* 소제목 H3 */
   .solution-content-wrapper.active h3 {
       text-align: left !important;
       color: #fff !important;
-      font-size: 17px;
-      background-color: #222 !important; 
+      font-size: 19px;
+      background-color: #222 !important;
       border-left: 5px solid #00bfa5 !important;
-      padding: 10px 15px !important;
-      border-radius: 0 5px 5px 0; 
-      margin: 20px auto 20px 0 !important; 
-      width: fit-content !important; 
-      max-width: 90% !important;
+      padding: 12px 15px !important;
+      border-radius: 0 5px 5px 0;
+      margin: 40px auto 20px 0 !important;
+      width: fit-content !important;
+      font-weight: bold;
   }
   
+  /* 소소제목 H4 */
   .solution-content-wrapper.active h4,
-  .solution-content-wrapper.active .sub-heading-left {
-      color: #00bfa5 !important; 
-      font-size: 15px;
+  .sub-heading-left {
+      color: #00bfa5 !important;
+      font-size: 16px;
       border-bottom: 1px dashed #00bfa5 !important;
       padding-bottom: 5px !important;
       margin: 25px auto 10px 0 !important;
-      text-align: left !important; 
       width: 100% !important;
+      font-weight: bold;
   }
 
-  .solution-content-wrapper .image-caption {
-      font-size: 12px;
+  .solution-content-wrapper p { font-size: 15px; margin-bottom: 15px; }
+  .solution-content-wrapper ul { padding-left: 10px; margin-bottom: 30px; }
+  .solution-content-wrapper ul li {
+    font-size: 15px;
+    background: #222;
+    margin-bottom: 8px;
+    padding: 10px 15px;
+    border-radius: 5px;
+    list-style: none;
+    border-left: 3px solid #444;
+  }
+  
+  .bullet-list li {
+    list-style: disc !important;
+    margin-left: 20px;
+    background: none !important;
+    padding: 0 !important;
+    border: none !important;
+    color: #ddd;
+  }
+
+  .image-caption {
+      font-size: 13px;
       color: #888;
-      margin-top: -10px; 
-      margin-bottom: 10px; 
+      margin-top: -5px;
+      margin-bottom: 20px;
       text-align: center;
       display: block;
   }
 
-  .solution-content-wrapper strong { color: #00bfa5; }
-  .solution-content-wrapper ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 30px;
-  }
-  .solution-content-wrapper ul li {
-    background: #222;
-    margin-bottom: 8px;
-    padding: 8px 15px;
-    border-radius: 5px;
-    border-left: 4px solid #00bfa5;
-    font-size: 15px;
-  }
-  .solution-content-wrapper ul.bullet-list li {
-    list-style: disc;
-    margin-left: 20px;
-    background: none;
-    border-left: none;
-    padding: 0;
-    font-size: 15px;
-    color: #ccc;
-  }
-  
-  /* --- [서브 메뉴] --- */
-  .sub-menu {
-    display: flex;
-    justify-content: flex-start;
-    gap: 5px;
-    margin-bottom: 20px;
-    padding: 10px 0;
-    border-bottom: 1px solid #444;
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch;
-    position: sticky; 
-    top: 0; 
-    background: #111;
-    z-index: 900;
-  }
-  .sub-btn {
-    background-color: #333;
-    border: 1px solid #444;
-    color: #ccc;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap; 
-    flex-shrink: 0; 
-  }
-  .sub-btn.active {
-    background-color: #00bfa5;
-    color: #fff;
-    border-color: #00bfa5;
-    font-weight: bold;
-  }
-
-  .sub-content {
-      display: none;
-      line-height: 1.6;
-      padding: 10px 0 30px;
-      animation: fadeIn 0.3s ease-in-out;
-      text-align: center; 
-  }
-  .sub-content.active {
+  img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.4);
+      margin: 10px auto;
       display: block;
   }
 
-  /* ---  --- */
-  .solution-content-wrapper img {
-    max-width: 100%; 
-    height: auto;    
-    display: block;  
-    margin: 15px auto;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-  }
-  
+  /* 갤러리 그리드 */
   .seven-image-gallery {
-    display: block; 
-    padding: 10px 0;
-    text-align: center;
+      padding: 10px 0;
+      text-align: center;
   }
   .seven-image-gallery > div {
-      display: block; 
-      width: 100%;
-      margin-bottom: 25px; 
-      overflow: hidden; 
-  }
-  .seven-image-gallery img {
-    max-width: 100%; 
-    width: 95%; 
-    height: auto;    
-    margin: 10px auto 15px auto !important; 
-    display: block;
+      margin-bottom: 30px;
   }
 
-  /* --- [파트너 로고 1열 세로 롤링] --- */
+  /* 협력사 로고 롤링 애니메이션 */
   .partner-logo-gallery-wrapper {
       width: 100%;
-      max-width: 300px; 
+      max-width: 300px;
       margin: 0 auto;
-      height: 400px; 
-      overflow: hidden; 
+      height: 400px;
+      overflow: hidden;
       position: relative;
-      background: transparent;
-      pointer-events: none; 
+      pointer-events: none;
   }
-
-  @keyframes scroll-up {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50%); } 
-  }
-
+  
   .partner-logo-track {
       display: flex;
-      flex-direction: column; 
+      flex-direction: column;
       width: 100%;
-      animation: scroll-up 20s linear infinite; 
+      animation: scroll-up 20s linear infinite;
+  }
+  
+  @keyframes scroll-up {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); }
   }
 
   .partner-item {
-    background-color: #fff; 
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%; 
-    padding: 15px;
-    box-sizing: border-box;
-    margin-bottom: 15px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+      background: #fff;
+      border-radius: 8px;
+      padding: 15px;
+      margin-bottom: 15px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
   }
-
+  
   .partner-item img {
-    width: 100%;
-    height: auto;
-    max-height: 80px; 
-    object-fit: contain; 
-    margin: 0 !important; 
-    border-radius: 0;
-    box-shadow: none;
+      max-height: 80px;
+      width: auto;
+      object-fit: contain;
+      margin: 0 !important;
+      box-shadow: none;
+      border-radius: 0;
   }
 
-  /* --- [퀴즈 스타일] --- */
-  .content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
+  /* ==========================================================================
+     [6. 퀴즈/상담 섹션 스타일]
+     ========================================================================== */
+  .content-section {
+      display: none;
+      animation: fadeIn 0.5s ease-in-out;
+  }
   .content-section.active { display: block; }
+  
+  @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+  }
+
   .question { display: none; text-align: center; }
   .question.active { display: block; }
-  .question h3 { margin-top: 20px; color: #00bfa5; }
-  .options { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 20px; }
-  .option-button {
-    background: #333; color: #fff; border: 1px solid #555; padding: 10px 15px;
-    border-radius: 20px; cursor: pointer; font-size: 14px;
-  }
-  .option-button.active { background: #00bfa5; border-color: #00bfa5; font-weight: bold; }
-  #sendSMS {
-    background: #00bfa5; color: white; border: none; border-radius: 30px;
-    padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 20px;
-  }
-  #summary {
-      color: #00bfa5; 
-      font-weight: bold;
+  
+  .question h3 {
+      margin-top: 20px;
+      color: #00bfa5;
       font-size: 20px;
+      margin-bottom: 20px;
+  }
+  
+  .options {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 30px;
+  }
+  
+  .option-button {
+      background: #333;
+      color: #fff;
+      border: 1px solid #555;
+      padding: 12px 20px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 15px;
+      transition: all 0.2s;
+  }
+  
+  .option-button.active {
+      background: #00bfa5;
+      border-color: #00bfa5;
+      font-weight: bold;
+      transform: scale(1.05);
+      box-shadow: 0 0 10px rgba(0, 191, 165, 0.4);
+  }
+
+  #sendSMS {
+      background: #00bfa5;
+      color: white;
+      border: none;
+      border-radius: 30px;
+      padding: 18px 40px;
+      font-size: 17px;
+      cursor: pointer;
+      margin-top: 20px;
+      width: 80%;
+      max-width: 300px;
+      font-weight: bold;
+      box-shadow: 0 5px 15px rgba(0, 191, 165, 0.3);
+  }
+
+  #summary {
+      color: #00bfa5;
+      font-weight: bold;
+      font-size: 18px;
       margin: 30px 0;
       line-height: 1.6;
-      word-break: keep-all;
-      padding: 10px;
-      border-top: 1px solid #333;
-      border-bottom: 1px solid #333;
+      padding: 20px;
+      border: 1px dashed #444;
+      border-radius: 10px;
+      background: #1a1a1a;
   }
 
-  /* --- [PC/태블릿] --- */
-  @media (min-width: 500px) {
-    body { overflow-y: auto !important; }
-    #intro-screen, #main-content-wrapper { max-width: 1600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
-    header, .main-menu, .fixed-buttons, footer { width: 100%; max-width: 1600px; left: 50%; transform: translateX(-50%); }
-    .menu-btn { font-size: 16px; padding: 15px 10px; }
-    .solution-content-wrapper p, 
-    .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
-    .solution-content-wrapper ul li { font-size: 18px; padding: 12px 20px; }
-    .sub-btn { font-size: 16px; }
+  /* 하단 고정 버튼 */
+  .fixed-buttons {
+      position: fixed;
+      bottom: 35px;
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      z-index: 999;
+      padding: 0 5px;
+      box-sizing: border-box;
+  }
+  
+  .fixed-buttons button {
+      flex: 1;
+      border: none;
+      border-radius: 10px;
+      padding: 14px 0;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.4);
+      color: white;
+      transition: transform 0.1s;
+  }
+  
+  .fixed-buttons button:active { transform: scale(0.98); }
+  .btn-primary { background: #00bfa5; }
+  .btn-proposal-bottom { background: #455a64; }
 
-    .solution-content-wrapper.active h2 { font-size: 32px; padding: 20px 25px !important; }
-    .solution-content-wrapper.active h3 { font-size: 22px; padding: 14px 20px !important; margin: 30px auto 30px 0 !important; }
-    .solution-content-wrapper.active h4,
-    .solution-content-wrapper.active .sub-heading-left { font-size: 19px; margin: 35px auto 15px 0 !important; }
-    
-    #sendSMS, .fixed-buttons button { font-size: 18px; padding: 18px 0; }
-    footer { font-size: 13px; }
+  /* 푸터 */
+  footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #000;
+      color: #666;
+      font-size: 11px;
+      height: 30px;
+      line-height: 30px;
+      z-index: 998;
+      overflow: hidden;
+      white-space: nowrap;
+      border-top: 1px solid #222;
+  }
+  
+  .scroll-text {
+      display: inline-block;
+      animation: marquee 60s linear infinite;
+      padding-left: 100%;
+  }
+  
+  @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-100%); }
+  }
 
-    .partner-logo-gallery-wrapper { max-width: 400px; height: 600px; }
-    
-    /* PC/태블릿 Header Logo Size 조정 */
-    .main-logo-img { /* PC에서 기존 로고 크기 */
-        height: 60px; 
-    } 
-    
-    .header-right-logo-box img { /* PC에서 새 로고 크기 (1/2) */
-        height: 30px; 
+  /* ==========================================================================
+     [7. 반응형 미디어 쿼리 (PC, 태블릿)]
+     ========================================================================== */
+  @media (min-width: 768px) {
+    #intro-screen, #main-content-wrapper {
+        max-width: 1600px;
+        margin: 0 auto;
     }
+    header, .main-menu, .fixed-buttons, footer {
+        max-width: 1600px;
+        left: 50%;
+        transform: translateX(-50%);
+    }
+    
+    .menu-btn { font-size: 16px; padding: 15px 10px; }
+    
+    /* PC에서 인트로 글자 키우기 */
+    .intro-item { font-size: 40px; }
+    .intro-item.final-phrase.active { font-size: 50px; padding: 20px 50px; }
+
+    /* PC에서 히어로 배너 키우기 */
+    .visual-hero-banner {
+        height: 450px;
+        margin-left: 0;
+        width: 100%;
+        border-radius: 15px;
+    }
+    .hero-title { font-size: 48px; }
+    .hero-tag { font-size: 16px; padding: 8px 15px; }
+
+    /* 본문 폰트 키우기 */
+    .solution-content-wrapper p, .solution-content-wrapper ul li { font-size: 18px; }
+    
+    .main-logo-img { height: 60px; }
+    .header-right-logo-box img { height: 30px; }
+    
+    /* 파트너 로고 갤러리 크기 조정 */
+    .partner-logo-gallery-wrapper { max-width: 400px; height: 600px; }
   }
 </style>
 </head>
 
 <body>
   
-<div id="intro-screen" class="intro-style-overlay">
-    <!-- 배경 이미지 -->
-    <img src="imege/cm1.jpg" class="bg-photo" alt="Background">
-    <div class="overlay-dim"></div> <!-- 사진 어둡게 하는 막 -->
+  <!-- [인트로 화면 영역] -->
+  <div id="intro-screen">
+    <!-- 배경 이미지: cm1.jpg -->
+    <img src="imege/cm1.jpg" class="bg-photo" alt="Intro Background">
     
-    <!-- 중앙 글자 -->
+    <!-- 중앙 텍스트 (순차적으로 변경됨) -->
     <div class="text-center-box">
-        <span class="intro-item">제빙기</span>
-        <span class="intro-item">냉장고</span>
-        <span class="intro-item">전자렌지</span>
-        <span class="intro-item">에어컨</span>
-        <span class="intro-item">위생가전</span>
-        <span class="intro-item final-phrase">VVIP 위생 솔루션</span>
+        <span class="intro-item" data-phrase="1">제빙기</span>
+        <span class="intro-item" data-phrase="2">냉장고</span>
+        <span class="intro-item" data-phrase="3">전자렌지</span>
+        <span class="intro-item" data-phrase="4">에어컨</span>
+        <span class="intro-item" data-phrase="5">위생가전</span>
+        <span class="intro-item final-phrase" data-phrase="7">VVIP 위생 솔루션</span>
     </div>
-</div>
+  </div>
   
+  <!-- [메인 콘텐츠 영역] -->
   <div id="main-content-wrapper">
+    
+    <!-- 헤더 -->
     <header>
       <div class="header-top">
           <div class="header-left-content">
@@ -575,20 +656,36 @@
       </div>
     </header>
 
+    <!-- 네비게이션 메뉴 -->
     <nav class="main-menu">
-      <a href="#company" class="menu-btn" data-target="company-section">회사</a> 
+      <a href="#company" class="menu-btn active" data-target="company-section">회사</a> 
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
       <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자렌지</a>
       <a href="#aircond" class="menu-btn" data-target="aircond-section">에어컨</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력사</a> 
-
     </nav>
 
     <main>
-      <div id="company-section" class="content-section solution-content-wrapper">
+      <!-- [1. 회사 소개 섹션] -->
+      <div id="company-section" class="content-section solution-content-wrapper active">
           <h2>기업 위생가전 소독관리</h2>
+          
+          <!-- ✨ [NEW 히어로 배너: 강조형] ✨ -->
+          <!-- 배경 이미지: imege/vv05.jpg -->
+          <div class="visual-hero-banner" onclick="document.getElementById('company-s01-anchor').scrollIntoView({behavior:'smooth'})">
+              <img src="imege/vv05.jpg" alt="위생 공간 관리" class="hero-bg-img">
+              <div class="hero-overlay">
+                  <span class="hero-tag">Professional Care</span>
+                  <p class="hero-title">
+                      보이지 않는 위협,<br>
+                      당신의 <span class="highlight">위생 공간</span>은<br>
+                      안전합니까?
+                  </p>
+              </div>
+          </div>
+          <!-- // 배너 끝 -->
           
           <h3 id="company-s01-anchor">제안 배경</h3>
           <p>
@@ -605,6 +702,7 @@
               <li><strong>관리 한계:</strong> 대부분의 기업이 단순 외관 청소에 그치거나 관리 시기를 놓쳐 근본적인 위생 문제가 해결되지 않고 내부 오염원이 방치됩니다.</li>
           </ul>
           
+          <!-- 작업 전후 갤러리 -->
           <div class="seven-image-gallery">
               <div><img src="imege/a0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
               <div><img src="imege/a0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
@@ -625,7 +723,6 @@
           <img src="imege/a0034.jpg" alt="중점 관리 대상 가전 사진"/>
           <p class="image-caption">대상 가전의 종류</p>
 
-          
           <h3 id="company-s04-anchor">기술력</h3>
           <p> 첨단 기술을 기반으로 고객사의 위생 환경을 정밀하게 진단하고 과학적인 데이터를 제공하여 관리의 신뢰도를 높입니다. </p>
           <ul class="bullet-list">
@@ -633,9 +730,8 @@
               <li>내시경 진단: 육안 확인이 불가능한 내부 깊은 곳의 오염 상태를 영상으로 진단.</li>
               <li>AI 기반 데이터 처리: AI 기반 데이터 처리 기술을 적용하여 정확하고 신뢰성 높은 데이터를 제공합니다.</li>
           </ul>
-          <img src="imege/a0059.jpg" alt="기술력 관련 이미지 (placeholder)"/>
+          <img src="imege/a0059.jpg" alt="기술력 관련 이미지"/>
           <p class="image-caption">측정장비와 청소, 소독 기기</p>
-
           
           <h3 id="company-s03-anchor">인력풀</h3>
           <p> 위생 가전별 제조사 서비스센터 경력의 <strong>전담 엔지니어</strong>와 HACCP/식품위생 관리 자격증을 보유한 <strong>위생 전문가</strong>로 구성된 전문 인력풀을 자체적으로 운영합니다. </p>
@@ -644,9 +740,8 @@
               <li>위생 가전 청소 및 소독 관련 자체 교육 프로그램 수료 의무화.</li>
               <li>주요 제조사 출신 전문 엔지니어의 경험과 노하우 결합.</li>
           </ul>
-          <img src="imege/a0029.jpg" alt="인력풀 관련 이미지 (placeholder)"/>
+          <img src="imege/a0029.jpg" alt="인력풀 관련 이미지"/>
           <p class="image-caption">전문 인력풀</p>
-
           
           <h3 id="company-s05-anchor">AI 도입</h3>
           <p> AI 기술 기반의 데이터 분석을 통해 가장 효율적인 관리 동선을 설계하고, 잠재적인 고장 시점을 예측하여 고객사의 비용과 시간을 절감합니다. </p>
@@ -655,9 +750,8 @@
               <li>최적 경로: AI 기반 동선 최적화로 서비스 시간을 단축하고 비용 효율성 증대.</li>
               <li>자동 보고: 현장 진단 및 관리 결과가 실시간으로 자동 보고되어 투명한 관리 가능.</li>
           </ul>
-          <img src="imege/a0030.jpg" alt="AI 도입 관련 이미지 (placeholder)"/>
+          <img src="imege/a0030.jpg" alt="AI 도입 관련 이미지"/>
           <p class="image-caption">AI 기반 스마트 관리 시스템</p>
-
 
           <h3 id="company-s02-anchor">회사 소개</h3>
           <p> 주식회사 디에이치씨솔루션은 10년간 위생 기술 선도력, 국내 최대 규모의 인력풀, 그리고 AI 시스템을 결합하여, 기업 위생 관리에 가장 빠르고 정확하며 신뢰할 수 있는 미래형 솔루션을 제공합니다. <br>클린메이트는 디에이치씨솔루션의 가전소독전문 브랜드명 입니다 </p>
@@ -672,15 +766,16 @@
           
           <img src="imege/vv01.jpg" alt="회사 추가 정보 이미지" style="margin-top: 30px;"/>
           <p class="image-caption">VVIP 긴급대응팀</p>
-
       </div>
 
+      <!-- [동적 로드 섹션들: JS로 외부 파일 내용이 불러와짐] -->
       <div id="mos-section" class="content-section solution-content-wrapper"></div>
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
       <div id="aircond-section" class="content-section solution-content-wrapper"></div>
 
+      <!-- [협력사 섹션] -->
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
           <div class="partner-logo-gallery-wrapper">
@@ -688,9 +783,9 @@
           </div>
       </div>
 
+      <!-- [퀴즈/상담 섹션] -->
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
           <h2>원스톱 상담</h2>
-          <p></p>
           
           <div class="question active" id="q1">
               <h3>관리할 품목을 선택해주세요.</h3>
@@ -714,12 +809,13 @@
           </div>
           <div class="question" id="result">
               <h3>✨ 고객 맞춤 견적 확인</h3>
-              <p id="summary" class="summary-text">선택하신 내용: </p>
-              <button id="sendSMS" class="action-button" onclick="sendSummarySMS()">선택 내용 문자로 보내기</button>
+              <p id="summary">선택하신 내용: </p>
+              <button id="sendSMS" onclick="sendSummarySMS()">선택 내용 문자로 보내기</button>
           </div>
       </div>
     </main>
 
+    <!-- 하단 고정 버튼 -->
     <div class="fixed-buttons">
       <button id="btn-onestop" class="btn-primary" onclick="restartQuiz()">원스톱상담</button>
       <button class="btn-primary" onclick="window.location.href='tel:1666-1757'">전화상담</button>
@@ -727,46 +823,65 @@
       <button class="btn-proposal-bottom" onclick="window.open('proposal_corporate.html')">기업제안서</button>
     </div>
 
+    <!-- 푸터 -->
     <footer>
       <div class="scroll-text">
-          상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp; 상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 팩스: 0504-187-0081 | 사업자등록번호: 140-87-00987 | 개인정보책임자: 박경혜 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp;
+          상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com &nbsp;&nbsp;&nbsp; (주)디에이치씨솔루션 &nbsp;&nbsp;&nbsp;
       </div>
     </footer>
   </div>
 
 <script>
-    const introScreen = document.getElementById('intro-screen');
-    const mainContentWrapper = document.getElementById('main-content-wrapper');
-    const introItems = document.querySelectorAll('.intro-item');
-    let introStep = 0;
-    const scrollText = document.querySelector('.scroll-text');
+    /* ==========================================================================
+       [Script 1: 인트로 애니메이션 로직]
+       ========================================================================== */
+    document.addEventListener('DOMContentLoaded', () => {
+        const introItems = document.querySelectorAll('.intro-item');
+        let introStep = 0;
+        const introScreen = document.getElementById('intro-screen');
+        const mainWrapper = document.getElementById('main-content-wrapper');
 
-    function showNextPhrase() {
-        if (introStep > 0) {
-            introItems[introStep - 1].classList.remove('active');
-            introItems[introStep - 1].classList.add('visible');
+        function showNextPhrase() {
+            // 이전 문구 지우기
+            if (introStep > 0) {
+                introItems[introStep - 1].classList.remove('active');
+                introItems[introStep - 1].classList.add('visible'); 
+            }
+            // 다음 문구 보이기
+            if (introStep < introItems.length) {
+                introItems[introStep].classList.add('active'); 
+                introStep++;
+                setTimeout(showNextPhrase, 600); // 0.6초 간격
+            } else {
+                // 모든 문구 출력 후 종료
+                setTimeout(skipIntro, 1200); 
+            }
         }
-        if (introStep < introItems.length) {
-            introItems[introStep].classList.add('active');
-            introStep++;
-            setTimeout(showNextPhrase, 600);
-        } else {
-            setTimeout(skipIntro, 1000);
-        }
-    }
 
-    function skipIntro() {
-        introScreen.classList.add('fade-out');
-        setTimeout(() => {
-            introScreen.style.display = 'none';
-            mainContentWrapper.style.display = 'block';
+        function skipIntro() {
+            introScreen.classList.add('fade-out');
             setTimeout(() => {
-                mainContentWrapper.style.opacity = '1';
-                scrollToSectionClick('company-section'); 
-            }, 10);
-        }, 500);
-    }
+                introScreen.style.display = 'none';
+                mainWrapper.style.display = 'block';
+                setTimeout(() => { mainWrapper.style.opacity = '1'; }, 50);
+            }, 800);
+        }
 
+        // 인트로 화면 클릭 시 바로 스킵 기능
+        introScreen.addEventListener('click', skipIntro);
+        
+        // 초기 실행 (0.3초 대기 후 시작)
+        setTimeout(showNextPhrase, 300);
+
+        // 기타 초기화 함수 실행
+        generatePartnerLogos(); 
+        resetQuiz(); 
+    });
+
+
+    /* ==========================================================================
+       [Script 2: 메인 기능 (메뉴 이동, 섹션 로드)]
+       ========================================================================== */
     const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
     menuButtons.forEach(button => {
         button.addEventListener('click', (event) => {
@@ -799,20 +914,17 @@
         if (targetSection) {
             let loadPromise = Promise.resolve(); 
 
+            // 동적 로드 (파일 경로 확인 필요)
             if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
             } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('avk-section', 'mos_icemaker_content.html');
-
             } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('dryice-section', 'microwave_solution.html');
-
             } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('tech-section', 'technology.html');
-              
            } else if (targetId === 'aircond-section' && !targetSection.dataset.loaded) { 
                 loadPromise = loadSectionContent('aircond-section', 'mos_aircond.html'); 
-            
            }
             
             loadPromise.then(() => {
@@ -824,7 +936,7 @@
                         generateGallery('portfolio-gallery-container', 'jpg', 1, 100, '', 3);
                     }
                 }
-
+                // 서브 메뉴 처리
                 const subMenu = targetSection.querySelector('.sub-menu');
                 if (subMenu) {
                     const firstSubBtn = subMenu.querySelector('.sub-btn');
@@ -834,7 +946,6 @@
                         firstSubBtn.classList.add('active');
                     }
                 }
-
                 setTimeout(() => {
                     const offset = 126; 
                     const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
@@ -844,29 +955,17 @@
         }
     }
 
-    const subMenuContainers = document.querySelectorAll('.solution-content-wrapper .sub-menu');
-    subMenuContainers.forEach(subMenu => {
-        subMenu.querySelectorAll('.sub-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const contentId = btn.getAttribute('data-content-id');
-                const parentSection = btn.closest('.solution-content-wrapper');
-                handleSubMenuClick(contentId, parentSection);
-                subMenu.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
-                btn.classList.add('active');
-            });
-        });
-    });
-
     function handleSubMenuClick(contentId, parentSection) {
         parentSection.querySelectorAll('.sub-content').forEach(content => {
             content.classList.remove('active');
         });
         const targetContent = document.getElementById(contentId);
-        if (targetContent) {
-            targetContent.classList.add('active');
-        }
+        if (targetContent) targetContent.classList.add('active');
     }
 
+    /* ==========================================================================
+       [Script 3: 퀴즈 데이터 및 로직 (전국 시군구 데이터 포함)]
+       ========================================================================== */
     let questions;
     let current = 0;
     let answers = new Array(5).fill(undefined);
@@ -883,7 +982,7 @@
         document.getElementById('opt5').innerHTML = '';
         selectedRegion = ''; 
         generateOptions('q1');
-        questions[0].classList.add('active'); 
+        if(questions.length > 0) questions[0].classList.add('active'); 
     }
 
     const data = {
@@ -892,16 +991,39 @@
         q3: ['기업체', '호텔/리조트', '공장', '병원/의료시설', '교육/연구시설', '공공기관', '프랜차이즈', '아파트', '오피스', '주택', '공관', '기타'],
         q4: ['전국', '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'],
         cities: {
-            '서울': ['강남구', '강동구', '강북구', '강서구', '관악구', '광진구', '구로구', '금천구', '노원구', '도봉구', '동대문구', '동작구', '마포구', '서대문구', '서초구', '성동구', '성북구', '송파구', '양천구', '영등포구', '용산구', '은평구', '종로구', '중구', '중랑구'],
-            '부산': ['중구', '서구', '동구', '영도구', '부산진구', '동래구', '남구', '북구', '해운대구', '사하구', '금정구', '강서구', '연제구', '수영구', '사상구', '기장군'],
+            '서울': [
+                '강남구', '강동구', '강북구', '강서구', '관악구', 
+                '광진구', '구로구', '금천구', '노원구', '도봉구', 
+                '동대문구', '동작구', '마포구', '서대문구', '서초구', 
+                '성동구', '성북구', '송파구', '양천구', '영등포구', 
+                '용산구', '은평구', '종로구', '중구', '중랑구'
+            ],
+            '부산': [
+                '중구', '서구', '동구', '영도구', '부산진구', 
+                '동래구', '남구', '북구', '해운대구', '사하구', 
+                '금정구', '강서구', '연제구', '수영구', '사상구', '기장군'
+            ],
             '대구': ['중구', '동구', '서구', '남구', '북구', '수성구', '달서구', '달성군'],
             '인천': ['중구', '동구', '미추홀구', '연수구', '남동구', '부평구', '계양구', '서구', '강화군', '옹진군'],
             '광주': ['동구', '서구', '남구', '북구', '광산구'],
             '대전': ['동구', '중구', '서구', '유성구', '대덕구'],
             '울산': ['중구', '남구', '동구', '북구', '울주군'],
             '세종': ['세종시'],
-            '경기': ['수원시', '고양시', '용인시', '성남시', '부천시', '화성시', '안산시', '남양주시', '안양시', '평택시', '시흥시', '의정부시', '파주시', '김포시', '광명시', '광주시', '군포시', '이천시', '오산시', '하남시', '양주시', '백석시', '구리시', '안성시', '포천시', '의왕시', '양평군', '여주시', '동두천시', '가평군', '과천시', '연천군'],
-            '강원': ['춘천시', '원주시', '강릉시', '동해시', '태백시', '속초시', '삼척시', '홍천군', '화천군', '횡성군', '영월군', '평창군', '정선군', '철원군', '고성군', '양양군', '인제군'],
+            '경기': [
+                '수원시', '고양시', '용인시', '성남시', '부천시', 
+                '화성시', '안산시', '남양주시', '안양시', '평택시', 
+                '시흥시', '의정부시', '파주시', '김포시', '광명시', 
+                '광주시', '군포시', '이천시', '오산시', '하남시', 
+                '양주시', '백석시', '구리시', '안성시', '포천시', 
+                '의왕시', '양평군', '여주시', '동두천시', '가평군', 
+                '과천시', '연천군'
+            ],
+            '강원': [
+                '춘천시', '원주시', '강릉시', '동해시', '태백시', 
+                '속초시', '삼척시', '홍천군', '화천군', '횡성군', 
+                '영월군', '평창군', '정선군', '철원군', '고성군', 
+                '양양군', '인제군'
+            ],
             '충북': ['청주시', '충주시', '제천시', '보은군', '옥천군', '영동군', '진천군', '괴산군', '음성군', '단양군', '증평군'],
             '충남': ['천안시', '공주시', '보령시', '아산시', '서산시', '논산시', '계룡시', '당진시', '금산군', '부여군', '서천군', '청양군', '홍성군', '예산군', '태안군'],
             '전북': ['전주시', '군산시', '익산시', '정읍시', '남원시', '김제시', '완주군', '진안군', '무주군', '장수군', '임실군', '순창군', '고창군', '부안군'],
@@ -935,7 +1057,6 @@
         }
     }
 
-    /* 선택 내용을 실시간으로 업데이트 하는 함수 */
     function updateSummaryText() {
         let finalAnswers = answers.filter(a => a !== undefined);
         document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
@@ -945,11 +1066,9 @@
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
         const currentOptions = document.getElementById(`opt${qIndex + 1}`);
-        currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
+        if(currentOptions) currentOptions.querySelectorAll('.option-button').forEach(b => b.classList.remove('active'));
         button.classList.add('active');
         answers[qIndex] = value;
-        
-        /* 선택할 때마다 요약 업데이트 */
         updateSummaryText();
 
         if (questionId === 'q4') {
@@ -957,10 +1076,7 @@
             const regionCities = data.cities[selectedRegion];
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
-                
-                /* q5 스킵 시 최종 지역/도시 반영 */
                 updateSummaryText();
-
                 setTimeout(() => nextQuestion(true), 200); 
                 return;
             } else {
@@ -983,7 +1099,6 @@
     }
 
     function summarize() {
-        /* 최종 요약 업데이트 */
         updateSummaryText();
         const sendSMSButton = document.getElementById('sendSMS');
         const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
@@ -1042,18 +1157,6 @@
             console.error(`Error loading content:`, error);
         }
     }
-
-
-
-  
-    document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(showNextPhrase, 500);
-        introScreen.addEventListener('click', skipIntro);
-        generatePartnerLogos(); 
-        resetQuiz(); 
-    });
-
-
 </script>
 </body>
 </html>
