@@ -59,10 +59,6 @@
     
     padding: 30px 20px;
     text-align: center;
-    /* PC 사이즈 조정 요청 사항 반영 */
-    margin: 0 auto; 
-    top: 50%;
-    transform: translateY(-50%);
 }
 
 /* 3. 스캔 라인 (위에서 아래로 움직이는 빛) */
@@ -166,8 +162,7 @@
     height: auto;
     border-radius: 40px; /* 둥근 모서리 */
     opacity: 0.8;
-    /* 요청 사항 1: 배경 사진을 더 어둡게 */
-    filter: brightness(0.2); 
+    filter: brightness(0.6); /* 사진을 어둡게 (글자 잘 보이게) */
     box-shadow: 0 0 50px rgba(0,0,0,0.8);
 }
 
@@ -190,8 +185,6 @@
     font-weight: 700;
     transition: all 0.4s ease-out;
     width: 100%;
-    /* 요청 사항 1: 인트로 텍스트 네온 효과 */
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
 }
 
 /* 글자 활성화 */
@@ -199,7 +192,7 @@
     opacity: 1;
     transform: translate(-50%, -50%) scale(1.1); /* 확 커짐 */
     color: #00bfa5;
-    text-shadow: 0 0 10px #00bfa5, 0 0 20px #00bfa5, 0 0 30px #00bfa5; /* 네온 효과 강화 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
 }
 
 /* 사라질 때 */
@@ -216,7 +209,6 @@
     padding: 10px 20px;
     border-radius: 10px;
     background: rgba(0,0,0,0.5);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* 최종 문구 네온 약화 */
 }
 
   /* --- [메인 레이아웃] --- */
@@ -247,7 +239,6 @@
       width: 100%;
       padding: 0 15px; 
       box-sizing: border-box;
-      position: relative; /* 자식 요소의 absolute 위치 기준 */
   }
 
   .header-left-content {
@@ -261,50 +252,13 @@
       cursor: pointer; 
   } 
   
-  /* 3. 헤더 텍스트 롤링 스타일 적용 */
-  .header-text-container {
-      position: absolute;
-      top: 100%; 
-      left: 0;
-      width: 100%;
-      height: 25px; 
-      overflow: hidden; 
-      background-color: #000;
-      border-top: 1px solid #333;
-  }
-  
   .header-text { /* 기존 h2 문구 */
     margin: 5px 0 0 0; 
     font-size: 14px;
     color: #333;
     font-weight: bold;
     text-align: left; /* 왼쪽 정렬 */
-    /* 원본 .header-text 스타일을 .header-text-content로 이동 */
   }
-  
-  .header-text-content {
-      display: inline-block;
-      white-space: nowrap;
-      padding-left: 100%; /* 화면 밖에서 시작 */
-      line-height: 25px; /* 컨테이너 높이와 맞춤 */
-      font-size: 14px;
-      font-weight: bold;
-      color: #00bfa5; 
-      animation: marquee-header 15s linear infinite; /* 롤링 애니메이션 */
-      text-shadow: 0 0 5px #00bfa5;
-  }
-
-  /* 3. 헤더 텍스트 롤링 애니메이션 */
-  @keyframes marquee-header {
-      0% { transform: translateX(0%); }
-      100% { transform: translateX(-100%); } /* 텍스트의 실제 길이만큼 이동 */
-  }
-  
-  @keyframes text-color-blink {
-    0%, 100% { color: #00bfa5; }
-    50% { color: #ff5252; }
-  }
-
 
   .header-right-logo-box { /* 새 로고 컨테이너: top_logo.jpg */
       display: block;
@@ -326,8 +280,7 @@
   /* --- [메뉴바] --- */
   .main-menu {
     position: fixed;
-    /* 높이 계산: 기존 79px -> 헤더 텍스트 컨테이너 높이 25px 추가 */
-    top: calc(79px + 25px); 
+    top: 79px; 
     left: 0;
     width: 100%;
     background: #222;
@@ -360,10 +313,9 @@
 
 
   main {
-    /* 기존 126px -> 헤더 텍스트 컨테이너 높이 25px 추가 */
-    margin-top: calc(126px + 25px); 
+    margin-top: 126px; 
     margin-bottom: 80px; 
-    min-height: calc(100vh - 126px - 25px - 80px); 
+    min-height: calc(100vh - 126px - 80px); 
     height: auto;
     overflow-y: visible; 
     text-align: center;
@@ -559,8 +511,7 @@ footer {
     overflow-x: auto; 
     -webkit-overflow-scrolling: touch;
     position: sticky; 
-    /* 기존 0 -> 헤더 텍스트 컨테이너 높이 25px 추가 */
-    top: calc(79px + 25px + 1px); 
+    top: 0; 
     background: #111;
     z-index: 900;
   }
@@ -633,22 +584,18 @@ footer {
       position: relative;
       background: transparent;
       pointer-events: none; 
-      /* 요청 사항 5: 섹션 상단 베너와의 간격 확보 */
-      margin-top: 50px; 
   }
 
-  /* 요청 사항 4: 아래로 흐르는 애니메이션 */
-  @keyframes scroll-down {
-      0% { transform: translateY(-50%); } 
-      100% { transform: translateY(0); }
+  @keyframes scroll-up {
+      0% { transform: translateY(0); }
+      100% { transform: translateY(-50%); } 
   }
 
   .partner-logo-track {
       display: flex;
       flex-direction: column; 
       width: 100%;
-      /* 요청 사항 4: 아래로 흐르는 애니메이션 적용 */
-      animation: scroll-down 20s linear infinite; 
+      animation: scroll-up 20s linear infinite; 
   }
 
   .partner-item {
@@ -673,83 +620,6 @@ footer {
     margin: 0 !important; 
     border-radius: 0;
     box-shadow: none;
-  }
-  
-  /* --- [요청 사항 5: 상생 섹션 상단 오버레이 스캔 효과] --- */
-  .partner-scan-overlay {
-      position: relative; 
-      width: 100%; 
-      max-width: 1000px; 
-      margin: 0 auto;
-      height: 250px; /* 오버레이 높이 */
-      background: rgba(0, 0, 0, 0.7);
-      border: 2px solid #00bfa5;
-      border-radius: 10px;
-      overflow: hidden;
-      box-shadow: 0 0 20px rgba(0, 191, 165, 0.5);
-      z-index: 10;
-      margin-top: 20px;
-  }
-  
-  /* 곰팡이/세균 (가상의 흐르는 오염물) */
-  .contaminant-flow {
-      position: absolute;
-      top: 0; left: 0;
-      width: 200%; /* 두 배로 만들어서 무한 롤링 */
-      height: 100%;
-      background-image: repeating-linear-gradient(90deg, 
-          rgba(255, 82, 82, 0.2) 0, rgba(255, 82, 82, 0.2) 20px, 
-          transparent 20px, transparent 40px),
-          repeating-linear-gradient(0deg, 
-          rgba(255, 82, 82, 0.2) 0, rgba(255, 82, 82, 0.2) 20px, 
-          transparent 20px, transparent 40px);
-      background-size: 80px 80px;
-      animation: flow-right-left 10s linear infinite;
-  }
-  
-  @keyframes flow-right-left {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-  }
-  
-  /* 스캔/레이더 라인 */
-  .scan-effect-line {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(to bottom, 
-          rgba(0, 191, 165, 0.8) 0%, 
-          rgba(0, 191, 165, 0) 50%, 
-          rgba(0, 191, 165, 0.8) 100%);
-      animation: radar-scan 4s linear infinite;
-  }
-  
-  @keyframes radar-scan {
-      0% { transform: translateY(-100%); opacity: 0.5; }
-      50% { opacity: 1; }
-      100% { transform: translateY(100%); opacity: 0.5; }
-  }
-  
-  .scan-text {
-      position: absolute;
-      top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      color: #fff;
-      font-size: 20px;
-      font-weight: 900;
-      text-shadow: 0 0 10px #00bfa5;
-      z-index: 20;
-      animation: blink 0.5s infinite;
-      text-align: center;
-  }
-  
-  .scan-text span {
-      display: block;
-      font-size: 14px;
-      font-weight: 400;
-      color: #ff5252;
-      margin-top: 5px;
   }
 
   /* --- [퀴즈 스타일] --- */
@@ -785,7 +655,6 @@ footer {
     body { overflow-y: auto !important; }
     #intro-screen, #main-content-wrapper { max-width: 1600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
     header, .main-menu, .fixed-buttons, footer { width: 100%; max-width: 1600px; left: 50%; transform: translateX(-50%); }
-    .main-menu { top: calc(79px + 25px); } /* PC 메뉴 위치 조정 */
     .menu-btn { font-size: 16px; padding: 15px 10px; }
     .solution-content-wrapper p, 
     .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
@@ -810,36 +679,6 @@ footer {
     .header-right-logo-box img { /* PC에서 새 로고 크기 (1/2) */
         height: 30px; 
     }
-    
-    /* 요청 사항 2: 배너(위생가전 소독관리) PC 크기 조정 */
-    .visual-hero-banner {
-        height: 200px; /* PC에서 높이 증가 */
-    }
-    
-    .tech-scan-container {
-        padding: 40px 30px;
-        max-width: 700px; /* PC에서 최대 폭 증가 */
-    }
-    
-    .tech-title {
-        font-size: 32px;
-    }
-
-    .safe-zone-text {
-        font-size: 36px;
-    }
-    
-    .ask-text {
-        font-size: 40px;
-    }
-    
-    /* 요청 사항 5: PC에서의 상생 섹션 오버레이 높이 조정 */
-    .partner-scan-overlay {
-        height: 350px;
-    }
-    .scan-text {
-        font-size: 30px;
-    }
   }
 </style>
 </head>
@@ -847,8 +686,12 @@ footer {
 <body>
   
 <div id="intro-screen" class="intro-style-overlay">
+    <!-- 배경 이미지 -->
     <img src="imege/cm1.jpg" class="bg-photo" alt="Background">
-    <div class="overlay-dim"></div> <div class="text-center-box">
+    <div class="overlay-dim"></div> <!-- 사진 어둡게 하는 막 -->
+    
+    <!-- 중앙 글자 -->
+    <div class="text-center-box">
         <span class="intro-item">제빙기</span>
         <span class="intro-item">냉장고</span>
         <span class="intro-item">전자렌지</span>
@@ -863,21 +706,14 @@ footer {
       <div class="header-top">
           <div class="header-left-content">
               <img src="imege/logo2.png" alt="클린메이트 로고" class="main-logo-img" onclick="location.reload()" /> 
-              <h2 class="header-text"></h2>
+              <h2 class="header-text">전문장비로 원스톱 위생관리 솔루션</h2>
           </div>
           
           <a href="http://www.dhcsolution.com/" target="_blank" class="header-right-logo-box">
               <img src="imege/top_logo.jpg" alt="디에이치씨솔루션 홈페이지 바로가기" />
           </a>
       </div>
-      
-      <div class="header-text-container">
-          <span class="header-text-content">
-              전문장비로 원스톱 위생관리 솔루션 
-              <span style="display:inline-block; width: 100px;"></span> 전문장비로 원스톱 위생관리 솔루션
-          </span>
-      </div>
-      </header>
+    </header>
 
     <nav class="main-menu">
       <a href="#company" class="menu-btn" data-target="company-section">회사</a> 
@@ -886,7 +722,8 @@ footer {
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자렌지</a>
       <a href="#aircond" class="menu-btn" data-target="aircond-section">에어컨</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
-      <a href="#partner" class="menu-btn" data-target="partner-section">상생</a> 
+      <a href="#partner" class="menu-btn" data-target="partner-section">협력사</a> 
+
     </nav>
 
     <main>
@@ -894,10 +731,13 @@ footer {
           <h2>위생가전 소독관리</h2>
 
         
+<!-- ▼▼▼▼▼ [HTML] 디지털 스캐너 스타일 배너 ▼▼▼▼▼ -->
 <div class="visual-hero-banner">
     <div class="tech-scan-container">
+        <!-- 스캔하는 빛줄기 효과 -->
         <div class="scan-line"></div>
         
+        <!-- 텍스트 내용 -->
         <div class="tech-content">
             <span class="system-alert">⚠ SYSTEM WARNING</span>
             <h3 class="tech-title">
@@ -909,7 +749,9 @@ footer {
         </div>
     </div>
 </div>
-<h3 id="company-s01-anchor">제안 배경</h3>
+<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ -->
+    
+          <h3 id="company-s01-anchor">제안 배경</h3>
           <p>
               직원들의 건강과 복지, 그리고 기업의 생산성은 안전한 근무 환경에서 시작됩니다. 다중이용 시설인 기업 사무실에서 공동으로 사용하는 위생 가전은 <strong>"보이지 않는 감염 위험 구역"</strong>입니다.
           </p>
@@ -1002,16 +844,6 @@ footer {
 
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
-          
-          <div class="partner-scan-overlay">
-              <div class="contaminant-flow"></div>
-              <div class="scan-effect-line"></div>
-              <div class="scan-text">
-                  PARTNER STATUS CHECK: SECURED<br>
-                  <span>긴밀한 상생 협력으로 안전한 비즈니스 환경 구축</span>
-              </div>
-          </div>
-          
           <div class="partner-logo-gallery-wrapper">
               <div class="partner-logo-track" id="partner-logo-track"></div>
           </div>
@@ -1044,13 +876,16 @@ footer {
 
           <div class="question" id="result">
               <h3>✨ 상담 신청 보내기</h3>
+          <!-- 변경된 부분 시작 -->
           <button id="sendSMS" onclick="sendSummarySMS()">문자 보내기</button>
             </p>
           <p style="color: #BC8F8F; font-size: 15px; line-height: 1.6; margin: 20px 0;">
                   전문 담당자가<br>
                   빠른 연락 드리겠습니다.
  
-          </div>
+          <!-- 변경된 부분 끝 -->
+
+      </div>
       
       
       </div>
@@ -1065,8 +900,10 @@ footer {
 
 <footer>
   <div class="scroll-text">
+      <!-- 내용 1번 -->
       <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
       
+      <!-- 내용 2번 (위와 똑같은 내용을 한번 더 넣습니다) -->
       <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
   </div>
 </footer>
@@ -1174,8 +1011,7 @@ footer {
                 }
 
                 setTimeout(() => {
-                    /* 헤더 롤링 텍스트 컨테이너 높이 25px 추가 반영 */
-                    const offset = 126 + 25; 
+                    const offset = 126; 
                     const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
                     window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
                 }, 50); 
@@ -1360,19 +1196,12 @@ footer {
         const track = document.getElementById('partner-logo-track');
         if (!track) return;
         let html = '';
-        /* 요청 사항 4: 아래로 흐르는 롤링을 위해 2배의 리스트를 먼저 생성 */
-        const logoCount = 14; 
-        for (let j = 0; j < 2; j++) {
-            for (let i = 1; i <= logoCount; i++) {
-                const fileNum = i.toString().padStart(3, '0');
-                const src = `imege/b${fileNum}.jpg`;
-                html += `<div class="partner-item"><img src=\"${src}\" alt=\"협력사 ${i}\" onerror=\"this.style.display='none';\"></div>`;
-            }
+        for (let i = 1; i <= 14; i++) {
+            const fileNum = i.toString().padStart(3, '0');
+            const src = `imege/b${fileNum}.jpg`;
+            html += `<div class="partner-item"><img src=\"${src}\" alt=\"협력사 ${i}\" onerror=\"this.style.display='none';\"></div>`;
         }
-        track.innerHTML = html; 
-        
-        /* 요청 사항 4: 스크롤 시작점 조정 (아래로 흐르는 효과의 시작점) */
-        track.style.transform = 'translateY(-50%)';
+        track.innerHTML = html + html; 
     }
 
     async function loadSectionContent(targetId, contentPath) {
@@ -1390,6 +1219,8 @@ footer {
     }
 
 
+
+  
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
