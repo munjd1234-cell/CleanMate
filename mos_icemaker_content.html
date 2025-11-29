@@ -1,8 +1,9 @@
 <h2>제빙기 위생 관리 솔루션</h2>
-<!-- ▼▼▼▼▼ [수정완료] 얼음이 떨어지는 애니메이션 추가 버전 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [수정완료] 얼음과 곰팡이가 비처럼 쏟아지는 제빙기 배너 ▼▼▼▼▼ -->
 <style>
     /* 제빙기 배너 전용 스타일 */
     .ice-banner-wrapper {
+        /* PC 화면 꽉 채우기 */
         width: 100vw;
         position: relative;
         left: 50%;
@@ -13,7 +14,7 @@
         margin-bottom: 30px;
         border-bottom: 1px solid #1a237e;
         
-        /* 깊은 바다색 배경 */
+        /* 배경: 깊은 바다색 (차갑고 어두운 느낌) */
         background: radial-gradient(circle at center, #0d47a1 0%, #000000 90%);
         
         display: flex;
@@ -34,14 +35,13 @@
         padding: 30px 20px;
         text-align: center;
         
-        /* 반투명 얼음 효과 */
         background: rgba(255, 255, 255, 0.05);
         backdrop-filter: blur(5px);
         border: 1px solid rgba(64, 196, 255, 0.3);
         border-radius: 15px;
         box-shadow: 0 0 30px rgba(0, 145, 234, 0.2);
         
-        /* [중요] 얼음이 박스 밖으로 나가지 않게 자름 */
+        /* 내용물이 박스 밖으로 나가지 않게 */
         overflow: hidden; 
     }
 
@@ -57,27 +57,44 @@
         z-index: 1;
     }
 
-    /* ✨ [추가] 떨어지는 얼음 조각 스타일 */
+    /* 🧊 [얼음] 떨어지는 얼음 조각 */
     .falling-ice {
         position: absolute;
-        background: rgba(255, 255, 255, 0.15); /* 반투명 흰색 */
-        border: 1px solid rgba(255, 255, 255, 0.4); /* 테두리 */
+        background: rgba(255, 255, 255, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.5);
         box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
-        border-radius: 3px; /* 모서리 살짝 둥글게 */
-        z-index: 2; /* 안개보다 위, 글자보다 아래 */
-        top: -50px; /* 화면 밖에서 시작 */
+        border-radius: 2px;
+        z-index: 2;
+        top: -50px;
     }
+    .i1 { left: 10%; width: 25px; height: 25px; animation: dropDown 3s infinite linear; }
+    .i2 { left: 40%; width: 20px; height: 20px; animation: dropDown 4s infinite linear 1s; }
+    .i3 { left: 75%; width: 30px; height: 30px; animation: dropDown 3.5s infinite linear 0.5s; }
 
-    /* 얼음 조각 개별 설정 (위치, 크기, 속도 다르게) */
-    .cube1 { left: 10%; width: 30px; height: 30px; animation: dropIce 3s infinite linear; }
-    .cube2 { left: 30%; width: 20px; height: 20px; animation: dropIce 4s infinite linear 1s; } /* 1초 뒤 시작 */
-    .cube3 { left: 60%; width: 25px; height: 25px; animation: dropIce 3.5s infinite linear 0.5s; }
-    .cube4 { left: 85%; width: 15px; height: 15px; animation: dropIce 5s infinite linear 2s; }
+    /* 🦠 [곰팡이] 얼음과 함께 쏟아지는 세균들 (많이 추가!) */
+    .falling-germ {
+        position: absolute;
+        font-size: 20px;
+        z-index: 3;
+        top: -50px;
+        opacity: 0.9;
+        /* 곰팡이를 더럽고 어둡게 표현 */
+        filter: hue-rotate(40deg) brightness(0.8) drop-shadow(0 0 5px #000);
+    }
+    
+    /* 곰팡이 우수수 떨어지게 배치 (속도와 위치를 다양하게) */
+    .g1 { left: 5%; font-size: 24px; animation: dropDown 2.5s infinite linear 0.2s; }
+    .g2 { left: 20%; font-size: 18px; animation: dropDown 3.2s infinite linear 1.5s; } /* 검은 포자 */
+    .g3 { left: 35%; font-size: 28px; animation: dropDown 2.8s infinite linear 0.8s; }
+    .g4 { left: 55%; font-size: 22px; animation: dropDown 3.5s infinite linear 0.5s; }
+    .g5 { left: 65%; font-size: 16px; animation: dropDown 4s infinite linear 2s; } /* 검은 포자 */
+    .g6 { left: 85%; font-size: 30px; animation: dropDown 3s infinite linear 1.2s; }
+    .g7 { left: 90%; font-size: 20px; animation: dropDown 2.7s infinite linear 0s; }
 
     /* 텍스트 스타일 */
     .ice-content-layer {
         position: relative; 
-        z-index: 10; /* 얼음보다 위에 글자가 있어야 함 */
+        z-index: 10; 
     }
 
     .ice-badge {
@@ -115,12 +132,12 @@
         100% { transform: translateX(50%) skewX(-20deg); }
     }
 
-    /* 얼음 떨어지는 애니메이션 (위 -> 아래 + 회전) */
-    @keyframes dropIce {
-        0% { top: -40px; opacity: 0; transform: rotate(0deg); }
+    /* 위에서 아래로 떨어지면서 회전하는 애니메이션 */
+    @keyframes dropDown {
+        0% { top: -50px; opacity: 0; transform: rotate(0deg); }
         10% { opacity: 1; }
         90% { opacity: 1; }
-        100% { top: 120%; opacity: 0; transform: rotate(90deg); } /* 바닥으로 떨어지며 회전 */
+        100% { top: 120%; opacity: 0; transform: rotate(180deg); }
     }
 </style>
 
@@ -129,13 +146,21 @@
         <!-- 안개 효과 -->
         <div class="cold-mist"></div>
         
-        <!-- ✨ 떨어지는 얼음 조각들 (4개) -->
-        <div class="falling-ice cube1"></div>
-        <div class="falling-ice cube2"></div>
-        <div class="falling-ice cube3"></div>
-        <div class="falling-ice cube4"></div>
+        <!-- 🧊 얼음 3개 -->
+        <div class="falling-ice i1"></div>
+        <div class="falling-ice i2"></div>
+        <div class="falling-ice i3"></div>
+
+        <!-- 🦠 쏟아지는 곰팡이들 (7개) -->
+        <div class="falling-germ g1">🦠</div>
+        <div class="falling-germ g2">⚫</div> <!-- 검은 물때 -->
+        <div class="falling-germ g3">🦠</div>
+        <div class="falling-germ g4">🦠</div>
+        <div class="falling-germ g5">⚫</div>
+        <div class="falling-germ g6">🦠</div>
+        <div class="falling-germ g7">🦠</div>
         
-        <!-- 텍스트 내용 -->
+        <!-- 텍스트 -->
         <div class="ice-content-layer">
             <div class="ice-badge">❄ ICE HYGIENE CHECK</div>
             <h3 class="ice-title">
