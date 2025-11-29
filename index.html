@@ -13,122 +13,106 @@
     color: #fff;
   }
 
-/* ▼▼▼▼▼ [CSS] 정중앙 배치 + 여백 삭제 디자인 (여기부터 복사) ▼▼▼▼▼ */
+/* ▼▼▼▼▼ [CSS] 공백 삭제 + 유리 카드 디자인 (여기부터 복사) ▼▼▼▼▼ */
 
-/* 1. 배너 틀: 여백 최소화 */
+/* 1. 배너 틀: 높이 줄이고 여백 삭제 */
 .visual-hero-banner {
     position: relative;
     width: 100vw;
     margin-left: -15px;
-    height: 400px;          /* 높이 충분히 확보 */
-    
-    /* 위아래 여백을 거의 없앰 (착 붙게) */
-    margin-top: 5px;       
-    margin-bottom: 5px;    
-    
+    height: 300px;          /* [수정] 높이를 300px로 줄임 (공백 감소) */
+    margin-top: 10px;
+    margin-bottom: 0px;     /* [수정] 아래 여백 0으로 설정 */
     overflow: hidden;
     background-color: #111; 
-    border: none;           
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-bottom: 1px solid #333; /* 하단에 얇은 선으로 경계 구분 */
 }
 
-/* 2. 배경 이미지 */
+/* 2. [핵심] 배너 바로 아래에 있는 '제안 배경(h3)' 끌어올리기 */
+.visual-hero-banner + h3 {
+    margin-top: 20px !important; /* [수정] 강제로 위로 당김 (기존 40px -> 20px) */
+    padding-top: 10px !important;
+}
+
+/* 3. 배경 이미지 설정 */
 .hero-bg-group {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 0; 
 }
-
 .hero-bg-img {
     width: 100%; height: 100%;
     object-fit: cover;
-    opacity: 0.8; /* 이미지를 조금 더 어둡게 */
+    opacity: 0.7; /* 배경을 좀 더 어둡게 눌러줌 */
     animation: deepZoom 20s infinite alternate linear;
 }
-
 .dark-overlay {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    /* [수정] 글자가 중앙에 오므로 전체적으로 어둡게 덮음 (글자 강조) */
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.4); 
     z-index: 1;
 }
 
-/* 3. [핵심] 글자 정중앙 배치 */
+/* 4. 내용 중앙 정렬 */
 .hero-content-center {
     position: absolute;
-    
-    /* 화면의 정중앙 좌표를 찍는 코드 */
-    top: 50%; 
-    left: 50%; 
-    transform: translate(-50%, -50%); /* 정확히 가운데로 이동 */
-    
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
     z-index: 10;
-    text-align: center; /* 글자 가운데 정렬 */
-    width: 100%;        /* 너비 꽉 차게 */
-    padding: 0 20px;    /* 모바일에서 잘리지 않게 여백 */
-    box-sizing: border-box;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
 }
 
-/* 둥둥 떠다니는 효과 */
-.floating-wrapper {
-    animation: floatText 4s ease-in-out infinite;
+/* ✨ 5. [NEW] 반투명 유리 카드 디자인 (본문과 차별화) */
+.glass-card {
+    background: rgba(255, 255, 255, 0.1); /* 흰색 반투명 */
+    backdrop-filter: blur(5px);           /* 배경 흐리게 (유리 효과) */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* 얇은 테두리 */
+    padding: 25px 20px;
+    border-radius: 15px;                  /* 둥근 모서리 */
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* 그림자 */
+    animation: floatCard 4s ease-in-out infinite; /* 카드 전체가 둥둥 떠다님 */
 }
 
-/* 뱃지 디자인 (가운데 정렬) */
+/* 뱃지 스타일 */
 .hero-badge {
     display: inline-block;
     background: #00bfa5; color: #fff;
-    font-size: 14px; font-weight: 800;
-    padding: 6px 15px; border-radius: 30px;
+    font-size: 12px; font-weight: 800;
+    padding: 4px 10px; border-radius: 4px;
     margin-bottom: 15px;
-    box-shadow: 0 0 15px rgba(0, 191, 165, 0.6);
-    animation: heartbeat 1.5s infinite;
+    letter-spacing: 1px;
 }
 
-/* 제목 폰트 (가운데 정렬) */
+/* 제목 폰트 스타일 */
 .hero-title {
-    font-size: 34px; /* 글자 크기 키움 */
-    font-weight: 900;
     color: #fff;
     line-height: 1.4;
     margin: 0;
-    text-shadow: 0 5px 20px rgba(0,0,0,1); /* 검은 그림자 진하게 */
+    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
-/* 줄마다 등장 효과 */
-.line-1, .line-2, .line-3 {
-    display: inline-block;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeInUpText 0.8s ease-out forwards;
+.small-text {
+    font-size: 18px; font-weight: 400; color: #ccc;
+    display: block; margin-bottom: 5px;
 }
-.line-1 { animation-delay: 0.1s; }
-.line-2 { animation-delay: 0.3s; }
-.line-3 { animation-delay: 0.5s; }
 
-/* 형광펜 효과 */
 .highlight-text {
-    color: #00bfa5;
-    position: relative;
-    display: inline-block;
+    font-size: 28px; font-weight: 900; color: #00bfa5; /* 민트색 강조 */
 }
 
-/* --- 애니메이션 정의 --- */
+.big-text {
+    font-size: 32px; font-weight: 900; color: #fff;
+    display: block; margin-top: 5px;
+}
+
+/* --- 애니메이션 --- */
 @keyframes deepZoom {
     0% { transform: scale(1.0); }
-    100% { transform: scale(1.2); }
+    100% { transform: scale(1.15); }
 }
-@keyframes floatText {
+@keyframes floatCard {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
     100% { transform: translateY(0px); }
-}
-@keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    15% { transform: scale(1.1); }
-    30% { transform: scale(1); }
-}
-@keyframes fadeInUpText {
-    to { opacity: 1; transform: translateY(0); }
 }
 /* ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ */
 
@@ -720,22 +704,21 @@ footer {
           <h2>위생가전 소독관리</h2>
 
         
-<!-- ▼▼▼▼▼ [HTML] 정중앙 배치 버전 (여기부터 복사) ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [HTML] 디자인 변경 및 공백 제거 버전 ▼▼▼▼▼ -->
 <div class="visual-hero-banner">
-    <!-- 배경 이미지 -->
     <div class="hero-bg-group">
         <img src="imege/vv05.jpg" alt="위생 공간 관리" class="hero-bg-img">
-        <div class="dark-overlay"></div> <!-- 전체를 어둡게 덮는 막 -->
+        <div class="dark-overlay"></div>
     </div>
     
-    <!-- 정중앙에 위치할 텍스트 -->
     <div class="hero-content-center">
-        <div class="floating-wrapper">
+        <!-- ✨ 새로운 디자인: 반투명 유리 카드 스타일 -->
+        <div class="glass-card">
             <span class="hero-badge">Professional Care</span>
             <h3 class="hero-title">
-                <span class="line-1">보이지 않는 세균과 곰팡이</span><br>
-                <span class="line-2">당신의 <span class="highlight-text">위생 공간</span>은</span><br>
-                <span class="line-3">안전합니까?</span>
+                <span class="small-text">보이지 않는 세균과 곰팡이,</span><br>
+                당신의 <span class="highlight-text">위생 공간</span>은<br>
+                <span class="big-text">안전합니까?</span>
             </h3>
         </div>
     </div>
