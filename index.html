@@ -13,34 +13,32 @@
     color: #fff;
   }
 
-/* ▼▼▼▼▼ [CSS] 이미지 제거 + 그라데이션 배경 (여기부터 복사) ▼▼▼▼▼ */
+/* ▼▼▼▼▼ [CSS] 희미한 하얀 박스 + 획기적인 디자인 (여기부터 복사) ▼▼▼▼▼ */
 
-/* 1. 배너 틀: 이미지 대신 색상 채우기 */
+/* 1. 배너 틀 */
 .visual-hero-banner {
     position: relative;
     width: 100vw;
     margin-left: -15px;
     height: 300px;
     
-    /* 여백 설정 (착 붙게) */
+    /* 여백 최소화 */
     margin-top: 10px;
     margin-bottom: 0px;
     
     overflow: hidden;
-    
-    /* [수정] 이미지 대신 고급스러운 어두운 그라데이션 적용 */
-    /* 중앙에서 퍼지는 빛 효과: #2a2a2a(진한회색) -> #000(검정) */
-    background: radial-gradient(circle at center, #2a2a2a 0%, #000 100%);
+    /* 배경: 아주 어두운 회색 ~ 검정 그라데이션 (박스를 돋보이게 함) */
+    background: radial-gradient(circle at 50% 50%, #222 0%, #050505 100%);
     border-bottom: 1px solid #333;
 }
 
-/* 2. 배너 아래 '제안 배경' 글자 위치 조정 */
+/* 아래 '제안 배경' 글자 끌어올리기 (공백 제거용) */
 .visual-hero-banner + h3 {
-    margin-top: 20px !important;
-    padding-top: 10px !important;
+    margin-top: 30px !important;
+    padding-top: 0px !important;
 }
 
-/* 3. 내용 중앙 정렬 */
+/* 내용 중앙 정렬 */
 .hero-content-center {
     position: absolute;
     top: 50%; left: 50%;
@@ -51,58 +49,85 @@
     text-align: center;
 }
 
-/* 4. [수정] 카드 디자인 (배경이 단순해져서 테두리 강조) */
-.glass-card {
-    background: rgba(255, 255, 255, 0.03); /* 아주 투명한 흰색 */
-    backdrop-filter: blur(3px);            /* 은은한 흐림 효과 */
+/* ✨ 2. [핵심] 획기적인 디자인: 스페셜 글로우 박스 */
+.special-glow-box {
+    position: relative;
     
-    /* [포인트] 테두리에 민트색 빛을 살짝 줌 */
-    border: 1px solid rgba(0, 191, 165, 0.3); 
+    /* [희미한 하얀 무언가] -> 반투명 흰색 배경 + 테두리 */
+    background: rgba(255, 255, 255, 0.05); /* 아주 옅은 흰색 배경 */
+    border: 1px solid rgba(255, 255, 255, 0.3); /* 선명한 하얀 테두리 */
     
-    padding: 30px 20px;
-    border-radius: 15px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.5); /* 그림자 */
-    animation: floatCard 4s ease-in-out infinite;
+    padding: 35px 20px;
+    border-radius: 20px; /* 모서리 둥글게 */
+    
+    /* 박스 자체 발광 효과 (희미한 하얀 빛) */
+    box-shadow: 
+        0 0 20px rgba(255, 255, 255, 0.05), /* 내부 은은함 */
+        inset 0 0 20px rgba(255, 255, 255, 0.05); /* 안쪽 은은함 */
+        
+    backdrop-filter: blur(5px); /* 뒤가 흐릿하게 비치는 유리 효과 */
+    animation: floatBox 4s ease-in-out infinite; /* 둥둥 떠다님 */
 }
 
-/* 뱃지 스타일 */
-.hero-badge {
-    display: inline-block;
-    background: #00bfa5; color: #fff;
-    font-size: 12px; font-weight: 800;
-    padding: 4px 10px; border-radius: 4px;
-    margin-bottom: 15px;
-    letter-spacing: 1px;
-    box-shadow: 0 0 10px rgba(0, 191, 165, 0.4); /* 뱃지 자체 발광 */
+/* 박스 위를 지나가는 빛 효과 (장식) */
+.shine-effect {
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, transparent, rgba(255,255,255,0.1), transparent);
+    transform: skewX(-25deg);
+    animation: shineMove 3s infinite;
 }
 
-/* 제목 폰트 스타일 */
+/* 3. 폰트 디자인 (본문과 완전히 다르게) */
 .hero-title {
     color: #fff;
-    line-height: 1.4;
+    line-height: 1.5;
     margin: 0;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.8);
 }
 
-.small-text {
-    font-size: 18px; font-weight: 400; color: #aaa; /* 조금 더 차분한 회색 */
-    display: block; margin-bottom: 5px;
+/* "보이지 않는 세균과 곰팡이" */
+.warning-text {
+    font-size: 18px; 
+    font-weight: 400; 
+    color: #ccc; /* 약간 회색으로 차분하게 */
+    display: block; 
+    margin-bottom: 5px;
 }
 
+/* "위생 공간" 강조 */
 .highlight-text {
-    font-size: 28px; font-weight: 900; color: #00bfa5;
+    font-size: 26px; 
+    font-weight: 800; 
+    color: #00bfa5; /* 민트색 */
+    text-decoration: underline; /* 밑줄 추가로 강조 */
+    text-underline-offset: 5px;
 }
 
-.big-text {
-    font-size: 32px; font-weight: 900; color: #fff;
-    display: block; margin-top: 5px;
-    text-shadow: 0 0 20px rgba(255,255,255,0.1); /* 은은한 빛 */
+/* "안전합니까?" (가장 크게) */
+.impact-text {
+    font-size: 34px; 
+    font-weight: 900; 
+    color: #fff;
+    display: block; 
+    margin-top: 10px;
+    letter-spacing: 2px; /* 자간 넓힘 */
+    /* 텍스트에도 하얀 빛을 줌 */
+    text-shadow: 0 0 15px rgba(255,255,255,0.3); 
 }
 
-/* --- 애니메이션 --- */
-@keyframes floatCard {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-10px); }
-    100% { transform: translateY(0px); }
+/* --- 애니메이션 정의 --- */
+@keyframes floatBox {
+    0% { transform: translateY(0px); box-shadow: 0 0 20px rgba(255,255,255,0.05); }
+    50% { transform: translateY(-10px); box-shadow: 0 0 40px rgba(255,255,255,0.1); }
+    100% { transform: translateY(0px); box-shadow: 0 0 20px rgba(255,255,255,0.05); }
+}
+
+@keyframes shineMove {
+    0% { left: -100%; }
+    20% { left: 200%; } /* 슥 지나감 */
+    100% { left: 200%; }
 }
 /* ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ */
 
@@ -694,17 +719,18 @@ footer {
           <h2>위생가전 소독관리</h2>
 
         
-<!-- ▼▼▼▼▼ [HTML] 이미지 제거 + 심플 버전 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [HTML] 문구 변경 + 배지 삭제 버전 ▼▼▼▼▼ -->
 <div class="visual-hero-banner">
     <div class="hero-content-center">
-        <!-- 배경이 단순해졌으므로 카드 테두리로 포인트를 줍니다 -->
-        <div class="glass-card">
-            <span class="hero-badge">Professional Care</span>
+        <!-- 획기적인 디자인을 위한 '스페셜 박스' -->
+        <div class="special-glow-box">
             <h3 class="hero-title">
-                <span class="small-text">보이지 않는 세균과 곰팡이</span><br>
+                <span class="warning-text">보이지 않는 세균과 곰팡이,</span><br>
                 당신의 <span class="highlight-text">위생 공간</span>은<br>
-                <span class="big-text">안전합니까?</span>
+                <span class="impact-text">안전합니까?</span>
             </h3>
+            <!-- 희미한 하얀 빛 효과 (장식용) -->
+            <div class="shine-effect"></div>
         </div>
     </div>
 </div>
