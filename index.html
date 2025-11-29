@@ -1004,10 +1004,10 @@
 
     function sendSummarySMS() {
         const summaryText = answers.filter(a => a !== undefined).join(' / ');
-        const message = `[클린메이트 상담 요청]\n${summaryText}`;
+        const message = `[클린메이트]\n${summaryText}`;
         const encodedMessage = encodeURIComponent(message);
         const smsLink = `sms:${phoneNumber}?body=${encodedMessage}`;
-        if (confirm(`상담 요청 내용을 문자로 보내시겠습니까?\n\n[내용 요약]\n${message}`)) window.location.href = smsLink;
+        if (confirm(`[상담 요청 내용]\n${message}`)) window.location.href = smsLink;
     }
 
     function restartQuiz() {
