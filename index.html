@@ -150,20 +150,6 @@
     color: #fff;
   }
 
-  /* [VIP CARE 텍스트 골드 깜빡임 효과] */
-  @keyframes gold-blink {
-      0%, 100% { color: #FFD700; text-shadow: none; }
-      50% { color: #fff; text-shadow: 0 0 10px #FFD700; }
-  }
-  .menu-btn[data-target="vip-section"] {
-      font-weight: 900; 
-      animation: gold-blink 2s infinite ease-in-out;
-  }
-  .menu-btn[data-target="vip-section"].active {
-      color: #FFD700 !important;
-      text-shadow: 1px 1px 2px rgba(0,0,0,0.8);
-      animation: none;
-  }
 
   main {
     margin-top: 126px; 
@@ -543,9 +529,10 @@
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
       <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자렌지</a>
+      <a href="#dryice" class="menu-btn" data-target="dryice-section">에어컨</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력사</a> 
-      <a href="#vip" class="menu-btn" data-target="vip-section">VIP CARE</a> 
+
     </nav>
 
     <main>
@@ -770,7 +757,7 @@
             } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('tech-section', 'technology.html');
             } else if (targetId === 'vip-section' && !targetSection.dataset.loaded) {
-                loadPromise = loadSectionContent('vip-section', 'vipcare.html');
+                loadPromise = loadSectionContent('vip-section', 'mos_aircond.html');
             }
             
             loadPromise.then(() => {
