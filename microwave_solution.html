@@ -1,10 +1,9 @@
     <h2>전자렌지 위생관리 솔루션</h2>
 
-<!-- ▼▼▼▼▼ [수정완료] 전기가 '파지지직' 튀는 전자레인지 배너 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [수정완료] 미친 듯이 튀는 전기 세균 + 강력한 번개 배너 ▼▼▼▼▼ -->
 <style>
     /* 전자레인지 배너 전용 스타일 */
     .microwave-banner-wrapper {
-        /* PC 화면 꽉 채우기 */
         width: 100vw;
         position: relative;
         left: 50%;
@@ -13,10 +12,10 @@
         height: auto;
         padding: 50px 0;
         margin-bottom: 30px;
-        border-bottom: 1px solid #d50000; /* 강렬한 빨간색 선 */
+        border-bottom: 1px solid #d50000;
         
-        /* 배경: 고압 전류가 흐르는 듯한 딥 레드~블랙 그라데이션 */
-        background: radial-gradient(circle at center, #b71c1c 0%, #000000 90%);
+        /* 배경: 고압 전류가 흐르는 붉은 어둠 */
+        background: radial-gradient(circle at center, #8e0000 0%, #000000 90%);
         
         display: flex;
         justify-content: center;
@@ -37,134 +36,146 @@
         text-align: center;
         z-index: 10;
         
-        background: rgba(40, 0, 0, 0.4);
-        border: 2px solid rgba(255, 82, 82, 0.5);
-        border-radius: 10px; /* 약간 각지게 */
-        box-shadow: 0 0 30px rgba(213, 0, 0, 0.5);
+        background: rgba(60, 0, 0, 0.6);
+        border: 2px solid rgba(255, 82, 82, 0.8);
+        border-radius: 10px;
+        box-shadow: 0 0 50px rgba(255, 0, 0, 0.5);
         
-        /* 박스 자체가 전기에 튀는 듯한 미세한 떨림 */
-        animation: boxShake 0.2s infinite; 
+        /* 박스 자체가 쉴 새 없이 덜덜 떨림 */
+        animation: violentShake 0.5s infinite; 
     }
 
-    /* ✨ [핵심] 파지지직! 전기 스파크 (Lightning Bolts) */
-    .electric-spark {
+    /* ⚡ [핵심 1] 더 자주, 더 강하게 치는 번개 */
+    .hyper-bolt {
         position: absolute;
-        background: #fff;
-        width: 4px; height: 80px;
-        z-index: 5;
+        width: 100px; height: 100px;
+        z-index: 20;
         opacity: 0;
-        box-shadow: 0 0 10px #ffff00, 0 0 20px #ffea00; /* 노란색 네온 빛 */
+        pointer-events: none;
     }
-
-    /* 번개 모양 만들기 (clip-path 이용) */
-    .bolt-shape {
-        width: 60px; height: 120px;
-        background: #ffea00;
-        clip-path: polygon(45% 0, 70% 50%, 40% 50%, 60% 100%, 20% 55%, 50% 55%);
-        animation: zapFlash 3s infinite;
-    }
-
-    .spark1 { top: -20%; left: 10%; transform: rotate(-20deg); animation-delay: 0.5s; }
-    .spark2 { top: 60%; right: 5%; transform: rotate(15deg) scale(0.8); animation-delay: 1.2s; }
-    .spark3 { top: 10%; right: 20%; transform: rotate(45deg) scale(1.2); animation-delay: 2.5s; }
-    
-    /* 얇은 전기선 흐름 */
-    .line-current {
+    .hyper-bolt::before {
+        content: '';
         position: absolute;
-        height: 1px; width: 100%;
-        background: rgba(255, 255, 255, 0.5);
-        box-shadow: 0 0 5px #fff;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: #fff;
+        /* 날카로운 번개 모양 */
+        clip-path: polygon(60% 0, 10% 50%, 40% 50%, 20% 100%, 80% 45%, 50% 45%);
+        box-shadow: 0 0 15px #ffff00, 0 0 30px #ffea00; /* 강한 노란 빛 */
     }
-    .lc1 { top: 20%; left: -100%; animation: currentMove 2s infinite linear; }
-    .lc2 { bottom: 30%; right: -100%; animation: currentMove 3s infinite linear reverse; }
 
+    /* 번개 속도 엄청 빠르게 (0.5초 ~ 1초 간격) */
+    .bolt1 { top: -30px; left: 10%; transform: rotate(-20deg); animation: flashZap 0.8s infinite; }
+    .bolt2 { bottom: -30px; right: 5%; transform: rotate(160deg); animation: flashZap 1.2s infinite 0.3s; }
+    .bolt3 { top: 40%; left: -20px; transform: rotate(90deg); animation: flashZap 0.6s infinite 0.1s; }
+    .bolt4 { top: 10%; right: 20%; transform: rotate(30deg) scale(1.5); animation: flashZap 2s infinite 0.5s; }
+
+    /* 🦠 [핵심 2] 전기를 타고 튀어 다니는 세균 (Electric Germs) */
+    .electric-germ {
+        position: absolute;
+        font-size: 28px;
+        z-index: 30; /* 제일 위에 */
+        /* 세균을 노랗게/붉게 태워버리는 듯한 색감 */
+        filter: sepia(1) saturate(5) hue-rotate(-50deg) drop-shadow(0 0 10px yellow);
+    }
+
+    /* 세균이 지직거리며 순간이동하는 애니메이션 적용 */
+    .eg1 { top: 20%; left: 10%; animation: electricJump 0.2s infinite alternate; }
+    .eg2 { top: 60%; right: 15%; animation: electricJump 0.3s infinite alternate-reverse; font-size: 20px; }
+    .eg3 { bottom: 20%; left: 30%; animation: electricJump 0.25s infinite alternate; font-size: 35px; }
+    .eg4 { top: 10%; right: 40%; animation: electricJump 0.15s infinite alternate; } 
+    .eg5 { top: 50%; left: 80%; animation: electricJump 0.4s infinite alternate-reverse; font-size: 24px; }
 
     /* 텍스트 스타일 */
-    .mw-text-layer { position: relative; z-index: 10; }
+    .mw-text-layer { position: relative; z-index: 40; }
 
     .mw-badge {
         display: inline-block;
-        color: #ff8a80;
+        color: #ffff00; /* 노란색 경고 */
         font-size: 12px; font-weight: 800; letter-spacing: 1px;
-        border: 1px solid #ff8a80;
+        border: 2px solid #ffff00;
         padding: 4px 12px; border-radius: 4px;
         margin-bottom: 15px;
-        background: rgba(255, 82, 82, 0.1);
-        box-shadow: 0 0 10px rgba(255, 82, 82, 0.5);
+        background: rgba(255, 0, 0, 0.3);
+        box-shadow: 0 0 20px rgba(255, 255, 0, 0.8);
+        animation: textFlicker 0.1s infinite;
     }
 
     .mw-title {
-        color: #ffebee;
+        color: #fff;
         font-size: 24px; font-weight: 700;
         line-height: 1.4; margin: 0;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        text-shadow: 0 2px 5px rgba(0,0,0,0.9);
     }
 
     .mw-highlight {
         font-size: 28px; font-weight: 900;
-        color: #fff;
-        /* 글자 주변에 전기가 흐르는 듯한 노란색/붉은색 빛 */
-        text-shadow: 0 0 5px #ffea00, 0 0 15px #d50000;
-        /* 글자도 미세하게 떨림 */
-        animation: textFlicker 0.1s infinite alternate; 
+        color: #ffff00; /* 형광 노랑 */
+        /* 글자 주변이 불타는 듯한 효과 */
+        text-shadow: 0 0 10px #ff3d00, 0 0 20px #d50000;
     }
 
     .mw-danger {
         display: block; margin-top: 5px;
         font-size: 30px; font-weight: 900;
-        color: #ff5252;
-        text-shadow: 0 0 20px rgba(255, 0, 0, 0.6);
+        color: #ff1744; /* 핏빛 빨강 */
+        text-shadow: 0 0 10px #fff;
     }
 
     /* --- 애니메이션 정의 --- */
     
-    /* 1. 번개 번쩍 (Zap) */
-    @keyframes zapFlash {
-        0%, 90% { opacity: 0; transform: scale(1); }
-        92% { opacity: 1; transform: scale(1.2); }
-        94% { opacity: 0; }
-        96% { opacity: 1; transform: scale(1.1); }
+    /* 1. 번개 파바박! (매우 빠름) */
+    @keyframes flashZap {
+        0% { opacity: 0; transform: scale(1); }
+        5% { opacity: 1; transform: scale(1.3); } /* 순식간에 나타남 */
+        10% { opacity: 0; }
+        15% { opacity: 1; transform: scale(1.1); filter: invert(1); } /* 번쩍! */
+        20% { opacity: 0; }
         100% { opacity: 0; }
     }
 
-    /* 2. 전류 흐름 */
-    @keyframes currentMove {
-        0% { left: -100%; opacity: 0; }
-        50% { opacity: 1; }
-        100% { left: 100%; opacity: 0; }
+    /* 2. 세균이 전기에 튀는 모습 (지직! 지직!) */
+    @keyframes electricJump {
+        0% { transform: translate(0, 0) scale(1); opacity: 1; }
+        25% { transform: translate(-5px, 5px) scale(1.1); filter: hue-rotate(90deg); } /* 색도 변함 */
+        50% { transform: translate(5px, -5px) scale(0.9); opacity: 0.8; }
+        75% { transform: translate(-3px, -3px) scale(1.2); }
+        100% { transform: translate(3px, 3px) scale(1); opacity: 1; }
     }
 
-    /* 3. 박스 떨림 (미세한 감전 효과) */
-    @keyframes boxShake {
-        0% { border-color: rgba(255, 82, 82, 0.5); box-shadow: 0 0 30px rgba(213, 0, 0, 0.2); }
-        95% { transform: translate(0, 0); }
-        96% { transform: translate(-1px, 1px); border-color: #fff; box-shadow: 0 0 50px rgba(255, 255, 0, 0.8); } /* 순간 밝아짐 */
-        97% { transform: translate(1px, -1px); }
-        98% { transform: translate(0, 0); }
-        100% { border-color: rgba(255, 82, 82, 0.5); }
+    /* 3. 박스 강한 떨림 */
+    @keyframes violentShake {
+        0% { transform: translate(0, 0); border-color: rgba(255, 82, 82, 0.8); }
+        25% { transform: translate(-2px, 2px); }
+        50% { transform: translate(2px, -2px); border-color: #fff; box-shadow: 0 0 60px red; } /* 순간 하얗게 발광 */
+        75% { transform: translate(-2px, -2px); }
+        100% { transform: translate(0, 0); }
     }
     
-    /* 4. 글자 지직거림 */
+    /* 4. 텍스트 깜빡임 */
     @keyframes textFlicker {
-        0% { opacity: 1; }
-        50% { opacity: 0.95; }
-        100% { opacity: 1; }
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.7; }
     }
 </style>
 
 <div class="microwave-banner-wrapper">
-    <!-- ⚡ 파지지직! 전기 스파크 -->
-    <div class="electric-spark bolt-shape spark1"></div>
-    <div class="electric-spark bolt-shape spark2"></div>
-    <div class="electric-spark bolt-shape spark3"></div>
-    
-    <!-- ⚡ 전류 흐름 선 -->
-    <div class="line-current lc1"></div>
-    <div class="line-current lc2"></div>
+    <!-- ⚡ 미친 듯이 치는 번개들 (4개) -->
+    <div class="hyper-bolt bolt1"></div>
+    <div class="hyper-bolt bolt2"></div>
+    <div class="hyper-bolt bolt3"></div>
+    <div class="hyper-bolt bolt4"></div>
 
     <div class="mw-glass-box">
+        <!-- 🦠 전기에 튀어 다니는 세균들 (5마리) -->
+        <div class="electric-germ eg1">🦠</div>
+        <div class="electric-germ eg2">🦠</div>
+        <div class="electric-germ eg3">🦠</div>
+        <div class="electric-germ eg4">🦠</div>
+        <div class="electric-germ eg5">🦠</div>
+        
         <div class="mw-text-layer">
-            <div class="mw-badge">⚡ HIGH VOLTAGE WARNING</div>
+            <div class="mw-badge">⚡ DANGER: HIGH VOLTAGE</div>
             <h3 class="mw-title">
                 보이지 않는 전파 속,<br>
                 당신의 <span class="mw-highlight">전자레인지</span>는<br>
