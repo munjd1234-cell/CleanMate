@@ -13,90 +13,131 @@
     color: #fff;
   }
 
-/* ▼▼▼▼▼ [CSS] 높이 확 줄인 버전 (여기부터 복사) ▼▼▼▼▼ */
+//* ▼▼▼▼▼ [CSS] 디지털 스캐너 디자인 (여기부터 복사) ▼▼▼▼▼ */
 
-/* 1. 배너 틀: 높이 대폭 축소 (150px) */
+/* 1. 배너 영역 설정 */
 .visual-hero-banner {
-    position: relative;
     width: 100vw;
     margin-left: -15px;
-    
-    /* [핵심] 높이를 150px로 확 줄여서 공백 삭제 */
-    height: 150px;
-    
-    /* 위아래 여백 완전 제거 */
-    margin-top: 0px;
-    margin-bottom: 0px;
-    
+    height: auto; /* 높이 자동 */
+    padding: 30px 0;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
+    margin-bottom: 20px;
     border-bottom: 1px solid #333;
 }
 
-/* 배너 아래 '제안 배경' 글자 딱 붙이기 */
+/* 아래 '제안 배경' 제목과 거리 벌리기 (구분감 주기 위해) */
 .visual-hero-banner + h3 {
-    margin-top: 20px !important;
-    padding-top: 0px !important;
+    margin-top: 40px !important;
 }
 
-/* 내용 중앙 정렬 */
-.hero-content-center {
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 10;
+/* 2. [핵심] 테크 스캔 박스 디자인 */
+.tech-scan-container {
+    position: relative;
     width: 90%;
+    max-width: 600px;
+    
+    /* 배경: 모눈종이(Grid) 패턴으로 '장비 화면' 느낌 냄 */
+    background-color: #0a0a0a;
+    background-image: 
+        linear-gradient(rgba(0, 191, 165, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 165, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    
+    /* 테두리: 민트색으로 전체를 두름 (왼쪽 바 삭제함) */
+    border: 2px solid #00bfa5;
+    border-radius: 10px;
+    
+    /* 네온 사인처럼 빛나는 효과 */
+    box-shadow: 0 0 15px rgba(0, 191, 165, 0.4), inset 0 0 20px rgba(0, 191, 165, 0.1);
+    
+    padding: 30px 20px;
     text-align: center;
 }
 
-/* 글자 움직임 (범위도 줄임) */
-.floating-text-only {
-    animation: floatText 4s ease-in-out infinite;
+/* 3. 스캔 라인 (위에서 아래로 움직이는 빛) */
+.scan-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: #00bfa5;
+    box-shadow: 0 0 10px #00bfa5;
+    opacity: 0.7;
+    animation: scanning 3s linear infinite;
 }
 
-/* 폰트 디자인 (간격 좁힘) */
-.hero-title {
+/* 4. 텍스트 스타일 */
+.system-alert {
+    display: block;
+    color: #ff5252; /* 빨간색 경고 */
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    animation: blink 1s infinite;
+}
+
+.tech-title {
     color: #fff;
-    line-height: 1.2; /* 줄 간격 좁힘 */
+    font-size: 24px;
+    line-height: 1.5;
     margin: 0;
+    font-weight: 700;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
 }
 
-/* 첫째 줄 글자 */
-.warning-text {
-    font-size: 16px; /* 크기 약간 조절 */
-    font-weight: 400; 
-    color: #ccc; 
-    display: inline-block; /* 옆으로 붙을 수도 있게 */
-    margin-bottom: 2px;    /* 아래 간격 줄임 */
-    text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+/* "세균과 곰팡이" - 약간 흐릿하게 연출 */
+.virus-text {
+    color: #ccc;
+    font-weight: 400;
 }
 
-/* 강조 글자 */
-.highlight-text {
-    font-size: 20px; 
-    font-weight: 800; 
+/* "위생 공간" - 민트색 형광 */
+.safe-zone-text {
     color: #00bfa5;
+    font-weight: 900;
+    font-size: 28px;
     text-decoration: underline;
-    text-underline-offset: 3px;
-    text-shadow: 0 0 10px rgba(0, 191, 165, 0.3);
+    text-underline-offset: 5px;
 }
 
-/* 마지막 줄 큰 글자 */
-.impact-text {
-    font-size: 24px; 
-    font-weight: 900; 
+/* "안전합니까?" - 큼지막하게 */
+.ask-text {
+    display: block;
+    margin-top: 10px;
+    font-size: 32px;
+    font-weight: 900;
     color: #fff;
-    display: block; 
-    margin-top: 3px; /* 위 간격 줄임 */
-    letter-spacing: 1px;
-    text-shadow: 0 0 15px rgba(255,255,255,0.2); 
 }
 
-/* --- 애니메이션 --- */
-@keyframes floatText {
-    0% { transform: translateY(0px); }
-    50% { transform: translateY(-5px); } /* 움직임 폭도 5px로 줄여서 차분하게 */
-    100% { transform: translateY(0px); }
+/* 장식용 버튼 모양 (클릭 유도 느낌) */
+.check-btn {
+    margin-top: 20px;
+    display: inline-block;
+    background: rgba(0, 191, 165, 0.2);
+    border: 1px solid #00bfa5;
+    color: #00bfa5;
+    padding: 8px 20px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+/* --- 애니메이션 정의 --- */
+@keyframes scanning {
+    0% { top: 0%; opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { top: 100%; opacity: 0; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
 }
 /* ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ */
 
@@ -688,16 +729,21 @@ footer {
           <h2>위생가전 소독관리</h2>
 
         
-<!-- ▼▼▼▼▼ [HTML] 박스 제거 + 글자만 남김 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [HTML] 디지털 스캐너 스타일 배너 ▼▼▼▼▼ -->
 <div class="visual-hero-banner">
-    <div class="hero-content-center">
-        <!-- 박스 없이 글자 묶음만 둥둥 떠다니게 설정 -->
-        <div class="floating-text-only">
-            <h3 class="hero-title">
-                <span class="warning-text">보이지 않는 세균과 곰팡이,</span><br>
-                당신의 <span class="highlight-text">위생 공간</span>은<br>
-                <span class="impact-text">안전합니까?</span>
+    <div class="tech-scan-container">
+        <!-- 스캔하는 빛줄기 효과 -->
+        <div class="scan-line"></div>
+        
+        <!-- 텍스트 내용 -->
+        <div class="tech-content">
+            <span class="system-alert">⚠ SYSTEM WARNING</span>
+            <h3 class="tech-title">
+                보이지 않는 <span class="virus-text">세균과 곰팡이</span>,<br>
+                당신의 <span class="safe-zone-text">위생 공간</span>은<br>
+                <span class="ask-text">안전합니까?</span>
             </h3>
+            <div class="check-btn">CHECK NOW</div>
         </div>
     </div>
 </div>
