@@ -49,24 +49,28 @@
     text-align: center;
 }
 
-/* ✨ 2. [핵심] 획기적인 디자인: 스페셜 글로우 박스 */
+/* ▼▼▼▼▼ [CSS] 테두리 삭제 버전 (여기부터 복사) ▼▼▼▼▼ */
 .special-glow-box {
     position: relative;
     
-    /* [희미한 하얀 무언가] -> 반투명 흰색 배경 + 테두리 */
-    background: rgba(255, 255, 255, 0.05); /* 아주 옅은 흰색 배경 */
-    border: 1px solid rgba(255, 255, 255, 0.3); /* 선명한 하얀 테두리 */
+    /* 배경: 아주 옅은 흰색 유지 */
+    background: rgba(255, 255, 255, 0.05);
+    
+    /* [수정됨] 흰색 테두리 삭제 */
+    border: none; 
     
     padding: 35px 20px;
-    border-radius: 20px; /* 모서리 둥글게 */
+    border-radius: 20px;
     
-    /* 박스 자체 발광 효과 (희미한 하얀 빛) */
+    /* 박스 자체 발광 효과 (희미한 하얀 빛은 유지) */
     box-shadow: 
-        0 0 20px rgba(255, 255, 255, 0.05), /* 내부 은은함 */
+        0 0 20px rgba(255, 255, 255, 0.05), /* 바깥쪽 은은함 */
         inset 0 0 20px rgba(255, 255, 255, 0.05); /* 안쪽 은은함 */
         
     backdrop-filter: blur(5px); /* 뒤가 흐릿하게 비치는 유리 효과 */
     animation: floatBox 4s ease-in-out infinite; /* 둥둥 떠다님 */
+}
+/* ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ */
 }
 
 /* 박스 위를 지나가는 빛 효과 (장식) */
