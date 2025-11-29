@@ -712,11 +712,19 @@
               <h3>상담을 원하는 도시를 선택해주세요.</h3>
               <div class="options" id="opt5"></div>
           </div>
+
           <div class="question" id="result">
-              <h3>✨ 고객 맞춤 견적 확인</h3>
-              <p id="summary" class="summary-text">선택하신 내용: </p>
-              <button id="sendSMS" class="action-button" onclick="sendSummarySMS()">선택 내용 문자로 보내기</button>
-          </div>
+              <h3>✨ 상담 신청 완료</h3>
+          <!-- 변경된 부분 시작 -->
+          <p style="color: #fff; font-size: 18px; line-height: 1.6; margin: 20px 0;">
+                  전문 담당자가<br>
+                  빠른 연락 드리겠습니다.
+          </p>
+          <!-- 변경된 부분 끝 -->
+          <button id="sendSMS" onclick="sendSummarySMS()">선택 내용 문자로 보내기</button>
+      </div>
+      
+      
       </div>
     </main>
 
@@ -874,17 +882,17 @@
     const phoneNumber = '01037710081'; 
 
     function resetQuiz() {
-        if(!questions) questions = document.querySelectorAll('#quiz-section .question');
-        questions.forEach(q => q.classList.remove('active'));
-        current = 0;
-        answers = new Array(5).fill(undefined);
-        document.getElementById('summary').textContent = '선택하신 내용: ';
-        document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
-        document.getElementById('opt5').innerHTML = '';
-        selectedRegion = ''; 
-        generateOptions('q1');
-        questions[0].classList.add('active'); 
-    }
+    if(!questions) questions = document.querySelectorAll('#quiz-section .question');
+    questions.forEach(q => q.classList.remove('active'));
+    current = 0;
+    answers = new Array(5).fill(undefined);
+    // document.getElementById('summary').textContent = '선택하신 내용: '; <-- 이 줄 삭제해주세요!
+    document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
+    document.getElementById('opt5').innerHTML = '';
+    selectedRegion = ''; 
+    generateOptions('q1');
+    if(questions.length > 0) questions[0].classList.add('active'); 
+}
 
     const data = {
         q1: ['제빙기', '냉장고', '전자렌지', '커피머신', 'VIP CARE', '사무기기', '에어컨', '중고매입', '기타'],
@@ -937,8 +945,8 @@
 
     /* 선택 내용을 실시간으로 업데이트 하는 함수 */
     function updateSummaryText() {
-        let finalAnswers = answers.filter(a => a !== undefined);
-        document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
+        //let finalAnswers = answers.filter(a => a !== undefined);
+        //document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
     }
 
     function handleOptionClick(questionId, button) {
