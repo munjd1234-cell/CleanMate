@@ -529,7 +529,7 @@
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
       <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자렌지</a>
-      <a href="#dryice" class="menu-btn" data-target="dryice-section">에어컨</a>
+      <a href="#aircond" class="menu-btn" data-target="aircond-section">에어컨</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력사</a> 
 
@@ -626,7 +626,7 @@
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
-      <div id="vip-section" class="content-section solution-content-wrapper"></div>
+      <div id="aircond-section" class="content-section solution-content-wrapper"></div>
 
       <!-- 협력사 섹션 -->
       <div id="partner-section" class="content-section solution-content-wrapper">
@@ -752,13 +752,17 @@
                 loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
             } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('avk-section', 'mos_icemaker_content.html');
+
             } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('dryice-section', 'microwave_solution.html');
+
             } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('tech-section', 'technology.html');
-            } else if (targetId === 'vip-section' && !targetSection.dataset.loaded) {
-                loadPromise = loadSectionContent('vip-section', 'mos_aircond.html');
-            }
+              
+           } else if (targetId === 'aircond-section' && !targetSection.dataset.loaded) { 
+                loadPromise = loadSectionContent('aircond-section', 'mos_aircond.html'); 
+            
+           }
             
             loadPromise.then(() => {
                 targetSection.classList.add('active');
