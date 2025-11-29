@@ -13,27 +13,29 @@
     color: #fff;
   }
 
-/* ▼▼▼▼▼ [CSS] 박스 제거 + 글자만 움직임 (여기부터 복사) ▼▼▼▼▼ */
+/* ▼▼▼▼▼ [CSS] 높이 확 줄인 버전 (여기부터 복사) ▼▼▼▼▼ */
 
-/* 1. 배너 틀 (배경은 어두운 그라데이션 유지) */
+/* 1. 배너 틀: 높이 대폭 축소 (150px) */
 .visual-hero-banner {
     position: relative;
     width: 100vw;
     margin-left: -15px;
-    height: 300px;
     
-    margin-top: 10px;
+    /* [핵심] 높이를 150px로 확 줄여서 공백 삭제 */
+    height: 150px;
+    
+    /* 위아래 여백 완전 제거 */
+    margin-top: 0px;
     margin-bottom: 0px;
     
     overflow: hidden;
-    /* 배경: 중앙은 진한 회색, 밖은 검정 */
-    background: radial-gradient(circle at 50% 50%, #2a2a2a 0%, #000 100%);
+    background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
     border-bottom: 1px solid #333;
 }
 
-/* 아래 '제안 배경' 글자 위치 */
+/* 배너 아래 '제안 배경' 글자 딱 붙이기 */
 .visual-hero-banner + h3 {
-    margin-top: 30px !important;
+    margin-top: 20px !important;
     padding-top: 0px !important;
 }
 
@@ -44,59 +46,56 @@
     transform: translate(-50%, -50%);
     z-index: 10;
     width: 90%;
-    max-width: 600px;
     text-align: center;
 }
 
-/* ✨ 2. [핵심] 글자만 둥둥 떠다니게 하기 */
+/* 글자 움직임 (범위도 줄임) */
 .floating-text-only {
-    /* 박스 스타일(배경, 테두리)은 다 없애고 움직임만 남김 */
     animation: floatText 4s ease-in-out infinite;
 }
 
-/* 3. 폰트 디자인 (배경 없이도 잘 보이게) */
+/* 폰트 디자인 (간격 좁힘) */
 .hero-title {
     color: #fff;
-    line-height: 1.5;
+    line-height: 1.2; /* 줄 간격 좁힘 */
     margin: 0;
 }
 
-/* "보이지 않는 세균과 곰팡이" */
+/* 첫째 줄 글자 */
 .warning-text {
-    font-size: 18px; 
+    font-size: 16px; /* 크기 약간 조절 */
     font-weight: 400; 
     color: #ccc; 
-    display: block; 
-    margin-bottom: 5px;
+    display: inline-block; /* 옆으로 붙을 수도 있게 */
+    margin-bottom: 2px;    /* 아래 간격 줄임 */
     text-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-/* "위생 공간" 강조 */
+/* 강조 글자 */
 .highlight-text {
-    font-size: 26px; 
+    font-size: 20px; 
     font-weight: 800; 
-    color: #00bfa5; /* 민트색 */
+    color: #00bfa5;
     text-decoration: underline;
-    text-underline-offset: 5px;
-    text-shadow: 0 0 10px rgba(0, 191, 165, 0.3); /* 민트색 빛 */
+    text-underline-offset: 3px;
+    text-shadow: 0 0 10px rgba(0, 191, 165, 0.3);
 }
 
-/* "안전합니까?" (가장 크게) */
+/* 마지막 줄 큰 글자 */
 .impact-text {
-    font-size: 34px; 
+    font-size: 24px; 
     font-weight: 900; 
     color: #fff;
     display: block; 
-    margin-top: 10px;
-    letter-spacing: 2px;
-    /* 글자 주변에 하얀 빛을 줘서 또렷하게 만듦 */
-    text-shadow: 0 0 20px rgba(255,255,255,0.2); 
+    margin-top: 3px; /* 위 간격 줄임 */
+    letter-spacing: 1px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.2); 
 }
 
-/* --- 애니메이션 정의 --- */
+/* --- 애니메이션 --- */
 @keyframes floatText {
     0% { transform: translateY(0px); }
-    50% { transform: translateY(-15px); } /* 위아래로 15px 움직임 */
+    50% { transform: translateY(-5px); } /* 움직임 폭도 5px로 줄여서 차분하게 */
     100% { transform: translateY(0px); }
 }
 /* ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ */
