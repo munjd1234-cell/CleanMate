@@ -11,399 +11,844 @@
     font-family: 'Pretendard', sans-serif;
     background-color: #111;
     color: #fff;
-    overflow-x: hidden; /* 가로 스크롤 방지 */
   }
 
-  /* =========================================
-     [1. 수정: 강력한 인트로 화면]
-     - 줌인, 흔들림, 강렬한 등장 효과 적용
-     ========================================= */
-  #intro-screen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background: radial-gradient(circle at center, #111 0%, #000 100%);
-    display: flex; justify-content: center; align-items: center;
-    z-index: 9999; overflow: hidden;
-    transition: opacity 0.8s;
-  }
-  #intro-screen.fade-out { opacity: 0; pointer-events: none; }
+//* ▼▼▼▼▼ [CSS] 디지털 스캐너 디자인 (여기부터 복사) ▼▼▼▼▼ */
 
-  /* 배경 사진: 심장 박동처럼 움직임 */
-  .bg-photo {
-    position: absolute; width: 100%; height: 100%;
-    object-fit: cover; opacity: 0.5;
-    filter: brightness(0.6) contrast(1.2);
-    animation: bg-heartbeat 3s infinite alternate;
-  }
-  @keyframes bg-heartbeat {
-    0% { transform: scale(1); }
-    100% { transform: scale(1.05); }
-  }
-
-  .intro-overlay-dim {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.3);
-  }
-
-  .text-center-box {
-    position: relative; z-index: 10; text-align: center; width: 100%;
-    perspective: 1000px; /* 3D 효과 */
-  }
-
-  .intro-item {
-    position: absolute; left: 50%; top: 50%;
-    transform: translate(-50%, -50%) scale(0.5);
-    opacity: 0;
-    color: #fff; font-size: 40px; font-weight: 900;
-    text-transform: uppercase;
-    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
-    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    white-space: nowrap;
-  }
-
-  /* 텍스트 등장: 확 커지면서 나타남 */
-  .intro-item.active {
-    opacity: 1; 
-    transform: translate(-50%, -50%) scale(1.2);
-    color: #00bfa5;
-    text-shadow: 0 0 20px #00bfa5;
-  }
-
-  /* 텍스트 퇴장: 화면 밖으로 뚫고 나가는 느낌 */
-  .intro-item.visible {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(3);
-    filter: blur(10px);
-  }
-
-  /* 마지막 문구 스타일 */
-  .intro-item.final-phrase.active {
-    font-size: 45px;
-    color: #fff;
-    border: 4px solid #00bfa5;
-    background: rgba(0,0,0,0.8);
-    padding: 20px 40px;
-    box-shadow: 0 0 50px rgba(0, 191, 165, 0.5), inset 0 0 20px rgba(0, 191, 165, 0.5);
-    animation: final-impact 0.4s ease-out forwards;
-  }
-  @keyframes final-impact {
-      0% { transform: translate(-50%, -50%) scale(0.1); opacity: 0; }
-      70% { transform: translate(-50%, -50%) scale(1.3); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-  }
-
-
-  /* =========================================
-     [2. 수정: 배너 영역 (PC 최적화)]
-     ========================================= */
-  .visual-hero-banner {
-    width: 100vw; position: relative; left: 50%; margin-left: -50vw;
-    height: 150px; /* 모바일 높이 */
-    margin-top: 0; margin-bottom: 0; overflow: hidden;
+/* 1. 배너 영역 설정 */
+.visual-hero-banner {
+    /* [핵심 수정] 부모 폭 무시하고 화면 꽉 채우기 */
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    
+    height: 150px; /* 높이 유지 */
+    
+    margin-top: 0px;
+    margin-bottom: 0px;
+    overflow: hidden;
     background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
     border-bottom: 1px solid #333;
-    display: flex; justify-content: center; align-items: center;
-  }
-  .visual-hero-banner + h3 { margin-top: 40px !important; }
+}
+/* ▲▲▲ 여기까지 ▲▲▲ */
+/* 아래 '제안 배경' 제목과 거리 벌리기 (구분감 주기 위해) */
+.visual-hero-banner + h3 {
+    margin-top: 40px !important;
+}
 
-  .tech-scan-container {
-    position: relative; width: 90%; max-width: 600px;
+/* 2. [핵심] 테크 스캔 박스 디자인 */
+.tech-scan-container {
+    position: relative;
+    width: 90%;
+    max-width: 600px;
+    
+    /* 배경: 모눈종이(Grid) 패턴으로 '장비 화면' 느낌 냄 */
     background-color: #0a0a0a;
     background-image: 
         linear-gradient(rgba(0, 191, 165, 0.1) 1px, transparent 1px),
         linear-gradient(90deg, rgba(0, 191, 165, 0.1) 1px, transparent 1px);
     background-size: 20px 20px;
-    border: 2px solid #00bfa5; border-radius: 10px;
+    
+    /* 테두리: 민트색으로 전체를 두름 (왼쪽 바 삭제함) */
+    border: 2px solid #00bfa5;
+    border-radius: 10px;
+    
+    /* 네온 사인처럼 빛나는 효과 */
     box-shadow: 0 0 15px rgba(0, 191, 165, 0.4), inset 0 0 20px rgba(0, 191, 165, 0.1);
-    padding: 30px 20px; text-align: center;
-  }
+    
+    padding: 30px 20px;
+    text-align: center;
+    /* PC 사이즈 조정 요청 사항 반영 */
+    margin: 0 auto; 
+    top: 50%;
+    transform: translateY(-50%);
+}
 
-  .scan-line {
-    position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-    background: #00bfa5; box-shadow: 0 0 10px #00bfa5; opacity: 0.7;
+/* 3. 스캔 라인 (위에서 아래로 움직이는 빛) */
+.scan-line {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 2px;
+    background: #00bfa5;
+    box-shadow: 0 0 10px #00bfa5;
+    opacity: 0.7;
     animation: scanning 3s linear infinite;
-  }
+}
 
-  .system-alert { display: block; color: #ff5252; font-size: 12px; font-weight: bold; letter-spacing: 2px; margin-bottom: 10px; animation: blink 1s infinite; }
-  .tech-title { color: #fff; font-size: 24px; line-height: 1.5; margin: 0; font-weight: 700; text-shadow: 0 2px 5px rgba(0,0,0,0.8); }
-  .virus-text { color: #ccc; font-weight: 400; }
-  .safe-zone-text { color: #00bfa5; font-weight: 900; font-size: 28px; text-decoration: underline; text-underline-offset: 5px; }
-  .ask-text { display: block; margin-top: 10px; font-size: 32px; font-weight: 900; color: #fff; }
-  .check-btn { margin-top: 20px; display: inline-block; background: rgba(0, 191, 165, 0.2); border: 1px solid #00bfa5; color: #00bfa5; padding: 8px 20px; font-size: 12px; font-weight: bold; border-radius: 4px; }
+/* 4. 텍스트 스타일 */
+.system-alert {
+    display: block;
+    color: #ff5252; /* 빨간색 경고 */
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    margin-bottom: 10px;
+    animation: blink 1s infinite;
+}
 
-  @keyframes scanning {
+.tech-title {
+    color: #fff;
+    font-size: 24px;
+    line-height: 1.5;
+    margin: 0;
+    font-weight: 700;
+    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+}
+
+/* "세균과 곰팡이" - 약간 흐릿하게 연출 */
+.virus-text {
+    color: #ccc;
+    font-weight: 400;
+}
+
+/* "위생 공간" - 민트색 형광 */
+.safe-zone-text {
+    color: #00bfa5;
+    font-weight: 900;
+    font-size: 28px;
+    text-decoration: underline;
+    text-underline-offset: 5px;
+}
+
+/* "안전합니까?" - 큼지막하게 */
+.ask-text {
+    display: block;
+    margin-top: 10px;
+    font-size: 32px;
+    font-weight: 900;
+    color: #fff;
+}
+
+/* 장식용 버튼 모양 (클릭 유도 느낌) */
+.check-btn {
+    margin-top: 20px;
+    display: inline-block;
+    background: rgba(0, 191, 165, 0.2);
+    border: 1px solid #00bfa5;
+    color: #00bfa5;
+    padding: 8px 20px;
+    font-size: 12px;
+    font-weight: bold;
+    border-radius: 4px;
+}
+
+/* --- 애니메이션 정의 --- */
+@keyframes scanning {
     0% { top: 0%; opacity: 0; }
     10% { opacity: 1; }
     90% { opacity: 1; }
     100% { top: 100%; opacity: 0; }
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+/* ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ */
+
+  
+  /* --- [인트로 화면] --- */
+/* --- [인트로 화면: 오버레이 스타일] --- */
+#intro-screen {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+    background-color: #000;
+    display: flex; justify-content: center; align-items: center;
+    z-index: 9999; overflow: hidden;
+    transition: opacity 0.8s;
+}
+#intro-screen.fade-out { opacity: 0; }
+
+/* 배경 사진 */
+.bg-photo {
+    position: absolute;
+    width: 300px; /* 사진 크기 */
+    height: auto;
+    border-radius: 40px; /* 둥근 모서리 */
+    opacity: 0.8;
+    /* 요청 사항 1: 배경 사진을 더 어둡게 */
+    filter: brightness(0.2); 
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
+}
+
+/* 글자 컨테이너 */
+.text-center-box {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    width: 100%;
+}
+
+/* 글자 공통 */
+.intro-item {
+    position: absolute;
+    left: 50%; top: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    opacity: 0;
+    color: #fff;
+    font-size: 26px;
+    font-weight: 700;
+    transition: all 0.4s ease-out;
+    width: 100%;
+    /* 요청 사항 1: 인트로 텍스트 네온 효과 */
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+}
+
+/* 글자 활성화 */
+.intro-item.active {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.1); /* 확 커짐 */
+    color: #00bfa5;
+    text-shadow: 0 0 10px #00bfa5, 0 0 20px #00bfa5, 0 0 30px #00bfa5; /* 네온 효과 강화 */
+}
+
+/* 사라질 때 */
+.intro-item.visible {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(1.5); /* 더 커지며 사라짐 */
+    filter: blur(5px);
+}
+
+.intro-item.final-phrase.active {
+    font-size: 32px;
+    color: #fff;
+    border: 2px solid #00bfa5;
+    padding: 10px 20px;
+    border-radius: 10px;
+    background: rgba(0,0,0,0.5);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7); /* 최종 문구 네온 약화 */
+}
+
+  /* --- [메인 레이아웃] --- */
+  #main-content-wrapper {
+    display: none; 
+    opacity: 0;
+    transition: opacity 0.5s;
+    width: 100%;
   }
-  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
 
-
-  /* =========================================
-     [3. 수정: 헤더 영역 (텍스트 애니메이션)]
-     ========================================= */
-  #main-content-wrapper { display: none; opacity: 0; transition: opacity 0.5s; width: 100%; }
-
+  /* --- [HEADER] --- */
   header {
-    position: fixed; top: 0; left: 0; width: 100%;
-    background: #fff; display: block; padding: 10px 0 15px 0; 
-    z-index: 1000; box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    display: block; /* 내부 flex 처리를 위해 block으로 변경 */
+    padding: 10px 0 15px 0; 
+    z-index: 1000;
+    box-sizing: border-box;
   }
   
   .header-top {
-      display: flex; justify-content: space-between; align-items: center;
-      width: 100%; padding: 0 15px; box-sizing: border-box;
+      display: flex;
+      justify-content: space-between; /* 로고와 새 로고를 양 끝에 배치 */
+      align-items: center;
+      width: 100%;
+      padding: 0 15px; 
+      box-sizing: border-box;
+      position: relative; /* 자식 요소의 absolute 위치 기준 */
   }
 
   .header-left-content {
-      display: flex; flex-direction: column; align-items: flex-start;
-      width: 70%; /* 텍스트 흐름 영역 확보 */
-      overflow: hidden; /* 흐르는 텍스트 숨김 처리 */
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start; /* 기존 로고와 문구 왼쪽 정렬 */
   }
 
-  .main-logo-img { height: 45px; cursor: pointer; display: block;} 
+  .main-logo-img { /* 기존 로고: logo2.png */
+      height: 45px; 
+      cursor: pointer; 
+  } 
   
-  /* 움직이는 텍스트 래퍼 */
-  .moving-text-container {
+  /* 3. 헤더 텍스트 롤링 스타일 적용 */
+  .header-text-container {
+      position: absolute;
+      top: 100%; 
+      left: 0;
       width: 100%;
-      height: 20px;
-      position: relative;
-      overflow: hidden;
-      margin-top: 5px;
+      height: 25px; 
+      overflow: hidden; 
+      background-color: #000;
+      border-top: 1px solid #333;
+  }
+  
+  .header-text { /* 기존 h2 문구 */
+    margin: 5px 0 0 0; 
+    font-size: 14px;
+    color: #333;
+    font-weight: bold;
+    text-align: left; /* 왼쪽 정렬 */
+    /* 원본 .header-text 스타일을 .header-text-content로 이동 */
+  }
+  
+  .header-text-content {
+      display: inline-block;
       white-space: nowrap;
+      padding-left: 100%; /* 화면 밖에서 시작 */
+      line-height: 25px; /* 컨테이너 높이와 맞춤 */
+      font-size: 14px;
+      font-weight: bold;
+      color: #00bfa5; 
+      animation: marquee-header 15s linear infinite; /* 롤링 애니메이션 */
+      text-shadow: 0 0 5px #00bfa5;
   }
 
-  /* 움직이는 텍스트 애니메이션 */
-  .header-text { 
-    font-size: 14px; font-weight: bold; 
-    position: absolute;
-    left: 0;
-    /* 오른쪽으로 무한 이동 */
-    animation: moveRightInfinite 8s linear infinite, colorBlink 0.5s infinite alternate;
+  /* 3. 헤더 텍스트 롤링 애니메이션 */
+  @keyframes marquee-header {
+      0% { transform: translateX(0%); }
+      100% { transform: translateX(-100%); } /* 텍스트의 실제 길이만큼 이동 */
+  }
+  
+  @keyframes text-color-blink {
+    0%, 100% { color: #00bfa5; }
+    50% { color: #ff5252; }
   }
 
-  @keyframes moveRightInfinite {
-      0% { left: -100%; }
-      100% { left: 100%; }
+
+  .header-right-logo-box { /* 새 로고 컨테이너: top_logo.jpg */
+      display: block;
+      padding: 3px;
+      border: 1px solid #ccc; /* 박스 처리 */
+      border-radius: 5px;
+      line-height: 0; 
+      cursor: pointer;
+      flex-shrink: 0;
   }
-  @keyframes colorBlink {
-      0% { color: #333; }
-      100% { color: #ff0055; } /* 깜빡이며 색상 변경 */
+  
+  .header-right-logo-box img { /* 새 로고 이미지 */
+      height: 22.5px; /* 기존 로고 (45px)의 1/2 크기 */
+      width: auto;
+      display: block;
+      margin: 0;
   }
 
-  .header-right-logo-box {
-      display: block; padding: 3px; border: 1px solid #ccc; border-radius: 5px;
-      line-height: 0; cursor: pointer; flex-shrink: 0;
-  }
-  .header-right-logo-box img { height: 22.5px; width: auto; display: block; margin: 0; }
-
-
-  /* --- [메뉴바: 상생 변경] --- */
+  /* --- [메뉴바] --- */
   .main-menu {
-    position: fixed; top: 79px; left: 0; width: 100%;
-    background: #222; display: flex; flex-wrap: nowrap; justify-content: space-around;
-    border-bottom: 1px solid #444; z-index: 1000; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    position: fixed;
+    /* 높이 계산: 기존 79px -> 헤더 텍스트 컨테이너 높이 25px 추가 */
+    top: calc(79px + 25px); 
+    left: 0;
+    width: 100%;
+    background: #222;
+    display: flex;
+    flex-wrap: nowrap; 
+    justify-content: space-around;
+    border-bottom: 1px solid #444;
+    z-index: 1000;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
   }
   .menu-btn {
-    padding: 12px 5px; color: #ccc; text-decoration: none; font-size: 13px; 
-    flex-shrink: 0; flex-grow: 1; text-align: center; border-left: 1px solid #444; cursor: pointer; white-space: nowrap;
+    padding: 12px 5px; 
+    color: #ccc;
+    text-decoration: none;
+    font-size: 13px; 
+    flex-shrink: 0; 
+    flex-grow: 1;
+    text-align: center;
+    border-left: 1px solid #444;
+    cursor: pointer;
   }
-  .menu-btn:first-child { border-left: none; }
-  .menu-btn.active { background-color: #00bfa5; color: #fff; }
+  .menu-btn:first-child {
+    border-left: none;
+  }
+  .menu-btn.active {
+    background-color: #00bfa5;
+    color: #fff;
+  }
+
 
   main {
-    margin-top: 126px; margin-bottom: 80px; min-height: calc(100vh - 126px - 80px); 
-    height: auto; overflow-y: visible; text-align: center; padding: 0 15px; box-sizing: border-box;
+    /* 기존 126px -> 헤더 텍스트 컨테이너 높이 25px 추가 */
+    margin-top: calc(126px + 25px); 
+    margin-bottom: 80px; 
+    min-height: calc(100vh - 126px - 25px - 80px); 
+    height: auto;
+    overflow-y: visible; 
+    text-align: center;
+    padding: 0 15px; 
+    box-sizing: border-box;
   }
 
-
-  /* =========================================
-     [5. 수정: 상생(협력사) 오버레이 & 세로 스크롤]
-     ========================================= */
-  
-  /* 파트너 섹션 컨테이너 */
-  .partner-logo-gallery-wrapper {
-      width: 100%; max-width: 400px; margin: 0 auto;
-      height: 400px; 
-      position: relative; /* 중요: 오버레이 기준점 */
-      overflow: hidden; 
-      background: #000; /* 배경 검정으로 변경 */
-      border: 1px solid #333;
-      border-radius: 10px;
+  /* --- [하단 고정 버튼 4개] --- */
+  .fixed-buttons {
+    position: fixed;
+    bottom: 35px; 
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+    z-index: 999;
+    padding: 0 5px;
+    box-sizing: border-box;
   }
 
-  /* 바이러스 퇴치 오버레이 (본문 위에 겹침) */
-  .virus-killer-overlay {
-      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-      pointer-events: none; /* 클릭은 통과 */
-      z-index: 5;
+  .fixed-buttons button {
+    flex: 1; 
+    border: none;
+    border-radius: 10px;
+    padding: 12px 0;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    white-space: nowrap;
   }
 
-  /* 1) 레이더망 */
-  .radar-bg {
-      width: 100%; height: 100%;
-      background-image: 
-          linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
-      background-size: 40px 40px;
-  }
-
-  /* 2) 스캔 레이저 (위아래 이동) */
-  .laser-beam {
-      position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+  .btn-primary {
       background: #00bfa5;
-      box-shadow: 0 0 15px #00bfa5, 0 0 30px #fff;
-      animation: laserScan 3s ease-in-out infinite alternate;
+      color: white;
   }
-  @keyframes laserScan { 0% { top: 0; } 100% { top: 100%; } }
-
-  /* 3) 곰팡이 입자 (떠다니다 사라짐) */
-  .germ {
-      position: absolute;
-      width: 40px; height: 40px;
-      background: radial-gradient(circle, #ff0000 30%, transparent 70%);
-      opacity: 0.7;
-      border-radius: 50%;
-      animation: germFloat 4s infinite;
-  }
-  /* 위치별 곰팡이 */
-  .germ:nth-child(1) { top: 10%; left: 20%; animation-delay: 0s; }
-  .germ:nth-child(2) { top: 40%; left: 80%; animation-delay: 1s; }
-  .germ:nth-child(3) { top: 70%; left: 30%; animation-delay: 2s; }
-  .germ:nth-child(4) { top: 20%; left: 60%; animation-delay: 0.5s; }
-  .germ:nth-child(5) { top: 80%; left: 80%; animation-delay: 1.5s; }
-
-  @keyframes germFloat {
-      0% { transform: scale(1); opacity: 0.7; }
-      45% { transform: scale(1.1); opacity: 1; filter: drop-shadow(0 0 5px red); }
-      50% { transform: scale(0); opacity: 0; } /* 레이저 맞고 소멸 */
-      100% { transform: scale(1); opacity: 0.7; } /* 재생성 */
+  
+  /* 하단 버튼 활성화 상태 */
+  .btn-primary.active {
+      background: #008f7a;
+      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
   }
 
-  /* 로고 트랙 (아래로 흐름) */
+  .btn-proposal-bottom {
+      background: #455a64; 
+      color: white;
+  }
+
+  /* --- [푸터] --- */
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #000;
+  color: #666;
+  font-size: 11px;
+  height: 30px;
+  line-height: 30px;
+  z-index: 998;
+  overflow: hidden;
+  white-space: nowrap;
+  border-top: 1px solid #222;
+}
+
+.scroll-text {
+  display: flex;          /* 가로로 정렬 */
+  width: max-content;     /* 글자 길이만큼 폭 확보 */
+  animation: marquee 40s linear infinite; /* 40초 동안 흐름 */
+}
+
+/* 글자 덩어리 사이의 간격 */
+.scroll-text span {
+    padding-right: 50px; 
+}
+
+/* 왼쪽으로 50%(절반)만 이동해서 무한반복 효과 냄 */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); } 
+}
+
+  /* --- [공통 콘텐츠 스타일] --- */
+  .solution-content-wrapper { 
+    text-align: left;
+    max-width: 1000px; 
+    margin: 0 auto;
+    line-height: 1.6;
+    color: #ccc;
+    padding: 0 1% 30px; 
+  }
+  
+  .solution-content-wrapper.active h2, 
+  .solution-content-wrapper.active h3, 
+  .solution-content-wrapper.active h4 {
+      background: none !important;
+      border: none !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      margin: 40px auto 15px auto !important; 
+      width: 100% !important; 
+      max-width: 100% !important;
+      color: #fff !important; 
+      text-align: center !important;
+      display: block;
+      font-weight: 700;
+      font-size: 20px; 
+  }
+
+  .solution-content-wrapper p { font-size: 15px; }
+  .solution-content-wrapper ul li { font-size: 15px; }
+  .solution-content-wrapper ul.bullet-list li { font-size: 15px; }
+  
+  .solution-content-wrapper.active h2 {
+      font-size: 24px; 
+      color: #00bfa5 !important;
+      border-top: 2px solid #00bfa5;
+      border-bottom: 2px solid #00bfa5;
+      padding: 15px 20px !important;
+      margin-top: 15px !important;
+      margin-bottom: 10px !important; 
+      width: fit-content !important;
+      max-width: 90% !important;
+      box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
+  }
+  
+  .solution-content-wrapper.active h3 {
+      text-align: left !important;
+      color: #fff !important;
+      font-size: 17px;
+      background-color: #222 !important; 
+      border-left: 5px solid #00bfa5 !important;
+      padding: 10px 15px !important;
+      border-radius: 0 5px 5px 0; 
+      margin: 20px auto 20px 0 !important; 
+      width: fit-content !important; 
+      max-width: 90% !important;
+  }
+  
+  .solution-content-wrapper.active h4,
+  .solution-content-wrapper.active .sub-heading-left {
+      color: #00bfa5 !important; 
+      font-size: 15px;
+      border-bottom: 1px dashed #00bfa5 !important;
+      padding-bottom: 5px !important;
+      margin: 25px auto 10px 0 !important;
+      text-align: left !important; 
+      width: 100% !important;
+  }
+
+  .solution-content-wrapper .image-caption {
+      font-size: 12px;
+      color: #888;
+      margin-top: -10px; 
+      margin-bottom: 10px; 
+      text-align: center;
+      display: block;
+  }
+
+  .solution-content-wrapper strong { color: #00bfa5; }
+  .solution-content-wrapper ul {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 30px;
+  }
+  .solution-content-wrapper ul li {
+    background: #222;
+    margin-bottom: 8px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    border-left: 4px solid #00bfa5;
+    font-size: 15px;
+  }
+  .solution-content-wrapper ul.bullet-list li {
+    list-style: disc;
+    margin-left: 20px;
+    background: none;
+    border-left: none;
+    padding: 0;
+    font-size: 15px;
+    color: #ccc;
+  }
+  
+  /* --- [서브 메뉴] --- */
+  .sub-menu {
+    display: flex;
+    justify-content: flex-start;
+    gap: 5px;
+    margin-bottom: 20px;
+    padding: 10px 0;
+    border-bottom: 1px solid #444;
+    overflow-x: auto; 
+    -webkit-overflow-scrolling: touch;
+    position: sticky; 
+    /* 기존 0 -> 헤더 텍스트 컨테이너 높이 25px 추가 */
+    top: calc(79px + 25px + 1px); 
+    background: #111;
+    z-index: 900;
+  }
+  .sub-btn {
+    background-color: #333;
+    border: 1px solid #444;
+    color: #ccc;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap; 
+    flex-shrink: 0; 
+  }
+  .sub-btn.active {
+    background-color: #00bfa5;
+    color: #fff;
+    border-color: #00bfa5;
+    font-weight: bold;
+  }
+
+  .sub-content {
+      display: none;
+      line-height: 1.6;
+      padding: 10px 0 30px;
+      animation: fadeIn 0.3s ease-in-out;
+      text-align: center; 
+  }
+  .sub-content.active {
+      display: block;
+  }
+
+  /* ---  --- */
+  .solution-content-wrapper img {
+    max-width: 100%; 
+    height: auto;    
+    display: block;  
+    margin: 15px auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+  
+  .seven-image-gallery {
+    display: block; 
+    padding: 10px 0;
+    text-align: center;
+  }
+  .seven-image-gallery > div {
+      display: block; 
+      width: 100%;
+      margin-bottom: 25px; 
+      overflow: hidden; 
+  }
+  .seven-image-gallery img {
+    max-width: 100%; 
+    width: 95%; 
+    height: auto;    
+    margin: 10px auto 15px auto !important; 
+    display: block;
+  }
+
+  /* --- [파트너 로고 1열 세로 롤링] --- */
+  .partner-logo-gallery-wrapper {
+      width: 100%;
+      max-width: 300px; 
+      margin: 0 auto;
+      height: 400px; 
+      overflow: hidden; 
+      position: relative;
+      background: transparent;
+      pointer-events: none; 
+      /* 요청 사항 5: 섹션 상단 베너와의 간격 확보 */
+      margin-top: 50px; 
+  }
+
+  /* 요청 사항 4: 아래로 흐르는 애니메이션 */
+  @keyframes scroll-down {
+      0% { transform: translateY(-50%); } 
+      100% { transform: translateY(0); }
+  }
+
   .partner-logo-track {
-      display: flex; flex-direction: column; width: 100%;
-      animation: scroll-down-vertical 15s linear infinite; /* 아래로 흐름 */
-  }
-  @keyframes scroll-down-vertical {
-      0% { transform: translateY(-50%); } /* 중간 지점(복제본 시작)에서 */
-      100% { transform: translateY(0); }   /* 처음으로 이동 (내려가는 효과) */
+      display: flex;
+      flex-direction: column; 
+      width: 100%;
+      /* 요청 사항 4: 아래로 흐르는 애니메이션 적용 */
+      animation: scroll-down 20s linear infinite; 
   }
 
   .partner-item {
-    background-color: #fff; border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    width: 90%; margin: 0 auto 15px auto; padding: 15px; box-sizing: border-box;
+    background-color: #fff; 
+    border-radius: 8px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%; 
+    padding: 15px;
+    box-sizing: border-box;
+    margin-bottom: 15px; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.3);
-    opacity: 0.5; /* 오버레이 강조를 위해 약간 흐리게 */
   }
-  .partner-item img { width: 100%; height: auto; max-height: 80px; object-fit: contain; }
 
-
-  /* --- [하단 버튼, 푸터, 공통 컨텐츠] (원본 유지) --- */
-  .fixed-buttons {
-    position: fixed; bottom: 35px; left: 0; width: 100%;
-    display: flex; justify-content: center; gap: 5px; z-index: 999; padding: 0 5px; box-sizing: border-box;
+  .partner-item img {
+    width: 100%;
+    height: auto;
+    max-height: 80px; 
+    object-fit: contain; 
+    margin: 0 !important; 
+    border-radius: 0;
+    box-shadow: none;
   }
-  .fixed-buttons button {
-    flex: 1; border: none; border-radius: 10px; padding: 12px 0;
-    font-size: 13px; font-weight: bold; cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); white-space: nowrap;
-  }
-  .btn-primary { background: #00bfa5; color: white; }
-  .btn-primary.active { background: #008f7a; box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); }
-  .btn-proposal-bottom { background: #455a64; color: white; }
-
-  footer {
-    position: fixed; bottom: 0; left: 0; width: 100%;
-    background: #000; color: #666; font-size: 11px; height: 30px; line-height: 30px;
-    z-index: 998; overflow: hidden; white-space: nowrap; border-top: 1px solid #222;
-  }
-  .scroll-text { display: flex; width: max-content; animation: marquee 40s linear infinite; }
-  .scroll-text span { padding-right: 50px; }
-  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-
-  .solution-content-wrapper { text-align: left; max-width: 1000px; margin: 0 auto; line-height: 1.6; color: #ccc; padding: 0 1% 30px; }
-  .solution-content-wrapper.active h2, .solution-content-wrapper.active h3, .solution-content-wrapper.active h4 {
-      background: none !important; border: none !important; box-shadow: none !important; padding: 0 !important;
-      margin: 40px auto 15px auto !important; width: 100% !important; max-width: 100% !important;
-      color: #fff !important; text-align: center !important; display: block; font-weight: 700; font-size: 20px; 
-  }
-  .solution-content-wrapper p, .solution-content-wrapper ul li { font-size: 15px; }
   
-  .solution-content-wrapper.active h2 {
-      font-size: 24px; color: #00bfa5 !important; border-top: 2px solid #00bfa5; border-bottom: 2px solid #00bfa5;
-      padding: 15px 20px !important; margin-top: 15px !important; margin-bottom: 10px !important; 
-      width: fit-content !important; max-width: 90% !important;
+  /* --- [요청 사항 5: 상생 섹션 상단 오버레이 스캔 효과] --- */
+  .partner-scan-overlay {
+      position: relative; 
+      width: 100%; 
+      max-width: 1000px; 
+      margin: 0 auto;
+      height: 250px; /* 오버레이 높이 */
+      background: rgba(0, 0, 0, 0.7);
+      border: 2px solid #00bfa5;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 0 20px rgba(0, 191, 165, 0.5);
+      z-index: 10;
+      margin-top: 20px;
   }
-  .solution-content-wrapper.active h3 {
-      text-align: left !important; color: #fff !important; font-size: 17px;
-      background-color: #222 !important; border-left: 5px solid #00bfa5 !important;
-      padding: 10px 15px !important; border-radius: 0 5px 5px 0; margin: 20px auto 20px 0 !important; width: fit-content !important;
-  }
-  .solution-content-wrapper.active h4 {
-      color: #00bfa5 !important; font-size: 15px; border-bottom: 1px dashed #00bfa5 !important;
-      padding-bottom: 5px !important; margin: 25px auto 10px 0 !important; text-align: left !important; width: 100% !important;
-  }
-  .solution-content-wrapper img { max-width: 100%; height: auto; display: block; margin: 15px auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.3); }
-  .solution-content-wrapper strong { color: #00bfa5; }
-  .solution-content-wrapper ul { list-style: none; padding: 0; margin: 10px 0 30px; }
-  .solution-content-wrapper ul li { background: #222; margin-bottom: 8px; padding: 8px 15px; border-radius: 5px; border-left: 4px solid #00bfa5; }
-  .solution-content-wrapper ul.bullet-list li { list-style: disc; margin-left: 20px; background: none; border-left: none; padding: 0; color: #ccc; }
   
-  .sub-menu {
-    display: flex; justify-content: flex-start; gap: 5px; margin-bottom: 20px; padding: 10px 0;
-    border-bottom: 1px solid #444; overflow-x: auto; -webkit-overflow-scrolling: touch;
-    position: sticky; top: 0; background: #111; z-index: 900;
+  /* 곰팡이/세균 (가상의 흐르는 오염물) */
+  .contaminant-flow {
+      position: absolute;
+      top: 0; left: 0;
+      width: 200%; /* 두 배로 만들어서 무한 롤링 */
+      height: 100%;
+      background-image: repeating-linear-gradient(90deg, 
+          rgba(255, 82, 82, 0.2) 0, rgba(255, 82, 82, 0.2) 20px, 
+          transparent 20px, transparent 40px),
+          repeating-linear-gradient(0deg, 
+          rgba(255, 82, 82, 0.2) 0, rgba(255, 82, 82, 0.2) 20px, 
+          transparent 20px, transparent 40px);
+      background-size: 80px 80px;
+      animation: flow-right-left 10s linear infinite;
   }
-  .sub-btn {
-    background-color: #333; border: 1px solid #444; color: #ccc; padding: 8px 15px;
-    border-radius: 5px; font-size: 13px; cursor: pointer; white-space: nowrap; flex-shrink: 0; 
+  
+  @keyframes flow-right-left {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
   }
-  .sub-btn.active { background-color: #00bfa5; color: #fff; border-color: #00bfa5; font-weight: bold; }
-  .sub-content { display: none; line-height: 1.6; padding: 10px 0 30px; animation: fadeIn 0.3s ease-in-out; text-align: center; }
-  .sub-content.active { display: block; }
+  
+  /* 스캔/레이더 라인 */
+  .scan-effect-line {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to bottom, 
+          rgba(0, 191, 165, 0.8) 0%, 
+          rgba(0, 191, 165, 0) 50%, 
+          rgba(0, 191, 165, 0.8) 100%);
+      animation: radar-scan 4s linear infinite;
+  }
+  
+  @keyframes radar-scan {
+      0% { transform: translateY(-100%); opacity: 0.5; }
+      50% { opacity: 1; }
+      100% { transform: translateY(100%); opacity: 0.5; }
+  }
+  
+  .scan-text {
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+      text-shadow: 0 0 10px #00bfa5;
+      z-index: 20;
+      animation: blink 0.5s infinite;
+      text-align: center;
+  }
+  
+  .scan-text span {
+      display: block;
+      font-size: 14px;
+      font-weight: 400;
+      color: #ff5252;
+      margin-top: 5px;
+  }
 
-  /* 퀴즈 스타일 */
+  /* --- [퀴즈 스타일] --- */
   .content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
   .content-section.active { display: block; }
   .question { display: none; text-align: center; }
   .question.active { display: block; }
   .question h3 { margin-top: 20px; color: #00bfa5; }
   .options { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 20px; }
-  .option-button { background: #333; color: #fff; border: 1px solid #555; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 14px; }
+  .option-button {
+    background: #333; color: #fff; border: 1px solid #555; padding: 10px 15px;
+    border-radius: 20px; cursor: pointer; font-size: 14px;
+  }
   .option-button.active { background: #00bfa5; border-color: #00bfa5; font-weight: bold; }
-  #sendSMS { background: #00bfa5; color: white; border: none; border-radius: 30px; padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 20px; }
+  #sendSMS {
+    background: #00bfa5; color: white; border: none; border-radius: 30px;
+    padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 20px;
+  }
+  #summary {
+      color: #00bfa5; 
+      font-weight: bold;
+      font-size: 20px;
+      margin: 30px 0;
+      line-height: 1.6;
+      word-break: keep-all;
+      padding: 10px;
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+  }
 
-  /* PC/태블릿 대응 */
+  /* --- [PC/태블릿] --- */
   @media (min-width: 500px) {
     body { overflow-y: auto !important; }
     #intro-screen, #main-content-wrapper { max-width: 1600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
     header, .main-menu, .fixed-buttons, footer { width: 100%; max-width: 1600px; left: 50%; transform: translateX(-50%); }
+    .main-menu { top: calc(79px + 25px); } /* PC 메뉴 위치 조정 */
     .menu-btn { font-size: 16px; padding: 15px 10px; }
-    .solution-content-wrapper p, .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
+    .solution-content-wrapper p, 
+    .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
     .solution-content-wrapper ul li { font-size: 18px; padding: 12px 20px; }
-    
-    .visual-hero-banner { height: 280px; } /* PC에서 배너 높이 확대 */
-    .tech-scan-container { max-width: 1000px; padding: 50px; }
-    .tech-title { font-size: 32px; }
-    .ask-text { font-size: 40px; }
+    .sub-btn { font-size: 16px; }
 
-    .main-logo-img { height: 60px; } 
-    .header-right-logo-box img { height: 30px; }
-    .partner-logo-gallery-wrapper { max-width: 500px; height: 600px; }
+    .solution-content-wrapper.active h2 { font-size: 32px; padding: 20px 25px !important; }
+    .solution-content-wrapper.active h3 { font-size: 22px; padding: 14px 20px !important; margin: 30px auto 30px 0 !important; }
+    .solution-content-wrapper.active h4,
+    .solution-content-wrapper.active .sub-heading-left { font-size: 19px; margin: 35px auto 15px 0 !important; }
+    
+    #sendSMS, .fixed-buttons button { font-size: 18px; padding: 18px 0; }
+    footer { font-size: 13px; }
+
+    .partner-logo-gallery-wrapper { max-width: 400px; height: 600px; }
+    
+    /* PC/태블릿 Header Logo Size 조정 */
+    .main-logo-img { /* PC에서 기존 로고 크기 */
+        height: 60px; 
+    } 
+    
+    .header-right-logo-box img { /* PC에서 새 로고 크기 (1/2) */
+        height: 30px; 
+    }
+    
+    /* 요청 사항 2: 배너(위생가전 소독관리) PC 크기 조정 */
+    .visual-hero-banner {
+        height: 200px; /* PC에서 높이 증가 */
+    }
+    
+    .tech-scan-container {
+        padding: 40px 30px;
+        max-width: 700px; /* PC에서 최대 폭 증가 */
+    }
+    
+    .tech-title {
+        font-size: 32px;
+    }
+
+    .safe-zone-text {
+        font-size: 36px;
+    }
+    
+    .ask-text {
+        font-size: 40px;
+    }
+    
+    /* 요청 사항 5: PC에서의 상생 섹션 오버레이 높이 조정 */
+    .partner-scan-overlay {
+        height: 350px;
+    }
+    .scan-text {
+        font-size: 30px;
+    }
   }
 </style>
 </head>
 
 <body>
   
-<!-- 1. 수정: 인트로 화면 -->
-<div id="intro-screen">
+<div id="intro-screen" class="intro-style-overlay">
     <img src="imege/cm1.jpg" class="bg-photo" alt="Background">
-    <div class="intro-overlay-dim"></div>
-    
-    <div class="text-center-box">
+    <div class="overlay-dim"></div> <div class="text-center-box">
         <span class="intro-item">제빙기</span>
         <span class="intro-item">냉장고</span>
         <span class="intro-item">전자렌지</span>
@@ -418,19 +863,22 @@
       <div class="header-top">
           <div class="header-left-content">
               <img src="imege/logo2.png" alt="클린메이트 로고" class="main-logo-img" onclick="location.reload()" /> 
-              <!-- 3. 수정: 흐르고 깜빡이는 텍스트 -->
-              <div class="moving-text-container">
-                  <span class="header-text">전문장비로 원스톱 위생관리 솔루션</span>
-              </div>
+              <h2 class="header-text"></h2>
           </div>
           
           <a href="http://www.dhcsolution.com/" target="_blank" class="header-right-logo-box">
               <img src="imege/top_logo.jpg" alt="디에이치씨솔루션 홈페이지 바로가기" />
           </a>
       </div>
-    </header>
+      
+      <div class="header-text-container">
+          <span class="header-text-content">
+              전문장비로 원스톱 위생관리 솔루션 
+              <span style="display:inline-block; width: 100px;"></span> 전문장비로 원스톱 위생관리 솔루션
+          </span>
+      </div>
+      </header>
 
-    <!-- 4. 수정: 상생으로 메뉴명 변경 -->
     <nav class="main-menu">
       <a href="#company" class="menu-btn" data-target="company-section">회사</a> 
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
@@ -445,23 +893,23 @@
       <div id="company-section" class="content-section solution-content-wrapper">
           <h2>위생가전 소독관리</h2>
 
-        <!-- 2. 수정: 배너 (PC CSS 적용됨) -->
-        <div class="visual-hero-banner">
-            <div class="tech-scan-container">
-                <div class="scan-line"></div>
-                <div class="tech-content">
-                    <span class="system-alert">⚠ SYSTEM WARNING</span>
-                    <h3 class="tech-title">
-                        보이지 않는 <span class="virus-text">세균과 곰팡이</span>,<br>
-                        당신의 <span class="safe-zone-text">위생 공간</span>은<br>
-                        <span class="ask-text">안전합니까?</span>
-                    </h3>
-                    <div class="check-btn">CHECK NOW</div>
-                </div>
-            </div>
+        
+<div class="visual-hero-banner">
+    <div class="tech-scan-container">
+        <div class="scan-line"></div>
+        
+        <div class="tech-content">
+            <span class="system-alert">⚠ SYSTEM WARNING</span>
+            <h3 class="tech-title">
+                보이지 않는 <span class="virus-text">세균과 곰팡이</span>,<br>
+                당신의 <span class="safe-zone-text">위생 공간</span>은<br>
+                <span class="ask-text">안전합니까?</span>
+            </h3>
+            <div class="check-btn">CHECK NOW</div>
         </div>
-    
-          <h3 id="company-s01-anchor">제안 배경</h3>
+    </div>
+</div>
+<h3 id="company-s01-anchor">제안 배경</h3>
           <p>
               직원들의 건강과 복지, 그리고 기업의 생산성은 안전한 근무 환경에서 시작됩니다. 다중이용 시설인 기업 사무실에서 공동으로 사용하는 위생 가전은 <strong>"보이지 않는 감염 위험 구역"</strong>입니다.
           </p>
@@ -476,7 +924,6 @@
               <li><strong>관리 한계:</strong> 대부분의 기업이 단순 외관 청소에 그치거나 관리 시기를 놓쳐 근본적인 위생 문제가 해결되지 않고 내부 오염원이 방치됩니다.</li>
           </ul>
           
-          <!-- 기존 이미지 유지 -->
           <div class="seven-image-gallery">
               <div><img src="imege/a0018.jpg" alt="제빙기 소독 전후"><p class="image-caption">제빙기의 소독 전후</p></div>
               <div><img src="imege/a0016.jpg" alt="커피머신 소독 전후"><p class="image-caption">커피머신의 소독 전후</p></div>
@@ -488,13 +935,16 @@
           </div>
 
           <h4 class="sub-heading-left">B. 중점 관리 대상 가전의 위협</h4>
-          <p>당사의 전문 관리가 필요한 주요 대상입니다.</p>
+          <p>
+              당사의 전문 관리가 필요한 주요 대상입니다.
+          </p>
           <ul class="bullet-list" style="list-style: none;">
               <li>냉장고, 전자렌지, 제빙기, 정수기, 커피머신, 비데, 칫솔살균기, 에어컨, 공기청정기, 사무용품, PC/키보드 등</li>
           </ul>
           <img src="imege/a0034.jpg" alt="중점 관리 대상 가전 사진"/>
           <p class="image-caption">대상 가전의 종류</p>
 
+          
           <h3 id="company-s04-anchor">기술력</h3>
           <p> 첨단 기술을 기반으로 고객사의 위생 환경을 정밀하게 진단하고 과학적인 데이터를 제공하여 관리의 신뢰도를 높입니다. </p>
           <ul class="bullet-list">
@@ -502,18 +952,31 @@
               <li>내시경 진단: 육안 확인이 불가능한 내부 깊은 곳의 오염 상태를 영상으로 진단.</li>
               <li>AI 기반 데이터 처리: AI 기반 데이터 처리 기술을 적용하여 정확하고 신뢰성 높은 데이터를 제공합니다.</li>
           </ul>
-          <img src="imege/a0059.jpg" alt="기술력 관련 이미지"/>
+          <img src="imege/a0059.jpg" alt="기술력 관련 이미지 (placeholder)"/>
           <p class="image-caption">측정장비와 청소, 소독 기기</p>
 
+          
           <h3 id="company-s03-anchor">인력풀</h3>
           <p> 위생 가전별 제조사 서비스센터 경력의 <strong>전담 엔지니어</strong>와 HACCP/식품위생 관리 자격증을 보유한 <strong>위생 전문가</strong>로 구성된 전문 인력풀을 자체적으로 운영합니다. </p>
-          <img src="imege/a0029.jpg" alt="인력풀 관련 이미지"/>
+          <ul class="bullet-list">
+              <li>국내 최대 규모의 전문 인력 확보.</li>
+              <li>위생 가전 청소 및 소독 관련 자체 교육 프로그램 수료 의무화.</li>
+              <li>주요 제조사 출신 전문 엔지니어의 경험과 노하우 결합.</li>
+          </ul>
+          <img src="imege/a0029.jpg" alt="인력풀 관련 이미지 (placeholder)"/>
           <p class="image-caption">전문 인력풀</p>
 
+          
           <h3 id="company-s05-anchor">AI 도입</h3>
           <p> AI 기술 기반의 데이터 분석을 통해 가장 효율적인 관리 동선을 설계하고, 잠재적인 고장 시점을 예측하여 고객사의 비용과 시간을 절감합니다. </p>
-          <img src="imege/a0030.jpg" alt="AI 도입 관련 이미지"/>
+          <ul class="bullet-list">
+              <li>고장 예측: 정기적인 점검 데이터를 분석하여 장비 고장 위험 시점을 사전에 감지.</li>
+              <li>최적 경로: AI 기반 동선 최적화로 서비스 시간을 단축하고 비용 효율성 증대.</li>
+              <li>자동 보고: 현장 진단 및 관리 결과가 실시간으로 자동 보고되어 투명한 관리 가능.</li>
+          </ul>
+          <img src="imege/a0030.jpg" alt="AI 도입 관련 이미지 (placeholder)"/>
           <p class="image-caption">AI 기반 스마트 관리 시스템</p>
+
 
           <h3 id="company-s02-anchor">회사 소개</h3>
           <p> 주식회사 디에이치씨솔루션은 10년간 위생 기술 선도력, 국내 최대 규모의 인력풀, 그리고 AI 시스템을 결합하여, 기업 위생 관리에 가장 빠르고 정확하며 신뢰할 수 있는 미래형 솔루션을 제공합니다. <br>클린메이트는 디에이치씨솔루션의 가전소독전문 브랜드명 입니다 </p>
@@ -528,6 +991,7 @@
           
           <img src="imege/vv01.jpg" alt="회사 추가 정보 이미지" style="margin-top: 30px;"/>
           <p class="image-caption">VVIP 긴급대응팀</p>
+
       </div>
 
       <div id="mos-section" class="content-section solution-content-wrapper"></div>
@@ -536,31 +1000,27 @@
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
       <div id="aircond-section" class="content-section solution-content-wrapper"></div>
 
-      <!-- 5. 수정: 상생(협력사) 섹션 -->
       <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
-          <p style="text-align:center; margin-bottom:10px;">클린메이트의 안심 케어존을 확인하세요.</p>
+          
+          <div class="partner-scan-overlay">
+              <div class="contaminant-flow"></div>
+              <div class="scan-effect-line"></div>
+              <div class="scan-text">
+                  PARTNER STATUS CHECK: SECURED<br>
+                  <span>긴밀한 상생 협력으로 안전한 비즈니스 환경 구축</span>
+              </div>
+          </div>
           
           <div class="partner-logo-gallery-wrapper">
-              <!-- 바이러스 퇴치 오버레이 (본문 위에 겹침) -->
-              <div class="virus-killer-overlay">
-                  <div class="radar-bg"></div>
-                  <div class="laser-beam"></div>
-                  <!-- 떠다니는 곰팡이들 (레이저에 맞으면 사라짐) -->
-                  <div class="germ"></div>
-                  <div class="germ"></div>
-                  <div class="germ"></div>
-                  <div class="germ"></div>
-                  <div class="germ"></div>
-              </div>
-
-              <!-- 아래로 흐르는 로고 트랙 -->
               <div class="partner-logo-track" id="partner-logo-track"></div>
           </div>
       </div>
 
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
           <h2>원스톱 상담</h2>
+          <p></p>
+          
           <div class="question active" id="q1">
               <h3>관리할 품목을 선택해주세요.</h3>
               <div class="options" id="opt1"></div>
@@ -584,11 +1044,15 @@
 
           <div class="question" id="result">
               <h3>✨ 상담 신청 보내기</h3>
-              <button id="sendSMS" onclick="sendSummarySMS()">문자 보내기</button>
-              <p style="color: #BC8F8F; font-size: 15px; line-height: 1.6; margin: 20px 0;">
-                  전문 담당자가<br>빠른 연락 드리겠습니다.
-              </p>
+          <button id="sendSMS" onclick="sendSummarySMS()">문자 보내기</button>
+            </p>
+          <p style="color: #BC8F8F; font-size: 15px; line-height: 1.6; margin: 20px 0;">
+                  전문 담당자가<br>
+                  빠른 연락 드리겠습니다.
+ 
           </div>
+      
+      
       </div>
     </main>
 
@@ -599,20 +1063,21 @@
       <button class="btn-proposal-bottom" onclick="window.open('proposal_corporate.html')">기업제안서</button>
     </div>
 
-    <footer>
-      <div class="scroll-text">
-          <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
-          <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
-      </div>
-    </footer>
+<footer>
+  <div class="scroll-text">
+      <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
+      
+      <span>상호: (주)디에이치씨솔루션 | 주소: 서울특별시 송파구 위례서로240 아피체 806호 | 대표: 김동현 | TEL: 02-1666-1757 | 사업자등록번호: 140-87-00987 | E-mail: dhc-solution@naver.com</span>
+  </div>
+</footer>
   </div>
 
 <script>
-    /* --- 인트로 로직 --- */
     const introScreen = document.getElementById('intro-screen');
     const mainContentWrapper = document.getElementById('main-content-wrapper');
     const introItems = document.querySelectorAll('.intro-item');
     let introStep = 0;
+    const scrollText = document.querySelector('.scroll-text');
 
     function showNextPhrase() {
         if (introStep > 0) {
@@ -622,7 +1087,7 @@
         if (introStep < introItems.length) {
             introItems[introStep].classList.add('active');
             introStep++;
-            setTimeout(showNextPhrase, 600); // 속도 조절
+            setTimeout(showNextPhrase, 600);
         } else {
             setTimeout(skipIntro, 1000);
         }
@@ -640,7 +1105,6 @@
         }, 500);
     }
 
-    /* --- 메뉴 로직 --- */
     const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
     menuButtons.forEach(button => {
         button.addEventListener('click', (event) => {
@@ -673,27 +1137,25 @@
         if (targetSection) {
             let loadPromise = Promise.resolve(); 
 
-            // 외부 파일 로드 (변경 없음)
             if (targetId === 'mos-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('mos-section', 'mos_refrigerator_content.html');
             } else if (targetId === 'avk-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('avk-section', 'mos_icemaker_content.html');
+
             } else if (targetId === 'dryice-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('dryice-section', 'microwave_solution.html');
+
             } else if (targetId === 'tech-section' && !targetSection.dataset.loaded) {
                 loadPromise = loadSectionContent('tech-section', 'technology.html');
-            } else if (targetId === 'aircond-section' && !targetSection.dataset.loaded) { 
+              
+           } else if (targetId === 'aircond-section' && !targetSection.dataset.loaded) { 
                 loadPromise = loadSectionContent('aircond-section', 'mos_aircond.html'); 
-            }
+            
+           }
             
             loadPromise.then(() => {
                 targetSection.classList.add('active');
                 
-                // 파트너(상생) 로고 생성
-                if(targetId === 'partner-section') {
-                    generatePartnerLogos();
-                }
-
                 if (targetId === 'tech-section') {
                     const galleryContainer = targetSection.querySelector('#portfolio-gallery-container');
                     if (galleryContainer && galleryContainer.innerHTML.trim() === '') {
@@ -712,7 +1174,8 @@
                 }
 
                 setTimeout(() => {
-                    const offset = 126; 
+                    /* 헤더 롤링 텍스트 컨테이너 높이 25px 추가 반영 */
+                    const offset = 126 + 25; 
                     const elementPosition = targetSection.getBoundingClientRect().top + window.scrollY;
                     window.scrollTo({ top: elementPosition - offset, behavior: 'smooth' });
                 }, 50); 
@@ -720,7 +1183,6 @@
         }
     }
 
-    /* 서브메뉴 로직 (유지) */
     const subMenuContainers = document.querySelectorAll('.solution-content-wrapper .sub-menu');
     subMenuContainers.forEach(subMenu => {
         subMenu.querySelectorAll('.sub-btn').forEach(btn => {
@@ -744,7 +1206,6 @@
         }
     }
 
-    /* --- 퀴즈 로직 (전체 데이터 복구) --- */
     let questions;
     let current = 0;
     let answers = new Array(5).fill(undefined);
@@ -752,16 +1213,17 @@
     const phoneNumber = '01037710081'; 
 
     function resetQuiz() {
-        if(!questions) questions = document.querySelectorAll('#quiz-section .question');
-        questions.forEach(q => q.classList.remove('active'));
-        current = 0;
-        answers = new Array(5).fill(undefined);
-        document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
-        document.getElementById('opt5').innerHTML = '';
-        selectedRegion = ''; 
-        generateOptions('q1');
-        if(questions.length > 0) questions[0].classList.add('active'); 
-    }
+    if(!questions) questions = document.querySelectorAll('#quiz-section .question');
+    questions.forEach(q => q.classList.remove('active'));
+    current = 0;
+    answers = new Array(5).fill(undefined);
+    // document.getElementById('summary').textContent = '선택하신 내용: '; <-- 이 줄 삭제해주세요!
+    document.querySelectorAll('#quiz-section .option-button').forEach(b => b.classList.remove('active'));
+    document.getElementById('opt5').innerHTML = '';
+    selectedRegion = ''; 
+    generateOptions('q1');
+    if(questions.length > 0) questions[0].classList.add('active'); 
+}
 
     const data = {
         q1: ['제빙기', '냉장고', '전자렌지', '커피머신', 'VIP CARE', '사무기기', '에어컨', '중고매입', '기타'],
@@ -812,6 +1274,12 @@
         }
     }
 
+    /* 선택 내용을 실시간으로 업데이트 하는 함수 */
+    function updateSummaryText() {
+        //let finalAnswers = answers.filter(a => a !== undefined);
+        //document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
+    }
+
     function handleOptionClick(questionId, button) {
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
@@ -820,11 +1288,18 @@
         button.classList.add('active');
         answers[qIndex] = value;
         
+        /* 선택할 때마다 요약 업데이트 */
+        updateSummaryText();
+
         if (questionId === 'q4') {
             selectedRegion = value;
             const regionCities = data.cities[selectedRegion];
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
+                
+                /* q5 스킵 시 최종 지역/도시 반영 */
+                updateSummaryText();
+
                 setTimeout(() => nextQuestion(true), 200); 
                 return;
             } else {
@@ -847,6 +1322,8 @@
     }
 
     function summarize() {
+        /* 최종 요약 업데이트 */
+        updateSummaryText();
         const sendSMSButton = document.getElementById('sendSMS');
         const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
         let finalAnswers = answers.filter(a => a !== undefined);
@@ -879,18 +1356,23 @@
         container.innerHTML = html;
     }
 
-    /* 수정: 파트너 로고 (세로 무한 스크롤을 위해 복제본 증가) */
     function generatePartnerLogos() {
         const track = document.getElementById('partner-logo-track');
-        if (!track || track.innerHTML.trim() !== '') return;
+        if (!track) return;
         let html = '';
-        for (let i = 1; i <= 14; i++) {
-            const fileNum = i.toString().padStart(3, '0');
-            const src = `imege/b${fileNum}.jpg`;
-            html += `<div class="partner-item"><img src="${src}" alt="협력사 ${i}" onerror="this.style.display='none'"></div>`;
+        /* 요청 사항 4: 아래로 흐르는 롤링을 위해 2배의 리스트를 먼저 생성 */
+        const logoCount = 14; 
+        for (let j = 0; j < 2; j++) {
+            for (let i = 1; i <= logoCount; i++) {
+                const fileNum = i.toString().padStart(3, '0');
+                const src = `imege/b${fileNum}.jpg`;
+                html += `<div class="partner-item"><img src=\"${src}\" alt=\"협력사 ${i}\" onerror=\"this.style.display='none';\"></div>`;
+            }
         }
-        // 무한 세로 스크롤 끊김 방지를 위해 3번 복제
-        track.innerHTML = html + html + html; 
+        track.innerHTML = html; 
+        
+        /* 요청 사항 4: 스크롤 시작점 조정 (아래로 흐르는 효과의 시작점) */
+        track.style.transform = 'translateY(-50%)';
     }
 
     async function loadSectionContent(targetId, contentPath) {
@@ -907,12 +1389,15 @@
         }
     }
 
+
     document.addEventListener('DOMContentLoaded', () => {
         setTimeout(showNextPhrase, 500);
         introScreen.addEventListener('click', skipIntro);
         generatePartnerLogos(); 
         resetQuiz(); 
     });
+
+
 </script>
 </body>
 </html>
