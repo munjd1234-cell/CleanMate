@@ -1,21 +1,20 @@
     <h2>냉장고 위생 관리 솔루션</h2>
- <!-- ▼▼▼▼▼ [수정완료] PC화면 꽉 차는 냉장고(Deep Green) 배너 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [수정완료] 얼음이 떨어지는 애니메이션 추가 버전 ▼▼▼▼▼ -->
 <style>
-    /* 냉장고 배너 전용 스타일 */
-    .fridge-banner-wrapper {
-        /* [핵심] PC에서도 화면 끝까지 꽉 차게 만드는 설정 */
+    /* 제빙기 배너 전용 스타일 */
+    .ice-banner-wrapper {
         width: 100vw;
         position: relative;
         left: 50%;
         margin-left: -50vw;
-
+        
         height: auto;
         padding: 50px 0;
         margin-bottom: 30px;
-        border-bottom: 1px solid #004d40; /* 진한 녹색 선 */
+        border-bottom: 1px solid #1a237e;
         
-        /* 배경: 깊은 숲속 같은 진한 녹색 그라데이션 */
-        background: radial-gradient(circle at 50% 30%, #00695c 0%, #000000 80%);
+        /* 깊은 바다색 배경 */
+        background: radial-gradient(circle at center, #0d47a1 0%, #000000 90%);
         
         display: flex;
         justify-content: center;
@@ -23,119 +22,131 @@
         overflow: hidden;
     }
 
-    /* 아래 제목과 간격 벌리기 */
-    .fridge-banner-wrapper + h3 {
+    .ice-banner-wrapper + h3 {
         margin-top: 40px !important;
     }
 
-    /* 중앙 컨텐츠 박스 */
-    .fridge-glass-box {
+    /* 얼음 유리 박스 */
+    .ice-glass-box {
         position: relative;
         width: 90%;
         max-width: 600px;
-        padding: 35px 20px;
+        padding: 30px 20px;
         text-align: center;
-        z-index: 10;
         
-        /* 녹색 빛이 감도는 유리 느낌 */
-        background: rgba(0, 20, 0, 0.3);
-        border: 1px solid rgba(105, 240, 174, 0.3); /* 연두색 테두리 */
-        border-radius: 20px;
-        box-shadow: 0 0 40px rgba(0, 77, 64, 0.5); /* 녹색 그림자 */
+        /* 반투명 얼음 효과 */
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(64, 196, 255, 0.3);
+        border-radius: 15px;
+        box-shadow: 0 0 30px rgba(0, 145, 234, 0.2);
+        
+        /* [중요] 얼음이 박스 밖으로 나가지 않게 자름 */
+        overflow: hidden; 
     }
 
-    /* 냉기 순환 애니메이션 (위에서 아래로) */
-    .cold-flow {
+    /* 냉기(안개) 애니메이션 */
+    .cold-mist {
         position: absolute;
-        top: -50%; left: 0;
-        width: 100%; height: 200%;
-        background: linear-gradient(to bottom, transparent, rgba(255, 255, 255, 0.05), transparent);
-        animation: flowDown 5s infinite linear;
+        top: 0; left: -50%;
+        width: 200%; height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.1), transparent);
+        transform: skewX(-20deg);
+        animation: mistMove 6s infinite linear;
         pointer-events: none;
         z-index: 1;
     }
 
-    /* 텍스트 스타일 */
-    .fridge-badge {
-        display: inline-block;
-        color: #69f0ae; /* 형광 연두색 */
-        font-size: 12px; font-weight: 800; letter-spacing: 1px;
-        border: 1px solid #69f0ae;
-        padding: 4px 12px; border-radius: 4px;
-        margin-bottom: 15px;
-        background: rgba(105, 240, 174, 0.1);
-        box-shadow: 0 0 10px rgba(105, 240, 174, 0.2);
+    /* ✨ [추가] 떨어지는 얼음 조각 스타일 */
+    .falling-ice {
+        position: absolute;
+        background: rgba(255, 255, 255, 0.15); /* 반투명 흰색 */
+        border: 1px solid rgba(255, 255, 255, 0.4); /* 테두리 */
+        box-shadow: 0 0 5px rgba(255, 255, 255, 0.2);
+        border-radius: 3px; /* 모서리 살짝 둥글게 */
+        z-index: 2; /* 안개보다 위, 글자보다 아래 */
+        top: -50px; /* 화면 밖에서 시작 */
     }
 
-    .fridge-title {
-        color: #e0f2f1;
+    /* 얼음 조각 개별 설정 (위치, 크기, 속도 다르게) */
+    .cube1 { left: 10%; width: 30px; height: 30px; animation: dropIce 3s infinite linear; }
+    .cube2 { left: 30%; width: 20px; height: 20px; animation: dropIce 4s infinite linear 1s; } /* 1초 뒤 시작 */
+    .cube3 { left: 60%; width: 25px; height: 25px; animation: dropIce 3.5s infinite linear 0.5s; }
+    .cube4 { left: 85%; width: 15px; height: 15px; animation: dropIce 5s infinite linear 2s; }
+
+    /* 텍스트 스타일 */
+    .ice-content-layer {
+        position: relative; 
+        z-index: 10; /* 얼음보다 위에 글자가 있어야 함 */
+    }
+
+    .ice-badge {
+        display: inline-block;
+        color: #40c4ff;
+        font-size: 12px; font-weight: 800; letter-spacing: 1px;
+        border: 1px solid #40c4ff;
+        padding: 4px 10px; border-radius: 20px;
+        margin-bottom: 15px;
+        background: rgba(64, 196, 255, 0.1);
+    }
+
+    .ice-title {
+        color: #e3f2fd;
         font-size: 24px; font-weight: 700;
         line-height: 1.4; margin: 0;
-        text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+        text-shadow: 0 2px 10px rgba(0,0,0,0.5);
     }
 
-    /* "냉장고" 강조 */
-    .fridge-highlight {
+    .ice-highlight {
         font-size: 28px; font-weight: 900;
         color: #fff;
-        /* 녹색 네온 효과 */
-        text-shadow: 0 0 10px #00e676, 0 0 20px #004d40; 
+        text-shadow: 0 0 10px #00b0ff, 0 0 20px #00b0ff;
     }
 
-    /* "세균 번식" 경고 */
-    .danger-text {
+    .warning-red {
         display: block; margin-top: 5px;
         font-size: 30px; font-weight: 900;
-        color: #ff5252; /* 붉은색 경고 */
-        text-shadow: 0 0 15px rgba(255, 82, 82, 0.4);
+        color: #ff8a80;
     }
-
-    /* 미생물(입자) 떠다니는 효과 */
-    .bacteria-particle {
-        position: absolute;
-        width: 4px; height: 4px;
-        background: #69f0ae;
-        border-radius: 50%;
-        opacity: 0.6;
-        animation: floatParticle 8s infinite ease-in-out;
-    }
-    .p1 { top: 20%; left: 10%; animation-delay: 0s; }
-    .p2 { top: 80%; left: 20%; animation-delay: 2s; }
-    .p3 { top: 40%; left: 80%; animation-delay: 4s; }
-    .p4 { top: 70%; left: 90%; animation-delay: 1s; }
 
     /* --- 애니메이션 정의 --- */
-    @keyframes flowDown {
-        0% { transform: translateY(-30%); opacity: 0; }
-        50% { opacity: 1; }
-        100% { transform: translateY(10%); opacity: 0; }
+    @keyframes mistMove {
+        0% { transform: translateX(-50%) skewX(-20deg); }
+        100% { transform: translateX(50%) skewX(-20deg); }
     }
-    @keyframes floatParticle {
-        0%, 100% { transform: translate(0, 0); opacity: 0.3; }
-        50% { transform: translate(10px, -20px); opacity: 0.8; }
+
+    /* 얼음 떨어지는 애니메이션 (위 -> 아래 + 회전) */
+    @keyframes dropIce {
+        0% { top: -40px; opacity: 0; transform: rotate(0deg); }
+        10% { opacity: 1; }
+        90% { opacity: 1; }
+        100% { top: 120%; opacity: 0; transform: rotate(90deg); } /* 바닥으로 떨어지며 회전 */
     }
 </style>
 
-<div class="fridge-banner-wrapper">
-    <!-- 냉기 흐름 효과 -->
-    <div class="cold-flow"></div>
-    
-    <!-- 미생물 입자 (장식) -->
-    <div class="bacteria-particle p1"></div>
-    <div class="bacteria-particle p2"></div>
-    <div class="bacteria-particle p3"></div>
-    <div class="bacteria-particle p4"></div>
-
-    <div class="fridge-glass-box">
-        <div class="fridge-badge">FRESH & SAFETY ZONE</div>
-        <h3 class="fridge-title">
-            가득 찬 식재료 속,<br>
-            당신의 <span class="fridge-highlight">냉장고</span>는<br>
-            <span class="danger-text">세균에 안전합니까?</span>
-        </h3>
+<div class="ice-banner-wrapper">
+    <div class="ice-glass-box">
+        <!-- 안개 효과 -->
+        <div class="cold-mist"></div>
+        
+        <!-- ✨ 떨어지는 얼음 조각들 (4개) -->
+        <div class="falling-ice cube1"></div>
+        <div class="falling-ice cube2"></div>
+        <div class="falling-ice cube3"></div>
+        <div class="falling-ice cube4"></div>
+        
+        <!-- 텍스트 내용 -->
+        <div class="ice-content-layer">
+            <div class="ice-badge">❄ ICE HYGIENE CHECK</div>
+            <h3 class="ice-title">
+                투명한 얼음 속,<br>
+                당신의 <span class="ice-highlight">제빙기</span>는<br>
+                <span class="warning-red">깨끗합니까?</span>
+            </h3>
+        </div>
     </div>
 </div>
-<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ -->   
+<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ -->
     <h3 id="refrigerator-s01-anchor">냉장고 위생 점검 체크리스트</h3>
     <p>
         기업 환경에서 공용 냉장고의 위생 상태는 직원들의 건강과 직결됩니다. 아래 체크리스트는 냉장고 위생 상태를 스스로 평가하고, 전문적인 정기 관리가 필요한 시점을 정확히 파악하는 데 사용됩니다.
