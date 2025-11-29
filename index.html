@@ -87,23 +87,21 @@
     left: 0;
     width: 100%;
     background: #fff;
-    display: flex;
-    justify-content: space-between; /* 로고와 새 로고 양쪽 끝으로 배치 */
+    display: flex; 
+    flex-direction: column; 
     align-items: center; 
-    padding: 10px 15px; 
+    padding: 10px 0 15px 0; 
     z-index: 1000;
     box-sizing: border-box;
   }
   
   .header-top {
-      display: none; 
-  }
-
-  /* [수정] 기존 로고와 문구 컨테이너 (왼쪽 배치) */
-  .header-main-info {
       display: flex;
-      flex-direction: column; /* 모바일: 세로 배치 */
-      align-items: flex-start; /* 모바일: 왼쪽 정렬 */
+      justify-content: center; /* 로고 중앙 정렬 */
+      align-items: center;
+      width: 100%;
+      padding: 0 15px; 
+      box-sizing: border-box;
   }
 
   header img { 
@@ -116,19 +114,6 @@
     font-size: 14px;
     color: #333;
     font-weight: bold;
-    text-align: left; /* 모바일: 문구 왼쪽 정렬 */
-  }
-
-  /* [수정] 새 로고 이미지 스타일 (오른쪽 배치) */
-  .new-logo-link {
-    display: block;
-    border: 1px solid #00bfa5; /* 4각 박스 추가 */
-    padding: 2px;
-    border-radius: 5px;
-  }
-  .new-logo-img {
-      height: 22.5px; /* 기존 로고 (45px)의 1/2 사이즈 */
-      display: block;
   }
 
   /* --- [메뉴바] --- */
@@ -236,7 +221,7 @@
   }
   .scroll-text {
     display: inline-block;
-    animation: marquee 60s linear infinite;
+    animation: marquee 60s linear infinite; /* 👈 60초 적용 완료 */
     padding-left: 0;
   }
   @keyframes marquee {
@@ -499,33 +484,6 @@
   @media (min-width: 500px) {
     body { overflow-y: auto !important; }
     #intro-screen, #main-content-wrapper { max-width: 1600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
-
-    /* PC: 헤더 레이아웃 */
-    header {
-        padding: 10px 15px;
-        justify-content: space-between;
-    }
-    
-    /* PC: 기존 로고와 문구 컨테이너 (왼쪽 유지) */
-    .header-main-info {
-        flex-direction: row; /* PC: 가로 배치 */
-        align-items: center; 
-        gap: 15px;
-    }
-    .header-main-info img {
-        height: 45px;
-    }
-    header h2 {
-        margin: 0;
-        text-align: left;
-        font-size: 16px;
-    }
-
-    /* PC: 새 로고 (오른쪽 유지) */
-    .new-logo-img {
-        height: 22.5px;
-    }
-    
     header, .main-menu, .fixed-buttons, footer { width: 100%; max-width: 1600px; left: 50%; transform: translateX(-50%); }
     .menu-btn { font-size: 16px; padding: 15px 10px; }
     .solution-content-wrapper p, 
@@ -559,13 +517,10 @@
   
   <div id="main-content-wrapper">
     <header>
-      <div class="header-main-info">
+      <div class="header-top">
           <img src="imege/logo2.png" alt="클린메이트 로고" onclick="location.reload()" />
-          <h2>전문장비로 원스톱 위생관리 솔루션</h2> 
       </div>
-      <a href="http://www.dhcsolution.com/" target="_blank" class="new-logo-link">
-          <img src="imege/top_logo.jpg" alt="디에이치씨솔루션 로고" class="new-logo-img" />
-      </a>
+      <h2>전문장비로 원스톱 위생관리 솔루션</h2> 
     </header>
 
     <nav class="main-menu">
@@ -573,7 +528,8 @@
       <a href="#avk" class="menu-btn" data-target="avk-section">제빙기</a>
       <a href="#mos" class="menu-btn" data-target="mos-section">냉장고</a>
       <a href="#dryice" class="menu-btn" data-target="dryice-section">전자렌지</a>
-      <a href="#aircond" class="menu-btn" data-target="aircond-section">에어컨</a> <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
+      <a href="#aircond" class="menu-btn" data-target="aircond-section">에어컨</a>
+      <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력사</a> 
 
     </nav>
@@ -661,21 +617,19 @@
           
           <img src="imege/a0003_1.jpg" alt="사업자등록증 및 영업신고증 결합 이미지"/>
           <p class="image-caption">사업자,영업신고증</p>
+          
+          <img src="imege/vv01.jpg" alt="회사 추가 정보 이미지" style="margin-top: 30px;"/>
+          <p class="image-caption">추가 정보 이미지</p>
+
       </div>
 
-          <img src="imege/a0003_1.jpg" alt="사업자등록증 및 영업신고증 결합 이미지"/>
-          <p class="image-caption">사업자,영업신고증</p>
-          
-          <img src="imege/vv01.jpg" alt="추가된 회사 관련 사진"/>
-          <p class="image-caption">회사 전경</p>
-      </div> 
-      <div id="mos-section" class="content-section solution-content-wrapper"></div>
-          
       <div id="mos-section" class="content-section solution-content-wrapper"></div>
       <div id="avk-section" class="content-section solution-content-wrapper"></div>
       <div id="dryice-section" class="content-section solution-content-wrapper"></div>
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
-      <div id="aircond-section" class="content-section solution-content-wrapper"></div> <div id="partner-section" class="content-section solution-content-wrapper">
+      <div id="aircond-section" class="content-section solution-content-wrapper"></div>
+
+      <div id="partner-section" class="content-section solution-content-wrapper">
           <h2>협력 및 상생</h2>
           <div class="partner-logo-gallery-wrapper">
               <div class="partner-logo-track" id="partner-logo-track"></div>
@@ -881,7 +835,7 @@
     }
 
     const data = {
-        q1: ['제빙기', '냉장고', '전자렌지', '커피머신', '에어컨', '사무기기', '에어컨', '중고매입', '기타'],
+        q1: ['제빙기', '냉장고', '전자렌지', '커피머신', 'VIP CARE', '사무기기', '에어컨', '중고매입', '기타'],
         q2: ['정기관리', '분해청소', '필터교체', '위생점검', 'ATP 계측', '제품교체', '방역소독', '긴급출동', '단순견적', '기타'],
         q3: ['기업체', '호텔/리조트', '공장', '병원/의료시설', '교육/연구시설', '공공기관', '프랜차이즈', '아파트', '오피스', '주택', '공관', '기타'],
         q4: ['전국', '서울', '부산', '대구', '인천', '광주', '대전', '울산', '세종', '경기', '강원', '충북', '충남', '전북', '전남', '경북', '경남', '제주'],
@@ -929,6 +883,12 @@
         }
     }
 
+    /* 선택 내용을 실시간으로 업데이트 하는 함수 */
+    function updateSummaryText() {
+        let finalAnswers = answers.filter(a => a !== undefined);
+        document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
+    }
+
     function handleOptionClick(questionId, button) {
         const qIndex = parseInt(questionId.slice(-1)) - 1;
         const value = button.getAttribute('data-value');
@@ -937,11 +897,18 @@
         button.classList.add('active');
         answers[qIndex] = value;
         
+        /* 선택할 때마다 요약 업데이트 */
+        updateSummaryText();
+
         if (questionId === 'q4') {
             selectedRegion = value;
             const regionCities = data.cities[selectedRegion];
             if (selectedRegion === '전국' || !regionCities || regionCities.length <= 1) {
                 answers[4] = selectedRegion === '전국' ? '전국 전 지역' : (regionCities && regionCities.length === 1 ? regionCities[0] : selectedRegion);
+                
+                /* q5 스킵 시 최종 지역/도시 반영 */
+                updateSummaryText();
+
                 setTimeout(() => nextQuestion(true), 200); 
                 return;
             } else {
@@ -964,10 +931,11 @@
     }
 
     function summarize() {
-        let finalAnswers = answers.filter(a => a !== undefined);
-        document.getElementById('summary').textContent = `선택하신 내용: ${finalAnswers.join(' / ')}`;
+        /* 최종 요약 업데이트 */
+        updateSummaryText();
         const sendSMSButton = document.getElementById('sendSMS');
         const requiredAnswersCount = (answers[3] !== '전국' && answers[4] === undefined) ? 5 : 4; 
+        let finalAnswers = answers.filter(a => a !== undefined);
         sendSMSButton.disabled = finalAnswers.length < requiredAnswersCount; 
         if (answers[3] && answers[4]) sendSMSButton.disabled = false;
     }
