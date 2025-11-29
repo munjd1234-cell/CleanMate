@@ -1,5 +1,5 @@
      <h2>에어컨 위생 관리 솔루션</h2>
-<!-- ▼▼▼▼▼ [수정완료] 박스 제거 + 탁 트인 바다바람 에어컨 배너 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [수정완료] 시원한 바람에 곰팡이가 씻겨 날아가는 배너 ▼▼▼▼▼ -->
 <style>
     /* 에어컨 배너 전용 스타일 */
     .ac-banner-wrapper {
@@ -10,14 +10,14 @@
         margin-left: -50vw;
 
         height: auto;
-        padding: 60px 0; /* 시원하게 위아래 공간 확보 */
+        padding: 60px 0;
         margin-bottom: 30px;
-        border-bottom: 1px solid #40c4ff; /* 시원한 하늘색 선 */
+        border-bottom: 1px solid #00acc1;
         
-        /* 배경: 몰디브 바다 같은 쨍한 그라데이션 (밝고 시원함) */
-        background: linear-gradient(90deg, #0288d1 0%, #29b6f6 50%, #0277bd 100%);
+        /* 배경: 청량한 에메랄드 오션 그라데이션 */
+        background: linear-gradient(120deg, #006064 0%, #0097a7 50%, #004d40 100%);
         background-size: 200% 200%;
-        animation: oceanWave 5s ease infinite; /* 파도 치듯 배경이 움직임 */
+        animation: oceanFlow 8s ease infinite;
         
         display: flex;
         justify-content: center;
@@ -29,126 +29,135 @@
         margin-top: 40px !important;
     }
 
-    /* 💨 [핵심 1] 강력한 바람길 (Wind Lines) */
-    .strong-wind {
+    /* 💨 [바람] 시원한 바람길 (Wind Stream) */
+    .wind-stream {
         position: absolute;
+        left: -100%;
         height: 2px;
-        background: rgba(255, 255, 255, 0.6);
-        border-radius: 50%;
-        filter: drop-shadow(0 0 5px #fff);
-        z-index: 1;
-    }
-    .w1 { top: 20%; left: -100%; width: 100%; height: 3px; animation: windRush 2s infinite linear; }
-    .w2 { top: 60%; left: -150%; width: 80%; height: 1px; animation: windRush 2.5s infinite linear 0.5s; }
-    .w3 { bottom: 30%; left: -120%; width: 120%; height: 2px; animation: windRush 1.8s infinite linear 1s; }
-    .w4 { top: 40%; left: -200%; width: 60%; height: 1px; animation: windRush 3s infinite linear 0.2s; }
-
-    /* ❄ [핵심 2] 바람에 날리는 아이스 스톤 (Ice Stones) */
-    .ice-stone {
-        position: absolute;
-        background: rgba(255, 255, 255, 0.3);
-        border: 1px solid rgba(255, 255, 255, 0.8);
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.7), transparent);
         z-index: 2;
-        /* 돌/얼음 결정 모양 */
-        clip-path: polygon(20% 0%, 80% 0%, 100% 20%, 100% 80%, 80% 100%, 20% 100%, 0% 80%, 0% 20%);
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+        border-radius: 50%;
+        box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
     }
-    
-    /* 돌이 회전하며 날아가는 애니메이션 */
-    .s1 { top: 15%; left: -10%; width: 20px; height: 20px; animation: stoneFly 4s infinite linear; }
-    .s2 { top: 75%; left: -20%; width: 15px; height: 15px; animation: stoneFly 5s infinite linear 1.5s; }
-    .s3 { top: 45%; left: -30%; width: 25px; height: 25px; animation: stoneFly 3.5s infinite linear 0.5s; }
-    .s4 { bottom: 20%; left: -50%; width: 10px; height: 10px; animation: stoneFly 6s infinite linear 2s; }
+    .ws1 { top: 25%; width: 80%; animation: windDash 2.5s infinite ease-in-out; }
+    .ws2 { top: 65%; width: 100%; animation: windDash 3s infinite ease-in-out 0.5s; }
+    .ws3 { top: 85%; width: 60%; animation: windDash 2s infinite ease-in-out 1s; }
 
-    /* 텍스트 스타일 (박스 없음!) */
+    /* 🍃 [상쾌함] 바람에 날리는 잎사귀 (청소 후) */
+    .flying-leaf {
+        position: absolute;
+        font-size: 28px;
+        opacity: 0.9;
+        z-index: 6;
+        filter: drop-shadow(0 5px 5px rgba(0,0,0,0.3));
+        pointer-events: none;
+    }
+    .leaf1 { top: 20%; left: -10%; animation: blowFly 4s infinite linear; }
+    .leaf2 { top: 75%; left: -20%; animation: blowFly 5s infinite linear 1.5s; font-size: 22px; }
+
+    /* 🦠 [오염 제거] 바람에 휩쓸려 날아가는 곰팡이들 (추가됨!) */
+    .flying-mold {
+        position: absolute;
+        font-size: 24px;
+        z-index: 5;
+        opacity: 0.8;
+        /* 곰팡이를 어둡고 더럽게 표현 (필터 적용) */
+        filter: grayscale(100%) brightness(0.3) sepia(1) hue-rotate(50deg) drop-shadow(0 5px 5px rgba(0,0,0,0.5));
+        pointer-events: none;
+    }
+    /* 곰팡이는 더 빠르고 불규칙하게 날아감 */
+    .m1 { top: 40%; left: -10%; animation: blowFly 3s infinite linear 0.2s; font-size: 30px; }
+    .m2 { top: 55%; left: -30%; animation: blowFly 3.5s infinite linear 0.8s; font-size: 20px; }
+    .m3 { top: 30%; left: -50%; animation: blowFly 4s infinite linear 1.2s; font-size: 25px; transform: rotate(90deg); }
+    .m4 { top: 80%; left: -15%; animation: blowFly 2.8s infinite linear 2s; font-size: 18px; }
+
+    /* 텍스트 (박스 없음) */
     .ac-text-layer { 
         position: relative; 
         z-index: 10; 
         text-align: center;
-        /* 글자가 바람에 날리지 않게 묵직한 그림자 */
-        text-shadow: 0 5px 15px rgba(1, 87, 155, 0.5);
+        text-shadow: 0 5px 20px rgba(0, 77, 64, 0.8); /* 가독성용 진한 그림자 */
     }
 
     .ac-badge {
         display: inline-block;
-        color: #fff;
-        font-size: 13px; font-weight: 900; letter-spacing: 2px;
-        border: 2px solid #fff;
-        padding: 5px 15px; border-radius: 30px;
+        color: #e0f7fa;
+        font-size: 12px; font-weight: 800; letter-spacing: 1px;
+        border: 1px solid #e0f7fa;
+        padding: 4px 12px; border-radius: 20px;
         margin-bottom: 15px;
-        background: rgba(255, 255, 255, 0.1);
-        box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+        background: rgba(0, 150, 136, 0.3);
     }
 
     .ac-title {
-        color: #e1f5fe; /* 아주 연한 하늘색 */
-        font-size: 26px; font-weight: 800;
+        color: #fff;
+        font-size: 26px; font-weight: 700;
         line-height: 1.4; margin: 0;
     }
 
     .ac-highlight {
-        font-size: 32px; font-weight: 900;
+        font-size: 30px; font-weight: 900;
         color: #fff;
-        /* 시원한 화이트 네온 효과 */
-        text-shadow: 0 0 10px #fff, 0 0 30px #40c4ff;
+        text-shadow: 0 0 10px #80deea, 0 0 20px #00bcd4;
     }
 
     .ac-danger {
         display: block; margin-top: 10px;
         font-size: 34px; font-weight: 900;
-        color: #80d8ff; /* 쨍한 하늘색 */
-        text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        color: #ffccbc; /* 살구색 경고 */
+        text-shadow: 0 0 15px rgba(255, 87, 34, 0.6);
     }
 
     /* --- 애니메이션 정의 --- */
     
-    /* 1. 배경 파도침 */
-    @keyframes oceanWave {
+    /* 날아가는 애니메이션 (왼쪽 -> 오른쪽 회전하며 이동) */
+    @keyframes blowFly {
+        0% { left: -10%; transform: rotate(0deg) translateY(0); opacity: 0; }
+        10% { opacity: 1; }
+        50% { transform: rotate(180deg) translateY(-40px); } /* 바람에 붕 뜸 */
+        100% { left: 110%; transform: rotate(360deg) translateY(40px); opacity: 0; }
+    }
+
+    @keyframes windDash {
+        0% { left: -100%; opacity: 0; }
+        50% { opacity: 0.8; }
+        100% { left: 100%; opacity: 0; }
+    }
+
+    @keyframes oceanFlow {
         0% { background-position: 0% 50%; }
         50% { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
-
-    /* 2. 강풍 (매우 빠르게 지나감) */
-    @keyframes windRush {
-        0% { left: -100%; opacity: 0; }
-        10% { opacity: 0.8; }
-        90% { opacity: 0.8; }
-        100% { left: 200%; opacity: 0; }
-    }
-
-    /* 3. 아이스 스톤 날아가기 (회전하며 이동) */
-    @keyframes stoneFly {
-        0% { left: -10%; transform: rotate(0deg); opacity: 0; }
-        10% { opacity: 1; }
-        100% { left: 120%; transform: rotate(720deg); opacity: 0; }
-    }
 </style>
 
 <div class="ac-banner-wrapper">
-    <!-- 💨 쌩쌩 부는 바람길 -->
-    <div class="strong-wind w1"></div>
-    <div class="strong-wind w2"></div>
-    <div class="strong-wind w3"></div>
-    <div class="strong-wind w4"></div>
+    <!-- 🍃 상쾌한 나뭇잎 (청소된 결과) -->
+    <div class="flying-leaf leaf1">🍃</div>
+    <div class="flying-leaf leaf2">🌿</div>
     
-    <!-- ❄ 바람에 날리는 아이스 스톤 -->
-    <div class="ice-stone s1"></div>
-    <div class="ice-stone s2"></div>
-    <div class="ice-stone s3"></div>
-    <div class="ice-stone s4"></div>
+    <!-- 🦠 휩쓸려 날아가는 곰팡이/먼지 (오염 제거) -->
+    <div class="flying-mold m1">🦠</div>
+    <div class="flying-mold m2">⚫</div> <!-- 검은 먼지 -->
+    <div class="flying-mold m3">🦠</div>
+    <div class="flying-mold m4">⚫</div> 
+    
+    <!-- 💨 강력한 바람길 -->
+    <div class="wind-stream ws1"></div>
+    <div class="wind-stream ws2"></div>
+    <div class="wind-stream ws3"></div>
 
-    <!-- 📝 글자 (박스 없이 시원하게!) -->
+    <!-- 텍스트 -->
     <div class="ac-text-layer">
-        <div class="ac-badge">PURE COOLING ZONE</div>
+        <div class="ac-badge">PURE WIND ZONE</div>
         <h3 class="ac-title">
-            꽉 막힌 실내 공기,<br>
+            바람 타고 날리는 먼지,<br>
             당신의 <span class="ac-highlight">에어컨</span>은<br>
-            <span class="ac-danger">상쾌합니까?</span>
+            <span class="ac-danger">곰팡이를 뿜습니까?</span>
         </h3>
     </div>
 </div>
-<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ --> 
+<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ -->
     <h3 id="airconditioner-s01-anchor">에어컨 위생 점검 체크리스트</h3>
     <p>
         기업 환경에서 공용 에어컨의 위생 상태는 직원들의 건강 및 실내 공기질과 직결됩니다. 아래 체크리스트는 에어컨 위생 상태를 스스로 평가하고, 전문적인 정기 관리가 필요한 시점을 정확히 파악하는 데 사용됩니다.
