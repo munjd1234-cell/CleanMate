@@ -13,44 +13,34 @@
     color: #fff;
   }
 
-/* ▼▼▼▼▼ [CSS] 공백 삭제 + 유리 카드 디자인 (여기부터 복사) ▼▼▼▼▼ */
+/* ▼▼▼▼▼ [CSS] 이미지 제거 + 그라데이션 배경 (여기부터 복사) ▼▼▼▼▼ */
 
-/* 1. 배너 틀: 높이 줄이고 여백 삭제 */
+/* 1. 배너 틀: 이미지 대신 색상 채우기 */
 .visual-hero-banner {
     position: relative;
     width: 100vw;
     margin-left: -15px;
-    height: 300px;          /* [수정] 높이를 300px로 줄임 (공백 감소) */
+    height: 300px;
+    
+    /* 여백 설정 (착 붙게) */
     margin-top: 10px;
-    margin-bottom: 0px;     /* [수정] 아래 여백 0으로 설정 */
+    margin-bottom: 0px;
+    
     overflow: hidden;
-    background-color: #111; 
-    border-bottom: 1px solid #333; /* 하단에 얇은 선으로 경계 구분 */
+    
+    /* [수정] 이미지 대신 고급스러운 어두운 그라데이션 적용 */
+    /* 중앙에서 퍼지는 빛 효과: #2a2a2a(진한회색) -> #000(검정) */
+    background: radial-gradient(circle at center, #2a2a2a 0%, #000 100%);
+    border-bottom: 1px solid #333;
 }
 
-/* 2. [핵심] 배너 바로 아래에 있는 '제안 배경(h3)' 끌어올리기 */
+/* 2. 배너 아래 '제안 배경' 글자 위치 조정 */
 .visual-hero-banner + h3 {
-    margin-top: 20px !important; /* [수정] 강제로 위로 당김 (기존 40px -> 20px) */
+    margin-top: 20px !important;
     padding-top: 10px !important;
 }
 
-/* 3. 배경 이미지 설정 */
-.hero-bg-group {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-}
-.hero-bg-img {
-    width: 100%; height: 100%;
-    object-fit: cover;
-    opacity: 0.7; /* 배경을 좀 더 어둡게 눌러줌 */
-    animation: deepZoom 20s infinite alternate linear;
-}
-.dark-overlay {
-    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.4); 
-    z-index: 1;
-}
-
-/* 4. 내용 중앙 정렬 */
+/* 3. 내용 중앙 정렬 */
 .hero-content-center {
     position: absolute;
     top: 50%; left: 50%;
@@ -61,15 +51,18 @@
     text-align: center;
 }
 
-/* ✨ 5. [NEW] 반투명 유리 카드 디자인 (본문과 차별화) */
+/* 4. [수정] 카드 디자인 (배경이 단순해져서 테두리 강조) */
 .glass-card {
-    background: rgba(255, 255, 255, 0.1); /* 흰색 반투명 */
-    backdrop-filter: blur(5px);           /* 배경 흐리게 (유리 효과) */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* 얇은 테두리 */
-    padding: 25px 20px;
-    border-radius: 15px;                  /* 둥근 모서리 */
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* 그림자 */
-    animation: floatCard 4s ease-in-out infinite; /* 카드 전체가 둥둥 떠다님 */
+    background: rgba(255, 255, 255, 0.03); /* 아주 투명한 흰색 */
+    backdrop-filter: blur(3px);            /* 은은한 흐림 효과 */
+    
+    /* [포인트] 테두리에 민트색 빛을 살짝 줌 */
+    border: 1px solid rgba(0, 191, 165, 0.3); 
+    
+    padding: 30px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.5); /* 그림자 */
+    animation: floatCard 4s ease-in-out infinite;
 }
 
 /* 뱃지 스타일 */
@@ -80,6 +73,7 @@
     padding: 4px 10px; border-radius: 4px;
     margin-bottom: 15px;
     letter-spacing: 1px;
+    box-shadow: 0 0 10px rgba(0, 191, 165, 0.4); /* 뱃지 자체 발광 */
 }
 
 /* 제목 폰트 스타일 */
@@ -87,28 +81,24 @@
     color: #fff;
     line-height: 1.4;
     margin: 0;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.8);
 }
 
 .small-text {
-    font-size: 18px; font-weight: 400; color: #ccc;
+    font-size: 18px; font-weight: 400; color: #aaa; /* 조금 더 차분한 회색 */
     display: block; margin-bottom: 5px;
 }
 
 .highlight-text {
-    font-size: 28px; font-weight: 900; color: #00bfa5; /* 민트색 강조 */
+    font-size: 28px; font-weight: 900; color: #00bfa5;
 }
 
 .big-text {
     font-size: 32px; font-weight: 900; color: #fff;
     display: block; margin-top: 5px;
+    text-shadow: 0 0 20px rgba(255,255,255,0.1); /* 은은한 빛 */
 }
 
 /* --- 애니메이션 --- */
-@keyframes deepZoom {
-    0% { transform: scale(1.0); }
-    100% { transform: scale(1.15); }
-}
 @keyframes floatCard {
     0% { transform: translateY(0px); }
     50% { transform: translateY(-10px); }
@@ -704,19 +694,14 @@ footer {
           <h2>위생가전 소독관리</h2>
 
         
-<!-- ▼▼▼▼▼ [HTML] 디자인 변경 및 공백 제거 버전 ▼▼▼▼▼ -->
+<!-- ▼▼▼▼▼ [HTML] 이미지 제거 + 심플 버전 ▼▼▼▼▼ -->
 <div class="visual-hero-banner">
-    <div class="hero-bg-group">
-        <img src="imege/vv05.jpg" alt="위생 공간 관리" class="hero-bg-img">
-        <div class="dark-overlay"></div>
-    </div>
-    
     <div class="hero-content-center">
-        <!-- ✨ 새로운 디자인: 반투명 유리 카드 스타일 -->
+        <!-- 배경이 단순해졌으므로 카드 테두리로 포인트를 줍니다 -->
         <div class="glass-card">
             <span class="hero-badge">Professional Care</span>
             <h3 class="hero-title">
-                <span class="small-text">보이지 않는 세균과 곰팡이,</span><br>
+                <span class="small-text">보이지 않는 세균과 곰팡이</span><br>
                 당신의 <span class="highlight-text">위생 공간</span>은<br>
                 <span class="big-text">안전합니까?</span>
             </h3>
