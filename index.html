@@ -23,13 +23,19 @@
     left: 50%;
     margin-left: -50vw;
     
-    height: 150px; /* 높이 유지 */
+    height: auto;   /* 높이 제한 해제 */
+    padding: 80px 0; /* 위아래 여백을 주어 PC에서 시원하게 보이게 함 */
     
     margin-top: 0px;
     margin-bottom: 0px;
     overflow: hidden;
     background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
     border-bottom: 1px solid #333;
+
+    /* 내용물 중앙 정렬 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 /* ▲▲▲ 여기까지 ▲▲▲ */
 /* 아래 '제안 배경' 제목과 거리 벌리기 (구분감 주기 위해) */
@@ -41,7 +47,9 @@
 .tech-scan-container {
     position: relative;
     width: 90%;
-    max-width: 600px;
+    max-width: 1000px; /* PC 대응을 위해 넓힘 */
+    
+    /* ... 나머지 코드는 그대로 두세요 ... */
     
     /* 배경: 모눈종이(Grid) 패턴으로 '장비 화면' 느낌 냄 */
     background-color: #0a0a0a;
