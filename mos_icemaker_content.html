@@ -562,6 +562,20 @@
             font-weight: 600;
         }
 
+        /* 숫자 카운팅 애니메이션 */
+        @keyframes countUp {
+            from {
+                opacity: 0.5;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .trust-number.counting {
+            animation: countUp 0.3s ease-out;
+        }
+
         /* 핵심 메시지 리스트 */
         .final-message-list {
             margin: 30px 0;
@@ -703,10 +717,10 @@
                 <span class="message-strong">과학적 데이터 기반 관리</span> – ATP 바이오 측정을 통해 작업 전후 오염도를 수치로 증명하고, 모든 관리 이력을 체계적으로 기록하여 식품위생 점검 시 명확한 근거자료를 제공합니다.
             </div>
             <div class="final-message-item">
-                <span class="message-strong">장비 수명 2배 연장 보장</span> – 스케일 제거와 예방 정비를 통해 고장률을 90% 감소시키고, 전력 소비를 20~40% 절감하여 장기적인 운영 비용을 대폭 절감합니다.
+                <span class="message-strong">장비 수명 연장</span> – 스케일 제거와 예방 정비를 통해 고장률을 90% 감소시키고, 전력 소비를 20~40% 절감하여 장기적인 운영 비용을 대폭 절감합니다.
             </div>
             <div class="final-message-item">
-                <span class="message-strong">500개 이상 협력사의 신뢰</span> – 특급호텔, 대형 프랜차이즈, 병원급 의료시설에서 10년간 검증된 기술력과 서비스로 지속적인 파트너십을 유지하고 있습니다.
+                <span class="message-strong">290개 이상 협력사의 신뢰</span> – 특급호텔, 대형 프랜차이즈, 병원급 의료시설에서 10년간 검증된 기술력과 서비스로 지속적인 파트너십을 유지하고 있습니다.
             </div>
             <div class="final-message-item">
                 <span class="message-strong">맞춤형 관리 주기 설계</span> – 귀사의 사용 환경, 제빙량, 물 경도를 분석하여 과도한 비용 없이 가장 효율적인 관리 주기를 제안합니다.
@@ -724,8 +738,8 @@
                 </span>
             </p>
             <div class="trust-badges">
-                <span class="trust-badge">식품안전 인증</span>
-                <span class="trust-badge">친환경 약품</span>
+                <span class="trust-badge">식품안전 우선</span>
+                <span class="trust-badge">친환경 세제</span>
                 <span class="trust-badge">데이터 기반 관리</span>
                 <span class="trust-badge">10년 기술력</span>
             </div>
