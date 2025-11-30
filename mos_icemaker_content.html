@@ -493,14 +493,12 @@
     </ul>
 <!-- ==================== [왜 클린메이트인가?] 섹션 시작 ==================== -->
 <style>
-    /* 최종 설득 섹션 - 깔끔하고 심플한 스타일 */
     .final-cta-section {
         margin-top: 40px;
         margin-bottom: 40px;
         padding: 0;
     }
 
-    /* 메인 타이틀 */
     .final-main-title {
         text-align: center;
         margin-bottom: 30px;
@@ -512,7 +510,6 @@
         font-size: 28px;
         font-weight: 900;
         color: #ffffff;
-        line-height: 1.4;
         margin: 0;
     }
 
@@ -520,40 +517,33 @@
         color: #40c4ff;
     }
 
-    /* 신뢰 지표 박스 */
+    /* 신뢰 지표 */
     .trust-indicators {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 22px;
-        margin: 40px 0;
+        gap: 20px;
+        margin: 40px auto;
         max-width: 900px;
-        margin-left: auto;
-        margin-right: auto;
     }
 
     .trust-item {
         text-align: center;
-        padding: 28px 18px;
-        background: rgba(64, 196, 255, 0.08);
-        border-radius: 12px;
-        border: 1.6px solid rgba(64,196,255,0.25);
-        transition: all 0.25s ease;
-        min-height: 100px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
+        padding: 25px 15px;
+        background: rgba(64, 196, 255, 0.1);
+        border-radius: 15px;
+        border: 2px solid #40c4ff;
+        transition: all 0.3s ease;
     }
 
     .trust-item:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 10px 24px rgba(64, 196, 255, 0.18);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(64, 196, 255, 0.3);
     }
 
     .trust-number {
         font-size: 42px;
         font-weight: 900;
         color: #40c4ff;
-        line-height: 1;
         margin-bottom: 10px;
     }
 
@@ -563,25 +553,18 @@
         font-weight: 600;
     }
 
-    /* 애니메이션 시 약간의 강조 */
-    .trust-number.counting {
-        transform-origin: center;
-    }
-
-    /* 핵심 메시지 리스트 */
+    /* 핵심 메시지 */
     .final-message-list {
         margin: 30px 0;
     }
-
     .final-message-item {
         color: #ffffff;
         font-size: 15px;
         line-height: 1.8;
-        margin-bottom: 15px;
+        margin-bottom: 12px;
         padding-left: 25px;
         position: relative;
     }
-
     .final-message-item::before {
         content: "✓";
         position: absolute;
@@ -590,28 +573,26 @@
         font-size: 18px;
         font-weight: bold;
     }
-
     .message-strong {
         color: #40c4ff;
         font-weight: 700;
     }
 
-    /* 클로징 메시지 */
+    /* 클로징 */
     .final-closing {
         text-align: center;
         margin-top: 40px;
-        padding: 24px 12px;
-        background: rgba(64, 196, 255, 0.04);
+        padding: 25px 15px;
+        background: rgba(64, 196, 255, 0.05);
         border-radius: 10px;
-        border: 1px solid rgba(64,196,255,0.18);
+        border: 1px solid #40c4ff;
     }
 
     .closing-text {
         font-size: 16px;
         color: #ffffff;
-        line-height: 1.6;
+        line-height: 1.8;
         font-weight: 600;
-        margin-bottom: 14px;
     }
 
     .closing-highlight {
@@ -622,56 +603,42 @@
         margin-top: 10px;
     }
 
-    /* 신뢰 뱃지 */
     .trust-badges {
         display: flex;
         justify-content: center;
         gap: 10px;
-        margin-top: 14px;
+        margin-top: 15px;
         flex-wrap: wrap;
     }
-
     .trust-badge {
-        display: inline-block;
-        padding: 6px 12px;
-        background: rgba(64, 196, 255, 0.12);
-        border: 1px solid rgba(64,196,255,0.2);
-        border-radius: 18px;
+        padding: 6px 15px;
+        background: rgba(64, 196, 255, 0.15);
+        border: 1px solid #40c4ff;
+        border-radius: 20px;
         color: #40c4ff;
         font-size: 11px;
         font-weight: 700;
-        letter-spacing: 0.4px;
     }
 
-    /* 반응형 (모바일에서 3열 유지하되 박스 작게) */
+    /* 모바일 최적화 */
     @media (max-width: 768px) {
-        .final-brand-title { font-size: 22px; }
         .trust-indicators {
-            grid-template-columns: repeat(3, 1fr); /* 요청하신 3열 유지 */
-            gap: 10px;
-            max-width: 100%;
-            padding: 0 8px;
+            grid-template-columns: 1fr;
         }
         .trust-item {
-            padding: 14px 8px;
-            border-radius: 10px;
-            min-height: 72px;
+            padding: 20px 10px;
         }
         .trust-number {
-            font-size: 22px;
-            font-weight: 900;
-            margin-bottom: 6px;
+            font-size: 32px;
         }
         .trust-label {
-            font-size: 11px;
+            font-size: 14px;
         }
-        .final-message-item { font-size: 14px; padding-left: 18px; }
-        .closing-text { font-size: 14px; }
     }
 </style>
 
 <div class="final-cta-section" id="icemaker-s07-anchor">
-    <!-- 메인 타이틀 -->
+
     <div class="final-main-title">
         <h3 class="final-brand-title">
             왜 <span class="final-brand-highlight">클린메이트</span>를 선택해야 하는가?
@@ -681,7 +648,6 @@
     <!-- 신뢰 지표 -->
     <div class="trust-indicators">
         <div class="trust-item">
-            <!-- 주의: 내부 텍스트는 초기값(숫자 + 접미사)로 남겨도 됩니다. data-* 속성이 동작의 기준입니다 -->
             <div class="trust-number" data-start="1" data-end="10" data-suffix="년">1년</div>
             <div class="trust-label">검증된 기술력</div>
         </div>
@@ -695,35 +661,36 @@
         </div>
     </div>
 
-    <!-- 핵심 메시지 -->
+    <!-- 메시지 -->
     <div class="final-message-list">
         <div class="final-message-item">
-            <span class="message-strong">제조사별 맞춤 전문 관리</span> – 호시자키, 마니톨, 스코트맨 등 모든 제조사의 구조적 특성을 정확히 파악하고, 귀사의 제빙기 모델에 최적화된 분해·세척·항균 프로세스를 제공합니다.
+            <span class="message-strong">제조사별 맞춤 전문 관리</span> – 호시자키, 마니톨, 스코트맨 등 모든 제조사의 구조적 특성을 정확히 파악하여 최적화된 세척·항균 프로세스를 제공합니다.
         </div>
         <div class="final-message-item">
-            <span class="message-strong">과학적 데이터 기반 관리</span> – ATP 바이오 측정을 통해 작업 전후 오염도를 수치로 증명하고, 모든 관리 이력을 체계적으로 기록하여 식품위생 점검 시 명확한 근거자료를 제공합니다.
+            <span class="message-strong">과학적 데이터 기반 관리</span> – ATP 바이오 측정으로 작업 전후 오염도를 수치로 증명하며 위생 점검 시 근거자료로 활용됩니다.
         </div>
         <div class="final-message-item">
-            <span class="message-strong">장비 수명 연장</span> – 스케일 제거와 예방 정비를 통해 고장률을 90% 감소시키고, 전력 소비를 20~40% 절감하여 장기적인 운영 비용을 대폭 절감합니다.
+            <span class="message-strong">장비 수명 연장</span> – 스케일 제거 및 예방 정비로 고장률을 낮추고 전력 소비를 절감합니다.
         </div>
         <div class="final-message-item">
-            <span class="message-strong">290개 이상 협력사의 신뢰</span> – 특급호텔, 대형 프랜차이즈, 병원급 의료시설에서 10년간 검증된 기술력과 서비스로 지속적인 파트너십을 유지하고 있습니다.
+            <span class="message-strong">290개 이상 협력사의 신뢰</span> – 특급호텔, 프랜차이즈, 병원 등에서 10년간 검증된 기술력.
         </div>
         <div class="final-message-item">
-            <span class="message-strong">맞춤형 관리 주기 설계</span> – 귀사의 사용 환경, 제빙량, 물 경도를 분석하여 과도한 비용 없이 가장 효율적인 관리 주기를 제안합니다.
+            <span class="message-strong">맞춤형 관리 주기 설계</span> – 환경, 제빙량, 물 경도에 맞춰 최적의 관리주기를 제안합니다.
         </div>
     </div>
 
-    <!-- 클로징 메시지 -->
+    <!-- 클로징 -->
     <div class="final-closing">
         <p class="closing-text">
-            제빙기는 단순한 가전이 아닌,<br>
-            고객 신뢰와 식품 안전을 책임지는 핵심 장비입니다.
+            제빙기는 단순한 장비가 아니라<br>
+            고객 신뢰와 식품 안전을 책임지는 핵심 설비입니다.
             <span class="closing-highlight">
                 클린메이트는 10년의 현장 경험과 과학적 데이터를 바탕으로<br>
-                귀사에게 가장 적합한 위생 관리 솔루션을 자신 있게 제안합니다.
+                최고의 위생 관리 솔루션을 제공합니다.
             </span>
         </p>
+
         <div class="trust-badges">
             <span class="trust-badge">식품안전 우선</span>
             <span class="trust-badge">친환경 세제</span>
@@ -733,113 +700,53 @@
     </div>
 </div>
 
-<!-- ==================== [VVIP 대응팀 이미지] 섹션 시작 ==================== -->
+<!-- ==================== [VVIP 이미지] ==================== -->
 <img src="imege/vv01.jpg" alt="VVIP 대응팀" style="width:100%; display:block; margin-top: 30px;"/>
 <p class="image-caption">VVIP 대응팀</p>
-<!-- ==================== [VVIP 대응팀 이미지] 섹션 끝 ==================== -->
 
-<!-- ==================== 숫자 카운트 애니메이션 JS (페이즈: 일시정지/이어하기 지원) ==================== -->
+
+<!-- ==================== 숫자 카운팅 스크립트 ==================== -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-    // 관찰 대상 : .trust-item (숫자 박스를 관찰해서 보일 때/안 보일 때 컨트롤)
-    const items = document.querySelectorAll(".trust-item");
+    const counters = document.querySelectorAll(".trust-number");
 
-    // 각 항목에 상태 저장
-    items.forEach(item => {
-        const numberEl = item.querySelector(".trust-number");
-        if (!numberEl) return;
+    function animateCount(counter) {
+        const start = parseInt(counter.getAttribute("data-start"));
+        const end = parseInt(counter.getAttribute("data-end"));
+        const suffix = counter.getAttribute("data-suffix") || "";
+        
+        let current = start;
+        if (counter.classList.contains("counting")) return;
+        counter.classList.add("counting");
 
-        // 설정값
-        const start = Number(numberEl.getAttribute("data-start")) || 0;
-        const end = Number(numberEl.getAttribute("data-end")) || start;
-        const suffix = numberEl.getAttribute("data-suffix") || "";
+        const duration = 1200;
+        const frameRate = 15;
+        const increment = (end - start) / (duration / frameRate);
 
-        // 상태 저장 객체
-        const state = {
-            start,
-            end,
-            suffix,
-            current: start,
-            duration: 1400, // 총 애니메이션 시간(밀리초)
-            rafId: null,
-            lastTime: null,
-            progress: 0, // 0~1
-            running: false
-        };
-
-        // 초기 텍스트를 start로 세팅 (보이는 텍스트 형식 통일)
-        numberEl.textContent = state.start + state.suffix;
-        numberEl.dataset._state = JSON.stringify(state);
-
-        // 애니메이션 프레임 함수 (시간 기반)
-        function frame(timestamp) {
-            if (!state.lastTime) state.lastTime = timestamp;
-            const dt = timestamp - state.lastTime;
-            state.lastTime = timestamp;
-
-            // progress 증가 (dt / duration)
-            state.progress += dt / state.duration;
-            if (state.progress > 1) state.progress = 1;
-
-            // ease-out (간단한 easing)
-            const eased = 1 - Math.pow(1 - state.progress, 3);
-
-            const value = Math.round(state.start + (state.end - state.start) * eased);
-            state.current = value;
-            numberEl.textContent = value + state.suffix;
-
-            if (state.progress < 1) {
-                state.rafId = requestAnimationFrame(frame);
-            } else {
-                // 완료 처리
-                state.running = false;
-                state.lastTime = null;
-                state.rafId = null;
-                // 보너스: 완료 시 강조 클래스를 잠깐 줌 (선택사항)
-                numberEl.classList.remove("counting");
+        const timer = setInterval(() => {
+            current += increment;
+            if (current >= end) {
+                current = end;
+                clearInterval(timer);
+                counter.classList.remove("counting");
             }
-        }
+            counter.textContent = Math.floor(current) + suffix;
+        }, frameRate);
+    }
 
-        // 시작(또는 이어서 재생)
-        function startAnim() {
-            // 이미 끝난 경우 아무것도 안 함
-            if (state.current >= state.end) return;
-
-            if (state.running) return; // 이미 실행중이면 중복 방지
-            state.running = true;
-            numberEl.classList.add("counting");
-            // raf 시작 (timestamp 전달됨)
-            state.rafId = requestAnimationFrame(frame);
-        }
-
-        // 일시정지
-        function pauseAnim() {
-            if (state.rafId) {
-                cancelAnimationFrame(state.rafId);
-                state.rafId = null;
-                state.running = false;
-                state.lastTime = null;
-            }
-        }
-
-        // IntersectionObserver 콜백에서는 보일 때 startAnim, 안 보일 때 pauseAnim
-        const io = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(
+        entries => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    startAnim();
-                } else {
-                    pauseAnim();
+                    animateCount(entry.target);
                 }
             });
-        }, { threshold: 0.3 });
+        },
+        { threshold: 0.5 }
+    );
 
-        io.observe(item);
-
-        // 선택사항: 화면을 완전히 빠져나갔을 때 (페이지 이동 등) 상태를 초기화하려면 여기서 처리 가능.
-        // 예: 아이템이 재표시될 때 처음부터 다시 실행하게 하려면 state.progress = 0; state.current = start; numberEl.textContent = start + suffix;
-    }); // items.forEach
+    counters.forEach(counter => observer.observe(counter));
 });
 </script>
-
     </div>
 </div>
