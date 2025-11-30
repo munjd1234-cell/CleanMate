@@ -11,624 +11,319 @@
     font-family: 'Pretendard', sans-serif;
     background-color: #111;
     color: #fff;
+    overflow-x: hidden;
   }
 
-//* ▼▼▼▼▼ [CSS] 디지털 스캐너 디자인 (여기부터 복사) ▼▼▼▼▼ */
+  /* =========================================
+     [1. NEW 인트로 스타일 (사이버네틱)]
+     ========================================= */
+  #intro-screen {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
+      background-color: #000;
+      display: flex; justify-content: center; align-items: center;
+      z-index: 9999; overflow: hidden;
+      transition: opacity 0.8s ease-out;
+  }
+  #intro-screen.fade-out { opacity: 0; pointer-events: none; }
 
-/* 1. 배너 영역 설정 */
-.visual-hero-banner {
-    /* [핵심 수정] 부모 폭 무시하고 화면 꽉 채우기 */
-    width: 100vw;
-    position: relative;
-    left: 50%;
-    margin-left: -50vw;
-    
-    height: auto;   /* 높이 제한 해제 */
-    padding: 80px 0; /* 위아래 여백을 주어 PC에서 시원하게 보이게 함 */
-    
-    margin-top: 0px;
-    margin-bottom: 0px;
-    overflow: hidden;
-    background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
-    border-bottom: 1px solid #333;
-
-    /* 내용물 중앙 정렬 */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-/* ▲▲▲ 여기까지 ▲▲▲ */
-/* 아래 '제안 배경' 제목과 거리 벌리기 (구분감 주기 위해) */
-.visual-hero-banner + h3 {
-    margin-top: 40px !important;
-}
-
-/* 2. [핵심] 테크 스캔 박스 디자인 */
-.tech-scan-container {
-    position: relative;
-    width: 90%;
-    max-width: 1000px; /* PC 대응을 위해 넓힘 */
-    
-    /* ... 나머지 코드는 그대로 두세요 ... */
-    
-    /* 배경: 모눈종이(Grid) 패턴으로 '장비 화면' 느낌 냄 */
-    background-color: #0a0a0a;
-    background-image: 
-        linear-gradient(rgba(0, 191, 165, 0.1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(0, 191, 165, 0.1) 1px, transparent 1px);
-    background-size: 20px 20px;
-    
-    /* 테두리: 민트색으로 전체를 두름 (왼쪽 바 삭제함) */
-    border: 2px solid #00bfa5;
-    border-radius: 10px;
-    
-    /* 네온 사인처럼 빛나는 효과 */
-    box-shadow: 0 0 15px rgba(0, 191, 165, 0.4), inset 0 0 20px rgba(0, 191, 165, 0.1);
-    
-    padding: 30px 20px;
-    text-align: center;
-}
-
-/* 3. 스캔 라인 (위에서 아래로 움직이는 빛) */
-.scan-line {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100%; height: 2px;
-    background: #00bfa5;
-    box-shadow: 0 0 10px #00bfa5;
-    opacity: 0.7;
-    animation: scanning 3s linear infinite;
-}
-
-/* 4. 텍스트 스타일 */
-.system-alert {
-    display: block;
-    color: #ff5252; /* 빨간색 경고 */
-    font-size: 12px;
-    font-weight: bold;
-    letter-spacing: 2px;
-    margin-bottom: 10px;
-    animation: blink 1s infinite;
-}
-
-.tech-title {
-    color: #fff;
-    font-size: 24px;
-    line-height: 1.5;
-    margin: 0;
-    font-weight: 700;
-    text-shadow: 0 2px 5px rgba(0,0,0,0.8);
-}
-
-/* "세균과 곰팡이" - 약간 흐릿하게 연출 */
-.virus-text {
-    color: #ccc;
-    font-weight: 400;
-}
-
-/* "위생 공간" - 민트색 형광 */
-.safe-zone-text {
-    color: #00bfa5;
-    font-weight: 900;
-    font-size: 28px;
-    text-decoration: underline;
-    text-underline-offset: 5px;
-}
-
-/* "안전합니까?" - 큼지막하게 */
-.ask-text {
-    display: block;
-    margin-top: 10px;
-    font-size: 32px;
-    font-weight: 900;
-    color: #fff;
-}
-
-/* 장식용 버튼 모양 (클릭 유도 느낌) */
-.check-btn {
-    margin-top: 20px;
-    display: inline-block;
-    background: rgba(0, 191, 165, 0.2);
-    border: 1px solid #00bfa5;
-    color: #00bfa5;
-    padding: 8px 20px;
-    font-size: 12px;
-    font-weight: bold;
-    border-radius: 4px;
-}
-
-/* --- 애니메이션 정의 --- */
-@keyframes scanning {
-    0% { top: 0%; opacity: 0; }
-    10% { opacity: 1; }
-    90% { opacity: 1; }
-    100% { top: 100%; opacity: 0; }
-}
-
-@keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-/* ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ */
-
-  
-  /* --- [인트로 화면] --- */
-/* --- [인트로 화면: 오버레이 스타일] --- */
-#intro-screen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100vh;
-    background-color: #000;
-    display: flex; justify-content: center; align-items: center;
-    z-index: 9999; overflow: hidden;
-    transition: opacity 0.8s;
-}
-#intro-screen.fade-out { opacity: 0; }
-
-/* 배경 사진 */
-.bg-photo {
-    position: absolute;
-    width: 300px; /* 사진 크기 */
-    height: auto;
-    border-radius: 40px; /* 둥근 모서리 */
-    opacity: 0.8;
-    filter: brightness(0.6); /* 사진을 어둡게 (글자 잘 보이게) */
-    box-shadow: 0 0 50px rgba(0,0,0,0.8);
-}
-
-/* 글자 컨테이너 */
-.text-center-box {
-    position: relative;
-    z-index: 10;
-    text-align: center;
-    width: 100%;
-}
-
-/* 글자 공통 */
-.intro-item {
-    position: absolute;
-    left: 50%; top: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    opacity: 0;
-    color: #fff;
-    font-size: 26px;
-    font-weight: 700;
-    transition: all 0.4s ease-out;
-    width: 100%;
-}
-
-/* 글자 활성화 */
-.intro-item.active {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1.1); /* 확 커짐 */
-    color: #00bfa5;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-}
-
-/* 사라질 때 */
-.intro-item.visible {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(1.5); /* 더 커지며 사라짐 */
-    filter: blur(5px);
-}
-
-.intro-item.final-phrase.active {
-    font-size: 32px;
-    color: #fff;
-    border: 2px solid #00bfa5;
-    padding: 10px 20px;
-    border-radius: 10px;
-    background: rgba(0,0,0,0.5);
-}
-
-  /* --- [메인 레이아웃] --- */
-  #main-content-wrapper {
-    display: none; 
-    opacity: 0;
-    transition: opacity 0.5s;
-    width: 100%;
+  /* 배경 그리드 */
+  .intro-bg-grid {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background: 
+          linear-gradient(rgba(0, 191, 165, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 191, 165, 0.1) 1px, transparent 1px);
+      background-size: 50px 50px;
+      perspective: 500px;
+      transform-style: preserve-3d;
+      animation: gridMove 20s linear infinite;
+      z-index: 1;
+  }
+  @keyframes gridMove {
+      0% { transform: scale(1.2) rotateX(10deg); background-position: 0 0; }
+      100% { transform: scale(1.0) rotateX(0deg); background-position: 50px 50px; }
   }
 
-  /* --- [HEADER] --- */
+  /* 스캐너 라인 */
+  .intro-scanner-line {
+      position: absolute; top: -10%; left: 0; width: 100%; height: 20px;
+      background: linear-gradient(to bottom, transparent, #00bfa5, transparent);
+      box-shadow: 0 0 50px #00bfa5;
+      opacity: 0.8;
+      z-index: 2;
+      animation: scanDown 2.5s ease-in-out infinite;
+  }
+  @keyframes scanDown { 0% { top: -10%; } 100% { top: 110%; } }
+
+  /* 부유하는 세균 */
+  .intro-germ {
+      position: absolute; width: 60px; height: 60px;
+      background: radial-gradient(circle, #ff0000 20%, transparent 70%);
+      border-radius: 50%; filter: blur(4px); opacity: 0.8;
+      animation: germFloat 2s infinite alternate; z-index: 3;
+  }
+  .ig1 { top: 20%; left: 15%; animation-delay: 0s; }
+  .ig2 { top: 70%; right: 10%; animation-delay: 0.5s; width: 100px; height: 100px;}
+  .ig3 { top: 40%; left: 60%; animation-delay: 1s; }
+  .ig4 { bottom: 10%; left: 30%; animation-delay: 1.5s; width: 40px; height: 40px;}
+
+  @keyframes germFloat { 0% { transform: translateY(0); } 100% { transform: translateY(-20px); } }
+
+  /* 세균 폭발 */
+  .intro-germ.destroyed { animation: germExplode 0.4s forwards !important; }
+  @keyframes germExplode {
+      0% { transform: scale(1); opacity: 1; background: #fff; box-shadow: 0 0 50px #fff; }
+      100% { transform: scale(3); opacity: 0; }
+  }
+
+  /* 텍스트 */
+  .intro-text-wrapper { position: relative; z-index: 10; text-align: center; width: 100%; }
+
+  .intro-word {
+      position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%);
+      font-size: 13vw; font-weight: 900; color: transparent;
+      -webkit-text-stroke: 2px #fff; opacity: 0; white-space: nowrap; letter-spacing: -2px;
+  }
+  @media (min-width: 768px) { .intro-word { font-size: 100px; -webkit-text-stroke: 3px #fff; } }
+
+  .intro-word.active {
+      animation: textGlitchIn 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+      color: #fff; text-shadow: 0 0 20px #00bfa5; -webkit-text-stroke: 0;
+  }
+  .intro-word.exit { animation: textZoomOut 0.3s ease-in forwards; }
+
+  @keyframes textGlitchIn {
+      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.8) skew(20deg); filter: blur(10px); }
+      60% { opacity: 1; transform: translate(-50%, -50%) scale(1.1) skew(-10deg); filter: blur(0); }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1) skew(0); }
+  }
+  @keyframes textZoomOut {
+      0% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(3); filter: blur(20px); }
+  }
+
+  /* 마지막 문구 */
+  .intro-word.final {
+      color: #00bfa5; text-shadow: 0 0 10px #00bfa5, 0 0 30px #00ffcc; font-size: 11vw;
+  }
+  @media (min-width: 768px) { .intro-word.final { font-size: 110px; } }
+
+  .intro-word.final.active {
+      animation: finalAppear 0.1s forwards, finalElectric 0.1s infinite alternate; 
+  }
+  @keyframes finalAppear { from {opacity:0;} to {opacity:1;} }
+  @keyframes finalElectric {
+      0% { text-shadow: 0 0 10px #00bfa5, 4px 4px 0 #ff00de; transform: translate(-51%, -50%); }
+      100% { text-shadow: 0 0 20px #00bfa5, -4px -4px 0 #ff00de; transform: translate(-49%, -50%); }
+  }
+
+  /* 번개 효과 */
+  .intro-lightning {
+      position: absolute; top: 50%; left: 50%; width: 150vw; height: 150vh;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(255,255,255,0.8) 0%, transparent 70%);
+      opacity: 0; z-index: 5; pointer-events: none; mix-blend-mode: overlay;
+  }
+  .intro-lightning.flash { animation: lightningFlash 0.6s linear infinite; }
+  @keyframes lightningFlash {
+      0% { opacity: 0; background-color: transparent; }
+      10% { opacity: 1; background-color: rgba(255,255,255,0.9); }
+      20% { opacity: 0; }
+      100% { opacity: 0; }
+  }
+
+
+  /* =========================================
+     [2. 메인 배너 스타일 (PC 최적화 포함)]
+     ========================================= */
+  .visual-hero-banner {
+      width: 100vw;
+      position: relative; left: 50%; margin-left: -50vw;
+      height: auto;   /* 높이 제한 해제 */
+      padding: 80px 0; /* PC 최적화 여백 */
+      margin-top: 0px; margin-bottom: 0px;
+      overflow: hidden;
+      background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
+      border-bottom: 1px solid #333;
+      display: flex; justify-content: center; align-items: center;
+  }
+  .visual-hero-banner + h3 { margin-top: 40px !important; }
+
+  .tech-scan-container {
+      position: relative; width: 90%; max-width: 1000px; /* PC 최적화 너비 */
+      background-color: #0a0a0a;
+      background-image: 
+          linear-gradient(rgba(0, 191, 165, 0.1) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(0, 191, 165, 0.1) 1px, transparent 1px);
+      background-size: 20px 20px;
+      border: 2px solid #00bfa5; border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0, 191, 165, 0.4), inset 0 0 20px rgba(0, 191, 165, 0.1);
+      padding: 30px 20px; text-align: center;
+  }
+
+  .scan-line {
+      position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+      background: #00bfa5; box-shadow: 0 0 10px #00bfa5; opacity: 0.7;
+      animation: scanning 3s linear infinite;
+  }
+
+  .system-alert {
+      display: block; color: #ff5252; font-size: 12px; font-weight: bold;
+      letter-spacing: 2px; margin-bottom: 10px; animation: blink 1s infinite;
+  }
+  .tech-title {
+      color: #fff; font-size: 24px; line-height: 1.5; margin: 0;
+      font-weight: 700; text-shadow: 0 2px 5px rgba(0,0,0,0.8);
+  }
+  .virus-text { color: #ccc; font-weight: 400; }
+  .safe-zone-text { color: #00bfa5; font-weight: 900; font-size: 28px; text-decoration: underline; text-underline-offset: 5px; }
+  .ask-text { display: block; margin-top: 10px; font-size: 32px; font-weight: 900; color: #fff; }
+  .check-btn {
+      margin-top: 20px; display: inline-block; background: rgba(0, 191, 165, 0.2);
+      border: 1px solid #00bfa5; color: #00bfa5; padding: 8px 20px;
+      font-size: 12px; font-weight: bold; border-radius: 4px;
+  }
+
+  @keyframes scanning {
+      0% { top: 0%; opacity: 0; } 10% { opacity: 1; } 90% { opacity: 1; } 100% { top: 100%; opacity: 0; }
+  }
+  @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0.3; } }
+
+
+  /* --- [메인 레이아웃 및 헤더] --- */
+  #main-content-wrapper { display: none; opacity: 0; transition: opacity 0.5s; width: 100%; }
+
   header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    background: #fff;
-    display: block; /* 내부 flex 처리를 위해 block으로 변경 */
-    padding: 10px 0 15px 0; 
-    z-index: 1000;
-    box-sizing: border-box;
+    position: fixed; top: 0; left: 0; width: 100%; background: #fff;
+    display: block; padding: 10px 0 15px 0; z-index: 1000; box-sizing: border-box;
   }
-  
   .header-top {
-      display: flex;
-      justify-content: space-between; /* 로고와 새 로고를 양 끝에 배치 */
-      align-items: center;
-      width: 100%;
-      padding: 0 15px; 
-      box-sizing: border-box;
+      display: flex; justify-content: space-between; align-items: center;
+      width: 100%; padding: 0 15px; box-sizing: border-box;
   }
-
-  .header-left-content {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start; /* 기존 로고와 문구 왼쪽 정렬 */
+  .header-left-content { display: flex; flex-direction: column; align-items: flex-start; }
+  .main-logo-img { height: 45px; cursor: pointer; } 
+  .header-text { margin: 5px 0 0 0; font-size: 14px; color: #333; font-weight: bold; text-align: left; }
+  .header-right-logo-box {
+      display: block; padding: 3px; border: 1px solid #ccc; border-radius: 5px;
+      line-height: 0; cursor: pointer; flex-shrink: 0;
   }
-
-  .main-logo-img { /* 기존 로고: logo2.png */
-      height: 45px; 
-      cursor: pointer; 
-  } 
-  
-  .header-text { /* 기존 h2 문구 */
-    margin: 5px 0 0 0; 
-    font-size: 14px;
-    color: #333;
-    font-weight: bold;
-    text-align: left; /* 왼쪽 정렬 */
-  }
-
-  .header-right-logo-box { /* 새 로고 컨테이너: top_logo.jpg */
-      display: block;
-      padding: 3px;
-      border: 1px solid #ccc; /* 박스 처리 */
-      border-radius: 5px;
-      line-height: 0; 
-      cursor: pointer;
-      flex-shrink: 0;
-  }
-  
-  .header-right-logo-box img { /* 새 로고 이미지 */
-      height: 22.5px; /* 기존 로고 (45px)의 1/2 크기 */
-      width: auto;
-      display: block;
-      margin: 0;
-  }
+  .header-right-logo-box img { height: 22.5px; width: auto; display: block; margin: 0; }
 
   /* --- [메뉴바] --- */
   .main-menu {
-    position: fixed;
-    top: 79px; 
-    left: 0;
-    width: 100%;
-    background: #222;
-    display: flex;
-    flex-wrap: nowrap; 
-    justify-content: space-around;
-    border-bottom: 1px solid #444;
-    z-index: 1000;
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch;
+    position: fixed; top: 79px; left: 0; width: 100%; background: #222;
+    display: flex; flex-wrap: nowrap; justify-content: space-around;
+    border-bottom: 1px solid #444; z-index: 1000; overflow-x: auto; -webkit-overflow-scrolling: touch;
   }
   .menu-btn {
-    padding: 12px 5px; 
-    color: #ccc;
-    text-decoration: none;
-    font-size: 13px; 
-    flex-shrink: 0; 
-    flex-grow: 1;
-    text-align: center;
-    border-left: 1px solid #444;
-    cursor: pointer;
+    padding: 12px 5px; color: #ccc; text-decoration: none; font-size: 13px; 
+    flex-shrink: 0; flex-grow: 1; text-align: center; border-left: 1px solid #444; cursor: pointer;
   }
-  .menu-btn:first-child {
-    border-left: none;
-  }
-  .menu-btn.active {
-    background-color: #00bfa5;
-    color: #fff;
-  }
-
+  .menu-btn:first-child { border-left: none; }
+  .menu-btn.active { background-color: #00bfa5; color: #fff; }
 
   main {
-    margin-top: 126px; 
-    margin-bottom: 80px; 
-    min-height: calc(100vh - 126px - 80px); 
-    height: auto;
-    overflow-y: visible; 
-    text-align: center;
-    padding: 0 15px; 
-    box-sizing: border-box;
+    margin-top: 126px; margin-bottom: 80px; min-height: calc(100vh - 126px - 80px); 
+    height: auto; overflow-y: visible; text-align: center; padding: 0 15px; box-sizing: border-box;
   }
 
-  /* --- [하단 고정 버튼 4개] --- */
+  /* --- [하단 고정 버튼] --- */
   .fixed-buttons {
-    position: fixed;
-    bottom: 35px; 
-    left: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    z-index: 999;
-    padding: 0 5px;
-    box-sizing: border-box;
+    position: fixed; bottom: 35px; left: 0; width: 100%; display: flex; justify-content: center;
+    gap: 5px; z-index: 999; padding: 0 5px; box-sizing: border-box;
   }
-
   .fixed-buttons button {
-    flex: 1; 
-    border: none;
-    border-radius: 10px;
-    padding: 12px 0;
-    font-size: 13px;
-    font-weight: bold;
-    cursor: pointer;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-    white-space: nowrap;
+    flex: 1; border: none; border-radius: 10px; padding: 12px 0; font-size: 13px; font-weight: bold;
+    cursor: pointer; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3); white-space: nowrap;
   }
-
-  .btn-primary {
-      background: #00bfa5;
-      color: white;
-  }
-  
-  /* 하단 버튼 활성화 상태 */
-  .btn-primary.active {
-      background: #008f7a;
-      box-shadow: inset 0 2px 5px rgba(0,0,0,0.3);
-  }
-
-  .btn-proposal-bottom {
-      background: #455a64; 
-      color: white;
-  }
+  .btn-primary { background: #00bfa5; color: white; }
+  .btn-primary.active { background: #008f7a; box-shadow: inset 0 2px 5px rgba(0,0,0,0.3); }
+  .btn-proposal-bottom { background: #455a64; color: white; }
 
   /* --- [푸터] --- */
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: #000;
-  color: #666;
-  font-size: 11px;
-  height: 30px;
-  line-height: 30px;
-  z-index: 998;
-  overflow: hidden;
-  white-space: nowrap;
-  border-top: 1px solid #222;
-}
-
-.scroll-text {
-  display: flex;          /* 가로로 정렬 */
-  width: max-content;     /* 글자 길이만큼 폭 확보 */
-  animation: marquee 40s linear infinite; /* 40초 동안 흐름 */
-}
-
-/* 글자 덩어리 사이의 간격 */
-.scroll-text span {
-    padding-right: 50px; 
-}
-
-/* 왼쪽으로 50%(절반)만 이동해서 무한반복 효과 냄 */
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); } 
-}
+  footer {
+    position: fixed; bottom: 0; left: 0; width: 100%; background: #000; color: #666;
+    font-size: 11px; height: 30px; line-height: 30px; z-index: 998;
+    overflow: hidden; white-space: nowrap; border-top: 1px solid #222;
+  }
+  .scroll-text { display: flex; width: max-content; animation: marquee 40s linear infinite; }
+  .scroll-text span { padding-right: 50px; }
+  @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
 
   /* --- [공통 콘텐츠 스타일] --- */
   .solution-content-wrapper { 
-    text-align: left;
-    max-width: 1000px; 
-    margin: 0 auto;
-    line-height: 1.6;
-    color: #ccc;
-    padding: 0 1% 30px; 
+    text-align: left; max-width: 1000px; margin: 0 auto; line-height: 1.6; color: #ccc; padding: 0 1% 30px; 
   }
-  
-  .solution-content-wrapper.active h2, 
-  .solution-content-wrapper.active h3, 
-  .solution-content-wrapper.active h4 {
-      background: none !important;
-      border: none !important;
-      box-shadow: none !important;
-      padding: 0 !important;
-      margin: 40px auto 15px auto !important; 
-      width: 100% !important; 
-      max-width: 100% !important;
-      color: #fff !important; 
-      text-align: center !important;
-      display: block;
-      font-weight: 700;
-      font-size: 20px; 
+  .solution-content-wrapper.active h2, .solution-content-wrapper.active h3, .solution-content-wrapper.active h4 {
+      background: none !important; border: none !important; box-shadow: none !important; padding: 0 !important;
+      margin: 40px auto 15px auto !important; width: 100% !important; max-width: 100% !important;
+      color: #fff !important; text-align: center !important; display: block; font-weight: 700; font-size: 20px; 
   }
-
-  .solution-content-wrapper p { font-size: 15px; }
-  .solution-content-wrapper ul li { font-size: 15px; }
-  .solution-content-wrapper ul.bullet-list li { font-size: 15px; }
+  .solution-content-wrapper p, .solution-content-wrapper ul li, .solution-content-wrapper ul.bullet-list li { font-size: 15px; }
   
   .solution-content-wrapper.active h2 {
-      font-size: 24px; 
-      color: #00bfa5 !important;
-      border-top: 2px solid #00bfa5;
-      border-bottom: 2px solid #00bfa5;
-      padding: 15px 20px !important;
-      margin-top: 15px !important;
-      margin-bottom: 10px !important; 
-      width: fit-content !important;
-      max-width: 90% !important;
-      box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
+      font-size: 24px; color: #00bfa5 !important; border-top: 2px solid #00bfa5; border-bottom: 2px solid #00bfa5;
+      padding: 15px 20px !important; margin-top: 15px !important; margin-bottom: 10px !important; 
+      width: fit-content !important; max-width: 90% !important; box-shadow: 0 0 10px rgba(0, 191, 165, 0.3); 
   }
-  
   .solution-content-wrapper.active h3 {
-      text-align: left !important;
-      color: #fff !important;
-      font-size: 17px;
-      background-color: #222 !important; 
-      border-left: 5px solid #00bfa5 !important;
-      padding: 10px 15px !important;
-      border-radius: 0 5px 5px 0; 
-      margin: 20px auto 20px 0 !important; 
-      width: fit-content !important; 
-      max-width: 90% !important;
+      text-align: left !important; color: #fff !important; font-size: 17px; background-color: #222 !important; 
+      border-left: 5px solid #00bfa5 !important; padding: 10px 15px !important; border-radius: 0 5px 5px 0; 
+      margin: 20px auto 20px 0 !important; width: fit-content !important; max-width: 90% !important;
   }
-  
-  .solution-content-wrapper.active h4,
-  .solution-content-wrapper.active .sub-heading-left {
-      color: #00bfa5 !important; 
-      font-size: 15px;
-      border-bottom: 1px dashed #00bfa5 !important;
-      padding-bottom: 5px !important;
-      margin: 25px auto 10px 0 !important;
-      text-align: left !important; 
-      width: 100% !important;
+  .solution-content-wrapper.active h4, .solution-content-wrapper.active .sub-heading-left {
+      color: #00bfa5 !important; font-size: 15px; border-bottom: 1px dashed #00bfa5 !important;
+      padding-bottom: 5px !important; margin: 25px auto 10px 0 !important; text-align: left !important; width: 100% !important;
   }
-
   .solution-content-wrapper .image-caption {
-      font-size: 12px;
-      color: #888;
-      margin-top: -10px; 
-      margin-bottom: 10px; 
-      text-align: center;
-      display: block;
+      font-size: 12px; color: #888; margin-top: -10px; margin-bottom: 10px; text-align: center; display: block;
   }
-
   .solution-content-wrapper strong { color: #00bfa5; }
-  .solution-content-wrapper ul {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 30px;
-  }
+  .solution-content-wrapper ul { list-style: none; padding: 0; margin: 10px 0 30px; }
   .solution-content-wrapper ul li {
-    background: #222;
-    margin-bottom: 8px;
-    padding: 8px 15px;
-    border-radius: 5px;
-    border-left: 4px solid #00bfa5;
-    font-size: 15px;
+    background: #222; margin-bottom: 8px; padding: 8px 15px; border-radius: 5px; border-left: 4px solid #00bfa5; font-size: 15px;
   }
   .solution-content-wrapper ul.bullet-list li {
-    list-style: disc;
-    margin-left: 20px;
-    background: none;
-    border-left: none;
-    padding: 0;
-    font-size: 15px;
-    color: #ccc;
+    list-style: disc; margin-left: 20px; background: none; border-left: none; padding: 0; font-size: 15px; color: #ccc;
   }
   
   /* --- [서브 메뉴] --- */
   .sub-menu {
-    display: flex;
-    justify-content: flex-start;
-    gap: 5px;
-    margin-bottom: 20px;
-    padding: 10px 0;
-    border-bottom: 1px solid #444;
-    overflow-x: auto; 
-    -webkit-overflow-scrolling: touch;
-    position: sticky; 
-    top: 0; 
-    background: #111;
-    z-index: 900;
+    display: flex; justify-content: flex-start; gap: 5px; margin-bottom: 20px; padding: 10px 0;
+    border-bottom: 1px solid #444; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    position: sticky; top: 0; background: #111; z-index: 900;
   }
   .sub-btn {
-    background-color: #333;
-    border: 1px solid #444;
-    color: #ccc;
-    padding: 8px 15px;
-    border-radius: 5px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: all 0.2s;
-    white-space: nowrap; 
-    flex-shrink: 0; 
+    background-color: #333; border: 1px solid #444; color: #ccc; padding: 8px 15px;
+    border-radius: 5px; font-size: 13px; cursor: pointer; transition: all 0.2s; white-space: nowrap; flex-shrink: 0; 
   }
-  .sub-btn.active {
-    background-color: #00bfa5;
-    color: #fff;
-    border-color: #00bfa5;
-    font-weight: bold;
-  }
+  .sub-btn.active { background-color: #00bfa5; color: #fff; border-color: #00bfa5; font-weight: bold; }
+  .sub-content { display: none; line-height: 1.6; padding: 10px 0 30px; animation: fadeIn 0.3s ease-in-out; text-align: center; }
+  .sub-content.active { display: block; }
 
-  .sub-content {
-      display: none;
-      line-height: 1.6;
-      padding: 10px 0 30px;
-      animation: fadeIn 0.3s ease-in-out;
-      text-align: center; 
-  }
-  .sub-content.active {
-      display: block;
-  }
-
-  /* ---  --- */
+  /* --- [이미지 갤러리] --- */
   .solution-content-wrapper img {
-    max-width: 100%; 
-    height: auto;    
-    display: block;  
-    margin: 15px auto;
-    border-radius: 6px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    max-width: 100%; height: auto; display: block; margin: 15px auto; border-radius: 6px; box-shadow: 0 4px 8px rgba(0,0,0,0.3);
   }
-  
-  .seven-image-gallery {
-    display: block; 
-    padding: 10px 0;
-    text-align: center;
-  }
-  .seven-image-gallery > div {
-      display: block; 
-      width: 100%;
-      margin-bottom: 25px; 
-      overflow: hidden; 
-  }
-  .seven-image-gallery img {
-    max-width: 100%; 
-    width: 95%; 
-    height: auto;    
-    margin: 10px auto 15px auto !important; 
-    display: block;
-  }
+  .seven-image-gallery { display: block; padding: 10px 0; text-align: center; }
+  .seven-image-gallery > div { display: block; width: 100%; margin-bottom: 25px; overflow: hidden; }
+  .seven-image-gallery img { max-width: 100%; width: 95%; height: auto; margin: 10px auto 15px auto !important; display: block; }
 
-  /* --- [파트너 로고 1열 세로 롤링] --- */
+  /* --- [파트너 로고] --- */
   .partner-logo-gallery-wrapper {
-      width: 100%;
-      max-width: 300px; 
-      margin: 0 auto;
-      height: 400px; 
-      overflow: hidden; 
-      position: relative;
-      background: transparent;
-      pointer-events: none; 
+      width: 100%; max-width: 300px; margin: 0 auto; height: 400px; 
+      overflow: hidden; position: relative; background: transparent; pointer-events: none; 
   }
-
-  @keyframes scroll-up {
-      0% { transform: translateY(0); }
-      100% { transform: translateY(-50%); } 
-  }
-
   .partner-logo-track {
-      display: flex;
-      flex-direction: column; 
-      width: 100%;
-      animation: scroll-up 20s linear infinite; 
+      display: flex; flex-direction: column; width: 100%; animation: scroll-up 20s linear infinite; 
   }
-
+  @keyframes scroll-up { 0% { transform: translateY(0); } 100% { transform: translateY(-50%); } }
+  
   .partner-item {
-    background-color: #fff; 
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%; 
-    padding: 15px;
-    box-sizing: border-box;
-    margin-bottom: 15px; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    background-color: #fff; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center;
+    width: 100%; padding: 15px; box-sizing: border-box; margin-bottom: 15px; box-shadow: 0 2px 5px rgba(0,0,0,0.3);
   }
-
-  .partner-item img {
-    width: 100%;
-    height: auto;
-    max-height: 80px; 
-    object-fit: contain; 
-    margin: 0 !important; 
-    border-radius: 0;
-    box-shadow: none;
-  }
+  .partner-item img { width: 100%; height: auto; max-height: 80px; object-fit: contain; margin: 0 !important; border-radius: 0; box-shadow: none; }
 
   /* --- [퀴즈 스타일] --- */
   .content-section { display: none; animation: fadeIn 0.3s ease-in-out; }
@@ -638,24 +333,15 @@ footer {
   .question h3 { margin-top: 20px; color: #00bfa5; }
   .options { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-bottom: 20px; }
   .option-button {
-    background: #333; color: #fff; border: 1px solid #555; padding: 10px 15px;
-    border-radius: 20px; cursor: pointer; font-size: 14px;
+    background: #333; color: #fff; border: 1px solid #555; padding: 10px 15px; border-radius: 20px; cursor: pointer; font-size: 14px;
   }
   .option-button.active { background: #00bfa5; border-color: #00bfa5; font-weight: bold; }
   #sendSMS {
-    background: #00bfa5; color: white; border: none; border-radius: 30px;
-    padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 20px;
+    background: #00bfa5; color: white; border: none; border-radius: 30px; padding: 15px 25px; font-size: 16px; cursor: pointer; margin-top: 20px;
   }
   #summary {
-      color: #00bfa5; 
-      font-weight: bold;
-      font-size: 20px;
-      margin: 30px 0;
-      line-height: 1.6;
-      word-break: keep-all;
-      padding: 10px;
-      border-top: 1px solid #333;
-      border-bottom: 1px solid #333;
+      color: #00bfa5; font-weight: bold; font-size: 20px; margin: 30px 0; line-height: 1.6; word-break: keep-all;
+      padding: 10px; border-top: 1px solid #333; border-bottom: 1px solid #333;
   }
 
   /* --- [PC/태블릿] --- */
@@ -664,50 +350,46 @@ footer {
     #intro-screen, #main-content-wrapper { max-width: 1600px; margin: 0 auto; box-shadow: 0 0 20px rgba(0, 0, 0, 0.5); }
     header, .main-menu, .fixed-buttons, footer { width: 100%; max-width: 1600px; left: 50%; transform: translateX(-50%); }
     .menu-btn { font-size: 16px; padding: 15px 10px; }
-    .solution-content-wrapper p, 
-    .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
+    .solution-content-wrapper p, .solution-content-wrapper ul.bullet-list li { font-size: 18px; line-height: 1.8; }
     .solution-content-wrapper ul li { font-size: 18px; padding: 12px 20px; }
     .sub-btn { font-size: 16px; }
 
     .solution-content-wrapper.active h2 { font-size: 32px; padding: 20px 25px !important; }
     .solution-content-wrapper.active h3 { font-size: 22px; padding: 14px 20px !important; margin: 30px auto 30px 0 !important; }
-    .solution-content-wrapper.active h4,
-    .solution-content-wrapper.active .sub-heading-left { font-size: 19px; margin: 35px auto 15px 0 !important; }
+    .solution-content-wrapper.active h4, .solution-content-wrapper.active .sub-heading-left { font-size: 19px; margin: 35px auto 15px 0 !important; }
     
     #sendSMS, .fixed-buttons button { font-size: 18px; padding: 18px 0; }
     footer { font-size: 13px; }
 
     .partner-logo-gallery-wrapper { max-width: 400px; height: 600px; }
     
-    /* PC/태블릿 Header Logo Size 조정 */
-    .main-logo-img { /* PC에서 기존 로고 크기 */
-        height: 60px; 
-    } 
-    
-    .header-right-logo-box img { /* PC에서 새 로고 크기 (1/2) */
-        height: 30px; 
-    }
+    .main-logo-img { height: 60px; } 
+    .header-right-logo-box img { height: 30px; }
   }
 </style>
 </head>
 
 <body>
   
-<div id="intro-screen" class="intro-style-overlay">
-    <!-- 배경 이미지 -->
-    <img src="imege/cm1.jpg" class="bg-photo" alt="Background">
-    <div class="overlay-dim"></div> <!-- 사진 어둡게 하는 막 -->
-    
-    <!-- 중앙 글자 -->
-    <div class="text-center-box">
-        <span class="intro-item">제빙기</span>
-        <span class="intro-item">냉장고</span>
-        <span class="intro-item">전자렌지</span>
-        <span class="intro-item">에어컨</span>
-        <span class="intro-item">위생가전</span>
-        <span class="intro-item final-phrase">VVIP 위생 솔루션</span>
+<!-- [NEW] 인트로 화면 시작 -->
+<div id="intro-screen">
+    <div class="intro-bg-grid"></div>
+    <div class="intro-scanner-line"></div>
+    <div class="intro-germ ig1"></div>
+    <div class="intro-germ ig2"></div>
+    <div class="intro-germ ig3"></div>
+    <div class="intro-germ ig4"></div>
+    <div class="intro-lightning"></div>
+    <div class="intro-text-wrapper">
+        <span class="intro-word">제빙기</span>
+        <span class="intro-word">냉장고</span>
+        <span class="intro-word">전자렌지</span>
+        <span class="intro-word">에어컨</span>
+        <span class="intro-word" style="color:#ff5252; -webkit-text-stroke: 1px #ff5252;">위생가전</span>
+        <span class="intro-word final">VVIP 위생 솔루션</span>
     </div>
 </div>
+<!-- [NEW] 인트로 화면 끝 -->
   
   <div id="main-content-wrapper">
     <header>
@@ -731,33 +413,27 @@ footer {
       <a href="#aircond" class="menu-btn" data-target="aircond-section">에어컨</a>
       <a href="#tech" class="menu-btn" data-target="tech-section">기술력</a>
       <a href="#partner" class="menu-btn" data-target="partner-section">협력사</a> 
-
     </nav>
 
     <main>
       <div id="company-section" class="content-section solution-content-wrapper">
           <h2>위생가전 소독관리</h2>
 
-        
-<!-- ▼▼▼▼▼ [HTML] 디지털 스캐너 스타일 배너 ▼▼▼▼▼ -->
-<div class="visual-hero-banner">
-    <div class="tech-scan-container">
-        <!-- 스캔하는 빛줄기 효과 -->
-        <div class="scan-line"></div>
-        
-        <!-- 텍스트 내용 -->
-        <div class="tech-content">
-            <span class="system-alert">⚠ SYSTEM WARNING</span>
-            <h3 class="tech-title">
-                보이지 않는 <span class="virus-text">세균과 곰팡이</span>,<br>
-                당신의 <span class="safe-zone-text">위생 공간</span>은<br>
-                <span class="ask-text">안전합니까?</span>
-            </h3>
-            <div class="check-btn">CHECK NOW</div>
+        <!-- [HTML] 디지털 스캐너 스타일 배너 -->
+        <div class="visual-hero-banner">
+            <div class="tech-scan-container">
+                <div class="scan-line"></div>
+                <div class="tech-content">
+                    <span class="system-alert">⚠ SYSTEM WARNING</span>
+                    <h3 class="tech-title">
+                        보이지 않는 <span class="virus-text">세균과 곰팡이</span>,<br>
+                        당신의 <span class="safe-zone-text">위생 공간</span>은<br>
+                        <span class="ask-text">안전합니까?</span>
+                    </h3>
+                    <div class="check-btn">CHECK NOW</div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-<!-- ▲▲▲▲▲ 여기까지 ▲▲▲▲▲ -->
     
           <h3 id="company-s01-anchor">제안 배경</h3>
           <p>
@@ -918,36 +594,59 @@ footer {
   </div>
 
 <script>
+    /* =========================================
+       1. 인트로 애니메이션 (Intro Sequence)
+       ========================================= */
     const introScreen = document.getElementById('intro-screen');
     const mainContentWrapper = document.getElementById('main-content-wrapper');
-    const introItems = document.querySelectorAll('.intro-item');
-    let introStep = 0;
-    const scrollText = document.querySelector('.scroll-text');
+    const introWords = document.querySelectorAll('.intro-word');
+    const introGerms = document.querySelectorAll('.intro-germ');
+    const introLightning = document.querySelector('.intro-lightning');
 
-    function showNextPhrase() {
-        if (introStep > 0) {
-            introItems[introStep - 1].classList.remove('active');
-            introItems[introStep - 1].classList.add('visible');
-        }
-        if (introStep < introItems.length) {
-            introItems[introStep].classList.add('active');
-            introStep++;
-            setTimeout(showNextPhrase, 600);
-        } else {
-            setTimeout(skipIntro, 1000);
+    let wordIndex = 0;
+
+    function playIntroSequence() {
+        if (wordIndex < introWords.length) {
+            // 이전 단어 퇴장
+            if (wordIndex > 0) {
+                introWords[wordIndex - 1].classList.remove('active');
+                introWords[wordIndex - 1].classList.add('exit');
+            }
+
+            // 현재 단어 등장
+            const currentWord = introWords[wordIndex];
+            currentWord.classList.add('active');
+
+            // ★ 마지막 "VVIP" 등장 시 특수 효과
+            if (wordIndex === introWords.length - 1) {
+                triggerFinalEffect(); 
+                setTimeout(finishIntro, 2500); // 2.5초 뒤 종료
+            } else {
+                wordIndex++;
+                setTimeout(playIntroSequence, 600); 
+            }
         }
     }
 
-    function skipIntro() {
+    function triggerFinalEffect() {
+        introLightning.classList.add('flash');
+        introGerms.forEach(germ => {
+            germ.classList.add('destroyed');
+        });
+    }
+
+    function finishIntro() {
         introScreen.classList.add('fade-out');
         setTimeout(() => {
             introScreen.style.display = 'none';
             mainContentWrapper.style.display = 'block';
             setTimeout(() => {
                 mainContentWrapper.style.opacity = '1';
-                scrollToSectionClick('company-section'); 
-            }, 10);
-        }, 500);
+                // 회사 섹션으로 이동
+                const companyBtn = document.querySelector('[data-target="company-section"]');
+                if(companyBtn) companyBtn.click();
+            }, 50);
+        }, 800);
     }
 
     const menuButtons = document.querySelectorAll('.main-menu .menu-btn');
@@ -1001,6 +700,10 @@ footer {
             loadPromise.then(() => {
                 targetSection.classList.add('active');
                 
+                if (targetId === 'partner-section') {
+                    generatePartnerLogos();
+                }
+
                 if (targetId === 'tech-section') {
                     const galleryContainer = targetSection.querySelector('#portfolio-gallery-container');
                     if (galleryContainer && galleryContainer.innerHTML.trim() === '') {
@@ -1230,8 +933,14 @@ footer {
 
   
     document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(showNextPhrase, 500);
-        introScreen.addEventListener('click', skipIntro);
+        setTimeout(playIntroSequence, 500);
+        
+        // 인트로 스킵 클릭
+        introScreen.addEventListener('click', () => {
+            wordIndex = introWords.length; 
+            finishIntro();
+        });
+
         generatePartnerLogos(); 
         resetQuiz(); 
     });
