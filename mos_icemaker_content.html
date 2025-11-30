@@ -508,14 +508,6 @@
         border-bottom: 2px solid #40c4ff;
     }
 
-    .final-question {
-        font-size: 14px;
-        color: #40c4ff;
-        font-weight: 600;
-        letter-spacing: 2px;
-        margin-bottom: 10px;
-    }
-
     .final-brand-title {
         font-size: 28px;
         font-weight: 900;
@@ -532,7 +524,7 @@
     .trust-indicators {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
-        gap: 30px;
+        gap: 22px;
         margin: 40px 0;
         max-width: 900px;
         margin-left: auto;
@@ -541,41 +533,39 @@
 
     .trust-item {
         text-align: center;
-        padding: 40px 30px;
-        background: rgba(64, 196, 255, 0.1);
-        border-radius: 15px;
-        border: 2px solid #40c4ff;
-        transition: all 0.3s ease;
+        padding: 28px 18px;
+        background: rgba(64, 196, 255, 0.08);
+        border-radius: 12px;
+        border: 1.6px solid rgba(64,196,255,0.25);
+        transition: all 0.25s ease;
+        min-height: 100px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
     }
 
     .trust-item:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(64, 196, 255, 0.3);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 24px rgba(64, 196, 255, 0.18);
     }
 
     .trust-number {
-        font-size: 48px;
+        font-size: 42px;
         font-weight: 900;
         color: #40c4ff;
         line-height: 1;
-        margin-bottom: 15px;
-        opacity: 1;
+        margin-bottom: 10px;
     }
 
     .trust-label {
-        font-size: 16px;
+        font-size: 15px;
         color: #ffffff;
         font-weight: 600;
     }
 
-    /* 애니메이션 */
-    @keyframes countUp {
-        from { opacity: 0.5; }
-        to { opacity: 1; }
-    }
-
+    /* 애니메이션 시 약간의 강조 */
     .trust-number.counting {
-        animation: countUp 0.3s ease-out;
+        transform-origin: center;
     }
 
     /* 핵심 메시지 리스트 */
@@ -590,10 +580,6 @@
         margin-bottom: 15px;
         padding-left: 25px;
         position: relative;
-    }
-
-    .final-message-item:last-child {
-        margin-bottom: 0;
     }
 
     .final-message-item::before {
@@ -614,18 +600,18 @@
     .final-closing {
         text-align: center;
         margin-top: 40px;
-        padding: 30px 15px;
-        background: rgba(64, 196, 255, 0.05);
+        padding: 24px 12px;
+        background: rgba(64, 196, 255, 0.04);
         border-radius: 10px;
-        border: 1px solid #40c4ff;
+        border: 1px solid rgba(64,196,255,0.18);
     }
 
     .closing-text {
         font-size: 16px;
         color: #ffffff;
-        line-height: 1.8;
+        line-height: 1.6;
         font-weight: 600;
-        margin-bottom: 20px;
+        margin-bottom: 14px;
     }
 
     .closing-highlight {
@@ -641,44 +627,46 @@
         display: flex;
         justify-content: center;
         gap: 10px;
-        margin-top: 20px;
+        margin-top: 14px;
         flex-wrap: wrap;
     }
 
     .trust-badge {
         display: inline-block;
-        padding: 6px 15px;
-        background: rgba(64, 196, 255, 0.15);
-        border: 1px solid #40c4ff;
-        border-radius: 20px;
+        padding: 6px 12px;
+        background: rgba(64, 196, 255, 0.12);
+        border: 1px solid rgba(64,196,255,0.2);
+        border-radius: 18px;
         color: #40c4ff;
         font-size: 11px;
         font-weight: 700;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.4px;
     }
 
-    /* 반응형 */
+    /* 반응형 (모바일에서 3열 유지하되 박스 작게) */
     @media (max-width: 768px) {
-        .final-brand-title {
-            font-size: 24px;
-        }
+        .final-brand-title { font-size: 22px; }
         .trust-indicators {
-            grid-template-columns: 1fr;
-            gap: 20px;
+            grid-template-columns: repeat(3, 1fr); /* 요청하신 3열 유지 */
+            gap: 10px;
+            max-width: 100%;
+            padding: 0 8px;
         }
         .trust-item {
-            padding: 30px 20px;
+            padding: 14px 8px;
+            border-radius: 10px;
+            min-height: 72px;
         }
         .trust-number {
-            font-size: 40px;
+            font-size: 22px;
+            font-weight: 900;
+            margin-bottom: 6px;
         }
         .trust-label {
-            font-size: 14px;
+            font-size: 11px;
         }
-        .final-message-item {
-            font-size: 14px;
-            padding-left: 20px;
-        }
+        .final-message-item { font-size: 14px; padding-left: 18px; }
+        .closing-text { font-size: 14px; }
     }
 </style>
 
@@ -693,6 +681,7 @@
     <!-- 신뢰 지표 -->
     <div class="trust-indicators">
         <div class="trust-item">
+            <!-- 주의: 내부 텍스트는 초기값(숫자 + 접미사)로 남겨도 됩니다. data-* 속성이 동작의 기준입니다 -->
             <div class="trust-number" data-start="1" data-end="10" data-suffix="년">1년</div>
             <div class="trust-label">검증된 기술력</div>
         </div>
@@ -749,55 +738,108 @@
 <p class="image-caption">VVIP 대응팀</p>
 <!-- ==================== [VVIP 대응팀 이미지] 섹션 끝 ==================== -->
 
-
-
-<!-- ==================== 숫자 카운트 애니메이션 JS ==================== -->
+<!-- ==================== 숫자 카운트 애니메이션 JS (페이즈: 일시정지/이어하기 지원) ==================== -->
 <script>
 document.addEventListener("DOMContentLoaded", () => {
+    // 관찰 대상 : .trust-item (숫자 박스를 관찰해서 보일 때/안 보일 때 컨트롤)
+    const items = document.querySelectorAll(".trust-item");
 
-    const counters = document.querySelectorAll(".trust-number");
+    // 각 항목에 상태 저장
+    items.forEach(item => {
+        const numberEl = item.querySelector(".trust-number");
+        if (!numberEl) return;
 
-    function animateCount(counter) {
-        const start = parseInt(counter.getAttribute("data-start"));
-        const end = parseInt(counter.getAttribute("data-end"));
-        const suffix = counter.getAttribute("data-suffix") || "";
-        let current = start;
+        // 설정값
+        const start = Number(numberEl.getAttribute("data-start")) || 0;
+        const end = Number(numberEl.getAttribute("data-end")) || start;
+        const suffix = numberEl.getAttribute("data-suffix") || "";
 
-        // 이미 애니메이션 진행 중이면 다시 시작 금지
-        if (counter.classList.contains("counting")) return;
+        // 상태 저장 객체
+        const state = {
+            start,
+            end,
+            suffix,
+            current: start,
+            duration: 1400, // 총 애니메이션 시간(밀리초)
+            rafId: null,
+            lastTime: null,
+            progress: 0, // 0~1
+            running: false
+        };
 
-        counter.classList.add("counting");
+        // 초기 텍스트를 start로 세팅 (보이는 텍스트 형식 통일)
+        numberEl.textContent = state.start + state.suffix;
+        numberEl.dataset._state = JSON.stringify(state);
 
-        const duration = 1500;
-        const frameRate = 15;
-        const increment = (end - start) / (duration / frameRate);
+        // 애니메이션 프레임 함수 (시간 기반)
+        function frame(timestamp) {
+            if (!state.lastTime) state.lastTime = timestamp;
+            const dt = timestamp - state.lastTime;
+            state.lastTime = timestamp;
 
-        const timer = setInterval(() => {
-            current += increment;
+            // progress 증가 (dt / duration)
+            state.progress += dt / state.duration;
+            if (state.progress > 1) state.progress = 1;
 
-            if (current >= end) {
-                current = end;
-                clearInterval(timer);
-                counter.classList.remove("counting"); // 다시 관찰 가능
+            // ease-out (간단한 easing)
+            const eased = 1 - Math.pow(1 - state.progress, 3);
+
+            const value = Math.round(state.start + (state.end - state.start) * eased);
+            state.current = value;
+            numberEl.textContent = value + state.suffix;
+
+            if (state.progress < 1) {
+                state.rafId = requestAnimationFrame(frame);
+            } else {
+                // 완료 처리
+                state.running = false;
+                state.lastTime = null;
+                state.rafId = null;
+                // 보너스: 완료 시 강조 클래스를 잠깐 줌 (선택사항)
+                numberEl.classList.remove("counting");
             }
+        }
 
-            counter.textContent = Math.floor(current) + suffix;
-        }, frameRate);
-    }
+        // 시작(또는 이어서 재생)
+        function startAnim() {
+            // 이미 끝난 경우 아무것도 안 함
+            if (state.current >= state.end) return;
 
-    const observer = new IntersectionObserver(
-        (entries) => {
+            if (state.running) return; // 이미 실행중이면 중복 방지
+            state.running = true;
+            numberEl.classList.add("counting");
+            // raf 시작 (timestamp 전달됨)
+            state.rafId = requestAnimationFrame(frame);
+        }
+
+        // 일시정지
+        function pauseAnim() {
+            if (state.rafId) {
+                cancelAnimationFrame(state.rafId);
+                state.rafId = null;
+                state.running = false;
+                state.lastTime = null;
+            }
+        }
+
+        // IntersectionObserver 콜백에서는 보일 때 startAnim, 안 보일 때 pauseAnim
+        const io = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    animateCount(entry.target);
+                    startAnim();
+                } else {
+                    pauseAnim();
                 }
             });
-        },
-        { threshold: 0.5 }
-    );
+        }, { threshold: 0.3 });
 
-    counters.forEach(counter => observer.observe(counter));
+        io.observe(item);
+
+        // 선택사항: 화면을 완전히 빠져나갔을 때 (페이지 이동 등) 상태를 초기화하려면 여기서 처리 가능.
+        // 예: 아이템이 재표시될 때 처음부터 다시 실행하게 하려면 state.progress = 0; state.current = start; numberEl.textContent = start + suffix;
+    }); // items.forEach
 });
 </script>
+
     </div>
 </div>
