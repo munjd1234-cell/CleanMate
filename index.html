@@ -132,33 +132,49 @@
   }
 
 
-  /* =========================================
-     [2. 메인 배너 스타일 (PC 최적화 포함)]
-     ========================================= */
-  .visual-hero-banner {
-      width: 100vw;
-      position: relative; left: 50%; margin-left: -50vw;
-      height: auto;   /* 높이 제한 해제 */
-      padding: 80px 0; /* PC 최적화 여백 */
-      margin-top: 0px; margin-bottom: 0px;
-      overflow: hidden;
-      background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
-      border-bottom: 1px solid #333;
-      display: flex; justify-content: center; align-items: center;
-  }
+/* 1. 배너 영역 설정 */
+.visual-hero-banner {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    margin-left: -50vw;
+    
+    height: auto;   
+    padding: 50px 0; /* [변경] 제빙기 배너와 동일한 높이 간격 */
+    
+    margin-top: 0px;
+    margin-bottom: 0px;
+    overflow: hidden;
+    background: radial-gradient(circle at 50% 50%, #222 0%, #000 100%);
+    border-bottom: 1px solid #333;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  
   .visual-hero-banner + h3 { margin-top: 40px !important; }
 
-  .tech-scan-container {
-      position: relative; width: 90%; max-width: 1000px; /* PC 최적화 너비 */
-      background-color: #0a0a0a;
-      background-image: 
-          linear-gradient(rgba(0, 191, 165, 0.1) 1px, transparent 1px),
-          linear-gradient(90deg, rgba(0, 191, 165, 0.1) 1px, transparent 1px);
-      background-size: 20px 20px;
-      border: 2px solid #00bfa5; border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 191, 165, 0.4), inset 0 0 20px rgba(0, 191, 165, 0.1);
-      padding: 30px 20px; text-align: center;
-  }
+/* 2. [핵심] 테크 스캔 박스 디자인 */
+.tech-scan-container {
+    position: relative;
+    width: 90%;
+    max-width: 600px; /* [변경] 제빙기 배너와 동일한 폭 */
+    
+    background-color: #0a0a0a;
+    background-image: 
+        linear-gradient(rgba(0, 191, 165, 0.1) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 191, 165, 0.1) 1px, transparent 1px);
+    background-size: 20px 20px;
+    
+    border: 2px solid #00bfa5;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 191, 165, 0.4), inset 0 0 20px rgba(0, 191, 165, 0.1);
+    
+    padding: 30px 20px;
+    text-align: center;
+}
 
   .scan-line {
       position: absolute; top: 0; left: 0; width: 100%; height: 2px;
