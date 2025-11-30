@@ -492,271 +492,310 @@
         <li>식품 위생 점검에 대비 가능한 과학적 위생 보고서 제공.</li>
     </ul>
 <!-- ==================== [왜 클린메이트인가?] 섹션 시작 ==================== -->
-    <style>
-        /* 최종 설득 섹션 - 깔끔하고 심플한 스타일 */
-        .final-cta-section {
-            margin-top: 40px;
-            margin-bottom: 40px;
-            padding: 0;
-        }
+<style>
+    /* 최종 설득 섹션 - 깔끔하고 심플한 스타일 */
+    .final-cta-section {
+        margin-top: 40px;
+        margin-bottom: 40px;
+        padding: 0;
+    }
 
-        /* 메인 타이틀 */
-        .final-main-title {
-            text-align: center;
-            margin-bottom: 30px;
-            padding-bottom: 20px;
-            border-bottom: 2px solid #40c4ff;
-        }
+    /* 메인 타이틀 */
+    .final-main-title {
+        text-align: center;
+        margin-bottom: 30px;
+        padding-bottom: 20px;
+        border-bottom: 2px solid #40c4ff;
+    }
 
-        .final-question {
-            font-size: 14px;
-            color: #40c4ff;
-            font-weight: 600;
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-        }
+    .final-question {
+        font-size: 14px;
+        color: #40c4ff;
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 10px;
+    }
 
+    .final-brand-title {
+        font-size: 28px;
+        font-weight: 900;
+        color: #ffffff;
+        line-height: 1.4;
+        margin: 0;
+    }
+
+    .final-brand-highlight {
+        color: #40c4ff;
+    }
+
+    /* 신뢰 지표 박스 */
+    .trust-indicators {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 30px;
+        margin: 40px 0;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .trust-item {
+        text-align: center;
+        padding: 40px 30px;
+        background: rgba(64, 196, 255, 0.1);
+        border-radius: 15px;
+        border: 2px solid #40c4ff;
+        transition: all 0.3s ease;
+    }
+
+    .trust-item:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(64, 196, 255, 0.3);
+    }
+
+    .trust-number {
+        font-size: 48px;
+        font-weight: 900;
+        color: #40c4ff;
+        line-height: 1;
+        margin-bottom: 15px;
+        opacity: 1;
+    }
+
+    .trust-label {
+        font-size: 16px;
+        color: #ffffff;
+        font-weight: 600;
+    }
+
+    /* 애니메이션 */
+    @keyframes countUp {
+        from { opacity: 0.5; }
+        to { opacity: 1; }
+    }
+
+    .trust-number.counting {
+        animation: countUp 0.3s ease-out;
+    }
+
+    /* 핵심 메시지 리스트 */
+    .final-message-list {
+        margin: 30px 0;
+    }
+
+    .final-message-item {
+        color: #ffffff;
+        font-size: 15px;
+        line-height: 1.8;
+        margin-bottom: 15px;
+        padding-left: 25px;
+        position: relative;
+    }
+
+    .final-message-item:last-child {
+        margin-bottom: 0;
+    }
+
+    .final-message-item::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: #40c4ff;
+        font-size: 18px;
+        font-weight: bold;
+    }
+
+    .message-strong {
+        color: #40c4ff;
+        font-weight: 700;
+    }
+
+    /* 클로징 메시지 */
+    .final-closing {
+        text-align: center;
+        margin-top: 40px;
+        padding: 30px 15px;
+        background: rgba(64, 196, 255, 0.05);
+        border-radius: 10px;
+        border: 1px solid #40c4ff;
+    }
+
+    .closing-text {
+        font-size: 16px;
+        color: #ffffff;
+        line-height: 1.8;
+        font-weight: 600;
+        margin-bottom: 20px;
+    }
+
+    .closing-highlight {
+        display: block;
+        font-size: 18px;
+        color: #40c4ff;
+        font-weight: 900;
+        margin-top: 10px;
+    }
+
+    /* 신뢰 뱃지 */
+    .trust-badges {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+        flex-wrap: wrap;
+    }
+
+    .trust-badge {
+        display: inline-block;
+        padding: 6px 15px;
+        background: rgba(64, 196, 255, 0.15);
+        border: 1px solid #40c4ff;
+        border-radius: 20px;
+        color: #40c4ff;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+    }
+
+    /* 반응형 */
+    @media (max-width: 768px) {
         .final-brand-title {
-            font-size: 28px;
-            font-weight: 900;
-            color: #ffffff;
-            line-height: 1.4;
-            margin: 0;
+            font-size: 24px;
         }
-
-        .final-brand-highlight {
-            color: #40c4ff;
-        }
-
-        /* 신뢰 지표 박스 */
         .trust-indicators {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 30px;
-            margin: 40px 0;
-            max-width: 900px;
-            margin-left: auto;
-            margin-right: auto;
+            grid-template-columns: 1fr;
+            gap: 20px;
         }
-
         .trust-item {
-            text-align: center;
-            padding: 40px 30px;
-            background: rgba(64, 196, 255, 0.1);
-            border-radius: 15px;
-            border: 2px solid #40c4ff;
-            transition: all 0.3s ease;
+            padding: 30px 20px;
         }
-
-        .trust-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(64, 196, 255, 0.3);
-        }
-
         .trust-number {
-            font-size: 48px;
-            font-weight: 900;
-            color: #40c4ff;
-            line-height: 1;
-            margin-bottom: 15px;
+            font-size: 40px;
         }
-
         .trust-label {
-            font-size: 16px;
-            color: #ffffff;
-            font-weight: 600;
+            font-size: 14px;
         }
-
-        /* 숫자 카운팅 애니메이션 */
-        @keyframes countUp {
-            from {
-                opacity: 0.5;
-            }
-            to {
-                opacity: 1;
-            }
-        }
-
-        .trust-number.counting {
-            animation: countUp 0.3s ease-out;
-        }
-
-        /* 핵심 메시지 리스트 */
-        .final-message-list {
-            margin: 30px 0;
-        }
-
         .final-message-item {
-            color: #ffffff;
-            font-size: 15px;
-            line-height: 1.8;
-            margin-bottom: 15px;
-            padding-left: 25px;
-            position: relative;
+            font-size: 14px;
+            padding-left: 20px;
         }
+    }
+</style>
 
-        .final-message-item:last-child {
-            margin-bottom: 0;
-        }
+<div class="final-cta-section" id="icemaker-s07-anchor">
+    <!-- 메인 타이틀 -->
+    <div class="final-main-title">
+        <h3 class="final-brand-title">
+            왜 <span class="final-brand-highlight">클린메이트</span>를 선택해야 하는가?
+        </h3>
+    </div>
 
-        .final-message-item::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #40c4ff;
-            font-size: 18px;
-            font-weight: bold;
-        }
-
-        .message-strong {
-            color: #40c4ff;
-            font-weight: 700;
-        }
-
-        /* 클로징 메시지 */
-        .final-closing {
-            text-align: center;
-            margin-top: 40px;
-            padding: 30px 15px;
-            background: rgba(64, 196, 255, 0.05);
-            border-radius: 10px;
-            border: 1px solid #40c4ff;
-        }
-
-        .closing-text {
-            font-size: 16px;
-            color: #ffffff;
-            line-height: 1.8;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-
-        .closing-highlight {
-            display: block;
-            font-size: 18px;
-            color: #40c4ff;
-            font-weight: 900;
-            margin-top: 10px;
-        }
-
-        /* 신뢰 뱃지 */
-        .trust-badges {
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .trust-badge {
-            display: inline-block;
-            padding: 6px 15px;
-            background: rgba(64, 196, 255, 0.15);
-            border: 1px solid #40c4ff;
-            border-radius: 20px;
-            color: #40c4ff;
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 0.5px;
-        }
-
-        /* 반응형 */
-        @media (max-width: 768px) {
-            .final-brand-title {
-                font-size: 24px;
-            }
-            .trust-indicators {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
-            .trust-item {
-                padding: 30px 20px;
-            }
-            .trust-number {
-                font-size: 40px;
-            }
-            .trust-label {
-                font-size: 14px;
-            }
-            .final-message-item {
-                font-size: 14px;
-                padding-left: 20px;
-            }
-            .closing-text {
-                font-size: 15px;
-            }
-            .closing-highlight {
-                font-size: 16px;
-            }
-        }
-    </style>
-
-    <div class="final-cta-section" id="icemaker-s07-anchor">
-        <!-- 메인 타이틀 -->
-        <div class="final-main-title">
-            <h3 class="final-brand-title">
-                왜 <span class="final-brand-highlight">클린메이트</span>를 선택해야 하는가?
-            </h3>
+    <!-- 신뢰 지표 -->
+    <div class="trust-indicators">
+        <div class="trust-item">
+            <div class="trust-number" data-start="1" data-end="10" data-suffix="년">1년</div>
+            <div class="trust-label">검증된 기술력</div>
         </div>
-
-        <!-- 신뢰 지표 -->
-        <div class="trust-indicators">
-            <div class="trust-item">
-                <div class="trust-number" data-start="1" data-end="10" data-suffix="년">1년</div>
-                <div class="trust-label">검증된 기술력</div>
-            </div>
-            <div class="trust-item">
-                <div class="trust-number" data-start="150" data-end="290" data-suffix="+">150+</div>
-                <div class="trust-label">협력 기업</div>
-            </div>
-            <div class="trust-item">
-                <div class="trust-number" data-start="88" data-end="99" data-suffix="%">88%</div>
-                <div class="trust-label">세균 제거율</div>
-            </div>
+        <div class="trust-item">
+            <div class="trust-number" data-start="150" data-end="290" data-suffix="+">150+</div>
+            <div class="trust-label">협력 기업</div>
         </div>
-
-        <!-- 핵심 메시지 -->
-        <div class="final-message-list">
-            <div class="final-message-item">
-                <span class="message-strong">제조사별 맞춤 전문 관리</span> – 호시자키, 마니톨, 스코트맨 등 모든 제조사의 구조적 특성을 정확히 파악하고, 귀사의 제빙기 모델에 최적화된 분해·세척·항균 프로세스를 제공합니다.
-            </div>
-            <div class="final-message-item">
-                <span class="message-strong">과학적 데이터 기반 관리</span> – ATP 바이오 측정을 통해 작업 전후 오염도를 수치로 증명하고, 모든 관리 이력을 체계적으로 기록하여 식품위생 점검 시 명확한 근거자료를 제공합니다.
-            </div>
-            <div class="final-message-item">
-                <span class="message-strong">장비 수명 연장</span> – 스케일 제거와 예방 정비를 통해 고장률을 90% 감소시키고, 전력 소비를 20~40% 절감하여 장기적인 운영 비용을 대폭 절감합니다.
-            </div>
-            <div class="final-message-item">
-                <span class="message-strong">290개 이상 협력사의 신뢰</span> – 특급호텔, 대형 프랜차이즈, 병원급 의료시설에서 10년간 검증된 기술력과 서비스로 지속적인 파트너십을 유지하고 있습니다.
-            </div>
-            <div class="final-message-item">
-                <span class="message-strong">맞춤형 관리 주기 설계</span> – 귀사의 사용 환경, 제빙량, 물 경도를 분석하여 과도한 비용 없이 가장 효율적인 관리 주기를 제안합니다.
-            </div>
-        </div>
-
-        <!-- 클로징 메시지 -->
-        <div class="final-closing">
-            <p class="closing-text">
-                제빙기는 단순한 가전이 아닌,<br>
-                고객 신뢰와 식품 안전을 책임지는 핵심 장비입니다.
-                <span class="closing-highlight">
-                    클린메이트는 10년의 현장 경험과 과학적 데이터를 바탕으로<br>
-                    귀사에게 가장 적합한 위생 관리 솔루션을 자신 있게 제안합니다.
-                </span>
-            </p>
-            <div class="trust-badges">
-                <span class="trust-badge">식품안전 우선</span>
-                <span class="trust-badge">친환경 세제</span>
-                <span class="trust-badge">데이터 기반 관리</span>
-                <span class="trust-badge">10년 기술력</span>
-            </div>
+        <div class="trust-item">
+            <div class="trust-number" data-start="88" data-end="99" data-suffix="%">88%</div>
+            <div class="trust-label">세균 제거율</div>
         </div>
     </div>
-    <!-- ==================== [왜 클린메이트인가?] 섹션 끝 ==================== -->
 
-    <!-- ==================== [VVIP 대응팀 이미지] 섹션 시작 ==================== -->
-    <img src="imege/vv01.jpg" alt="VVIP 대응팀" style="width:100%; display:block; margin-top: 30px;"/>
-    <p class="image-caption">VVIP 대응팀</p>
-    <!-- ==================== [VVIP 대응팀 이미지] 섹션 끝 ==================== -->
+    <!-- 핵심 메시지 -->
+    <div class="final-message-list">
+        <div class="final-message-item">
+            <span class="message-strong">제조사별 맞춤 전문 관리</span> – 호시자키, 마니톨, 스코트맨 등 모든 제조사의 구조적 특성을 정확히 파악하고, 귀사의 제빙기 모델에 최적화된 분해·세척·항균 프로세스를 제공합니다.
+        </div>
+        <div class="final-message-item">
+            <span class="message-strong">과학적 데이터 기반 관리</span> – ATP 바이오 측정을 통해 작업 전후 오염도를 수치로 증명하고, 모든 관리 이력을 체계적으로 기록하여 식품위생 점검 시 명확한 근거자료를 제공합니다.
+        </div>
+        <div class="final-message-item">
+            <span class="message-strong">장비 수명 연장</span> – 스케일 제거와 예방 정비를 통해 고장률을 90% 감소시키고, 전력 소비를 20~40% 절감하여 장기적인 운영 비용을 대폭 절감합니다.
+        </div>
+        <div class="final-message-item">
+            <span class="message-strong">290개 이상 협력사의 신뢰</span> – 특급호텔, 대형 프랜차이즈, 병원급 의료시설에서 10년간 검증된 기술력과 서비스로 지속적인 파트너십을 유지하고 있습니다.
+        </div>
+        <div class="final-message-item">
+            <span class="message-strong">맞춤형 관리 주기 설계</span> – 귀사의 사용 환경, 제빙량, 물 경도를 분석하여 과도한 비용 없이 가장 효율적인 관리 주기를 제안합니다.
+        </div>
+    </div>
 
+    <!-- 클로징 메시지 -->
+    <div class="final-closing">
+        <p class="closing-text">
+            제빙기는 단순한 가전이 아닌,<br>
+            고객 신뢰와 식품 안전을 책임지는 핵심 장비입니다.
+            <span class="closing-highlight">
+                클린메이트는 10년의 현장 경험과 과학적 데이터를 바탕으로<br>
+                귀사에게 가장 적합한 위생 관리 솔루션을 자신 있게 제안합니다.
+            </span>
+        </p>
+        <div class="trust-badges">
+            <span class="trust-badge">식품안전 우선</span>
+            <span class="trust-badge">친환경 세제</span>
+            <span class="trust-badge">데이터 기반 관리</span>
+            <span class="trust-badge">10년 기술력</span>
+        </div>
+    </div>
 </div>
+
+<!-- ==================== [VVIP 대응팀 이미지] 섹션 시작 ==================== -->
+<img src="imege/vv01.jpg" alt="VVIP 대응팀" style="width:100%; display:block; margin-top: 30px;"/>
+<p class="image-caption">VVIP 대응팀</p>
+<!-- ==================== [VVIP 대응팀 이미지] 섹션 끝 ==================== -->
+
+
+
+<!-- ==================== 숫자 카운트 애니메이션 JS ==================== -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const counters = document.querySelectorAll(".trust-number");
+
+    function animateCount(counter) {
+        const start = parseInt(counter.getAttribute("data-start"));
+        const end = parseInt(counter.getAttribute("data-end"));
+        const suffix = counter.getAttribute("data-suffix") || "";
+        let current = start;
+
+        // 이미 애니메이션 진행 중이면 다시 시작 금지
+        if (counter.classList.contains("counting")) return;
+
+        counter.classList.add("counting");
+
+        const duration = 1500;
+        const frameRate = 15;
+        const increment = (end - start) / (duration / frameRate);
+
+        const timer = setInterval(() => {
+            current += increment;
+
+            if (current >= end) {
+                current = end;
+                clearInterval(timer);
+                counter.classList.remove("counting"); // 다시 관찰 가능
+            }
+
+            counter.textContent = Math.floor(current) + suffix;
+        }, frameRate);
+    }
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateCount(entry.target);
+                }
+            });
+        },
+        { threshold: 0.5 }
+    );
+
+    counters.forEach(counter => observer.observe(counter));
+});
+</script>
