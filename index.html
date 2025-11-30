@@ -1398,22 +1398,67 @@ function gameLoop() {
     }
 }
 
-/* ▼▼▼▼▼ [삭제 시작] ▼▼▼▼▼ */
-// 3. 랜덤 몹 생성
+// --- [새로운 코드 시작] ---
+
+// 일반 세균으로 나올 이모지 리스트 (바퀴벌레, 구토, 애벌레, 곰팡이, 모기 등)
+const germTypes = ['🦠', '🤢', '🤮', '🐛', '🪳', '🦟', '🦂'];
+
+// 3. 랜덤 몹 생성 (확률 조정 및 종류 확대)
 function spawnRandomMob() {
     const rand = Math.random();
-    if (rand < 0.1) spawnMob('steam');      // 10% 확률 스팀
-    else if (rand < 0.3) spawnMob('king');  // 20% 확률 대왕
-    else spawnMob('germ');                  // 70% 확률 일반
+    if (rand < 0.05) spawnMob('steam');      // 5% 확률 스팀 (희귀 아이템)
+    else if (rand < 0.2) spawnMob('king');   // 15% 확률 대왕 곰팡이
+    else spawnMob('germ');                   // 80% 확률 일반 세균
 }
 
-// 4. 몹 생성 로직
+// 4. 몹 생성 로직 (터치 개선됨)
 function spawnMob(type) {
-    // ... (기존 내용들) ...
+    const el = document.createElement('div');
+    el.classList.add('mob');
+    
+    // 위치 랜덤 (화면 밖으로 나가지 않게 5% ~ 85% 범위)
+    const x = Math.random() * 80 + 5; 
+    const y = Math.random() * 80 + 5;
+    el.style.left = x + '%';
+    el.style.top = y + '%';
+
+    if (type === 'germ') {
+        // ★ 랜덤으로 세균 모양 선택
+        const randomFace = germTypes[Math.floor(Math.random() * germTypes.length)];
+        el.innerText = randomFace; 
+        
+        el.classList.add('mob-germ');
+        el.dataset.type = 'germ';
+        el.dataset.points = 1;
+        
+        // 크기도 살짝 랜덤하게 (25px ~ 45px)
+        const size = Math.floor(Math.random() * 20) + 25;
+        el.style.fontSize = size + 'px';
+
+    } else if (type === 'king') {
+        el.innerText = '👹'; // 대왕
+        el.classList.add('mob-king');
+        el.dataset.type = 'king';
+        el.dataset.points = 3;
+    } else if (type === 'steam') {
+        el.innerText = '💨'; // 스팀 아이템
+        el.classList.add('mob-steam');
+        el.dataset.type = 'steam';
+    }
+
+    // ★ 클릭/터치 이벤트 개선 (모바일 반응성 향상)
+    const handleHit = (e) => {
+        // 이벤트가 두 번 발생하는 것 방지
+        if (e.cancelable) e.preventDefault(); 
+        hitMob(e, el);
+    };
+
+    el.addEventListener('mousedown', handleHit);
+    el.addEventListener('touchstart', handleHit, {passive: false});
+
     gameLayer.appendChild(el);
 }
-/* ▲▲▲▲▲ [삭제 끝] ▲▲▲▲▲ */
-
+// --- [새로운 코드 끝] ---
 // 5. 몹 타격 처리
 function hitMob(e, el) {
     e.stopPropagation(); // 버블링 방지
