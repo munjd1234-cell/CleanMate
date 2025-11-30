@@ -735,9 +735,12 @@ footer {
 /* 2. 게임 레이어 (로고 위에 뜸) */
 .game-layer {
     position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-    z-index: 10; /* 로고(z-index:1) 보다 위 */
+    z-index: 10;
     overflow: hidden;
-    cursor: crosshair; /* 조준선 커서 */
+    cursor: crosshair;
+    
+    /* ★★★ 핵심 수정: 부모의 클릭 무시 설정을 이겨내고 클릭을 받음 ★★★ */
+    pointer-events: auto; 
 }
 
 /* 3. 몬스터(세균) 공통 */
@@ -1395,6 +1398,7 @@ function gameLoop() {
     }
 }
 
+/* ▼▼▼▼▼ [삭제 시작] ▼▼▼▼▼ */
 // 3. 랜덤 몹 생성
 function spawnRandomMob() {
     const rand = Math.random();
@@ -1405,37 +1409,10 @@ function spawnRandomMob() {
 
 // 4. 몹 생성 로직
 function spawnMob(type) {
-    const el = document.createElement('div');
-    el.classList.add('mob');
-    
-    // 위치 랜덤 (화면 안쪽으로 제한)
-    const x = Math.random() * 80 + 10; // 10% ~ 90%
-    const y = Math.random() * 80 + 10;
-    el.style.left = x + '%';
-    el.style.top = y + '%';
-
-    if (type === 'germ') {
-        el.innerText = '🦠'; // 곰팡이 이모지
-        el.classList.add('mob-germ');
-        el.dataset.type = 'germ';
-        el.dataset.points = 1;
-    } else if (type === 'king') {
-        el.innerText = '👹'; // 대왕 곰팡이
-        el.classList.add('mob-king');
-        el.dataset.type = 'king';
-        el.dataset.points = 3;
-    } else if (type === 'steam') {
-        el.innerText = '💨'; // 스팀 아이템
-        el.classList.add('mob-steam');
-        el.dataset.type = 'steam';
-    }
-
-    // 클릭 이벤트
-    el.addEventListener('click', (e) => hitMob(e, el));
-    el.addEventListener('touchstart', (e) => { e.preventDefault(); hitMob(e, el); }); // 모바일 터치 대응
-
+    // ... (기존 내용들) ...
     gameLayer.appendChild(el);
 }
+/* ▲▲▲▲▲ [삭제 끝] ▲▲▲▲▲ */
 
 // 5. 몹 타격 처리
 function hitMob(e, el) {
