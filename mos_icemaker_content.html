@@ -553,7 +553,7 @@
         font-weight: 600;
     }
 
-    /* 핵심 메시지 */
+    /* 메시지 */
     .final-message-list {
         margin: 30px 0;
     }
@@ -645,23 +645,24 @@
         </h3>
     </div>
 
-    <!-- 신뢰 지표 -->
+    <!-- 신뢰 지표 (숫자 고정 버전) -->
     <div class="trust-indicators">
         <div class="trust-item">
-            <div class="trust-number" data-start="1" data-end="10" data-suffix="년">1년</div>
+            <div class="trust-number">10년</div>
             <div class="trust-label">검증된 기술력</div>
         </div>
+
         <div class="trust-item">
-            <div class="trust-number" data-start="150" data-end="290" data-suffix="+">150+</div>
+            <div class="trust-number">289+</div>
             <div class="trust-label">협력 기업</div>
         </div>
+
         <div class="trust-item">
-            <div class="trust-number" data-start="88" data-end="99" data-suffix="%">88%</div>
+            <div class="trust-number">99%</div>
             <div class="trust-label">세균 제거율</div>
         </div>
     </div>
 
-    <!-- 메시지 -->
     <div class="final-message-list">
         <div class="final-message-item">
             <span class="message-strong">제조사별 맞춤 전문 관리</span> – 호시자키, 마니톨, 스코트맨 등 모든 제조사의 구조적 특성을 정확히 파악하여 최적화된 세척·항균 프로세스를 제공합니다.
@@ -680,7 +681,6 @@
         </div>
     </div>
 
-    <!-- 클로징 -->
     <div class="final-closing">
         <p class="closing-text">
             제빙기는 단순한 장비가 아니라<br>
@@ -700,53 +700,8 @@
     </div>
 </div>
 
-<!-- ==================== [VVIP 이미지] ==================== -->
 <img src="imege/vv01.jpg" alt="VVIP 대응팀" style="width:100%; display:block; margin-top: 30px;"/>
 <p class="image-caption">VVIP 대응팀</p>
 
-
-<!-- ==================== 숫자 카운팅 스크립트 ==================== -->
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-    const counters = document.querySelectorAll(".trust-number");
-
-    function animateCount(counter) {
-        const start = parseInt(counter.getAttribute("data-start"));
-        const end = parseInt(counter.getAttribute("data-end"));
-        const suffix = counter.getAttribute("data-suffix") || "";
-        
-        let current = start;
-        if (counter.classList.contains("counting")) return;
-        counter.classList.add("counting");
-
-        const duration = 1200;
-        const frameRate = 15;
-        const increment = (end - start) / (duration / frameRate);
-
-        const timer = setInterval(() => {
-            current += increment;
-            if (current >= end) {
-                current = end;
-                clearInterval(timer);
-                counter.classList.remove("counting");
-            }
-            counter.textContent = Math.floor(current) + suffix;
-        }, frameRate);
-    }
-
-    const observer = new IntersectionObserver(
-        entries => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    animateCount(entry.target);
-                }
-            });
-        },
-        { threshold: 0.5 }
-    );
-
-    counters.forEach(counter => observer.observe(counter));
-});
-</script>
     </div>
 </div>
