@@ -1,0 +1,424 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>프리미엄 사무실 정기 청소 서비스 | Premium Cleaning Solutions</title>
+  <meta name="description" content="15년 경력의 청소 전문가가 제공하는 사무실 정기 청소 서비스. 정기청소, 입주/이전 청소, 대청소, 방역/소독 등 맞춤형 서비스 제공." />
+  <style>
+    :root{--accent:#0b71d0;--muted:#6b7280;--bg:#f7f9fb;--card:#ffffff;--max:1100px}
+    *{box-sizing:border-box}
+    body{font-family: -apple-system, BlinkMacSystemFont, 'Noto Sans KR', 'Segoe UI', Roboto, 'Helvetica Neue', Arial; line-height:1.5; color:#0b2236; background:var(--bg); margin:0}
+    .wrap{max-width:var(--max); margin:40px auto; padding:24px}
+    header.hero{display:grid; grid-template-columns:1fr 420px; gap:24px; align-items:center}
+    @media(max-width:900px){header.hero{grid-template-columns:1fr; text-align:center} header.hero .image{order:-1}}
+    .kicker{display:inline-block; padding:6px 10px; background:#e6f0fb; color:var(--accent); border-radius:999px; font-weight:600; font-size:13px}
+    h1{font-size:34px; margin:12px 0 8px}
+    p.lead{color:var(--muted); margin:0 0 18px}
+    .cta{display:flex; gap:12px; align-items:center}
+    .btn{background:var(--accent); color:#fff; padding:12px 18px; border-radius:8px; text-decoration:none; font-weight:700}
+    .btn.secondary{background:#fff; color:var(--accent); border:1px solid #dbeaf8}
+    .phone{font-weight:900; font-size:18px}
+    .image{background:linear-gradient(180deg,#fff,#f2f8ff); padding:12px; border-radius:12px; box-shadow:0 6px 18px rgba(11,33,54,0.06)}
+    .image img{width:100%; height:320px; object-fit:cover; border-radius:8px}
+
+    /* Content sections */
+    section.card{background:var(--card); padding:20px; margin-top:20px; border-radius:12px; box-shadow:0 6px 18px rgba(11,33,54,0.04)}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px}
+    @media(max-width:900px){.grid-3{grid-template-columns:1fr}}
+    .feature{padding:14px}
+    .feature h4{margin:6px 0}
+    .list{margin:12px 0 0; padding-left:18px}
+
+    /* pricing */
+    .pricing{display:flex; gap:12px}
+    .plan{flex:1; border-radius:10px; padding:18px; background:linear-gradient(180deg,#ffffff,#f8fbff); border:1px solid #eef6ff}
+    .plan h3{margin:0 0 8px}
+    .price{font-size:22px; font-weight:900; color:var(--accent)}
+    table.pr{width:100%; border-collapse:collapse}
+    table.pr td, table.pr th{padding:8px; border-bottom:1px solid #f1f5f9}
+
+    /* FAQ accordion */
+    .faq button{width:100%; text-align:left; padding:12px; border-radius:8px; border:1px solid #edf2f7; background:#fff; font-weight:700}
+    .faq .panel{padding:12px 12px 0}
+
+    /* checklist */
+    .checklist{display:grid; grid-template-columns:repeat(2,1fr); gap:12px}
+    @media(max-width:900px){.checklist{grid-template-columns:1fr}}
+    .checkbox{display:flex; gap:8px; align-items:flex-start}
+
+    footer{margin-top:28px; text-align:center; color:var(--muted); font-size:14px}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .badge{display:inline-block; padding:6px 10px; background:#f0f7ff; color:var(--accent); border-radius:999px; font-weight:700}
+    .img-prompt{font-size:12px; color:#8a99a6; margin-top:6px}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <span class="kicker">프리미엄 사무실 정기청소</span>
+        <h1>매일 깨끗한 사무실에서 일하세요<br/><small class="muted">프리미엄 사무실 정기 청소 서비스</small></h1>
+        <p class="lead">직원들의 생산성과 건강을 책임지는 전문 청소 솔루션<br/>15년 경력의 청소 전문가가 관리하는 체계적인 청소 시스템</p>
+
+        <div class="cta">
+          <a class="btn" href="tel:1588-XXXX">무료 견적 상담 받기</a>
+          <a class="btn secondary" href="#contact">1588-XXXX</a>
+        </div>
+
+        <p style="margin-top:14px" class="muted">1,200개 이상의 기업이 선택한 전문 서비스 · ISO 9001 · 환경부 인증</p>
+      </div>
+      <div class="image">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1200' height='800'><rect width='100%' height='100%' fill='%23eaf6ff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='28' fill='%230b71d0'>Hero image placeholder</text></svg>" alt="모던 오피스"/>
+        <div class="img-prompt">Image prompt: Modern bright office space with clean glass windows, polished floors reflecting sunlight, organized desks with computers, professional cleaning staff in uniform working in the background, wide-angle shot, natural lighting, corporate photography style, high-end professional atmosphere</div>
+      </div>
+    </header>
+
+    <!-- Why section -->
+    <section class="card" id="why">
+      <h2>사무실 청결은 단순한 미관의 문제가 아닙니다</h2>
+      <p class="muted">사무실은 하루 평균 8시간 이상 머무르는 공간입니다. 직원들의 건강과 업무 효율, 그리고 회사의 이미지까지 영향을 미치는 중요한 환경입니다. 연구에 따르면 깨끗한 사무실 환경은 직원들의 생산성을 최대 25%까지 향상시킬 수 있습니다.</p>
+
+      <div class="grid-3" style="margin-top:14px">
+        <div class="feature">
+          <h4>직원 건강 보호</h4>
+          <p class="muted">사무실 키보드에는 화장실 변기보다 400배 많은 세균이 존재합니다. 정기적인 전문 청소로 질병 전염을 예방하고 병가를 줄여드립니다.</p>
+        </div>
+        <div class="feature">
+          <h4>업무 효율 증대</h4>
+          <p class="muted">어지럽고 더러운 환경은 집중력을 떨어뜨립니다. 정돈된 공간에서 직원들은 높은 집중력과 창의성을 발휘합니다.</p>
+        </div>
+        <div class="feature">
+          <h4>회사 이미지 향상</h4>
+          <p class="muted">방문 고객과 파트너에게 주는 첫인상은 매우 중요합니다. 깔끔한 사무실은 회사의 전문성과 신뢰도를 보여줍니다.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <div style="display:flex; gap:12px; align-items:center">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='400'><rect width='100%' height='100%' fill='%23ffffff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='18' fill='%238a99a6'>Before / After placeholder</text></svg>" alt="before after" style="width:45%; border-radius:8px;"/>
+          <div style="flex:1">
+            <p class="muted">Before and after comparison split image of office space, left side showing dusty desk with scattered papers and dirty floor, right side showing sparkling clean organized workspace, dramatic transformation, professional photography, bright and clean aesthetic</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Services -->
+    <section class="card" id="services">
+      <h2>15년 노하우로 완성한 체계적인 청소 시스템</h2>
+      <p class="muted">기본 정기청소부터 특별 청소, 방역까지 고객사의 상황에 맞춰 맞춤형으로 제공합니다.</p>
+
+      <h3 style="margin-top:12px">기본 정기 청소 (주 2~5회)</h3>
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+        <div style="flex:1; min-width:260px">
+          <h4>일일 청소 항목</h4>
+          <ul class="list">
+            <li>전 구역 바닥 청소 (진공청소 및 물걸레)</li>
+            <li>책상 및 업무 공간 먼지 제거 및 소독</li>
+            <li>회의실 테이블 및 의자 정리정돈</li>
+            <li>화장실 전체 청소 및 소독</li>
+            <li>휴게실 및 주방 청소</li>
+            <li>쓰레기통 비우기 및 분리수거</li>
+            <li>유리문 및 파티션 닦기</li>
+            <li>출입구 및 복도 청소</li>
+          </ul>
+        </div>
+
+        <div style="flex:1; min-width:260px">
+          <h4>주간 / 월간 주요 항목</h4>
+          <ul class="list">
+            <li>전화기, 키보드, 마우스 소독 / 창틀 및 블라인드 먼지 제거</li>
+            <li>냉장고 내부 청소 / 화분 물주기 및 관리</li>
+            <li>천장 및 조명기구 청소 / 에어컨 필터 청소</li>
+            <li>소파 및 패브릭 가구 진공 / 수납장 내부 정리</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; display:flex; gap:12px; align-items:center">
+        <div style="flex:1">
+          <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='600' height='320'><rect width='100%' height='100%' fill='%23f8fcff'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='16' fill='%238a99a6'>Cleaning staff placeholder</text></svg>" alt="cleaning staff" style="width:100%; border-radius:8px"/>
+        </div>
+        <div style="width:320px">
+          <div class="img-prompt">Image prompt: Professional cleaning staff in branded uniform using modern cleaning equipment, wiping down office desk with microfiber cloth, cleaning supplies cart beside them, detailed close-up shot, professional service atmosphere, bright office lighting</div>
+        </div>
+      </div>
+
+      <!-- Special services -->
+      <h3 style="margin-top:18px">특별 청소 서비스</h3>
+      <div class="grid-3">
+        <div class="feature">
+          <h4>입주/이전 청소</h4>
+          <ul class="list">
+            <li>전체 공간 정밀 청소</li>
+            <li>오래된 얼룩 및 때 제거</li>
+            <li>창문 내외부 전체 청소</li>
+            <li>바닥 왁스 코팅</li>
+            <li>에어컨 내부 세척</li>
+          </ul>
+        </div>
+        <div class="feature">
+          <h4>대청소 (분기별/연 2회)</h4>
+          <ul class="list">
+            <li>카펫 스팀 세척</li>
+            <li>소파 및 의자 전문 세척</li>
+            <li>블라인드 분해 세척</li>
+            <li>화장실 줄눈 및 타일 전문 세척</li>
+            <li>조명기구 분해 청소</li>
+          </ul>
+        </div>
+        <div class="feature">
+          <h4>방역/소독 서비스</h4>
+          <ul class="list">
+            <li>친환경 소독제 사용</li>
+            <li>손이 자주 닿는 부분 집중 소독</li>
+            <li>공기 살균 처리</li>
+            <li>방역 완료 증명서 발급</li>
+          </ul>
+        </div>
+      </div>
+
+      <div style="margin-top:12px">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='800' height='420'><rect width='100%' height='100%' fill='%23fff9f0'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' font-size='16' fill='%238a99a6'>Deep cleaning placeholder</text></svg>" alt="deep clean" style="width:100%; border-radius:8px"/>
+        <div class="img-prompt">Worker performing deep carpet cleaning with industrial steam cleaner machine, steam visible rising from carpet, professional cleaning equipment, detailed action shot, modern office setting, professional service documentation style</div>
+      </div>
+
+    </section>
+
+    <!-- Why choose us -->
+    <section class="card" id="why-us">
+      <h2>1,200개 이상의 기업이 선택한 이유가 있습니다</h2>
+      <div style="display:flex; gap:12px; flex-wrap:wrap">
+        <div style="flex:1; min-width:260px">
+          <h3>체계적인 관리 시스템</h3>
+          <p class="muted"><strong>전담 매니저 배정</strong> · 전담 매니저가 주기적으로 방문하여 청소 상태를 점검합니다.<br/><strong>디지털 체크리스트</strong> · 청소 완료 후 실시간으로 확인 가능한 디지털 리포트 제공.</p>
+        </div>
+        <div style="flex:1; min-width:260px">
+          <h3>검증된 전문 인력</h3>
+          <p class="muted">모든 직원은 최소 200시간의 교육 이수, 신원 확인 및 배상책임보험 가입, 고정 인력 배치로 일관된 품질 유지.</p>
+        </div>
+        <div style="flex:1; min-width:260px">
+          <h3>친환경 청소 시스템</h3>
+          <p class="muted">환경부 인증 친환경 제품 사용 · HEPA 필터 장착 장비 보유 · 물 절약 기법 적용.</p>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; display:flex; gap:12px; align-items:center">
+        <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='300' height='300'><rect width='100%' height='100%' fill='%23f3fff4'/><text x='50%' y='50%' dominant-baseline='middle' text-anchor='middle' fill='%238a99a6'>Team Collage</text></svg>" alt="team" style="width:140px; height:140px; border-radius:8px;"/>
+        <div>
+          <p class="muted">긴급 청소 대응 · 고객 맞춤 스케줄 제공으로 업무에 방해되지 않는 시간대에 서비스를 진행합니다. 24시간 내 긴급 청소도 지원합니다.</p>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Process -->
+    <section class="card" id="process">
+      <h2>투명하고 체계적인 5단계 프로세스</h2>
+      <ol style="margin-left:18px">
+        <li><strong>STEP 1: 무료 현장 방문 및 견적</strong> · 평균 소요 30분~1시간 · 24시간 내 상세 견적서 발송</li>
+        <li><strong>STEP 2: 맞춤형 청소 계획 수립</strong> · 청소 동선 최적화 · 구역별 우선순위 설정</li>
+        <li><strong>STEP 3: 전담팀 배정 및 교육</strong> · 팀장 1명 + 청소 인력 · 현장 오리엔테이션</li>
+        <li><strong>STEP 4: 정기 청소 서비스 시작</strong> · 첫 청소 시 전담 매니저 동행 · 체크리스트에 따른 체계적 청소</li>
+        <li><strong>STEP 5: 지속적인 품질 관리</strong> · 월 1회 이상 품질 점검 · 분기별 만족도 조사</li>
+      </ol>
+      <div style="margin-top:12px;" class="img-prompt">Infographic: 5-step cleaning process with icons and arrows, clean modern design, professional business aesthetic</div>
+    </section>
+
+    <!-- Pricing -->
+    <section class="card" id="pricing">
+      <h2>투명한 요금, 합리적인 가격</h2>
+      <div class="pricing" style="margin-top:12px">
+        <div class="plan">
+          <h3>소형 사무실 (50평 미만)</h3>
+          <div class="price">월 48만원부터</div>
+          <p class="muted">주 2회 기본 청소 · 청소 인력 1명 · 기본 청소 용품 포함</p>
+        </div>
+        <div class="plan">
+          <h3>중형 사무실 (50~100평)</h3>
+          <div class="price">월 78만원부터</div>
+          <p class="muted">주 2회 기본 청소 · 청소 인력 2명 · 전담 매니저 배정</p>
+        </div>
+        <div class="plan">
+          <h3>대형 사무실 (100평 이상)</h3>
+          <div class="price">맞춤형 견적</div>
+          <p class="muted">현장 방문 후 정확한 견적 제공 · 특수 장비 포함</p>
+        </div>
+      </div>
+
+      <h4 style="margin-top:12px">추가 서비스 요금</h4>
+      <table class="pr">
+        <tr><td>카펫 세척</td><td>평당 5,000원~</td></tr>
+        <tr><td>소파 세척</td><td>1인석 30,000원~</td></tr>
+        <tr><td>에어컨 청소</td><td>대당 80,000원~</td></tr>
+        <tr><td>방역 소독</td><td>평당 3,000원~</td></tr>
+        <tr><td>외벽 유리 청소</td><td>평당 8,000원~</td></tr>
+      </table>
+
+      <p class="muted" style="margin-top:8px">할인 혜택: 1년 약정 10% · 2년 약정 15% · 대청소 동시 계약 시 추가 5% 등</p>
+    </section>
+
+    <!-- Testimonials -->
+    <section class="card" id="testimonials">
+      <h2>실제 고객들의 생생한 후기</h2>
+      <div style="display:grid; gap:12px; grid-template-columns:1fr 1fr;">
+        <blockquote style="background:#fbfdff; padding:12px; border-radius:8px">"이 업체는 2년째 이용 중인데 한 번도 불만이 없었어요. 같은 분들이 계속 오셔서 우리 사무실을 손바닥보듯 아시고, 청소도 정말 꼼꼼하게 해주세요."<br/><cite class="muted">- 김** 대표님 (테크 스타트업)</cite></blockquote>
+        <blockquote style="background:#fbfdff; padding:12px; border-radius:8px">"법률사무소는 고객 미팅이 많아서 사무실이 항상 깨끗해야 하는데, 이 업체 덕분에 걱정이 없어졌습니다. 친환경 제품이라 냄새도 없습니다."<br/><cite class="muted">- 박** 변호사님</cite></blockquote>
+        <blockquote style="background:#fbfdff; padding:12px; border-radius:8px">"매일 출근하면 반짝반짝한 사무실을 볼 수 있어서 기분이 좋습니다. 방역 서비스도 함께 받으니 직원들도 안심합니다."<br/><cite class="muted">- 이** 총무팀장님 (금융회사)</cite></blockquote>
+        <blockquote style="background:#fbfdff; padding:12px; border-radius:8px">"크리에이티브한 공간을 유지하는 게 중요한데, 청소하시는 분들이 우리 사무실 분위기를 잘 이해해주세요."<br/><cite class="muted">- 최** 실장님 (디자인 에이전시)</cite></blockquote>
+      </div>
+    </section>
+
+    <!-- Checklist -->
+    <section class="card" id="checklist">
+      <h2>놓치는 곳 없이 완벽한 청소 체크리스트</h2>
+      <div class="checklist">
+        <div>
+          <h4>개인 업무 공간</h4>
+          <ul>
+            <li class="checkbox">□ 책상 표면 먼지 제거 및 소독</li>
+            <li class="checkbox">□ 키보드, 마우스 소독</li>
+            <li class="checkbox">□ 모니터 및 컴퓨터 먼지 제거</li>
+            <li class="checkbox">□ 개인 쓰레기통 비우기</li>
+            <li class="checkbox">□ 바닥 청소 (책상 아래 포함)</li>
+          </ul>
+        </div>
+        <div>
+          <h4>회의실 / 공용 공간</h4>
+          <ul>
+            <li class="checkbox">□ 테이블 전체 닦기</li>
+            <li class="checkbox">□ 화이트보드 및 빔프로젝터 먼지 제거</li>
+            <li class="checkbox">□ 유리벽 및 유리문 닦기</li>
+            <li class="checkbox">□ 쓰레기통 비우기</li>
+            <li class="checkbox">□ 환기 및 공기청정</li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:12px" class="img-prompt">Detailed cleaning checklist infographic with checkbox icons, room-by-room breakdown, clean organized layout, professional business design</div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="card" id="faq">
+      <h2>자주 묻는 질문</h2>
+      <div class="faq">
+        <div style="margin-bottom:8px">
+          <button type="button" aria-expanded="false">Q1. 청소 시간은 얼마나 걸리나요?</button>
+          <div class="panel" hidden>일반적으로 50평 기준 2~3시간 정도 소요됩니다. 업무 시간 전후나 주말 등 조정 가능합니다.</div>
+        </div>
+        <div style="margin-bottom:8px">
+          <button type="button" aria-expanded="false">Q2. 청소 직원이 자주 바뀌나요?</button>
+          <div class="panel" hidden>아닙니다. 고정된 전담팀이 배치됩니다. 불가피한 교체 시 충분한 인수인계를 거칩니다.</div>
+        </div>
+        <div style="margin-bottom:8px">
+          <button type="button" aria-expanded="false">Q3. 청소 용품은 누가 준비하나요?</button>
+          <div class="panel" hidden>모든 청소 용품과 장비는 당사에서 준비합니다. 고객사 요청 제품 사용 가능.</div>
+        </div>
+        <div style="margin-bottom:8px">
+          <button type="button" aria-expanded="false">Q4. 계약 기간은 어떻게 되나요?</button>
+          <div class="panel" hidden>최소 3개월부터 계약 가능하며 6개월, 1년 장기 계약 시 할인 혜택이 있습니다. 해지는 1개월 전 통보.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Quality guarantee -->
+    <section class="card" id="quality">
+      <h2>청소 품질 보증</h2>
+      <p class="muted"><strong>재청소 무상 제공</strong> · 만족하지 못하신 경우 24시간 내 재청소 무상 제공<br/><strong>배상책임보험</strong> · 최대 1억원 보상<br/><strong>월 1회 품질 점검</strong> · 전담 매니저가 현장 점검</p>
+      <div class="img-prompt" style="margin-top:12px">Quality guarantee badge and certification icons, shield symbol with checkmark, insurance document illustration</div>
+    </section>
+
+    <!-- Green cleaning -->
+    <section class="card" id="green">
+      <h2>친환경 청소의 중요성</h2>
+      <p class="muted">직원과 환경을 생각하는 그린 클리닝. 식물 유래 성분 세제, 무향 제품, 저자극 소독제 사용. HEPA 필터 진공청소기와 물 절약 청소 기법 적용.</p>
+      <div class="img-prompt">Green cleaning concept image with eco-friendly cleaning products, natural plant-based bottles, leaves and green elements</div>
+    </section>
+
+    <!-- Industries -->
+    <section class="card" id="industries">
+      <h2>업종별 맞춤 서비스</h2>
+      <div class="grid-3">
+        <div class="feature"><h4>IT/스타트업</h4><p class="muted">정전기 방지 청소 · 케이블 정리 · 24시간 운영 대응</p></div>
+        <div class="feature"><h4>금융/보험</h4><p class="muted">높은 보안 기준 준수 · 서류 보안 철저</p></div>
+        <div class="feature"><h4>법률/회계</h4><p class="muted">기밀 서류 보호 · 조용한 환경 유지</p></div>
+        <div class="feature"><h4>의료/헬스케어</h4><p class="muted">의료용 소독제 · 교차 오염 방지</p></div>
+        <div class="feature"><h4>디자인/크리에이티브</h4><p class="muted">작품 보호 · 유연한 청소 시간</p></div>
+      </div>
+    </section>
+
+    <!-- Post-COVID -->
+    <section class="card" id="postcovid">
+      <h2>코로나 이후 달라진 청소</h2>
+      <ul class="list">
+        <li>접촉면 집중 소독 (문손잡이, 엘리베이터 버튼 등)</li>
+        <li>공기 질 관리 및 필터 점검</li>
+        <li>화장실 위생 강화</li>
+        <li>소독 이력 관리</li>
+      </ul>
+      <div class="img-prompt">Post-COVID cleaning scene, worker wearing mask and gloves disinfecting high-touch surfaces</div>
+    </section>
+
+    <!-- Benefits -->
+    <section class="card" id="benefits">
+      <h2>고객사 혜택</h2>
+      <ul>
+        <li>1년 이상: 분기별 대청소 1회 무료</li>
+        <li>2년 이상: 연 2회 대청소 무료 + 추가 10% 할인</li>
+        <li>3년 이상: VIP 관리 + 우선 서비스</li>
+        <li>추천 보상 프로그램 및 다점포 할인</li>
+      </ul>
+      <div class="img-prompt">Customer benefits and rewards infographic, discount badges</div>
+    </section>
+
+    <!-- CTA -->
+    <section class="card" id="contact">
+      <h2>지금 바로 시작하세요</h2>
+      <p class="muted">깨끗한 사무실, 건강한 직원, 성공적인 비즈니스를 위해 무료 현장 방문 견적을 신청하세요.</p>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; align-items:center">
+        <a class="btn" href="tel:1588-XXXX">전화 상담 1588-XXXX</a>
+        <a class="btn secondary" href="mailto:info@cleaningpro.co.kr">이메일 문의</a>
+        <a class="btn secondary" href="#" onclick="alert('온라인 문의 폼은 추후 연결됩니다.')">온라인 문의</a>
+      </div>
+
+      <div style="margin-top:12px">
+        <p><strong>무료 체험 이벤트:</strong> 첫 계약 고객은 첫 1회 청소 50% 할인. 무료 현장 방문 견적, 친환경 방향제 증정, 첫 달 10% 할인, 방역 1회 무료 제공.</p>
+      </div>
+
+      <address style="margin-top:12px; font-style:normal; color:var(--muted)">서울시 강남구 테헤란로 123, OO빌딩 5층 · 전화: 1588-XXXX · 이메일: info@cleaningpro.co.kr</address>
+    </section>
+
+    <!-- Certifications -->
+    <section class="card" id="awards">
+      <h2>인증 및 수상 실적</h2>
+      <ul>
+        <li>2023년 대한민국 청소 서비스 대상 수상</li>
+        <li>ISO 9001 품질경영시스템 인증</li>
+        <li>환경부 친환경 기업 인증</li>
+        <li>고용노동부 일자리 우수기업 선정</li>
+        <li>15년 무사고 운영 기록 · 주요 고객사: 삼성, LG, 네이버 등</li>
+      </ul>
+      <div class="img-prompt">Certification badges and awards display, ISO certification logo, industry awards trophies</div>
+    </section>
+
+    <footer>
+      <p>(주)프리미엄 클리닝 솔루션 · 대표: 홍길동 · 사업자등록번호: 123-45-67890</p>
+      <p>© 2024 Premium Cleaning Solutions. All Rights Reserved.</p>
+    </footer>
+  </div>
+
+  <script>
+    // simple accordion
+    document.querySelectorAll('.faq button').forEach(btn=>{
+      btn.addEventListener('click',()=>{
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        const panel = btn.nextElementSibling;
+        if(panel){ panel.hidden = !panel.hidden; }
+      });
+    });
+  </script>
+</body>
+</html>
