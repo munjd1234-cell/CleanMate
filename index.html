@@ -4,7 +4,8 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>클린메이트 Clean Mate</title>
-<style>
+
+  <style>
   /* --- [기본 스타일] --- */
   body {
     margin: 0;
@@ -688,6 +689,112 @@ footer {
         height: 30px; 
     }
   }
+
+
+
+/* =========================================
+   [미니게임 & 긴박한 제목 스타일]
+   ========================================= */
+
+/* 1. 긴박한 제목 스타일 */
+.urgent-header {
+    color: #ff1744 !important; /* 기본 빨강 */
+    font-size: 24px !important;
+    text-align: center !important;
+    line-height: 1.4 !important;
+    border: 3px solid #ff1744 !important;
+    background: rgba(0,0,0,0.8) !important;
+    animation: urgentShake 0.5s infinite, urgentBlink 0.5s infinite alternate;
+    cursor: pointer;
+}
+.sub-alert {
+    font-size: 14px; color: #fff; font-weight: normal; display: block; margin-top: 5px;
+}
+
+/* 흔들림 효과 */
+@keyframes urgentShake {
+    0% { transform: translateX(0); }
+    25% { transform: translateX(-5px) rotate(-1deg); }
+    75% { transform: translateX(5px) rotate(1deg); }
+    100% { transform: translateX(0); }
+}
+/* 색상 깜빡임 (빨강 <-> 노랑) */
+@keyframes urgentBlink {
+    0% { border-color: #ff1744; box-shadow: 0 0 10px #ff1744; }
+    100% { border-color: #ffff00; box-shadow: 0 0 20px #ffff00; color: #ffff00 !important; }
+}
+
+/* 점수판 스타일 (게임 시작 후) */
+.score-mode {
+    animation: none !important; /* 흔들림 멈춤 */
+    border-color: #00bfa5 !important;
+    color: #00bfa5 !important;
+    box-shadow: 0 0 15px #00bfa5 !important;
+}
+
+/* 2. 게임 레이어 (로고 위에 뜸) */
+.game-layer {
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+    z-index: 10; /* 로고(z-index:1) 보다 위 */
+    overflow: hidden;
+    cursor: crosshair; /* 조준선 커서 */
+}
+
+/* 3. 몬스터(세균) 공통 */
+.mob {
+    position: absolute;
+    user-select: none;
+    cursor: pointer;
+    transition: transform 0.1s;
+    filter: drop-shadow(0 0 5px rgba(0,0,0,0.8));
+    animation: mobFloat 3s infinite ease-in-out alternate;
+}
+@keyframes mobFloat {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-20px) rotate(10deg); }
+}
+
+/* 일반 세균 */
+.mob-germ {
+    font-size: 30px;
+}
+/* 대왕 곰팡이 */
+.mob-king {
+    font-size: 60px;
+    z-index: 12;
+    filter: drop-shadow(0 0 10px red);
+    animation: kingShake 0.5s infinite alternate;
+}
+@keyframes kingShake {
+    0% { transform: scale(1); }
+    100% { transform: scale(1.1); }
+}
+/* 스팀 아이템 */
+.mob-steam {
+    font-size: 40px;
+    z-index: 15;
+    filter: drop-shadow(0 0 15px cyan);
+    animation: steamPulse 1s infinite;
+}
+@keyframes steamPulse {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.2); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+/* 4. 터질 때 효과 */
+.explosion {
+    pointer-events: none;
+    animation: popOut 0.3s forwards;
+}
+@keyframes popOut {
+    0% { transform: scale(1); opacity: 1; filter: brightness(2); }
+    50% { transform: scale(1.5); opacity: 0.8; }
+    100% { transform: scale(2); opacity: 0; }
+}
+    
+
+    
 </style>
 </head>
 
@@ -850,13 +957,29 @@ footer {
       <div id="tech-section" class="content-section solution-content-wrapper"></div>
       <div id="aircond-section" class="content-section solution-content-wrapper"></div>
 
-      <div id="partner-section" class="content-section solution-content-wrapper">
-          <h2>협력 및 상생</h2>
-          <div class="partner-logo-gallery-wrapper">
-              <div class="partner-logo-track" id="partner-logo-track"></div>
-          </div>
-      </div>
 
+      
+      
+<!-- [수정] 상생(협력사) 섹션 + 미니게임 -->
+<div id="partner-section" class="content-section solution-content-wrapper">
+    <!-- 1. 긴박한 제목 (게임 시작 전) -->
+    <h2 id="partner-title" class="urgent-header">
+        🚨 협력사를 구해주세요!<br>
+        <span class="sub-alert">세균을 클릭하면 퇴치할 수 있어요! (터치!)</span>
+    </h2>
+    
+    <div class="partner-logo-gallery-wrapper">
+        <!-- 2. 게임 오버레이 (로고 위에 덮어씌움) -->
+        <div id="game-layer" class="game-layer"></div>
+
+        <!-- 3. 배경: 아래로 흐르는 협력사 로고 (기존 유지) -->
+        <div class="partner-logo-track" id="partner-logo-track"></div>
+    </div>
+</div>
+
+      
+      
+      
       <div id="quiz-section" class="content-section solution-content-wrapper" style="text-align: center;">
           <h2>원스톱 상담</h2>
           <p></p>
@@ -1236,7 +1359,138 @@ footer {
         resetQuiz(); 
     });
 
+/* =========================================
+   [미니게임 로직: 세균 퇴치]
+   ========================================= */
+const gameLayer = document.getElementById('game-layer');
+const partnerTitle = document.getElementById('partner-title');
+let score = 0;
+let gameStarted = false;
+let mobCount = 0;
+const MIN_MOBS = 4;
+const MAX_MOBS = 7;
 
+// 1. 게임 초기화
+function initGame() {
+    gameLayer.innerHTML = '';
+    mobCount = 0;
+    spawnMob('germ');
+    spawnMob('germ'); // 처음에 2마리 시작
+    
+    // 게임 루프 시작 (1초마다 개체수 확인 및 스폰)
+    setInterval(gameLoop, 1000);
+}
+
+// 2. 게임 루프 (개체수 유지)
+function gameLoop() {
+    // 현재 화면에 살아있는 몹 개수 체크
+    const mobs = document.querySelectorAll('.mob').length;
+    
+    if (mobs < MIN_MOBS) {
+        // 최소 개수보다 적으면 강제 스폰
+        spawnRandomMob();
+    } else if (mobs < MAX_MOBS) {
+        // 최대 개수보다 적으면 50% 확률로 스폰
+        if (Math.random() > 0.5) spawnRandomMob();
+    }
+}
+
+// 3. 랜덤 몹 생성
+function spawnRandomMob() {
+    const rand = Math.random();
+    if (rand < 0.1) spawnMob('steam');      // 10% 확률 스팀
+    else if (rand < 0.3) spawnMob('king');  // 20% 확률 대왕
+    else spawnMob('germ');                  // 70% 확률 일반
+}
+
+// 4. 몹 생성 로직
+function spawnMob(type) {
+    const el = document.createElement('div');
+    el.classList.add('mob');
+    
+    // 위치 랜덤 (화면 안쪽으로 제한)
+    const x = Math.random() * 80 + 10; // 10% ~ 90%
+    const y = Math.random() * 80 + 10;
+    el.style.left = x + '%';
+    el.style.top = y + '%';
+
+    if (type === 'germ') {
+        el.innerText = '🦠'; // 곰팡이 이모지
+        el.classList.add('mob-germ');
+        el.dataset.type = 'germ';
+        el.dataset.points = 1;
+    } else if (type === 'king') {
+        el.innerText = '👹'; // 대왕 곰팡이
+        el.classList.add('mob-king');
+        el.dataset.type = 'king';
+        el.dataset.points = 3;
+    } else if (type === 'steam') {
+        el.innerText = '💨'; // 스팀 아이템
+        el.classList.add('mob-steam');
+        el.dataset.type = 'steam';
+    }
+
+    // 클릭 이벤트
+    el.addEventListener('click', (e) => hitMob(e, el));
+    el.addEventListener('touchstart', (e) => { e.preventDefault(); hitMob(e, el); }); // 모바일 터치 대응
+
+    gameLayer.appendChild(el);
+}
+
+// 5. 몹 타격 처리
+function hitMob(e, el) {
+    e.stopPropagation(); // 버블링 방지
+    
+    // 게임 시작 체크 (첫 클릭 시 점수판 변경)
+    if (!gameStarted) {
+        gameStarted = true;
+        partnerTitle.classList.remove('urgent-header'); // 흔들림 제거
+        partnerTitle.classList.add('score-mode');       // 점수판 스타일
+        updateScoreBoard();
+    }
+
+    const type = el.dataset.type;
+
+    if (type === 'steam') {
+        // 스팀 아이템: 대왕 제외한 모든 일반 세균 처치
+        const germs = document.querySelectorAll('.mob-germ');
+        germs.forEach(germ => {
+            killEffect(germ);
+            score += 1;
+        });
+        killEffect(el); // 아이템 자신도 사라짐
+    } else {
+        // 일반 공격
+        score += parseInt(el.dataset.points);
+        killEffect(el);
+    }
+    
+    updateScoreBoard();
+}
+
+// 6. 사망 효과 및 제거
+function killEffect(el) {
+    el.classList.remove('mob'); // 더 이상 타겟 아님
+    el.classList.add('explosion'); // 펑 터지는 애니메이션
+    el.innerText = '💥'; // 폭발 이모지로 변경
+    
+    // 0.3초 뒤 DOM에서 제거
+    setTimeout(() => {
+        el.remove();
+    }, 300);
+}
+
+// 7. 점수판 업데이트
+function updateScoreBoard() {
+    partnerTitle.innerHTML = `🛡️ 현재 위생 점수 : <span style="font-size:30px; color:#ffff00;">${score}</span> 점`;
+}
+
+// [실행] 페이지 로드 시 바로 실행
+document.addEventListener('DOMContentLoaded', () => {
+    initGame(); 
+});
+
+  
 </script>
 </body>
 </html>
